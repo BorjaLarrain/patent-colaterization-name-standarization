@@ -1,0 +1,3116 @@
+================================================================================
+VISUALIZACIÓN DEL GRAFO DE MATCHES - NON_FINANCIAL ENTITIES
+================================================================================
+
+Total de componentes: 2896
+Componentes visualizados: 15
+Tamaño de componentes visualizados: 2-12 nombres
+
+================================================================================
+
+================================================================================
+COMPONENTE 1 - 12 nombres relacionados
+================================================================================
+
+Nombres en este componente:
+--------------------------------------------------------------------------------
+  [   81] WEATHERFORD U K LTD (freq: 5106)
+  [   82] WEATHERFORD CANADA LTD (freq: 5097)
+  [   83] WEATHERFORD NETHERLANDS BV (freq: 5097)
+  [   84] WEATHERFORD NORGE AS (freq: 5097)
+  [   85] WEATHERFORD SWITZERLAND TRADING & DEVELOPMENT GMBH (freq: 5097)
+  [  120] WEATHERFORD TECHNOLOGY HOLDINGS LLC (freq: 3771)
+  [  299] WEATHERFORD TECHNOLOGY HOLDINGS LLC (freq: 1365)
+  [ 4645] WEATHERFORD LAMB INC (freq: 47)
+  [ 7725] WEATHERFORD US INC (freq: 17)
+  [13827] WEATHERFORD LAMB INC A CORP OF TEXAS (freq: 4)
+  [15048] WEATHERFORD US INC (freq: 3)
+  [21285] WEATHERFORD INTERNATIONAL LTD (freq: 1)
+
+Conexiones (matches) en este componente (33 pares):
+--------------------------------------------------------------------------------
+  [ 7725] ↔ [15048]  Similitud: 100.0%
+    WEATHERFORD US INC
+    WEATHERFORD US INC
+
+  [  120] ↔ [  299]  Similitud: 100.0%
+    WEATHERFORD TECHNOLOGY HOLDINGS LLC
+    WEATHERFORD TECHNOLOGY HOLDINGS LLC
+
+  [ 4645] ↔ [13827]  Similitud: 90.0%
+    WEATHERFORD LAMB INC
+    WEATHERFORD LAMB INC A CORP OF TEXAS
+
+  [ 4645] ↔ [15048]  Similitud: 86.4%
+    WEATHERFORD LAMB INC
+    WEATHERFORD US INC
+
+  [ 4645] ↔ [ 7725]  Similitud: 86.4%
+    WEATHERFORD LAMB INC
+    WEATHERFORD US INC
+
+  [   81] ↔ [   85]  Similitud: 85.5%
+    WEATHERFORD U K LTD
+    WEATHERFORD SWITZERLAND TRADING & DEVELOPMENT GMBH
+
+  [   85] ↔ [21285]  Similitud: 85.5%
+    WEATHERFORD SWITZERLAND TRADING & DEVELOPMENT GMBH
+    WEATHERFORD INTERNATIONAL LTD
+
+  [13827] ↔ [15048]  Similitud: 85.5%
+    WEATHERFORD LAMB INC A CORP OF TEXAS
+    WEATHERFORD US INC
+
+  [ 7725] ↔ [21285]  Similitud: 85.5%
+    WEATHERFORD US INC
+    WEATHERFORD INTERNATIONAL LTD
+
+  [ 7725] ↔ [13827]  Similitud: 85.5%
+    WEATHERFORD US INC
+    WEATHERFORD LAMB INC A CORP OF TEXAS
+
+  [  299] ↔ [15048]  Similitud: 85.5%
+    WEATHERFORD TECHNOLOGY HOLDINGS LLC
+    WEATHERFORD US INC
+
+  [  299] ↔ [ 7725]  Similitud: 85.5%
+    WEATHERFORD TECHNOLOGY HOLDINGS LLC
+    WEATHERFORD US INC
+
+  [  299] ↔ [ 4645]  Similitud: 85.5%
+    WEATHERFORD TECHNOLOGY HOLDINGS LLC
+    WEATHERFORD LAMB INC
+
+  [  120] ↔ [15048]  Similitud: 85.5%
+    WEATHERFORD TECHNOLOGY HOLDINGS LLC
+    WEATHERFORD US INC
+
+  [  120] ↔ [ 7725]  Similitud: 85.5%
+    WEATHERFORD TECHNOLOGY HOLDINGS LLC
+    WEATHERFORD US INC
+
+  [  120] ↔ [ 4645]  Similitud: 85.5%
+    WEATHERFORD TECHNOLOGY HOLDINGS LLC
+    WEATHERFORD LAMB INC
+
+  [   85] ↔ [15048]  Similitud: 85.5%
+    WEATHERFORD SWITZERLAND TRADING & DEVELOPMENT GMBH
+    WEATHERFORD US INC
+
+  [   81] ↔ [  120]  Similitud: 85.5%
+    WEATHERFORD U K LTD
+    WEATHERFORD TECHNOLOGY HOLDINGS LLC
+
+  [   85] ↔ [ 7725]  Similitud: 85.5%
+    WEATHERFORD SWITZERLAND TRADING & DEVELOPMENT GMBH
+    WEATHERFORD US INC
+
+  [   85] ↔ [ 4645]  Similitud: 85.5%
+    WEATHERFORD SWITZERLAND TRADING & DEVELOPMENT GMBH
+    WEATHERFORD LAMB INC
+
+  [   84] ↔ [13827]  Similitud: 85.5%
+    WEATHERFORD NORGE AS
+    WEATHERFORD LAMB INC A CORP OF TEXAS
+
+  [   84] ↔ [  299]  Similitud: 85.5%
+    WEATHERFORD NORGE AS
+    WEATHERFORD TECHNOLOGY HOLDINGS LLC
+
+  [   84] ↔ [  120]  Similitud: 85.5%
+    WEATHERFORD NORGE AS
+    WEATHERFORD TECHNOLOGY HOLDINGS LLC
+
+  [   84] ↔ [   85]  Similitud: 85.5%
+    WEATHERFORD NORGE AS
+    WEATHERFORD SWITZERLAND TRADING & DEVELOPMENT GMBH
+
+  [   83] ↔ [   85]  Similitud: 85.5%
+    WEATHERFORD NETHERLANDS BV
+    WEATHERFORD SWITZERLAND TRADING & DEVELOPMENT GMBH
+
+  [   82] ↔ [13827]  Similitud: 85.5%
+    WEATHERFORD CANADA LTD
+    WEATHERFORD LAMB INC A CORP OF TEXAS
+
+  [   82] ↔ [  299]  Similitud: 85.5%
+    WEATHERFORD CANADA LTD
+    WEATHERFORD TECHNOLOGY HOLDINGS LLC
+
+  [   82] ↔ [  120]  Similitud: 85.5%
+    WEATHERFORD CANADA LTD
+    WEATHERFORD TECHNOLOGY HOLDINGS LLC
+
+  [   82] ↔ [   85]  Similitud: 85.5%
+    WEATHERFORD CANADA LTD
+    WEATHERFORD SWITZERLAND TRADING & DEVELOPMENT GMBH
+
+  [   81] ↔ [21285]  Similitud: 85.5%
+    WEATHERFORD U K LTD
+    WEATHERFORD INTERNATIONAL LTD
+
+  [   81] ↔ [13827]  Similitud: 85.5%
+    WEATHERFORD U K LTD
+    WEATHERFORD LAMB INC A CORP OF TEXAS
+
+  [   81] ↔ [  299]  Similitud: 85.5%
+    WEATHERFORD U K LTD
+    WEATHERFORD TECHNOLOGY HOLDINGS LLC
+
+  [15048] ↔ [21285]  Similitud: 85.5%
+    WEATHERFORD US INC
+    WEATHERFORD INTERNATIONAL LTD
+
+Representación del grafo (conexiones):
+--------------------------------------------------------------------------------
+  [   81] ────(86%)──── [   85]
+  [   81] ────(86%)──── [  120]
+  [   81] ────(86%)──── [  299]
+  [   81] ────(86%)──── [13827]
+  [   81] ────(86%)──── [21285]
+  [   82] ────(86%)──── [   85]
+  [   82] ────(86%)──── [  120]
+  [   82] ────(86%)──── [  299]
+  [   82] ────(86%)──── [13827]
+  [   83] ────(86%)──── [   85]
+  [   84] ────(86%)──── [   85]
+  [   84] ────(86%)──── [  120]
+  [   84] ────(86%)──── [  299]
+  [   84] ────(86%)──── [13827]
+  [   85] ────(86%)──── [ 4645]
+  [   85] ────(86%)──── [ 7725]
+  [   85] ────(86%)──── [15048]
+  [   85] ────(86%)──── [21285]
+  [  120] ────(100%)──── [  299]
+  [  120] ────(86%)──── [ 4645]
+  [  120] ────(86%)──── [ 7725]
+  [  120] ────(86%)──── [15048]
+  [  299] ────(86%)──── [ 4645]
+  [  299] ────(86%)──── [ 7725]
+  [  299] ────(86%)──── [15048]
+  [ 4645] ────(86%)──── [ 7725]
+  [ 4645] ────(90%)──── [13827]
+  [ 4645] ────(86%)──── [15048]
+  [ 7725] ────(86%)──── [13827]
+  [ 7725] ────(100%)──── [15048]
+  [ 7725] ────(86%)──── [21285]
+  [13827] ────(86%)──── [15048]
+  [15048] ────(86%)──── [21285]
+
+
+================================================================================
+COMPONENTE 2 - 12 nombres relacionados
+================================================================================
+
+Nombres en este componente:
+--------------------------------------------------------------------------------
+  [   91] VISTEON GLOBAL TECHNOLOGIES INC (freq: 4782)
+  [  187] VISTEON CORP (freq: 2025)
+  [  188] VISTEON ELECTRONICS CORP (freq: 2025)
+  [  189] VISTEON GLOBAL TREASURY INC (freq: 2025)
+  [  190] VISTEON INTERNATIONAL BUSINESS DEVELOPMENT INC (freq: 2025)
+  [  191] VISTEON INTERNATIONAL HOLDINGS INC (freq: 2025)
+  [  192] VISTEON SYSTEMS LLC (freq: 2025)
+  [  423] VISTEON EUROPEAN HOLDINGS INC (freq: 1013)
+  [  425] VISTEON EUROPEAN HOLDING INC (freq: 1012)
+  [ 1243] VISTEON CORP AS GRANTOR (freq: 444)
+  [ 1244] VISTEON GLOBAL TECHNOLOGIES INC AS GRANTOR (freq: 444)
+  [15023] VISTEON TECHNOLOGIES LLC (freq: 3)
+
+Conexiones (matches) en este componente (30 pares):
+--------------------------------------------------------------------------------
+  [  423] ↔ [  425]  Similitud: 98.2%
+    VISTEON EUROPEAN HOLDINGS INC
+    VISTEON EUROPEAN HOLDING INC
+
+  [   91] ↔ [ 1244]  Similitud: 95.0%
+    VISTEON GLOBAL TECHNOLOGIES INC
+    VISTEON GLOBAL TECHNOLOGIES INC AS GRANTOR
+
+  [  187] ↔ [ 1243]  Similitud: 90.0%
+    VISTEON CORP
+    VISTEON CORP AS GRANTOR
+
+  [   91] ↔ [15023]  Similitud: 86.4%
+    VISTEON GLOBAL TECHNOLOGIES INC
+    VISTEON TECHNOLOGIES LLC
+
+  [   91] ↔ [  187]  Similitud: 85.5%
+    VISTEON GLOBAL TECHNOLOGIES INC
+    VISTEON CORP
+
+  [  189] ↔ [ 1244]  Similitud: 85.5%
+    VISTEON GLOBAL TREASURY INC
+    VISTEON GLOBAL TECHNOLOGIES INC AS GRANTOR
+
+  [ 1243] ↔ [ 1244]  Similitud: 85.5%
+    VISTEON CORP AS GRANTOR
+    VISTEON GLOBAL TECHNOLOGIES INC AS GRANTOR
+
+  [  425] ↔ [ 1244]  Similitud: 85.5%
+    VISTEON EUROPEAN HOLDING INC
+    VISTEON GLOBAL TECHNOLOGIES INC AS GRANTOR
+
+  [  192] ↔ [ 1244]  Similitud: 85.5%
+    VISTEON SYSTEMS LLC
+    VISTEON GLOBAL TECHNOLOGIES INC AS GRANTOR
+
+  [  192] ↔ [  423]  Similitud: 85.5%
+    VISTEON SYSTEMS LLC
+    VISTEON EUROPEAN HOLDINGS INC
+
+  [  191] ↔ [  192]  Similitud: 85.5%
+    VISTEON INTERNATIONAL HOLDINGS INC
+    VISTEON SYSTEMS LLC
+
+  [  190] ↔ [15023]  Similitud: 85.5%
+    VISTEON INTERNATIONAL BUSINESS DEVELOPMENT INC
+    VISTEON TECHNOLOGIES LLC
+
+  [  190] ↔ [ 1243]  Similitud: 85.5%
+    VISTEON INTERNATIONAL BUSINESS DEVELOPMENT INC
+    VISTEON CORP AS GRANTOR
+
+  [  190] ↔ [  425]  Similitud: 85.5%
+    VISTEON INTERNATIONAL BUSINESS DEVELOPMENT INC
+    VISTEON EUROPEAN HOLDING INC
+
+  [  190] ↔ [  423]  Similitud: 85.5%
+    VISTEON INTERNATIONAL BUSINESS DEVELOPMENT INC
+    VISTEON EUROPEAN HOLDINGS INC
+
+  [  190] ↔ [  192]  Similitud: 85.5%
+    VISTEON INTERNATIONAL BUSINESS DEVELOPMENT INC
+    VISTEON SYSTEMS LLC
+
+  [  188] ↔ [ 1244]  Similitud: 85.5%
+    VISTEON ELECTRONICS CORP
+    VISTEON GLOBAL TECHNOLOGIES INC AS GRANTOR
+
+  [  189] ↔ [  190]  Similitud: 85.5%
+    VISTEON GLOBAL TREASURY INC
+    VISTEON INTERNATIONAL BUSINESS DEVELOPMENT INC
+
+  [   91] ↔ [  192]  Similitud: 85.5%
+    VISTEON GLOBAL TECHNOLOGIES INC
+    VISTEON SYSTEMS LLC
+
+  [  188] ↔ [  190]  Similitud: 85.5%
+    VISTEON ELECTRONICS CORP
+    VISTEON INTERNATIONAL BUSINESS DEVELOPMENT INC
+
+  [  187] ↔ [15023]  Similitud: 85.5%
+    VISTEON CORP
+    VISTEON TECHNOLOGIES LLC
+
+  [  187] ↔ [ 1244]  Similitud: 85.5%
+    VISTEON CORP
+    VISTEON GLOBAL TECHNOLOGIES INC AS GRANTOR
+
+  [  187] ↔ [  425]  Similitud: 85.5%
+    VISTEON CORP
+    VISTEON EUROPEAN HOLDING INC
+
+  [  187] ↔ [  423]  Similitud: 85.5%
+    VISTEON CORP
+    VISTEON EUROPEAN HOLDINGS INC
+
+  [  187] ↔ [  192]  Similitud: 85.5%
+    VISTEON CORP
+    VISTEON SYSTEMS LLC
+
+  [  187] ↔ [  191]  Similitud: 85.5%
+    VISTEON CORP
+    VISTEON INTERNATIONAL HOLDINGS INC
+
+  [  187] ↔ [  190]  Similitud: 85.5%
+    VISTEON CORP
+    VISTEON INTERNATIONAL BUSINESS DEVELOPMENT INC
+
+  [  187] ↔ [  189]  Similitud: 85.5%
+    VISTEON CORP
+    VISTEON GLOBAL TREASURY INC
+
+  [  187] ↔ [  188]  Similitud: 85.5%
+    VISTEON CORP
+    VISTEON ELECTRONICS CORP
+
+  [ 1244] ↔ [15023]  Similitud: 85.5%
+    VISTEON GLOBAL TECHNOLOGIES INC AS GRANTOR
+    VISTEON TECHNOLOGIES LLC
+
+Representación del grafo (conexiones):
+--------------------------------------------------------------------------------
+  [   91] ────(86%)──── [  187]
+  [   91] ────(86%)──── [  192]
+  [   91] ────(95%)──── [ 1244]
+  [   91] ────(86%)──── [15023]
+  [  187] ────(86%)──── [  188]
+  [  187] ────(86%)──── [  189]
+  [  187] ────(86%)──── [  190]
+  [  187] ────(86%)──── [  191]
+  [  187] ────(86%)──── [  192]
+  [  187] ────(86%)──── [  423]
+  [  187] ────(86%)──── [  425]
+  [  187] ────(90%)──── [ 1243]
+  [  187] ────(86%)──── [ 1244]
+  [  187] ────(86%)──── [15023]
+  [  188] ────(86%)──── [  190]
+  [  188] ────(86%)──── [ 1244]
+  [  189] ────(86%)──── [  190]
+  [  189] ────(86%)──── [ 1244]
+  [  190] ────(86%)──── [  192]
+  [  190] ────(86%)──── [  423]
+  [  190] ────(86%)──── [  425]
+  [  190] ────(86%)──── [ 1243]
+  [  190] ────(86%)──── [15023]
+  [  191] ────(86%)──── [  192]
+  [  192] ────(86%)──── [  423]
+  [  192] ────(86%)──── [ 1244]
+  [  423] ────(98%)──── [  425]
+  [  425] ────(86%)──── [ 1244]
+  [ 1243] ────(86%)──── [ 1244]
+  [ 1244] ────(86%)──── [15023]
+
+
+================================================================================
+COMPONENTE 3 - 12 nombres relacionados
+================================================================================
+
+Nombres en este componente:
+--------------------------------------------------------------------------------
+  [  246] POLAROID CORP (freq: 1756)
+  [  464] POLAROID ASIA PACIFIC LLC (freq: 959)
+  [  465] POLAROID CAPITAL LLC (freq: 959)
+  [  466] POLAROID INTERNATIONAL HOLDING LLC (freq: 959)
+  [  467] POLAROID INVESTMENT LLC (freq: 959)
+  [  468] POLAROID LATINAMERICA I CORP (freq: 959)
+  [  469] POLAROID NEW BEDFORD REAL ESTATE LLC (freq: 959)
+  [  470] POLAROID NORWOOD REAL ESTATE LLC (freq: 959)
+  [  471] POLAROID WALTHAM REAL ESTATE LLC (freq: 959)
+  [ 1185] POLAROID EYEWEAR ILLC (freq: 481)
+  [ 1186] POLAROID HOLDING CO (freq: 481)
+  [ 1190] POLAROID EYEWEAR I LLC (freq: 478)
+
+Conexiones (matches) en este componente (27 pares):
+--------------------------------------------------------------------------------
+  [ 1185] ↔ [ 1190]  Similitud: 97.7%
+    POLAROID EYEWEAR ILLC
+    POLAROID EYEWEAR I LLC
+
+  [  246] ↔ [  465]  Similitud: 85.5%
+    POLAROID CORP
+    POLAROID CAPITAL LLC
+
+  [  471] ↔ [ 1186]  Similitud: 85.5%
+    POLAROID WALTHAM REAL ESTATE LLC
+    POLAROID HOLDING CO
+
+  [  471] ↔ [ 1185]  Similitud: 85.5%
+    POLAROID WALTHAM REAL ESTATE LLC
+    POLAROID EYEWEAR ILLC
+
+  [  470] ↔ [ 1186]  Similitud: 85.5%
+    POLAROID NORWOOD REAL ESTATE LLC
+    POLAROID HOLDING CO
+
+  [  470] ↔ [ 1185]  Similitud: 85.5%
+    POLAROID NORWOOD REAL ESTATE LLC
+    POLAROID EYEWEAR ILLC
+
+  [  469] ↔ [ 1190]  Similitud: 85.5%
+    POLAROID NEW BEDFORD REAL ESTATE LLC
+    POLAROID EYEWEAR I LLC
+
+  [  469] ↔ [ 1186]  Similitud: 85.5%
+    POLAROID NEW BEDFORD REAL ESTATE LLC
+    POLAROID HOLDING CO
+
+  [  469] ↔ [ 1185]  Similitud: 85.5%
+    POLAROID NEW BEDFORD REAL ESTATE LLC
+    POLAROID EYEWEAR ILLC
+
+  [  467] ↔ [  469]  Similitud: 85.5%
+    POLAROID INVESTMENT LLC
+    POLAROID NEW BEDFORD REAL ESTATE LLC
+
+  [  466] ↔ [ 1190]  Similitud: 85.5%
+    POLAROID INTERNATIONAL HOLDING LLC
+    POLAROID EYEWEAR I LLC
+
+  [  466] ↔ [ 1186]  Similitud: 85.5%
+    POLAROID INTERNATIONAL HOLDING LLC
+    POLAROID HOLDING CO
+
+  [  466] ↔ [ 1185]  Similitud: 85.5%
+    POLAROID INTERNATIONAL HOLDING LLC
+    POLAROID EYEWEAR ILLC
+
+  [  246] ↔ [  464]  Similitud: 85.5%
+    POLAROID CORP
+    POLAROID ASIA PACIFIC LLC
+
+  [  465] ↔ [  470]  Similitud: 85.5%
+    POLAROID CAPITAL LLC
+    POLAROID NORWOOD REAL ESTATE LLC
+
+  [  465] ↔ [  469]  Similitud: 85.5%
+    POLAROID CAPITAL LLC
+    POLAROID NEW BEDFORD REAL ESTATE LLC
+
+  [  465] ↔ [  466]  Similitud: 85.5%
+    POLAROID CAPITAL LLC
+    POLAROID INTERNATIONAL HOLDING LLC
+
+  [  246] ↔ [ 1190]  Similitud: 85.5%
+    POLAROID CORP
+    POLAROID EYEWEAR I LLC
+
+  [  246] ↔ [ 1185]  Similitud: 85.5%
+    POLAROID CORP
+    POLAROID EYEWEAR ILLC
+
+  [  246] ↔ [  471]  Similitud: 85.5%
+    POLAROID CORP
+    POLAROID WALTHAM REAL ESTATE LLC
+
+  [  246] ↔ [  470]  Similitud: 85.5%
+    POLAROID CORP
+    POLAROID NORWOOD REAL ESTATE LLC
+
+  [  246] ↔ [  469]  Similitud: 85.5%
+    POLAROID CORP
+    POLAROID NEW BEDFORD REAL ESTATE LLC
+
+  [  246] ↔ [  468]  Similitud: 85.5%
+    POLAROID CORP
+    POLAROID LATINAMERICA I CORP
+
+  [  246] ↔ [  467]  Similitud: 85.5%
+    POLAROID CORP
+    POLAROID INVESTMENT LLC
+
+  [  246] ↔ [  466]  Similitud: 85.5%
+    POLAROID CORP
+    POLAROID INTERNATIONAL HOLDING LLC
+
+  [  465] ↔ [  471]  Similitud: 85.5%
+    POLAROID CAPITAL LLC
+    POLAROID WALTHAM REAL ESTATE LLC
+
+  [  469] ↔ [  470]  Similitud: 85.3%
+    POLAROID NEW BEDFORD REAL ESTATE LLC
+    POLAROID NORWOOD REAL ESTATE LLC
+
+Representación del grafo (conexiones):
+--------------------------------------------------------------------------------
+  [  246] ────(86%)──── [  464]
+  [  246] ────(86%)──── [  465]
+  [  246] ────(86%)──── [  466]
+  [  246] ────(86%)──── [  467]
+  [  246] ────(86%)──── [  468]
+  [  246] ────(86%)──── [  469]
+  [  246] ────(86%)──── [  470]
+  [  246] ────(86%)──── [  471]
+  [  246] ────(86%)──── [ 1185]
+  [  246] ────(86%)──── [ 1190]
+  [  465] ────(86%)──── [  466]
+  [  465] ────(86%)──── [  469]
+  [  465] ────(86%)──── [  470]
+  [  465] ────(86%)──── [  471]
+  [  466] ────(86%)──── [ 1185]
+  [  466] ────(86%)──── [ 1186]
+  [  466] ────(86%)──── [ 1190]
+  [  467] ────(86%)──── [  469]
+  [  469] ────(85%)──── [  470]
+  [  469] ────(86%)──── [ 1185]
+  [  469] ────(86%)──── [ 1186]
+  [  469] ────(86%)──── [ 1190]
+  [  470] ────(86%)──── [ 1185]
+  [  470] ────(86%)──── [ 1186]
+  [  471] ────(86%)──── [ 1185]
+  [  471] ────(86%)──── [ 1186]
+  [ 1185] ────(98%)──── [ 1190]
+
+
+================================================================================
+COMPONENTE 4 - 12 nombres relacionados
+================================================================================
+
+Nombres en este componente:
+--------------------------------------------------------------------------------
+  [  378] INVACARE CORP (freq: 1116)
+  [ 1719] INVACARE CREDIT CORP (freq: 264)
+  [ 1720] INVACARE HOLDINGS LLC (freq: 264)
+  [ 2138] INVACARE CANADIAN HOLDINGS INC (freq: 172)
+  [ 2139] INVACARE CONTINUING CARE INC (freq: 172)
+  [ 2140] INVACARE FLORIDA CORP (freq: 172)
+  [ 2141] INVACARE FLORIDA HOLDINGS LLC (freq: 172)
+  [ 2142] INVACARE HCS LLC (freq: 172)
+  [ 2143] INVACARE INTERNATIONAL CORP (freq: 172)
+  [ 2144] INVACARE SUPPLY GROUP INC (freq: 172)
+  [ 2418] INVACARE CANDIAN HOLDINGS LLC (freq: 139)
+  [ 5505] INVACARE CANADIAN HOLDINGS LLC (freq: 33)
+
+Conexiones (matches) en este componente (26 pares):
+--------------------------------------------------------------------------------
+  [ 2418] ↔ [ 5505]  Similitud: 98.3%
+    INVACARE CANDIAN HOLDINGS LLC
+    INVACARE CANADIAN HOLDINGS LLC
+
+  [ 1720] ↔ [ 2418]  Similitud: 95.0%
+    INVACARE HOLDINGS LLC
+    INVACARE CANDIAN HOLDINGS LLC
+
+  [ 1720] ↔ [ 5505]  Similitud: 95.0%
+    INVACARE HOLDINGS LLC
+    INVACARE CANADIAN HOLDINGS LLC
+
+  [ 1720] ↔ [ 2141]  Similitud: 95.0%
+    INVACARE HOLDINGS LLC
+    INVACARE FLORIDA HOLDINGS LLC
+
+  [ 2138] ↔ [ 5505]  Similitud: 93.3%
+    INVACARE CANADIAN HOLDINGS INC
+    INVACARE CANADIAN HOLDINGS LLC
+
+  [ 2138] ↔ [ 2418]  Similitud: 91.5%
+    INVACARE CANADIAN HOLDINGS INC
+    INVACARE CANDIAN HOLDINGS LLC
+
+  [  378] ↔ [ 2140]  Similitud: 85.5%
+    INVACARE CORP
+    INVACARE FLORIDA CORP
+
+  [  378] ↔ [ 2141]  Similitud: 85.5%
+    INVACARE CORP
+    INVACARE FLORIDA HOLDINGS LLC
+
+  [ 2142] ↔ [ 5505]  Similitud: 85.5%
+    INVACARE HCS LLC
+    INVACARE CANADIAN HOLDINGS LLC
+
+  [ 2142] ↔ [ 2418]  Similitud: 85.5%
+    INVACARE HCS LLC
+    INVACARE CANDIAN HOLDINGS LLC
+
+  [ 2142] ↔ [ 2144]  Similitud: 85.5%
+    INVACARE HCS LLC
+    INVACARE SUPPLY GROUP INC
+
+  [ 2142] ↔ [ 2143]  Similitud: 85.5%
+    INVACARE HCS LLC
+    INVACARE INTERNATIONAL CORP
+
+  [ 2141] ↔ [ 2142]  Similitud: 85.5%
+    INVACARE FLORIDA HOLDINGS LLC
+    INVACARE HCS LLC
+
+  [ 2139] ↔ [ 2142]  Similitud: 85.5%
+    INVACARE CONTINUING CARE INC
+    INVACARE HCS LLC
+
+  [ 2138] ↔ [ 2142]  Similitud: 85.5%
+    INVACARE CANADIAN HOLDINGS INC
+    INVACARE HCS LLC
+
+  [  378] ↔ [ 2138]  Similitud: 85.5%
+    INVACARE CORP
+    INVACARE CANADIAN HOLDINGS INC
+
+  [  378] ↔ [ 2139]  Similitud: 85.5%
+    INVACARE CORP
+    INVACARE CONTINUING CARE INC
+
+  [  378] ↔ [ 1720]  Similitud: 85.5%
+    INVACARE CORP
+    INVACARE HOLDINGS LLC
+
+  [ 1719] ↔ [ 5505]  Similitud: 85.5%
+    INVACARE CREDIT CORP
+    INVACARE CANADIAN HOLDINGS LLC
+
+  [ 1719] ↔ [ 2138]  Similitud: 85.5%
+    INVACARE CREDIT CORP
+    INVACARE CANADIAN HOLDINGS INC
+
+  [  378] ↔ [ 5505]  Similitud: 85.5%
+    INVACARE CORP
+    INVACARE CANADIAN HOLDINGS LLC
+
+  [  378] ↔ [ 2418]  Similitud: 85.5%
+    INVACARE CORP
+    INVACARE CANDIAN HOLDINGS LLC
+
+  [  378] ↔ [ 2144]  Similitud: 85.5%
+    INVACARE CORP
+    INVACARE SUPPLY GROUP INC
+
+  [  378] ↔ [ 2143]  Similitud: 85.5%
+    INVACARE CORP
+    INVACARE INTERNATIONAL CORP
+
+  [  378] ↔ [ 1719]  Similitud: 85.5%
+    INVACARE CORP
+    INVACARE CREDIT CORP
+
+  [ 1720] ↔ [ 2138]  Similitud: 85.0%
+    INVACARE HOLDINGS LLC
+    INVACARE CANADIAN HOLDINGS INC
+
+Representación del grafo (conexiones):
+--------------------------------------------------------------------------------
+  [  378] ────(86%)──── [ 1719]
+  [  378] ────(86%)──── [ 1720]
+  [  378] ────(86%)──── [ 2138]
+  [  378] ────(86%)──── [ 2139]
+  [  378] ────(86%)──── [ 2140]
+  [  378] ────(86%)──── [ 2141]
+  [  378] ────(86%)──── [ 2143]
+  [  378] ────(86%)──── [ 2144]
+  [  378] ────(86%)──── [ 2418]
+  [  378] ────(86%)──── [ 5505]
+  [ 1719] ────(86%)──── [ 2138]
+  [ 1719] ────(86%)──── [ 5505]
+  [ 1720] ────(85%)──── [ 2138]
+  [ 1720] ────(95%)──── [ 2141]
+  [ 1720] ────(95%)──── [ 2418]
+  [ 1720] ────(95%)──── [ 5505]
+  [ 2138] ────(86%)──── [ 2142]
+  [ 2138] ────(92%)──── [ 2418]
+  [ 2138] ────(93%)──── [ 5505]
+  [ 2139] ────(86%)──── [ 2142]
+  [ 2141] ────(86%)──── [ 2142]
+  [ 2142] ────(86%)──── [ 2143]
+  [ 2142] ────(86%)──── [ 2144]
+  [ 2142] ────(86%)──── [ 2418]
+  [ 2142] ────(86%)──── [ 5505]
+  [ 2418] ────(98%)──── [ 5505]
+
+
+================================================================================
+COMPONENTE 5 - 12 nombres relacionados
+================================================================================
+
+Nombres en este componente:
+--------------------------------------------------------------------------------
+  [  516] HARMAN BECKER AUTOMOTIVE SYSTEMS GMBH (freq: 892)
+  [  531] HARMAN INTERNATIONAL INDUSTRIES INC (freq: 867)
+  [ 1614] HARMAN BECKER AUTOMOTIVE SYSTEMS MICHIGAN INC (freq: 296)
+  [ 1615] HARMAN BECKER AUTOMOTIVE SYSTEMS HOLDING GMBH (freq: 296)
+  [ 1616] HARMAN BECKER AUTOMOTIVE SYSTEMS INC (freq: 296)
+  [ 1617] HARMAN CONSUMER GROUP INC (freq: 296)
+  [ 1618] HARMAN DEUTSCHLAND GMBH (freq: 296)
+  [ 1619] HARMAN FINANCIAL GROUP LLC (freq: 296)
+  [ 1620] HARMAN HOLDING GMBH & CO KG (freq: 296)
+  [ 1621] HARMAN MUSIC GROUP INC (freq: 296)
+  [ 1622] HARMAN SOFTWARE TECHNOLOGY INTERNATIONAL BETEILIGUNGS GMBH (freq: 296)
+  [ 1623] HARMAN SOFTWARE TECHNOLOGY MANAGEMENT GMBH (freq: 296)
+
+Conexiones (matches) en este componente (34 pares):
+--------------------------------------------------------------------------------
+  [ 1614] ↔ [ 1616]  Similitud: 95.0%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS MICHIGAN INC
+    HARMAN BECKER AUTOMOTIVE SYSTEMS INC
+
+  [  516] ↔ [ 1615]  Similitud: 95.0%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS GMBH
+    HARMAN BECKER AUTOMOTIVE SYSTEMS HOLDING GMBH
+
+  [  516] ↔ [ 1616]  Similitud: 90.4%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS GMBH
+    HARMAN BECKER AUTOMOTIVE SYSTEMS INC
+
+  [ 1615] ↔ [ 1616]  Similitud: 89.4%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS HOLDING GMBH
+    HARMAN BECKER AUTOMOTIVE SYSTEMS INC
+
+  [  516] ↔ [ 1614]  Similitud: 88.1%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS GMBH
+    HARMAN BECKER AUTOMOTIVE SYSTEMS MICHIGAN INC
+
+  [ 1620] ↔ [ 1622]  Similitud: 85.5%
+    HARMAN HOLDING GMBH & CO KG
+    HARMAN SOFTWARE TECHNOLOGY INTERNATIONAL BETEILIGUNGS GMBH
+
+  [ 1619] ↔ [ 1623]  Similitud: 85.5%
+    HARMAN FINANCIAL GROUP LLC
+    HARMAN SOFTWARE TECHNOLOGY MANAGEMENT GMBH
+
+  [ 1619] ↔ [ 1622]  Similitud: 85.5%
+    HARMAN FINANCIAL GROUP LLC
+    HARMAN SOFTWARE TECHNOLOGY INTERNATIONAL BETEILIGUNGS GMBH
+
+  [ 1618] ↔ [ 1623]  Similitud: 85.5%
+    HARMAN DEUTSCHLAND GMBH
+    HARMAN SOFTWARE TECHNOLOGY MANAGEMENT GMBH
+
+  [ 1615] ↔ [ 1620]  Similitud: 85.5%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS HOLDING GMBH
+    HARMAN HOLDING GMBH & CO KG
+
+  [ 1618] ↔ [ 1622]  Similitud: 85.5%
+    HARMAN DEUTSCHLAND GMBH
+    HARMAN SOFTWARE TECHNOLOGY INTERNATIONAL BETEILIGUNGS GMBH
+
+  [ 1617] ↔ [ 1623]  Similitud: 85.5%
+    HARMAN CONSUMER GROUP INC
+    HARMAN SOFTWARE TECHNOLOGY MANAGEMENT GMBH
+
+  [ 1617] ↔ [ 1622]  Similitud: 85.5%
+    HARMAN CONSUMER GROUP INC
+    HARMAN SOFTWARE TECHNOLOGY INTERNATIONAL BETEILIGUNGS GMBH
+
+  [ 1616] ↔ [ 1622]  Similitud: 85.5%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS INC
+    HARMAN SOFTWARE TECHNOLOGY INTERNATIONAL BETEILIGUNGS GMBH
+
+  [ 1616] ↔ [ 1621]  Similitud: 85.5%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS INC
+    HARMAN MUSIC GROUP INC
+
+  [ 1620] ↔ [ 1623]  Similitud: 85.5%
+    HARMAN HOLDING GMBH & CO KG
+    HARMAN SOFTWARE TECHNOLOGY MANAGEMENT GMBH
+
+  [ 1616] ↔ [ 1618]  Similitud: 85.5%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS INC
+    HARMAN DEUTSCHLAND GMBH
+
+  [ 1621] ↔ [ 1622]  Similitud: 85.5%
+    HARMAN MUSIC GROUP INC
+    HARMAN SOFTWARE TECHNOLOGY INTERNATIONAL BETEILIGUNGS GMBH
+
+  [ 1615] ↔ [ 1621]  Similitud: 85.5%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS HOLDING GMBH
+    HARMAN MUSIC GROUP INC
+
+  [ 1615] ↔ [ 1618]  Similitud: 85.5%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS HOLDING GMBH
+    HARMAN DEUTSCHLAND GMBH
+
+  [ 1615] ↔ [ 1619]  Similitud: 85.5%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS HOLDING GMBH
+    HARMAN FINANCIAL GROUP LLC
+
+  [ 1615] ↔ [ 1617]  Similitud: 85.5%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS HOLDING GMBH
+    HARMAN CONSUMER GROUP INC
+
+  [ 1614] ↔ [ 1621]  Similitud: 85.5%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS MICHIGAN INC
+    HARMAN MUSIC GROUP INC
+
+  [ 1614] ↔ [ 1620]  Similitud: 85.5%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS MICHIGAN INC
+    HARMAN HOLDING GMBH & CO KG
+
+  [ 1614] ↔ [ 1619]  Similitud: 85.5%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS MICHIGAN INC
+    HARMAN FINANCIAL GROUP LLC
+
+  [ 1614] ↔ [ 1618]  Similitud: 85.5%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS MICHIGAN INC
+    HARMAN DEUTSCHLAND GMBH
+
+  [ 1614] ↔ [ 1617]  Similitud: 85.5%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS MICHIGAN INC
+    HARMAN CONSUMER GROUP INC
+
+  [  531] ↔ [ 1622]  Similitud: 85.5%
+    HARMAN INTERNATIONAL INDUSTRIES INC
+    HARMAN SOFTWARE TECHNOLOGY INTERNATIONAL BETEILIGUNGS GMBH
+
+  [  531] ↔ [ 1621]  Similitud: 85.5%
+    HARMAN INTERNATIONAL INDUSTRIES INC
+    HARMAN MUSIC GROUP INC
+
+  [  531] ↔ [ 1618]  Similitud: 85.5%
+    HARMAN INTERNATIONAL INDUSTRIES INC
+    HARMAN DEUTSCHLAND GMBH
+
+  [  516] ↔ [ 1622]  Similitud: 85.5%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS GMBH
+    HARMAN SOFTWARE TECHNOLOGY INTERNATIONAL BETEILIGUNGS GMBH
+
+  [  516] ↔ [ 1621]  Similitud: 85.5%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS GMBH
+    HARMAN MUSIC GROUP INC
+
+  [  516] ↔ [ 1618]  Similitud: 85.5%
+    HARMAN BECKER AUTOMOTIVE SYSTEMS GMBH
+    HARMAN DEUTSCHLAND GMBH
+
+  [ 1621] ↔ [ 1623]  Similitud: 85.5%
+    HARMAN MUSIC GROUP INC
+    HARMAN SOFTWARE TECHNOLOGY MANAGEMENT GMBH
+
+Representación del grafo (conexiones):
+--------------------------------------------------------------------------------
+  [  516] ────(88%)──── [ 1614]
+  [  516] ────(95%)──── [ 1615]
+  [  516] ────(90%)──── [ 1616]
+  [  516] ────(86%)──── [ 1618]
+  [  516] ────(86%)──── [ 1621]
+  [  516] ────(86%)──── [ 1622]
+  [  531] ────(86%)──── [ 1618]
+  [  531] ────(86%)──── [ 1621]
+  [  531] ────(86%)──── [ 1622]
+  [ 1614] ────(95%)──── [ 1616]
+  [ 1614] ────(86%)──── [ 1617]
+  [ 1614] ────(86%)──── [ 1618]
+  [ 1614] ────(86%)──── [ 1619]
+  [ 1614] ────(86%)──── [ 1620]
+  [ 1614] ────(86%)──── [ 1621]
+  [ 1615] ────(89%)──── [ 1616]
+  [ 1615] ────(86%)──── [ 1617]
+  [ 1615] ────(86%)──── [ 1618]
+  [ 1615] ────(86%)──── [ 1619]
+  [ 1615] ────(86%)──── [ 1620]
+  [ 1615] ────(86%)──── [ 1621]
+  [ 1616] ────(86%)──── [ 1618]
+  [ 1616] ────(86%)──── [ 1621]
+  [ 1616] ────(86%)──── [ 1622]
+  [ 1617] ────(86%)──── [ 1622]
+  [ 1617] ────(86%)──── [ 1623]
+  [ 1618] ────(86%)──── [ 1622]
+  [ 1618] ────(86%)──── [ 1623]
+  [ 1619] ────(86%)──── [ 1622]
+  [ 1619] ────(86%)──── [ 1623]
+  [ 1620] ────(86%)──── [ 1622]
+  [ 1620] ────(86%)──── [ 1623]
+  [ 1621] ────(86%)──── [ 1622]
+  [ 1621] ────(86%)──── [ 1623]
+
+
+================================================================================
+COMPONENTE 6 - 12 nombres relacionados
+================================================================================
+
+Nombres en este componente:
+--------------------------------------------------------------------------------
+  [  533] DATA DEVICE CORP (freq: 864)
+  [ 2877] DATA DIVESTCO INC (freq: 102)
+  [ 5022] DATA RACE INC (freq: 39)
+  [ 9135] DATA RACE INC DBA IP AXESS (freq: 11)
+  [11398] DATA MANAGEMENT I LLC (freq: 6)
+  [12150] DATA COMMUNICATIONS 2000 INC (freq: 5)
+  [12151] DATA SWITCH CORP (freq: 5)
+  [12981] DATA PACKAGING INTERNATIONAL INC A DE CORP (freq: 4)
+  [14172] DATA BROADCASTING CORP (freq: 3)
+  [18204] DATA RACE INC (freq: 1)
+  [18205] DATA RACE INC (freq: 1)
+  [18206] DATA SCIENCES INTERNATIONAL INC (freq: 1)
+
+Conexiones (matches) en este componente (37 pares):
+--------------------------------------------------------------------------------
+  [ 5022] ↔ [18205]  Similitud: 100.0%
+    DATA RACE INC
+    DATA RACE INC
+
+  [18204] ↔ [18205]  Similitud: 100.0%
+    DATA RACE INC
+    DATA RACE INC
+
+  [ 5022] ↔ [18204]  Similitud: 100.0%
+    DATA RACE INC
+    DATA RACE INC
+
+  [ 9135] ↔ [18204]  Similitud: 90.0%
+    DATA RACE INC DBA IP AXESS
+    DATA RACE INC
+
+  [ 5022] ↔ [ 9135]  Similitud: 90.0%
+    DATA RACE INC
+    DATA RACE INC DBA IP AXESS
+
+  [ 9135] ↔ [18205]  Similitud: 90.0%
+    DATA RACE INC DBA IP AXESS
+    DATA RACE INC
+
+  [12981] ↔ [18205]  Similitud: 85.5%
+    DATA PACKAGING INTERNATIONAL INC A DE CORP
+    DATA RACE INC
+
+  [12981] ↔ [18204]  Similitud: 85.5%
+    DATA PACKAGING INTERNATIONAL INC A DE CORP
+    DATA RACE INC
+
+  [14172] ↔ [18204]  Similitud: 85.5%
+    DATA BROADCASTING CORP
+    DATA RACE INC
+
+  [12981] ↔ [14172]  Similitud: 85.5%
+    DATA PACKAGING INTERNATIONAL INC A DE CORP
+    DATA BROADCASTING CORP
+
+  [11398] ↔ [18204]  Similitud: 85.5%
+    DATA MANAGEMENT I LLC
+    DATA RACE INC
+
+  [12151] ↔ [12981]  Similitud: 85.5%
+    DATA SWITCH CORP
+    DATA PACKAGING INTERNATIONAL INC A DE CORP
+
+  [12150] ↔ [18205]  Similitud: 85.5%
+    DATA COMMUNICATIONS 2000 INC
+    DATA RACE INC
+
+  [14172] ↔ [18205]  Similitud: 85.5%
+    DATA BROADCASTING CORP
+    DATA RACE INC
+
+  [18204] ↔ [18206]  Similitud: 85.5%
+    DATA RACE INC
+    DATA SCIENCES INTERNATIONAL INC
+
+  [12150] ↔ [18204]  Similitud: 85.5%
+    DATA COMMUNICATIONS 2000 INC
+    DATA RACE INC
+
+  [12150] ↔ [12981]  Similitud: 85.5%
+    DATA COMMUNICATIONS 2000 INC
+    DATA PACKAGING INTERNATIONAL INC A DE CORP
+
+  [12150] ↔ [12151]  Similitud: 85.5%
+    DATA COMMUNICATIONS 2000 INC
+    DATA SWITCH CORP
+
+  [11398] ↔ [18205]  Similitud: 85.5%
+    DATA MANAGEMENT I LLC
+    DATA RACE INC
+
+  [12151] ↔ [18206]  Similitud: 85.5%
+    DATA SWITCH CORP
+    DATA SCIENCES INTERNATIONAL INC
+
+  [  533] ↔ [ 9135]  Similitud: 85.5%
+    DATA DEVICE CORP
+    DATA RACE INC DBA IP AXESS
+
+  [11398] ↔ [12981]  Similitud: 85.5%
+    DATA MANAGEMENT I LLC
+    DATA PACKAGING INTERNATIONAL INC A DE CORP
+
+  [  533] ↔ [12150]  Similitud: 85.5%
+    DATA DEVICE CORP
+    DATA COMMUNICATIONS 2000 INC
+
+  [ 9135] ↔ [12981]  Similitud: 85.5%
+    DATA RACE INC DBA IP AXESS
+    DATA PACKAGING INTERNATIONAL INC A DE CORP
+
+  [ 9135] ↔ [12151]  Similitud: 85.5%
+    DATA RACE INC DBA IP AXESS
+    DATA SWITCH CORP
+
+  [ 5022] ↔ [18206]  Similitud: 85.5%
+    DATA RACE INC
+    DATA SCIENCES INTERNATIONAL INC
+
+  [ 5022] ↔ [14172]  Similitud: 85.5%
+    DATA RACE INC
+    DATA BROADCASTING CORP
+
+  [ 5022] ↔ [12981]  Similitud: 85.5%
+    DATA RACE INC
+    DATA PACKAGING INTERNATIONAL INC A DE CORP
+
+  [ 5022] ↔ [12150]  Similitud: 85.5%
+    DATA RACE INC
+    DATA COMMUNICATIONS 2000 INC
+
+  [ 5022] ↔ [11398]  Similitud: 85.5%
+    DATA RACE INC
+    DATA MANAGEMENT I LLC
+
+  [ 2877] ↔ [18206]  Similitud: 85.5%
+    DATA DIVESTCO INC
+    DATA SCIENCES INTERNATIONAL INC
+
+  [ 2877] ↔ [12981]  Similitud: 85.5%
+    DATA DIVESTCO INC
+    DATA PACKAGING INTERNATIONAL INC A DE CORP
+
+  [ 2877] ↔ [12150]  Similitud: 85.5%
+    DATA DIVESTCO INC
+    DATA COMMUNICATIONS 2000 INC
+
+  [ 2877] ↔ [ 9135]  Similitud: 85.5%
+    DATA DIVESTCO INC
+    DATA RACE INC DBA IP AXESS
+
+  [  533] ↔ [18206]  Similitud: 85.5%
+    DATA DEVICE CORP
+    DATA SCIENCES INTERNATIONAL INC
+
+  [  533] ↔ [12981]  Similitud: 85.5%
+    DATA DEVICE CORP
+    DATA PACKAGING INTERNATIONAL INC A DE CORP
+
+  [18205] ↔ [18206]  Similitud: 85.5%
+    DATA RACE INC
+    DATA SCIENCES INTERNATIONAL INC
+
+Representación del grafo (conexiones):
+--------------------------------------------------------------------------------
+  [  533] ────(86%)──── [ 9135]
+  [  533] ────(86%)──── [12150]
+  [  533] ────(86%)──── [12981]
+  [  533] ────(86%)──── [18206]
+  [ 2877] ────(86%)──── [ 9135]
+  [ 2877] ────(86%)──── [12150]
+  [ 2877] ────(86%)──── [12981]
+  [ 2877] ────(86%)──── [18206]
+  [ 5022] ────(90%)──── [ 9135]
+  [ 5022] ────(86%)──── [11398]
+  [ 5022] ────(86%)──── [12150]
+  [ 5022] ────(86%)──── [12981]
+  [ 5022] ────(86%)──── [14172]
+  [ 5022] ────(100%)──── [18204]
+  [ 5022] ────(100%)──── [18205]
+  [ 5022] ────(86%)──── [18206]
+  [ 9135] ────(86%)──── [12151]
+  [ 9135] ────(86%)──── [12981]
+  [ 9135] ────(90%)──── [18204]
+  [ 9135] ────(90%)──── [18205]
+  [11398] ────(86%)──── [12981]
+  [11398] ────(86%)──── [18204]
+  [11398] ────(86%)──── [18205]
+  [12150] ────(86%)──── [12151]
+  [12150] ────(86%)──── [12981]
+  [12150] ────(86%)──── [18204]
+  [12150] ────(86%)──── [18205]
+  [12151] ────(86%)──── [12981]
+  [12151] ────(86%)──── [18206]
+  [12981] ────(86%)──── [14172]
+  [12981] ────(86%)──── [18204]
+  [12981] ────(86%)──── [18205]
+  [14172] ────(86%)──── [18204]
+  [14172] ────(86%)──── [18205]
+  [18204] ────(100%)──── [18205]
+  [18204] ────(86%)──── [18206]
+  [18205] ────(86%)──── [18206]
+
+
+================================================================================
+COMPONENTE 7 - 12 nombres relacionados
+================================================================================
+
+Nombres en este componente:
+--------------------------------------------------------------------------------
+  [  905] TWC ADMINISTRATION LLC (freq: 692)
+  [  906] TWC COMMUNICATIONS LLC (freq: 692)
+  [  907] TWC DIGITAL PHONE LLC (freq: 692)
+  [  908] TWC MEDIA BLOCKER LLC (freq: 692)
+  [  909] TWC NEWCO LLC (freq: 692)
+  [  910] TWC NEWS & LOCAL PROGRAMMING HOLDCO LLC (freq: 692)
+  [  911] TWC NEWS & LOCAL PROGRAMMING LLC (freq: 692)
+  [  912] TWC REGIONAL SPORTS NETWORK I LLC (freq: 692)
+  [  913] TWC SECURITY LLC (freq: 692)
+  [  914] TWC SEE HOLDCO LLC (freq: 692)
+  [  915] TWC WIRELESS LLC (freq: 692)
+  [  916] TWC CHARTER DALLAS CABLE ADVERTISING LLC (freq: 692)
+
+Conexiones (matches) en este componente (35 pares):
+--------------------------------------------------------------------------------
+  [  910] ↔ [  911]  Similitud: 95.0%
+    TWC NEWS & LOCAL PROGRAMMING HOLDCO LLC
+    TWC NEWS & LOCAL PROGRAMMING LLC
+
+  [  905] ↔ [  909]  Similitud: 85.5%
+    TWC ADMINISTRATION LLC
+    TWC NEWCO LLC
+
+  [  911] ↔ [  913]  Similitud: 85.5%
+    TWC NEWS & LOCAL PROGRAMMING LLC
+    TWC SECURITY LLC
+
+  [  909] ↔ [  912]  Similitud: 85.5%
+    TWC NEWCO LLC
+    TWC REGIONAL SPORTS NETWORK I LLC
+
+  [  909] ↔ [  916]  Similitud: 85.5%
+    TWC NEWCO LLC
+    TWC CHARTER DALLAS CABLE ADVERTISING LLC
+
+  [  910] ↔ [  913]  Similitud: 85.5%
+    TWC NEWS & LOCAL PROGRAMMING HOLDCO LLC
+    TWC SECURITY LLC
+
+  [  910] ↔ [  914]  Similitud: 85.5%
+    TWC NEWS & LOCAL PROGRAMMING HOLDCO LLC
+    TWC SEE HOLDCO LLC
+
+  [  910] ↔ [  915]  Similitud: 85.5%
+    TWC NEWS & LOCAL PROGRAMMING HOLDCO LLC
+    TWC WIRELESS LLC
+
+  [  911] ↔ [  914]  Similitud: 85.5%
+    TWC NEWS & LOCAL PROGRAMMING LLC
+    TWC SEE HOLDCO LLC
+
+  [  909] ↔ [  910]  Similitud: 85.5%
+    TWC NEWCO LLC
+    TWC NEWS & LOCAL PROGRAMMING HOLDCO LLC
+
+  [  911] ↔ [  915]  Similitud: 85.5%
+    TWC NEWS & LOCAL PROGRAMMING LLC
+    TWC WIRELESS LLC
+
+  [  912] ↔ [  913]  Similitud: 85.5%
+    TWC REGIONAL SPORTS NETWORK I LLC
+    TWC SECURITY LLC
+
+  [  912] ↔ [  914]  Similitud: 85.5%
+    TWC REGIONAL SPORTS NETWORK I LLC
+    TWC SEE HOLDCO LLC
+
+  [  912] ↔ [  915]  Similitud: 85.5%
+    TWC REGIONAL SPORTS NETWORK I LLC
+    TWC WIRELESS LLC
+
+  [  913] ↔ [  916]  Similitud: 85.5%
+    TWC SECURITY LLC
+    TWC CHARTER DALLAS CABLE ADVERTISING LLC
+
+  [  914] ↔ [  916]  Similitud: 85.5%
+    TWC SEE HOLDCO LLC
+    TWC CHARTER DALLAS CABLE ADVERTISING LLC
+
+  [  909] ↔ [  911]  Similitud: 85.5%
+    TWC NEWCO LLC
+    TWC NEWS & LOCAL PROGRAMMING LLC
+
+  [  908] ↔ [  916]  Similitud: 85.5%
+    TWC MEDIA BLOCKER LLC
+    TWC CHARTER DALLAS CABLE ADVERTISING LLC
+
+  [  905] ↔ [  910]  Similitud: 85.5%
+    TWC ADMINISTRATION LLC
+    TWC NEWS & LOCAL PROGRAMMING HOLDCO LLC
+
+  [  907] ↔ [  909]  Similitud: 85.5%
+    TWC DIGITAL PHONE LLC
+    TWC NEWCO LLC
+
+  [  905] ↔ [  912]  Similitud: 85.5%
+    TWC ADMINISTRATION LLC
+    TWC REGIONAL SPORTS NETWORK I LLC
+
+  [  905] ↔ [  916]  Similitud: 85.5%
+    TWC ADMINISTRATION LLC
+    TWC CHARTER DALLAS CABLE ADVERTISING LLC
+
+  [  906] ↔ [  909]  Similitud: 85.5%
+    TWC COMMUNICATIONS LLC
+    TWC NEWCO LLC
+
+  [  906] ↔ [  910]  Similitud: 85.5%
+    TWC COMMUNICATIONS LLC
+    TWC NEWS & LOCAL PROGRAMMING HOLDCO LLC
+
+  [  906] ↔ [  912]  Similitud: 85.5%
+    TWC COMMUNICATIONS LLC
+    TWC REGIONAL SPORTS NETWORK I LLC
+
+  [  906] ↔ [  916]  Similitud: 85.5%
+    TWC COMMUNICATIONS LLC
+    TWC CHARTER DALLAS CABLE ADVERTISING LLC
+
+  [  907] ↔ [  910]  Similitud: 85.5%
+    TWC DIGITAL PHONE LLC
+    TWC NEWS & LOCAL PROGRAMMING HOLDCO LLC
+
+  [  908] ↔ [  912]  Similitud: 85.5%
+    TWC MEDIA BLOCKER LLC
+    TWC REGIONAL SPORTS NETWORK I LLC
+
+  [  907] ↔ [  911]  Similitud: 85.5%
+    TWC DIGITAL PHONE LLC
+    TWC NEWS & LOCAL PROGRAMMING LLC
+
+  [  907] ↔ [  912]  Similitud: 85.5%
+    TWC DIGITAL PHONE LLC
+    TWC REGIONAL SPORTS NETWORK I LLC
+
+  [  907] ↔ [  916]  Similitud: 85.5%
+    TWC DIGITAL PHONE LLC
+    TWC CHARTER DALLAS CABLE ADVERTISING LLC
+
+  [  908] ↔ [  909]  Similitud: 85.5%
+    TWC MEDIA BLOCKER LLC
+    TWC NEWCO LLC
+
+  [  908] ↔ [  910]  Similitud: 85.5%
+    TWC MEDIA BLOCKER LLC
+    TWC NEWS & LOCAL PROGRAMMING HOLDCO LLC
+
+  [  908] ↔ [  911]  Similitud: 85.5%
+    TWC MEDIA BLOCKER LLC
+    TWC NEWS & LOCAL PROGRAMMING LLC
+
+  [  915] ↔ [  916]  Similitud: 85.5%
+    TWC WIRELESS LLC
+    TWC CHARTER DALLAS CABLE ADVERTISING LLC
+
+Representación del grafo (conexiones):
+--------------------------------------------------------------------------------
+  [  905] ────(86%)──── [  909]
+  [  905] ────(86%)──── [  910]
+  [  905] ────(86%)──── [  912]
+  [  905] ────(86%)──── [  916]
+  [  906] ────(86%)──── [  909]
+  [  906] ────(86%)──── [  910]
+  [  906] ────(86%)──── [  912]
+  [  906] ────(86%)──── [  916]
+  [  907] ────(86%)──── [  909]
+  [  907] ────(86%)──── [  910]
+  [  907] ────(86%)──── [  911]
+  [  907] ────(86%)──── [  912]
+  [  907] ────(86%)──── [  916]
+  [  908] ────(86%)──── [  909]
+  [  908] ────(86%)──── [  910]
+  [  908] ────(86%)──── [  911]
+  [  908] ────(86%)──── [  912]
+  [  908] ────(86%)──── [  916]
+  [  909] ────(86%)──── [  910]
+  [  909] ────(86%)──── [  911]
+  [  909] ────(86%)──── [  912]
+  [  909] ────(86%)──── [  916]
+  [  910] ────(95%)──── [  911]
+  [  910] ────(86%)──── [  913]
+  [  910] ────(86%)──── [  914]
+  [  910] ────(86%)──── [  915]
+  [  911] ────(86%)──── [  913]
+  [  911] ────(86%)──── [  914]
+  [  911] ────(86%)──── [  915]
+  [  912] ────(86%)──── [  913]
+  [  912] ────(86%)──── [  914]
+  [  912] ────(86%)──── [  915]
+  [  913] ────(86%)──── [  916]
+  [  914] ────(86%)──── [  916]
+  [  915] ────(86%)──── [  916]
+
+
+================================================================================
+COMPONENTE 8 - 12 nombres relacionados
+================================================================================
+
+Nombres en este componente:
+--------------------------------------------------------------------------------
+  [ 1035] AMYRIS INC (freq: 577)
+  [ 2306] AMYRIS CLEAN BEAUTY INC (freq: 150)
+  [ 2307] AMYRIS FUELS LLC (freq: 150)
+  [ 3488] AMYRIS BIO PRODCUTS PORTUGAL UNIPESSOAL LDA (freq: 75)
+  [ 3489] AMYRIS BIOTECHNOLOGIA DO BRASIL LTDA (freq: 75)
+  [ 3490] AMYRIS CLEAN BEAUTY LATAM LTDA (freq: 75)
+  [ 3491] AMYRIS ECO-FAB LLC (freq: 75)
+  [ 3492] AMYRIS EUROPE TRADING BV NETHERLANDS (freq: 75)
+  [ 3493] AMYRIS UK TRADING LTD (freq: 75)
+  [17440] AMYRIS BIO PRODUCTS PORTUGAL UNIPESSOAL LDA AS IP GRANTOR (freq: 1)
+  [17441] AMYRIS INC AS IP GRANTOR (freq: 1)
+  [17442] AMYRIS INC AS PARENT (freq: 1)
+
+Conexiones (matches) en este componente (43 pares):
+--------------------------------------------------------------------------------
+  [ 1035] ↔ [17441]  Similitud: 90.0%
+    AMYRIS INC
+    AMYRIS INC AS IP GRANTOR
+
+  [ 1035] ↔ [17442]  Similitud: 90.0%
+    AMYRIS INC
+    AMYRIS INC AS PARENT
+
+  [ 2306] ↔ [ 3490]  Similitud: 86.0%
+    AMYRIS CLEAN BEAUTY INC
+    AMYRIS CLEAN BEAUTY LATAM LTDA
+
+  [ 1035] ↔ [ 2306]  Similitud: 85.5%
+    AMYRIS INC
+    AMYRIS CLEAN BEAUTY INC
+
+  [ 3488] ↔ [17442]  Similitud: 85.5%
+    AMYRIS BIO PRODCUTS PORTUGAL UNIPESSOAL LDA
+    AMYRIS INC AS PARENT
+
+  [ 3489] ↔ [ 3491]  Similitud: 85.5%
+    AMYRIS BIOTECHNOLOGIA DO BRASIL LTDA
+    AMYRIS ECO-FAB LLC
+
+  [ 3489] ↔ [ 3493]  Similitud: 85.5%
+    AMYRIS BIOTECHNOLOGIA DO BRASIL LTDA
+    AMYRIS UK TRADING LTD
+
+  [ 3489] ↔ [17440]  Similitud: 85.5%
+    AMYRIS BIOTECHNOLOGIA DO BRASIL LTDA
+    AMYRIS BIO PRODUCTS PORTUGAL UNIPESSOAL LDA AS IP GRANTOR
+
+  [ 3489] ↔ [17441]  Similitud: 85.5%
+    AMYRIS BIOTECHNOLOGIA DO BRASIL LTDA
+    AMYRIS INC AS IP GRANTOR
+
+  [ 3489] ↔ [17442]  Similitud: 85.5%
+    AMYRIS BIOTECHNOLOGIA DO BRASIL LTDA
+    AMYRIS INC AS PARENT
+
+  [ 3490] ↔ [ 3491]  Similitud: 85.5%
+    AMYRIS CLEAN BEAUTY LATAM LTDA
+    AMYRIS ECO-FAB LLC
+
+  [ 3490] ↔ [17440]  Similitud: 85.5%
+    AMYRIS CLEAN BEAUTY LATAM LTDA
+    AMYRIS BIO PRODUCTS PORTUGAL UNIPESSOAL LDA AS IP GRANTOR
+
+  [ 3491] ↔ [ 3492]  Similitud: 85.5%
+    AMYRIS ECO-FAB LLC
+    AMYRIS EUROPE TRADING BV NETHERLANDS
+
+  [ 3490] ↔ [17442]  Similitud: 85.5%
+    AMYRIS CLEAN BEAUTY LATAM LTDA
+    AMYRIS INC AS PARENT
+
+  [ 3488] ↔ [ 3493]  Similitud: 85.5%
+    AMYRIS BIO PRODCUTS PORTUGAL UNIPESSOAL LDA
+    AMYRIS UK TRADING LTD
+
+  [ 3491] ↔ [17440]  Similitud: 85.5%
+    AMYRIS ECO-FAB LLC
+    AMYRIS BIO PRODUCTS PORTUGAL UNIPESSOAL LDA AS IP GRANTOR
+
+  [ 3492] ↔ [ 3493]  Similitud: 85.5%
+    AMYRIS EUROPE TRADING BV NETHERLANDS
+    AMYRIS UK TRADING LTD
+
+  [ 3492] ↔ [17440]  Similitud: 85.5%
+    AMYRIS EUROPE TRADING BV NETHERLANDS
+    AMYRIS BIO PRODUCTS PORTUGAL UNIPESSOAL LDA AS IP GRANTOR
+
+  [ 3492] ↔ [17441]  Similitud: 85.5%
+    AMYRIS EUROPE TRADING BV NETHERLANDS
+    AMYRIS INC AS IP GRANTOR
+
+  [ 3492] ↔ [17442]  Similitud: 85.5%
+    AMYRIS EUROPE TRADING BV NETHERLANDS
+    AMYRIS INC AS PARENT
+
+  [ 3493] ↔ [17440]  Similitud: 85.5%
+    AMYRIS UK TRADING LTD
+    AMYRIS BIO PRODUCTS PORTUGAL UNIPESSOAL LDA AS IP GRANTOR
+
+  [17440] ↔ [17441]  Similitud: 85.5%
+    AMYRIS BIO PRODUCTS PORTUGAL UNIPESSOAL LDA AS IP GRANTOR
+    AMYRIS INC AS IP GRANTOR
+
+  [ 3488] ↔ [17441]  Similitud: 85.5%
+    AMYRIS BIO PRODCUTS PORTUGAL UNIPESSOAL LDA
+    AMYRIS INC AS IP GRANTOR
+
+  [ 2307] ↔ [17441]  Similitud: 85.5%
+    AMYRIS FUELS LLC
+    AMYRIS INC AS IP GRANTOR
+
+  [ 3488] ↔ [ 3491]  Similitud: 85.5%
+    AMYRIS BIO PRODCUTS PORTUGAL UNIPESSOAL LDA
+    AMYRIS ECO-FAB LLC
+
+  [ 2306] ↔ [ 3488]  Similitud: 85.5%
+    AMYRIS CLEAN BEAUTY INC
+    AMYRIS BIO PRODCUTS PORTUGAL UNIPESSOAL LDA
+
+  [ 1035] ↔ [ 3488]  Similitud: 85.5%
+    AMYRIS INC
+    AMYRIS BIO PRODCUTS PORTUGAL UNIPESSOAL LDA
+
+  [ 1035] ↔ [ 3489]  Similitud: 85.5%
+    AMYRIS INC
+    AMYRIS BIOTECHNOLOGIA DO BRASIL LTDA
+
+  [ 1035] ↔ [ 3490]  Similitud: 85.5%
+    AMYRIS INC
+    AMYRIS CLEAN BEAUTY LATAM LTDA
+
+  [ 1035] ↔ [ 3491]  Similitud: 85.5%
+    AMYRIS INC
+    AMYRIS ECO-FAB LLC
+
+  [ 1035] ↔ [ 3492]  Similitud: 85.5%
+    AMYRIS INC
+    AMYRIS EUROPE TRADING BV NETHERLANDS
+
+  [ 1035] ↔ [ 3493]  Similitud: 85.5%
+    AMYRIS INC
+    AMYRIS UK TRADING LTD
+
+  [ 1035] ↔ [17440]  Similitud: 85.5%
+    AMYRIS INC
+    AMYRIS BIO PRODUCTS PORTUGAL UNIPESSOAL LDA AS IP GRANTOR
+
+  [ 2306] ↔ [ 3489]  Similitud: 85.5%
+    AMYRIS CLEAN BEAUTY INC
+    AMYRIS BIOTECHNOLOGIA DO BRASIL LTDA
+
+  [ 1035] ↔ [ 2307]  Similitud: 85.5%
+    AMYRIS INC
+    AMYRIS FUELS LLC
+
+  [ 2306] ↔ [ 3492]  Similitud: 85.5%
+    AMYRIS CLEAN BEAUTY INC
+    AMYRIS EUROPE TRADING BV NETHERLANDS
+
+  [ 2306] ↔ [17440]  Similitud: 85.5%
+    AMYRIS CLEAN BEAUTY INC
+    AMYRIS BIO PRODUCTS PORTUGAL UNIPESSOAL LDA AS IP GRANTOR
+
+  [ 2307] ↔ [ 3488]  Similitud: 85.5%
+    AMYRIS FUELS LLC
+    AMYRIS BIO PRODCUTS PORTUGAL UNIPESSOAL LDA
+
+  [ 2307] ↔ [ 3489]  Similitud: 85.5%
+    AMYRIS FUELS LLC
+    AMYRIS BIOTECHNOLOGIA DO BRASIL LTDA
+
+  [ 2307] ↔ [ 3490]  Similitud: 85.5%
+    AMYRIS FUELS LLC
+    AMYRIS CLEAN BEAUTY LATAM LTDA
+
+  [ 2307] ↔ [ 3492]  Similitud: 85.5%
+    AMYRIS FUELS LLC
+    AMYRIS EUROPE TRADING BV NETHERLANDS
+
+  [ 2307] ↔ [17440]  Similitud: 85.5%
+    AMYRIS FUELS LLC
+    AMYRIS BIO PRODUCTS PORTUGAL UNIPESSOAL LDA AS IP GRANTOR
+
+  [17440] ↔ [17442]  Similitud: 85.5%
+    AMYRIS BIO PRODUCTS PORTUGAL UNIPESSOAL LDA AS IP GRANTOR
+    AMYRIS INC AS PARENT
+
+Representación del grafo (conexiones):
+--------------------------------------------------------------------------------
+  [ 1035] ────(86%)──── [ 2306]
+  [ 1035] ────(86%)──── [ 2307]
+  [ 1035] ────(86%)──── [ 3488]
+  [ 1035] ────(86%)──── [ 3489]
+  [ 1035] ────(86%)──── [ 3490]
+  [ 1035] ────(86%)──── [ 3491]
+  [ 1035] ────(86%)──── [ 3492]
+  [ 1035] ────(86%)──── [ 3493]
+  [ 1035] ────(86%)──── [17440]
+  [ 1035] ────(90%)──── [17441]
+  [ 1035] ────(90%)──── [17442]
+  [ 2306] ────(86%)──── [ 3488]
+  [ 2306] ────(86%)──── [ 3489]
+  [ 2306] ────(86%)──── [ 3490]
+  [ 2306] ────(86%)──── [ 3492]
+  [ 2306] ────(86%)──── [17440]
+  [ 2307] ────(86%)──── [ 3488]
+  [ 2307] ────(86%)──── [ 3489]
+  [ 2307] ────(86%)──── [ 3490]
+  [ 2307] ────(86%)──── [ 3492]
+  [ 2307] ────(86%)──── [17440]
+  [ 2307] ────(86%)──── [17441]
+  [ 3488] ────(86%)──── [ 3491]
+  [ 3488] ────(86%)──── [ 3493]
+  [ 3488] ────(86%)──── [17441]
+  [ 3488] ────(86%)──── [17442]
+  [ 3489] ────(86%)──── [ 3491]
+  [ 3489] ────(86%)──── [ 3493]
+  [ 3489] ────(86%)──── [17440]
+  [ 3489] ────(86%)──── [17441]
+  [ 3489] ────(86%)──── [17442]
+  [ 3490] ────(86%)──── [ 3491]
+  [ 3490] ────(86%)──── [17440]
+  [ 3490] ────(86%)──── [17442]
+  [ 3491] ────(86%)──── [ 3492]
+  [ 3491] ────(86%)──── [17440]
+  [ 3492] ────(86%)──── [ 3493]
+  [ 3492] ────(86%)──── [17440]
+  [ 3492] ────(86%)──── [17441]
+  [ 3492] ────(86%)──── [17442]
+  [ 3493] ────(86%)──── [17440]
+  [17440] ────(86%)──── [17441]
+  [17440] ────(86%)──── [17442]
+
+
+================================================================================
+COMPONENTE 9 - 12 nombres relacionados
+================================================================================
+
+Nombres en este componente:
+--------------------------------------------------------------------------------
+  [ 1097] CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP (freq: 507)
+  [ 1852] CHEMICAL TECHNOLOGIES INDIA LTD (freq: 230)
+  [ 4359] CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP (freq: 50)
+  [ 4530] CHEMICAL TECHNOLGOIES INDIA LTD A DELWARE CORP (freq: 48)
+  [ 4594] CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP (freq: 47)
+  [ 5092] CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP (freq: 38)
+  [ 5241] CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP (freq: 36)
+  [ 5872] CHEMICAL TECHNOLOGIES INDIA LTD A DELWARE CORP (freq: 29)
+  [ 7031] CHEMICAL SPECIALTIES MANUFACTURING CORP (freq: 20)
+  [ 9111] CHEMICAL SPECIALTIES INC (freq: 11)
+  [15472] CHEMICAL BANK (freq: 2)
+  [15473] CHEMICAL SPECIALTIES LLC SUCCESSOR-IN-INTEREST TO CHEMICAL SPECIALTIES INC (freq: 2)
+
+Conexiones (matches) en este componente (56 pares):
+--------------------------------------------------------------------------------
+  [ 1097] ↔ [ 4359]  Similitud: 100.0%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 1097] ↔ [ 4594]  Similitud: 100.0%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 1097] ↔ [ 5092]  Similitud: 100.0%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 1097] ↔ [ 5241]  Similitud: 100.0%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 4359] ↔ [ 5241]  Similitud: 100.0%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 5092] ↔ [ 5241]  Similitud: 100.0%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 4359] ↔ [ 5092]  Similitud: 100.0%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 4594] ↔ [ 5241]  Similitud: 100.0%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 4594] ↔ [ 5092]  Similitud: 100.0%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 4359] ↔ [ 4594]  Similitud: 100.0%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 4594] ↔ [ 5872]  Similitud: 98.9%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELWARE CORP
+
+  [ 4359] ↔ [ 5872]  Similitud: 98.9%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELWARE CORP
+
+  [ 1097] ↔ [ 5872]  Similitud: 98.9%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELWARE CORP
+
+  [ 5241] ↔ [ 5872]  Similitud: 98.9%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELWARE CORP
+
+  [ 5092] ↔ [ 5872]  Similitud: 98.9%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELWARE CORP
+
+  [ 4530] ↔ [ 5872]  Similitud: 97.8%
+    CHEMICAL TECHNOLGOIES INDIA LTD A DELWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELWARE CORP
+
+  [ 4530] ↔ [ 5241]  Similitud: 96.8%
+    CHEMICAL TECHNOLGOIES INDIA LTD A DELWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 4359] ↔ [ 4530]  Similitud: 96.8%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLGOIES INDIA LTD A DELWARE CORP
+
+  [ 4530] ↔ [ 4594]  Similitud: 96.8%
+    CHEMICAL TECHNOLGOIES INDIA LTD A DELWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 1097] ↔ [ 4530]  Similitud: 96.8%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLGOIES INDIA LTD A DELWARE CORP
+
+  [ 4530] ↔ [ 5092]  Similitud: 96.8%
+    CHEMICAL TECHNOLGOIES INDIA LTD A DELWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 1852] ↔ [ 5872]  Similitud: 95.0%
+    CHEMICAL TECHNOLOGIES INDIA LTD
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELWARE CORP
+
+  [ 9111] ↔ [15473]  Similitud: 90.0%
+    CHEMICAL SPECIALTIES INC
+    CHEMICAL SPECIALTIES LLC SUCCESSOR-IN-INTEREST TO CHEMICAL SPECIALTIES INC
+
+  [ 1097] ↔ [ 1852]  Similitud: 90.0%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL TECHNOLOGIES INDIA LTD
+
+  [ 1852] ↔ [ 5092]  Similitud: 90.0%
+    CHEMICAL TECHNOLOGIES INDIA LTD
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 1852] ↔ [ 4594]  Similitud: 90.0%
+    CHEMICAL TECHNOLOGIES INDIA LTD
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 1852] ↔ [ 4359]  Similitud: 90.0%
+    CHEMICAL TECHNOLOGIES INDIA LTD
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 1852] ↔ [ 5241]  Similitud: 90.0%
+    CHEMICAL TECHNOLOGIES INDIA LTD
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+
+  [ 5241] ↔ [ 9111]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL SPECIALTIES INC
+
+  [ 5241] ↔ [15472]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL BANK
+
+  [ 5241] ↔ [15473]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL SPECIALTIES LLC SUCCESSOR-IN-INTEREST TO CHEMICAL SPECIALTIES INC
+
+  [ 5872] ↔ [ 9111]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELWARE CORP
+    CHEMICAL SPECIALTIES INC
+
+  [ 5872] ↔ [15472]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELWARE CORP
+    CHEMICAL BANK
+
+  [ 4359] ↔ [15473]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL SPECIALTIES LLC SUCCESSOR-IN-INTEREST TO CHEMICAL SPECIALTIES INC
+
+  [ 5092] ↔ [15473]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL SPECIALTIES LLC SUCCESSOR-IN-INTEREST TO CHEMICAL SPECIALTIES INC
+
+  [ 5872] ↔ [15473]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELWARE CORP
+    CHEMICAL SPECIALTIES LLC SUCCESSOR-IN-INTEREST TO CHEMICAL SPECIALTIES INC
+
+  [ 7031] ↔ [ 9111]  Similitud: 85.5%
+    CHEMICAL SPECIALTIES MANUFACTURING CORP
+    CHEMICAL SPECIALTIES INC
+
+  [ 7031] ↔ [15472]  Similitud: 85.5%
+    CHEMICAL SPECIALTIES MANUFACTURING CORP
+    CHEMICAL BANK
+
+  [ 7031] ↔ [15473]  Similitud: 85.5%
+    CHEMICAL SPECIALTIES MANUFACTURING CORP
+    CHEMICAL SPECIALTIES LLC SUCCESSOR-IN-INTEREST TO CHEMICAL SPECIALTIES INC
+
+  [ 9111] ↔ [15472]  Similitud: 85.5%
+    CHEMICAL SPECIALTIES INC
+    CHEMICAL BANK
+
+  [ 1097] ↔ [ 9111]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL SPECIALTIES INC
+
+  [ 1097] ↔ [15472]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL BANK
+
+  [ 5092] ↔ [ 9111]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL SPECIALTIES INC
+
+  [ 5092] ↔ [15472]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL BANK
+
+  [ 4359] ↔ [15472]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL BANK
+
+  [ 1097] ↔ [15473]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL SPECIALTIES LLC SUCCESSOR-IN-INTEREST TO CHEMICAL SPECIALTIES INC
+
+  [ 4594] ↔ [15473]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL SPECIALTIES LLC SUCCESSOR-IN-INTEREST TO CHEMICAL SPECIALTIES INC
+
+  [ 4594] ↔ [15472]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL BANK
+
+  [ 4594] ↔ [ 9111]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL SPECIALTIES INC
+
+  [ 4530] ↔ [15473]  Similitud: 85.5%
+    CHEMICAL TECHNOLGOIES INDIA LTD A DELWARE CORP
+    CHEMICAL SPECIALTIES LLC SUCCESSOR-IN-INTEREST TO CHEMICAL SPECIALTIES INC
+
+  [ 4530] ↔ [15472]  Similitud: 85.5%
+    CHEMICAL TECHNOLGOIES INDIA LTD A DELWARE CORP
+    CHEMICAL BANK
+
+  [ 4530] ↔ [ 9111]  Similitud: 85.5%
+    CHEMICAL TECHNOLGOIES INDIA LTD A DELWARE CORP
+    CHEMICAL SPECIALTIES INC
+
+  [ 1852] ↔ [15472]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD
+    CHEMICAL BANK
+
+  [ 1852] ↔ [15473]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD
+    CHEMICAL SPECIALTIES LLC SUCCESSOR-IN-INTEREST TO CHEMICAL SPECIALTIES INC
+
+  [ 4359] ↔ [ 9111]  Similitud: 85.5%
+    CHEMICAL TECHNOLOGIES INDIA LTD A DELAWARE CORP
+    CHEMICAL SPECIALTIES INC
+
+  [15472] ↔ [15473]  Similitud: 85.5%
+    CHEMICAL BANK
+    CHEMICAL SPECIALTIES LLC SUCCESSOR-IN-INTEREST TO CHEMICAL SPECIALTIES INC
+
+Representación del grafo (conexiones):
+--------------------------------------------------------------------------------
+  [ 1097] ────(90%)──── [ 1852]
+  [ 1097] ────(100%)──── [ 4359]
+  [ 1097] ────(97%)──── [ 4530]
+  [ 1097] ────(100%)──── [ 4594]
+  [ 1097] ────(100%)──── [ 5092]
+  [ 1097] ────(100%)──── [ 5241]
+  [ 1097] ────(99%)──── [ 5872]
+  [ 1097] ────(86%)──── [ 9111]
+  [ 1097] ────(86%)──── [15472]
+  [ 1097] ────(86%)──── [15473]
+  [ 1852] ────(90%)──── [ 4359]
+  [ 1852] ────(90%)──── [ 4594]
+  [ 1852] ────(90%)──── [ 5092]
+  [ 1852] ────(90%)──── [ 5241]
+  [ 1852] ────(95%)──── [ 5872]
+  [ 1852] ────(86%)──── [15472]
+  [ 1852] ────(86%)──── [15473]
+  [ 4359] ────(97%)──── [ 4530]
+  [ 4359] ────(100%)──── [ 4594]
+  [ 4359] ────(100%)──── [ 5092]
+  [ 4359] ────(100%)──── [ 5241]
+  [ 4359] ────(99%)──── [ 5872]
+  [ 4359] ────(86%)──── [ 9111]
+  [ 4359] ────(86%)──── [15472]
+  [ 4359] ────(86%)──── [15473]
+  [ 4530] ────(97%)──── [ 4594]
+  [ 4530] ────(97%)──── [ 5092]
+  [ 4530] ────(97%)──── [ 5241]
+  [ 4530] ────(98%)──── [ 5872]
+  [ 4530] ────(86%)──── [ 9111]
+  [ 4530] ────(86%)──── [15472]
+  [ 4530] ────(86%)──── [15473]
+  [ 4594] ────(100%)──── [ 5092]
+  [ 4594] ────(100%)──── [ 5241]
+  [ 4594] ────(99%)──── [ 5872]
+  [ 4594] ────(86%)──── [ 9111]
+  [ 4594] ────(86%)──── [15472]
+  [ 4594] ────(86%)──── [15473]
+  [ 5092] ────(100%)──── [ 5241]
+  [ 5092] ────(99%)──── [ 5872]
+  [ 5092] ────(86%)──── [ 9111]
+  [ 5092] ────(86%)──── [15472]
+  [ 5092] ────(86%)──── [15473]
+  [ 5241] ────(99%)──── [ 5872]
+  [ 5241] ────(86%)──── [ 9111]
+  [ 5241] ────(86%)──── [15472]
+  [ 5241] ────(86%)──── [15473]
+  [ 5872] ────(86%)──── [ 9111]
+  [ 5872] ────(86%)──── [15472]
+  [ 5872] ────(86%)──── [15473]
+  [ 7031] ────(86%)──── [ 9111]
+  [ 7031] ────(86%)──── [15472]
+  [ 7031] ────(86%)──── [15473]
+  [ 9111] ────(86%)──── [15472]
+  [ 9111] ────(90%)──── [15473]
+  [15472] ────(86%)──── [15473]
+
+
+================================================================================
+COMPONENTE 10 - 12 nombres relacionados
+================================================================================
+
+Nombres en este componente:
+--------------------------------------------------------------------------------
+  [ 1700] INTERGRAPH CORP (freq: 273)
+  [ 2474] INTERGRAPH ITALIA LLC (freq: 136)
+  [ 2475] INTERGRAPH ASIA PACIFIC INC (freq: 136)
+  [ 2476] INTERGRAPH CHINA INC (freq: 136)
+  [ 2477] INTERGRAPH COMPUTER SYSTEMS HOLDING INC (freq: 136)
+  [ 2478] INTERGRAPH DC CORP - SUBSIDIARY 3 (freq: 136)
+  [ 2479] INTERGRAPH DISC INC (freq: 136)
+  [ 2480] INTERGRAPH EUROPEAN MANUFACTURING LLC (freq: 136)
+  [ 2481] INTERGRAPH HARDWARE TECHNOLOGIES CO (freq: 136)
+  [ 2482] INTERGRAPH PROPERTIES CO (freq: 136)
+  [ 2483] INTERGRAPH SERVICES CO (freq: 136)
+  [ 2484] INTERGRAPH SOFTWARE TECHNOLOGIES CO (freq: 136)
+
+Conexiones (matches) en este componente (30 pares):
+--------------------------------------------------------------------------------
+  [ 2481] ↔ [ 2484]  Similitud: 88.6%
+    INTERGRAPH HARDWARE TECHNOLOGIES CO
+    INTERGRAPH SOFTWARE TECHNOLOGIES CO
+
+  [ 1700] ↔ [ 2475]  Similitud: 85.5%
+    INTERGRAPH CORP
+    INTERGRAPH ASIA PACIFIC INC
+
+  [ 1700] ↔ [ 2477]  Similitud: 85.5%
+    INTERGRAPH CORP
+    INTERGRAPH COMPUTER SYSTEMS HOLDING INC
+
+  [ 2481] ↔ [ 2483]  Similitud: 85.5%
+    INTERGRAPH HARDWARE TECHNOLOGIES CO
+    INTERGRAPH SERVICES CO
+
+  [ 2480] ↔ [ 2483]  Similitud: 85.5%
+    INTERGRAPH EUROPEAN MANUFACTURING LLC
+    INTERGRAPH SERVICES CO
+
+  [ 2480] ↔ [ 2482]  Similitud: 85.5%
+    INTERGRAPH EUROPEAN MANUFACTURING LLC
+    INTERGRAPH PROPERTIES CO
+
+  [ 2479] ↔ [ 2484]  Similitud: 85.5%
+    INTERGRAPH DISC INC
+    INTERGRAPH SOFTWARE TECHNOLOGIES CO
+
+  [ 2479] ↔ [ 2481]  Similitud: 85.5%
+    INTERGRAPH DISC INC
+    INTERGRAPH HARDWARE TECHNOLOGIES CO
+
+  [ 2479] ↔ [ 2480]  Similitud: 85.5%
+    INTERGRAPH DISC INC
+    INTERGRAPH EUROPEAN MANUFACTURING LLC
+
+  [ 2478] ↔ [ 2483]  Similitud: 85.5%
+    INTERGRAPH DC CORP - SUBSIDIARY 3
+    INTERGRAPH SERVICES CO
+
+  [ 2478] ↔ [ 2479]  Similitud: 85.5%
+    INTERGRAPH DC CORP - SUBSIDIARY 3
+    INTERGRAPH DISC INC
+
+  [ 2477] ↔ [ 2483]  Similitud: 85.5%
+    INTERGRAPH COMPUTER SYSTEMS HOLDING INC
+    INTERGRAPH SERVICES CO
+
+  [ 2477] ↔ [ 2482]  Similitud: 85.5%
+    INTERGRAPH COMPUTER SYSTEMS HOLDING INC
+    INTERGRAPH PROPERTIES CO
+
+  [ 2477] ↔ [ 2479]  Similitud: 85.5%
+    INTERGRAPH COMPUTER SYSTEMS HOLDING INC
+    INTERGRAPH DISC INC
+
+  [ 2476] ↔ [ 2484]  Similitud: 85.5%
+    INTERGRAPH CHINA INC
+    INTERGRAPH SOFTWARE TECHNOLOGIES CO
+
+  [ 2476] ↔ [ 2481]  Similitud: 85.5%
+    INTERGRAPH CHINA INC
+    INTERGRAPH HARDWARE TECHNOLOGIES CO
+
+  [ 2476] ↔ [ 2480]  Similitud: 85.5%
+    INTERGRAPH CHINA INC
+    INTERGRAPH EUROPEAN MANUFACTURING LLC
+
+  [ 2476] ↔ [ 2478]  Similitud: 85.5%
+    INTERGRAPH CHINA INC
+    INTERGRAPH DC CORP - SUBSIDIARY 3
+
+  [ 2476] ↔ [ 2477]  Similitud: 85.5%
+    INTERGRAPH CHINA INC
+    INTERGRAPH COMPUTER SYSTEMS HOLDING INC
+
+  [ 2474] ↔ [ 2484]  Similitud: 85.5%
+    INTERGRAPH ITALIA LLC
+    INTERGRAPH SOFTWARE TECHNOLOGIES CO
+
+  [ 2474] ↔ [ 2481]  Similitud: 85.5%
+    INTERGRAPH ITALIA LLC
+    INTERGRAPH HARDWARE TECHNOLOGIES CO
+
+  [ 2474] ↔ [ 2480]  Similitud: 85.5%
+    INTERGRAPH ITALIA LLC
+    INTERGRAPH EUROPEAN MANUFACTURING LLC
+
+  [ 2474] ↔ [ 2478]  Similitud: 85.5%
+    INTERGRAPH ITALIA LLC
+    INTERGRAPH DC CORP - SUBSIDIARY 3
+
+  [ 2474] ↔ [ 2477]  Similitud: 85.5%
+    INTERGRAPH ITALIA LLC
+    INTERGRAPH COMPUTER SYSTEMS HOLDING INC
+
+  [ 1700] ↔ [ 2484]  Similitud: 85.5%
+    INTERGRAPH CORP
+    INTERGRAPH SOFTWARE TECHNOLOGIES CO
+
+  [ 1700] ↔ [ 2482]  Similitud: 85.5%
+    INTERGRAPH CORP
+    INTERGRAPH PROPERTIES CO
+
+  [ 1700] ↔ [ 2481]  Similitud: 85.5%
+    INTERGRAPH CORP
+    INTERGRAPH HARDWARE TECHNOLOGIES CO
+
+  [ 1700] ↔ [ 2480]  Similitud: 85.5%
+    INTERGRAPH CORP
+    INTERGRAPH EUROPEAN MANUFACTURING LLC
+
+  [ 1700] ↔ [ 2478]  Similitud: 85.5%
+    INTERGRAPH CORP
+    INTERGRAPH DC CORP - SUBSIDIARY 3
+
+  [ 2483] ↔ [ 2484]  Similitud: 85.5%
+    INTERGRAPH SERVICES CO
+    INTERGRAPH SOFTWARE TECHNOLOGIES CO
+
+Representación del grafo (conexiones):
+--------------------------------------------------------------------------------
+  [ 1700] ────(86%)──── [ 2475]
+  [ 1700] ────(86%)──── [ 2477]
+  [ 1700] ────(86%)──── [ 2478]
+  [ 1700] ────(86%)──── [ 2480]
+  [ 1700] ────(86%)──── [ 2481]
+  [ 1700] ────(86%)──── [ 2482]
+  [ 1700] ────(86%)──── [ 2484]
+  [ 2474] ────(86%)──── [ 2477]
+  [ 2474] ────(86%)──── [ 2478]
+  [ 2474] ────(86%)──── [ 2480]
+  [ 2474] ────(86%)──── [ 2481]
+  [ 2474] ────(86%)──── [ 2484]
+  [ 2476] ────(86%)──── [ 2477]
+  [ 2476] ────(86%)──── [ 2478]
+  [ 2476] ────(86%)──── [ 2480]
+  [ 2476] ────(86%)──── [ 2481]
+  [ 2476] ────(86%)──── [ 2484]
+  [ 2477] ────(86%)──── [ 2479]
+  [ 2477] ────(86%)──── [ 2482]
+  [ 2477] ────(86%)──── [ 2483]
+  [ 2478] ────(86%)──── [ 2479]
+  [ 2478] ────(86%)──── [ 2483]
+  [ 2479] ────(86%)──── [ 2480]
+  [ 2479] ────(86%)──── [ 2481]
+  [ 2479] ────(86%)──── [ 2484]
+  [ 2480] ────(86%)──── [ 2482]
+  [ 2480] ────(86%)──── [ 2483]
+  [ 2481] ────(86%)──── [ 2483]
+  [ 2481] ────(89%)──── [ 2484]
+  [ 2483] ────(86%)──── [ 2484]
+
+
+================================================================================
+COMPONENTE 11 - 12 nombres relacionados
+================================================================================
+
+Nombres en este componente:
+--------------------------------------------------------------------------------
+  [ 2192] ASTEC INDUSTRIES INC (freq: 166)
+  [ 2279] ASTEC INC (freq: 155)
+  [ 2845] ASTEC MOBILE SCREENS INC (freq: 104)
+  [ 2872] ASTEC HOLDINGS INC (freq: 102)
+  [ 2873] ASTEC INVESTMENTS INC (freq: 102)
+  [ 2874] ASTEC SYSTEMS INC (freq: 102)
+  [ 4299] ASTEC INDUSTRIES INC (freq: 51)
+  [ 4300] ASTEC TRANSPORATION INC (freq: 51)
+  [ 4301] ASTEC TRANSPORTATION INC (freq: 51)
+  [ 4302] ASTEC INC (freq: 51)
+  [ 9395] ASTEC INDUSTRIES INC (freq: 10)
+  [12818] ASTEC INDUSTRIES INC A TN CORP (freq: 4)
+
+Conexiones (matches) en este componente (30 pares):
+--------------------------------------------------------------------------------
+  [ 2192] ↔ [ 4299]  Similitud: 100.0%
+    ASTEC INDUSTRIES INC
+    ASTEC INDUSTRIES INC
+
+  [ 2192] ↔ [ 9395]  Similitud: 100.0%
+    ASTEC INDUSTRIES INC
+    ASTEC INDUSTRIES INC
+
+  [ 2279] ↔ [ 4302]  Similitud: 100.0%
+    ASTEC INC
+    ASTEC INC
+
+  [ 4299] ↔ [ 9395]  Similitud: 100.0%
+    ASTEC INDUSTRIES INC
+    ASTEC INDUSTRIES INC
+
+  [ 4300] ↔ [ 4301]  Similitud: 97.9%
+    ASTEC TRANSPORATION INC
+    ASTEC TRANSPORTATION INC
+
+  [ 4299] ↔ [12818]  Similitud: 90.0%
+    ASTEC INDUSTRIES INC
+    ASTEC INDUSTRIES INC A TN CORP
+
+  [ 9395] ↔ [12818]  Similitud: 90.0%
+    ASTEC INDUSTRIES INC
+    ASTEC INDUSTRIES INC A TN CORP
+
+  [ 2192] ↔ [12818]  Similitud: 90.0%
+    ASTEC INDUSTRIES INC
+    ASTEC INDUSTRIES INC A TN CORP
+
+  [ 4300] ↔ [ 4302]  Similitud: 85.5%
+    ASTEC TRANSPORATION INC
+    ASTEC INC
+
+  [ 2872] ↔ [12818]  Similitud: 85.5%
+    ASTEC HOLDINGS INC
+    ASTEC INDUSTRIES INC A TN CORP
+
+  [ 4301] ↔ [ 4302]  Similitud: 85.5%
+    ASTEC TRANSPORTATION INC
+    ASTEC INC
+
+  [ 4302] ↔ [ 9395]  Similitud: 85.5%
+    ASTEC INC
+    ASTEC INDUSTRIES INC
+
+  [ 4299] ↔ [ 4302]  Similitud: 85.5%
+    ASTEC INDUSTRIES INC
+    ASTEC INC
+
+  [ 2874] ↔ [12818]  Similitud: 85.5%
+    ASTEC SYSTEMS INC
+    ASTEC INDUSTRIES INC A TN CORP
+
+  [ 2874] ↔ [ 4302]  Similitud: 85.5%
+    ASTEC SYSTEMS INC
+    ASTEC INC
+
+  [ 4302] ↔ [12818]  Similitud: 85.5%
+    ASTEC INC
+    ASTEC INDUSTRIES INC A TN CORP
+
+  [ 2873] ↔ [ 4302]  Similitud: 85.5%
+    ASTEC INVESTMENTS INC
+    ASTEC INC
+
+  [ 2192] ↔ [ 2279]  Similitud: 85.5%
+    ASTEC INDUSTRIES INC
+    ASTEC INC
+
+  [ 2872] ↔ [ 4302]  Similitud: 85.5%
+    ASTEC HOLDINGS INC
+    ASTEC INC
+
+  [ 2279] ↔ [12818]  Similitud: 85.5%
+    ASTEC INC
+    ASTEC INDUSTRIES INC A TN CORP
+
+  [ 2279] ↔ [ 9395]  Similitud: 85.5%
+    ASTEC INC
+    ASTEC INDUSTRIES INC
+
+  [ 2279] ↔ [ 4301]  Similitud: 85.5%
+    ASTEC INC
+    ASTEC TRANSPORTATION INC
+
+  [ 2279] ↔ [ 4300]  Similitud: 85.5%
+    ASTEC INC
+    ASTEC TRANSPORATION INC
+
+  [ 2279] ↔ [ 4299]  Similitud: 85.5%
+    ASTEC INC
+    ASTEC INDUSTRIES INC
+
+  [ 2279] ↔ [ 2874]  Similitud: 85.5%
+    ASTEC INC
+    ASTEC SYSTEMS INC
+
+  [ 2279] ↔ [ 2873]  Similitud: 85.5%
+    ASTEC INC
+    ASTEC INVESTMENTS INC
+
+  [ 2279] ↔ [ 2872]  Similitud: 85.5%
+    ASTEC INC
+    ASTEC HOLDINGS INC
+
+  [ 2279] ↔ [ 2845]  Similitud: 85.5%
+    ASTEC INC
+    ASTEC MOBILE SCREENS INC
+
+  [ 2192] ↔ [ 4302]  Similitud: 85.5%
+    ASTEC INDUSTRIES INC
+    ASTEC INC
+
+  [ 2845] ↔ [ 4302]  Similitud: 85.5%
+    ASTEC MOBILE SCREENS INC
+    ASTEC INC
+
+Representación del grafo (conexiones):
+--------------------------------------------------------------------------------
+  [ 2192] ────(86%)──── [ 2279]
+  [ 2192] ────(100%)──── [ 4299]
+  [ 2192] ────(86%)──── [ 4302]
+  [ 2192] ────(100%)──── [ 9395]
+  [ 2192] ────(90%)──── [12818]
+  [ 2279] ────(86%)──── [ 2845]
+  [ 2279] ────(86%)──── [ 2872]
+  [ 2279] ────(86%)──── [ 2873]
+  [ 2279] ────(86%)──── [ 2874]
+  [ 2279] ────(86%)──── [ 4299]
+  [ 2279] ────(86%)──── [ 4300]
+  [ 2279] ────(86%)──── [ 4301]
+  [ 2279] ────(100%)──── [ 4302]
+  [ 2279] ────(86%)──── [ 9395]
+  [ 2279] ────(86%)──── [12818]
+  [ 2845] ────(86%)──── [ 4302]
+  [ 2872] ────(86%)──── [ 4302]
+  [ 2872] ────(86%)──── [12818]
+  [ 2873] ────(86%)──── [ 4302]
+  [ 2874] ────(86%)──── [ 4302]
+  [ 2874] ────(86%)──── [12818]
+  [ 4299] ────(86%)──── [ 4302]
+  [ 4299] ────(100%)──── [ 9395]
+  [ 4299] ────(90%)──── [12818]
+  [ 4300] ────(98%)──── [ 4301]
+  [ 4300] ────(86%)──── [ 4302]
+  [ 4301] ────(86%)──── [ 4302]
+  [ 4302] ────(86%)──── [ 9395]
+  [ 4302] ────(86%)──── [12818]
+  [ 9395] ────(90%)──── [12818]
+
+
+================================================================================
+COMPONENTE 12 - 12 nombres relacionados
+================================================================================
+
+Nombres en este componente:
+--------------------------------------------------------------------------------
+  [ 3892] FLEET CAPITAL CORP (freq: 61)
+  [ 4544] FLEET NATIONAL BANK AS SECRETARY TRUSTEE (freq: 48)
+  [ 7069] FLEET BANK OF MASSACHUSETTS NA (freq: 20)
+  [ 8036] FLEET NATIONAL BANK SUCCESSOR-IN-INTEREST TO THE CONNECTICUT NATIONAL BANK (freq: 15)
+  [ 8788] FLEET CAPITAL CORP (freq: 12)
+  [ 9159] FLEET NATIONAL BANK F K A FLEET BANK OF MASSACHUSETTS NA (freq: 11)
+  [10318] FLEET NATIONAL BANK (freq: 8)
+  [12226] FLEET NATIONAL BANK (freq: 5)
+  [12227] FLEET NATIONAL BANK F K A BANKBOSTON NA F K A BANK OF BOSTON CONNECTICUT (freq: 5)
+  [18583] FLEET BANK NA (freq: 1)
+  [18584] FLEET NATIONAL BANK F K A BANK BOSTON NA (freq: 1)
+  [18585] FLEET NATIONAL BANK F K A BANKBOSTON NA (freq: 1)
+
+Conexiones (matches) en este componente (47 pares):
+--------------------------------------------------------------------------------
+  [ 3892] ↔ [ 8788]  Similitud: 100.0%
+    FLEET CAPITAL CORP
+    FLEET CAPITAL CORP
+
+  [10318] ↔ [12226]  Similitud: 100.0%
+    FLEET NATIONAL BANK
+    FLEET NATIONAL BANK
+
+  [18584] ↔ [18585]  Similitud: 98.7%
+    FLEET NATIONAL BANK F K A BANK BOSTON NA
+    FLEET NATIONAL BANK F K A BANKBOSTON NA
+
+  [ 7069] ↔ [ 9159]  Similitud: 90.0%
+    FLEET BANK OF MASSACHUSETTS NA
+    FLEET NATIONAL BANK F K A FLEET BANK OF MASSACHUSETTS NA
+
+  [12227] ↔ [18585]  Similitud: 90.0%
+    FLEET NATIONAL BANK F K A BANKBOSTON NA F K A BANK OF BOSTON CONNECTICUT
+    FLEET NATIONAL BANK F K A BANKBOSTON NA
+
+  [12226] ↔ [18585]  Similitud: 90.0%
+    FLEET NATIONAL BANK
+    FLEET NATIONAL BANK F K A BANKBOSTON NA
+
+  [12226] ↔ [18584]  Similitud: 90.0%
+    FLEET NATIONAL BANK
+    FLEET NATIONAL BANK F K A BANK BOSTON NA
+
+  [12226] ↔ [12227]  Similitud: 90.0%
+    FLEET NATIONAL BANK
+    FLEET NATIONAL BANK F K A BANKBOSTON NA F K A BANK OF BOSTON CONNECTICUT
+
+  [10318] ↔ [18585]  Similitud: 90.0%
+    FLEET NATIONAL BANK
+    FLEET NATIONAL BANK F K A BANKBOSTON NA
+
+  [10318] ↔ [18584]  Similitud: 90.0%
+    FLEET NATIONAL BANK
+    FLEET NATIONAL BANK F K A BANK BOSTON NA
+
+  [10318] ↔ [12227]  Similitud: 90.0%
+    FLEET NATIONAL BANK
+    FLEET NATIONAL BANK F K A BANKBOSTON NA F K A BANK OF BOSTON CONNECTICUT
+
+  [ 9159] ↔ [12226]  Similitud: 90.0%
+    FLEET NATIONAL BANK F K A FLEET BANK OF MASSACHUSETTS NA
+    FLEET NATIONAL BANK
+
+  [ 9159] ↔ [10318]  Similitud: 90.0%
+    FLEET NATIONAL BANK F K A FLEET BANK OF MASSACHUSETTS NA
+    FLEET NATIONAL BANK
+
+  [ 8036] ↔ [10318]  Similitud: 90.0%
+    FLEET NATIONAL BANK SUCCESSOR-IN-INTEREST TO THE CONNECTICUT NATIONAL BANK
+    FLEET NATIONAL BANK
+
+  [ 8036] ↔ [12226]  Similitud: 90.0%
+    FLEET NATIONAL BANK SUCCESSOR-IN-INTEREST TO THE CONNECTICUT NATIONAL BANK
+    FLEET NATIONAL BANK
+
+  [ 4544] ↔ [10318]  Similitud: 90.0%
+    FLEET NATIONAL BANK AS SECRETARY TRUSTEE
+    FLEET NATIONAL BANK
+
+  [ 4544] ↔ [12226]  Similitud: 90.0%
+    FLEET NATIONAL BANK AS SECRETARY TRUSTEE
+    FLEET NATIONAL BANK
+
+  [12227] ↔ [18584]  Similitud: 88.9%
+    FLEET NATIONAL BANK F K A BANKBOSTON NA F K A BANK OF BOSTON CONNECTICUT
+    FLEET NATIONAL BANK F K A BANK BOSTON NA
+
+  [ 7069] ↔ [ 8788]  Similitud: 85.5%
+    FLEET BANK OF MASSACHUSETTS NA
+    FLEET CAPITAL CORP
+
+  [ 7069] ↔ [ 8036]  Similitud: 85.5%
+    FLEET BANK OF MASSACHUSETTS NA
+    FLEET NATIONAL BANK SUCCESSOR-IN-INTEREST TO THE CONNECTICUT NATIONAL BANK
+
+  [18583] ↔ [18585]  Similitud: 85.5%
+    FLEET BANK NA
+    FLEET NATIONAL BANK F K A BANKBOSTON NA
+
+  [18583] ↔ [18584]  Similitud: 85.5%
+    FLEET BANK NA
+    FLEET NATIONAL BANK F K A BANK BOSTON NA
+
+  [ 3892] ↔ [ 8036]  Similitud: 85.5%
+    FLEET CAPITAL CORP
+    FLEET NATIONAL BANK SUCCESSOR-IN-INTEREST TO THE CONNECTICUT NATIONAL BANK
+
+  [12227] ↔ [18583]  Similitud: 85.5%
+    FLEET NATIONAL BANK F K A BANKBOSTON NA F K A BANK OF BOSTON CONNECTICUT
+    FLEET BANK NA
+
+  [ 3892] ↔ [ 9159]  Similitud: 85.5%
+    FLEET CAPITAL CORP
+    FLEET NATIONAL BANK F K A FLEET BANK OF MASSACHUSETTS NA
+
+  [ 3892] ↔ [12227]  Similitud: 85.5%
+    FLEET CAPITAL CORP
+    FLEET NATIONAL BANK F K A BANKBOSTON NA F K A BANK OF BOSTON CONNECTICUT
+
+  [ 3892] ↔ [18584]  Similitud: 85.5%
+    FLEET CAPITAL CORP
+    FLEET NATIONAL BANK F K A BANK BOSTON NA
+
+  [ 3892] ↔ [18585]  Similitud: 85.5%
+    FLEET CAPITAL CORP
+    FLEET NATIONAL BANK F K A BANKBOSTON NA
+
+  [ 4544] ↔ [ 8036]  Similitud: 85.5%
+    FLEET NATIONAL BANK AS SECRETARY TRUSTEE
+    FLEET NATIONAL BANK SUCCESSOR-IN-INTEREST TO THE CONNECTICUT NATIONAL BANK
+
+  [ 4544] ↔ [ 8788]  Similitud: 85.5%
+    FLEET NATIONAL BANK AS SECRETARY TRUSTEE
+    FLEET CAPITAL CORP
+
+  [ 9159] ↔ [18583]  Similitud: 85.5%
+    FLEET NATIONAL BANK F K A FLEET BANK OF MASSACHUSETTS NA
+    FLEET BANK NA
+
+  [ 4544] ↔ [12227]  Similitud: 85.5%
+    FLEET NATIONAL BANK AS SECRETARY TRUSTEE
+    FLEET NATIONAL BANK F K A BANKBOSTON NA F K A BANK OF BOSTON CONNECTICUT
+
+  [ 8788] ↔ [18585]  Similitud: 85.5%
+    FLEET CAPITAL CORP
+    FLEET NATIONAL BANK F K A BANKBOSTON NA
+
+  [ 8788] ↔ [18584]  Similitud: 85.5%
+    FLEET CAPITAL CORP
+    FLEET NATIONAL BANK F K A BANK BOSTON NA
+
+  [ 8788] ↔ [12227]  Similitud: 85.5%
+    FLEET CAPITAL CORP
+    FLEET NATIONAL BANK F K A BANKBOSTON NA F K A BANK OF BOSTON CONNECTICUT
+
+  [ 8788] ↔ [ 9159]  Similitud: 85.5%
+    FLEET CAPITAL CORP
+    FLEET NATIONAL BANK F K A FLEET BANK OF MASSACHUSETTS NA
+
+  [ 8036] ↔ [18585]  Similitud: 85.5%
+    FLEET NATIONAL BANK SUCCESSOR-IN-INTEREST TO THE CONNECTICUT NATIONAL BANK
+    FLEET NATIONAL BANK F K A BANKBOSTON NA
+
+  [ 8036] ↔ [18584]  Similitud: 85.5%
+    FLEET NATIONAL BANK SUCCESSOR-IN-INTEREST TO THE CONNECTICUT NATIONAL BANK
+    FLEET NATIONAL BANK F K A BANK BOSTON NA
+
+  [ 8036] ↔ [18583]  Similitud: 85.5%
+    FLEET NATIONAL BANK SUCCESSOR-IN-INTEREST TO THE CONNECTICUT NATIONAL BANK
+    FLEET BANK NA
+
+  [ 3892] ↔ [ 7069]  Similitud: 85.5%
+    FLEET CAPITAL CORP
+    FLEET BANK OF MASSACHUSETTS NA
+
+  [ 4544] ↔ [18583]  Similitud: 85.5%
+    FLEET NATIONAL BANK AS SECRETARY TRUSTEE
+    FLEET BANK NA
+
+  [ 8036] ↔ [ 8788]  Similitud: 85.5%
+    FLEET NATIONAL BANK SUCCESSOR-IN-INTEREST TO THE CONNECTICUT NATIONAL BANK
+    FLEET CAPITAL CORP
+
+  [ 7069] ↔ [18583]  Similitud: 85.5%
+    FLEET BANK OF MASSACHUSETTS NA
+    FLEET BANK NA
+
+  [ 7069] ↔ [12227]  Similitud: 85.5%
+    FLEET BANK OF MASSACHUSETTS NA
+    FLEET NATIONAL BANK F K A BANKBOSTON NA F K A BANK OF BOSTON CONNECTICUT
+
+  [ 7069] ↔ [12226]  Similitud: 85.5%
+    FLEET BANK OF MASSACHUSETTS NA
+    FLEET NATIONAL BANK
+
+  [ 7069] ↔ [10318]  Similitud: 85.5%
+    FLEET BANK OF MASSACHUSETTS NA
+    FLEET NATIONAL BANK
+
+  [ 3892] ↔ [ 4544]  Similitud: 85.5%
+    FLEET CAPITAL CORP
+    FLEET NATIONAL BANK AS SECRETARY TRUSTEE
+
+Representación del grafo (conexiones):
+--------------------------------------------------------------------------------
+  [ 3892] ────(86%)──── [ 4544]
+  [ 3892] ────(86%)──── [ 7069]
+  [ 3892] ────(86%)──── [ 8036]
+  [ 3892] ────(100%)──── [ 8788]
+  [ 3892] ────(86%)──── [ 9159]
+  [ 3892] ────(86%)──── [12227]
+  [ 3892] ────(86%)──── [18584]
+  [ 3892] ────(86%)──── [18585]
+  [ 4544] ────(86%)──── [ 8036]
+  [ 4544] ────(86%)──── [ 8788]
+  [ 4544] ────(90%)──── [10318]
+  [ 4544] ────(90%)──── [12226]
+  [ 4544] ────(86%)──── [12227]
+  [ 4544] ────(86%)──── [18583]
+  [ 7069] ────(86%)──── [ 8036]
+  [ 7069] ────(86%)──── [ 8788]
+  [ 7069] ────(90%)──── [ 9159]
+  [ 7069] ────(86%)──── [10318]
+  [ 7069] ────(86%)──── [12226]
+  [ 7069] ────(86%)──── [12227]
+  [ 7069] ────(86%)──── [18583]
+  [ 8036] ────(86%)──── [ 8788]
+  [ 8036] ────(90%)──── [10318]
+  [ 8036] ────(90%)──── [12226]
+  [ 8036] ────(86%)──── [18583]
+  [ 8036] ────(86%)──── [18584]
+  [ 8036] ────(86%)──── [18585]
+  [ 8788] ────(86%)──── [ 9159]
+  [ 8788] ────(86%)──── [12227]
+  [ 8788] ────(86%)──── [18584]
+  [ 8788] ────(86%)──── [18585]
+  [ 9159] ────(90%)──── [10318]
+  [ 9159] ────(90%)──── [12226]
+  [ 9159] ────(86%)──── [18583]
+  [10318] ────(100%)──── [12226]
+  [10318] ────(90%)──── [12227]
+  [10318] ────(90%)──── [18584]
+  [10318] ────(90%)──── [18585]
+  [12226] ────(90%)──── [12227]
+  [12226] ────(90%)──── [18584]
+  [12226] ────(90%)──── [18585]
+  [12227] ────(86%)──── [18583]
+  [12227] ────(89%)──── [18584]
+  [12227] ────(90%)──── [18585]
+  [18583] ────(86%)──── [18584]
+  [18583] ────(86%)──── [18585]
+  [18584] ────(99%)──── [18585]
+
+
+================================================================================
+COMPONENTE 13 - 12 nombres relacionados
+================================================================================
+
+Nombres en este componente:
+--------------------------------------------------------------------------------
+  [ 4101] INEOS USA LLC (freq: 56)
+  [ 7430] INEOS CALABRIAN CORP (freq: 18)
+  [ 7431] INEOS COMPOSITES IP LLC (freq: 18)
+  [ 7432] INEOS ENTERPRISES HOLDINGS US FINCO LLC (freq: 18)
+  [ 7433] INEOS JOLIET LLC (freq: 18)
+  [ 7434] INEOS PIGMENTS USA INC (freq: 18)
+  [ 9184] INEOS ACRYLICS UK LTD (freq: 11)
+  [ 9185] INEOS STYROLUTION GROUP GMBH (freq: 11)
+  [ 9535] INEOS AMERICAS LLC (freq: 10)
+  [12308] INEOS SALES UK LTD (freq: 5)
+  [14434] INEOS COMMERCIAL SERVICES UK LTD (freq: 3)
+  [15978] INEOS TECHNOLOGIES USA LLC (freq: 2)
+
+Conexiones (matches) en este componente (25 pares):
+--------------------------------------------------------------------------------
+  [ 4101] ↔ [ 7430]  Similitud: 85.5%
+    INEOS USA LLC
+    INEOS CALABRIAN CORP
+
+  [ 7432] ↔ [ 9184]  Similitud: 85.5%
+    INEOS ENTERPRISES HOLDINGS US FINCO LLC
+    INEOS ACRYLICS UK LTD
+
+  [ 9535] ↔ [14434]  Similitud: 85.5%
+    INEOS AMERICAS LLC
+    INEOS COMMERCIAL SERVICES UK LTD
+
+  [ 9185] ↔ [12308]  Similitud: 85.5%
+    INEOS STYROLUTION GROUP GMBH
+    INEOS SALES UK LTD
+
+  [ 9185] ↔ [ 9535]  Similitud: 85.5%
+    INEOS STYROLUTION GROUP GMBH
+    INEOS AMERICAS LLC
+
+  [ 9184] ↔ [14434]  Similitud: 85.5%
+    INEOS ACRYLICS UK LTD
+    INEOS COMMERCIAL SERVICES UK LTD
+
+  [ 7433] ↔ [15978]  Similitud: 85.5%
+    INEOS JOLIET LLC
+    INEOS TECHNOLOGIES USA LLC
+
+  [ 7433] ↔ [14434]  Similitud: 85.5%
+    INEOS JOLIET LLC
+    INEOS COMMERCIAL SERVICES UK LTD
+
+  [ 7433] ↔ [ 9185]  Similitud: 85.5%
+    INEOS JOLIET LLC
+    INEOS STYROLUTION GROUP GMBH
+
+  [ 7432] ↔ [15978]  Similitud: 85.5%
+    INEOS ENTERPRISES HOLDINGS US FINCO LLC
+    INEOS TECHNOLOGIES USA LLC
+
+  [ 7432] ↔ [12308]  Similitud: 85.5%
+    INEOS ENTERPRISES HOLDINGS US FINCO LLC
+    INEOS SALES UK LTD
+
+  [ 7432] ↔ [ 9535]  Similitud: 85.5%
+    INEOS ENTERPRISES HOLDINGS US FINCO LLC
+    INEOS AMERICAS LLC
+
+  [ 7432] ↔ [ 7434]  Similitud: 85.5%
+    INEOS ENTERPRISES HOLDINGS US FINCO LLC
+    INEOS PIGMENTS USA INC
+
+  [ 4101] ↔ [ 7431]  Similitud: 85.5%
+    INEOS USA LLC
+    INEOS COMPOSITES IP LLC
+
+  [ 7432] ↔ [ 7433]  Similitud: 85.5%
+    INEOS ENTERPRISES HOLDINGS US FINCO LLC
+    INEOS JOLIET LLC
+
+  [ 7431] ↔ [ 7432]  Similitud: 85.5%
+    INEOS COMPOSITES IP LLC
+    INEOS ENTERPRISES HOLDINGS US FINCO LLC
+
+  [ 7430] ↔ [14434]  Similitud: 85.5%
+    INEOS CALABRIAN CORP
+    INEOS COMMERCIAL SERVICES UK LTD
+
+  [ 7430] ↔ [ 7432]  Similitud: 85.5%
+    INEOS CALABRIAN CORP
+    INEOS ENTERPRISES HOLDINGS US FINCO LLC
+
+  [ 4101] ↔ [15978]  Similitud: 85.5%
+    INEOS USA LLC
+    INEOS TECHNOLOGIES USA LLC
+
+  [ 4101] ↔ [14434]  Similitud: 85.5%
+    INEOS USA LLC
+    INEOS COMMERCIAL SERVICES UK LTD
+
+  [ 4101] ↔ [ 9185]  Similitud: 85.5%
+    INEOS USA LLC
+    INEOS STYROLUTION GROUP GMBH
+
+  [ 4101] ↔ [ 9184]  Similitud: 85.5%
+    INEOS USA LLC
+    INEOS ACRYLICS UK LTD
+
+  [ 4101] ↔ [ 7434]  Similitud: 85.5%
+    INEOS USA LLC
+    INEOS PIGMENTS USA INC
+
+  [ 4101] ↔ [ 7432]  Similitud: 85.5%
+    INEOS USA LLC
+    INEOS ENTERPRISES HOLDINGS US FINCO LLC
+
+  [12308] ↔ [14434]  Similitud: 85.5%
+    INEOS SALES UK LTD
+    INEOS COMMERCIAL SERVICES UK LTD
+
+Representación del grafo (conexiones):
+--------------------------------------------------------------------------------
+  [ 4101] ────(86%)──── [ 7430]
+  [ 4101] ────(86%)──── [ 7431]
+  [ 4101] ────(86%)──── [ 7432]
+  [ 4101] ────(86%)──── [ 7434]
+  [ 4101] ────(86%)──── [ 9184]
+  [ 4101] ────(86%)──── [ 9185]
+  [ 4101] ────(86%)──── [14434]
+  [ 4101] ────(86%)──── [15978]
+  [ 7430] ────(86%)──── [ 7432]
+  [ 7430] ────(86%)──── [14434]
+  [ 7431] ────(86%)──── [ 7432]
+  [ 7432] ────(86%)──── [ 7433]
+  [ 7432] ────(86%)──── [ 7434]
+  [ 7432] ────(86%)──── [ 9184]
+  [ 7432] ────(86%)──── [ 9535]
+  [ 7432] ────(86%)──── [12308]
+  [ 7432] ────(86%)──── [15978]
+  [ 7433] ────(86%)──── [ 9185]
+  [ 7433] ────(86%)──── [14434]
+  [ 7433] ────(86%)──── [15978]
+  [ 9184] ────(86%)──── [14434]
+  [ 9185] ────(86%)──── [ 9535]
+  [ 9185] ────(86%)──── [12308]
+  [ 9535] ────(86%)──── [14434]
+  [12308] ────(86%)──── [14434]
+
+
+================================================================================
+COMPONENTE 14 - 12 nombres relacionados
+================================================================================
+
+Nombres en este componente:
+--------------------------------------------------------------------------------
+  [ 4886] THORATEC LABORATORIES CORP A CORP OF CA (freq: 42)
+  [ 5068] THORATEC LABORATORIES CORP A CA CORP (freq: 39)
+  [ 5917] THORATEC LABORATORIES INC (freq: 29)
+  [ 8358] THORATEC MEDICAL INC (freq: 14)
+  [ 8586] THORATEC LABORATORIES CORPORATIONA CA CORP (freq: 13)
+  [ 9720] THORATEC LABORATORIES CORP (freq: 10)
+  [11829] THORATEC LABORATORIES CORP A CORP OF CA (freq: 6)
+  [12643] THORATEC LABORATOREIS INC A CORP OF CA (freq: 5)
+  [12644] THORATEC LABORATORIES CORP A CORP OF CA (freq: 5)
+  [12645] THORATEC LABORATORIES ICORPORATED A CORP OF CA (freq: 5)
+  [12646] THORATEC LABORATORIES INC A CORP OF CA (freq: 5)
+  [12647] THORATEC LABORATORIES INC A CORP OF CA (freq: 5)
+
+Conexiones (matches) en este componente (58 pares):
+--------------------------------------------------------------------------------
+  [12646] ↔ [12647]  Similitud: 100.0%
+    THORATEC LABORATORIES INC A CORP OF CA
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [ 4886] ↔ [11829]  Similitud: 100.0%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATORIES CORP A CORP OF CA
+
+  [11829] ↔ [12644]  Similitud: 100.0%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATORIES CORP A CORP OF CA
+
+  [ 4886] ↔ [12644]  Similitud: 100.0%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATORIES CORP A CORP OF CA
+
+  [12643] ↔ [12647]  Similitud: 97.4%
+    THORATEC LABORATOREIS INC A CORP OF CA
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [12643] ↔ [12646]  Similitud: 97.4%
+    THORATEC LABORATOREIS INC A CORP OF CA
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [12644] ↔ [12645]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATORIES ICORPORATED A CORP OF CA
+
+  [12644] ↔ [12646]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [ 5068] ↔ [12645]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP A CA CORP
+    THORATEC LABORATORIES ICORPORATED A CORP OF CA
+
+  [11829] ↔ [12647]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [11829] ↔ [12646]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [11829] ↔ [12645]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATORIES ICORPORATED A CORP OF CA
+
+  [12644] ↔ [12647]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [ 9720] ↔ [12647]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [ 9720] ↔ [12646]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [ 5068] ↔ [12647]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP A CA CORP
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [ 5068] ↔ [12646]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP A CA CORP
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [ 4886] ↔ [ 5068]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATORIES CORP A CA CORP
+
+  [ 5068] ↔ [12644]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP A CA CORP
+    THORATEC LABORATORIES CORP A CORP OF CA
+
+  [ 4886] ↔ [12645]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATORIES ICORPORATED A CORP OF CA
+
+  [ 4886] ↔ [12646]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [ 4886] ↔ [12647]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [ 5068] ↔ [ 9720]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP A CA CORP
+    THORATEC LABORATORIES CORP
+
+  [ 5068] ↔ [11829]  Similitud: 95.0%
+    THORATEC LABORATORIES CORP A CA CORP
+    THORATEC LABORATORIES CORP A CORP OF CA
+
+  [ 5068] ↔ [ 8586]  Similitud: 91.8%
+    THORATEC LABORATORIES CORP A CA CORP
+    THORATEC LABORATORIES CORPORATIONA CA CORP
+
+  [ 4886] ↔ [12643]  Similitud: 90.9%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATOREIS INC A CORP OF CA
+
+  [12643] ↔ [12644]  Similitud: 90.9%
+    THORATEC LABORATOREIS INC A CORP OF CA
+    THORATEC LABORATORIES CORP A CORP OF CA
+
+  [11829] ↔ [12643]  Similitud: 90.9%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATOREIS INC A CORP OF CA
+
+  [ 5917] ↔ [ 9720]  Similitud: 90.2%
+    THORATEC LABORATORIES INC
+    THORATEC LABORATORIES CORP
+
+  [ 8586] ↔ [ 9720]  Similitud: 90.0%
+    THORATEC LABORATORIES CORPORATIONA CA CORP
+    THORATEC LABORATORIES CORP
+
+  [ 4886] ↔ [ 9720]  Similitud: 90.0%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATORIES CORP
+
+  [ 9720] ↔ [12644]  Similitud: 90.0%
+    THORATEC LABORATORIES CORP
+    THORATEC LABORATORIES CORP A CORP OF CA
+
+  [ 9720] ↔ [11829]  Similitud: 90.0%
+    THORATEC LABORATORIES CORP
+    THORATEC LABORATORIES CORP A CORP OF CA
+
+  [ 5917] ↔ [12646]  Similitud: 90.0%
+    THORATEC LABORATORIES INC
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [ 5917] ↔ [12647]  Similitud: 90.0%
+    THORATEC LABORATORIES INC
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [12645] ↔ [12647]  Similitud: 89.7%
+    THORATEC LABORATORIES ICORPORATED A CORP OF CA
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [12645] ↔ [12646]  Similitud: 89.7%
+    THORATEC LABORATORIES ICORPORATED A CORP OF CA
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [ 5917] ↔ [12645]  Similitud: 88.2%
+    THORATEC LABORATORIES INC
+    THORATEC LABORATORIES ICORPORATED A CORP OF CA
+
+  [ 8586] ↔ [11829]  Similitud: 87.5%
+    THORATEC LABORATORIES CORPORATIONA CA CORP
+    THORATEC LABORATORIES CORP A CORP OF CA
+
+  [ 8586] ↔ [12644]  Similitud: 87.5%
+    THORATEC LABORATORIES CORPORATIONA CA CORP
+    THORATEC LABORATORIES CORP A CORP OF CA
+
+  [ 4886] ↔ [ 8586]  Similitud: 87.5%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATORIES CORPORATIONA CA CORP
+
+  [ 5068] ↔ [ 5917]  Similitud: 86.7%
+    THORATEC LABORATORIES CORP A CA CORP
+    THORATEC LABORATORIES INC
+
+  [ 9720] ↔ [12645]  Similitud: 86.5%
+    THORATEC LABORATORIES CORP
+    THORATEC LABORATORIES ICORPORATED A CORP OF CA
+
+  [ 5917] ↔ [12643]  Similitud: 86.4%
+    THORATEC LABORATORIES INC
+    THORATEC LABORATOREIS INC A CORP OF CA
+
+  [ 5917] ↔ [12644]  Similitud: 86.3%
+    THORATEC LABORATORIES INC
+    THORATEC LABORATORIES CORP A CORP OF CA
+
+  [ 4886] ↔ [ 5917]  Similitud: 86.3%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC LABORATORIES INC
+
+  [ 5917] ↔ [11829]  Similitud: 86.3%
+    THORATEC LABORATORIES INC
+    THORATEC LABORATORIES CORP A CORP OF CA
+
+  [ 5917] ↔ [ 8586]  Similitud: 86.3%
+    THORATEC LABORATORIES INC
+    THORATEC LABORATORIES CORPORATIONA CA CORP
+
+  [12643] ↔ [12645]  Similitud: 85.7%
+    THORATEC LABORATOREIS INC A CORP OF CA
+    THORATEC LABORATORIES ICORPORATED A CORP OF CA
+
+  [ 4886] ↔ [ 8358]  Similitud: 85.5%
+    THORATEC LABORATORIES CORP A CORP OF CA
+    THORATEC MEDICAL INC
+
+  [ 8358] ↔ [12646]  Similitud: 85.5%
+    THORATEC MEDICAL INC
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [ 8358] ↔ [12647]  Similitud: 85.5%
+    THORATEC MEDICAL INC
+    THORATEC LABORATORIES INC A CORP OF CA
+
+  [ 5068] ↔ [ 8358]  Similitud: 85.5%
+    THORATEC LABORATORIES CORP A CA CORP
+    THORATEC MEDICAL INC
+
+  [ 8358] ↔ [ 8586]  Similitud: 85.5%
+    THORATEC MEDICAL INC
+    THORATEC LABORATORIES CORPORATIONA CA CORP
+
+  [ 8358] ↔ [12643]  Similitud: 85.5%
+    THORATEC MEDICAL INC
+    THORATEC LABORATOREIS INC A CORP OF CA
+
+  [ 8358] ↔ [12644]  Similitud: 85.5%
+    THORATEC MEDICAL INC
+    THORATEC LABORATORIES CORP A CORP OF CA
+
+  [ 8358] ↔ [12645]  Similitud: 85.5%
+    THORATEC MEDICAL INC
+    THORATEC LABORATORIES ICORPORATED A CORP OF CA
+
+  [ 8358] ↔ [11829]  Similitud: 85.5%
+    THORATEC MEDICAL INC
+    THORATEC LABORATORIES CORP A CORP OF CA
+
+Representación del grafo (conexiones):
+--------------------------------------------------------------------------------
+  [ 4886] ────(95%)──── [ 5068]
+  [ 4886] ────(86%)──── [ 5917]
+  [ 4886] ────(86%)──── [ 8358]
+  [ 4886] ────(87%)──── [ 8586]
+  [ 4886] ────(90%)──── [ 9720]
+  [ 4886] ────(100%)──── [11829]
+  [ 4886] ────(91%)──── [12643]
+  [ 4886] ────(100%)──── [12644]
+  [ 4886] ────(95%)──── [12645]
+  [ 4886] ────(95%)──── [12646]
+  [ 4886] ────(95%)──── [12647]
+  [ 5068] ────(87%)──── [ 5917]
+  [ 5068] ────(86%)──── [ 8358]
+  [ 5068] ────(92%)──── [ 8586]
+  [ 5068] ────(95%)──── [ 9720]
+  [ 5068] ────(95%)──── [11829]
+  [ 5068] ────(95%)──── [12644]
+  [ 5068] ────(95%)──── [12645]
+  [ 5068] ────(95%)──── [12646]
+  [ 5068] ────(95%)──── [12647]
+  [ 5917] ────(86%)──── [ 8586]
+  [ 5917] ────(90%)──── [ 9720]
+  [ 5917] ────(86%)──── [11829]
+  [ 5917] ────(86%)──── [12643]
+  [ 5917] ────(86%)──── [12644]
+  [ 5917] ────(88%)──── [12645]
+  [ 5917] ────(90%)──── [12646]
+  [ 5917] ────(90%)──── [12647]
+  [ 8358] ────(86%)──── [ 8586]
+  [ 8358] ────(86%)──── [11829]
+  [ 8358] ────(86%)──── [12643]
+  [ 8358] ────(86%)──── [12644]
+  [ 8358] ────(86%)──── [12645]
+  [ 8358] ────(86%)──── [12646]
+  [ 8358] ────(86%)──── [12647]
+  [ 8586] ────(90%)──── [ 9720]
+  [ 8586] ────(87%)──── [11829]
+  [ 8586] ────(87%)──── [12644]
+  [ 9720] ────(90%)──── [11829]
+  [ 9720] ────(90%)──── [12644]
+  [ 9720] ────(87%)──── [12645]
+  [ 9720] ────(95%)──── [12646]
+  [ 9720] ────(95%)──── [12647]
+  [11829] ────(91%)──── [12643]
+  [11829] ────(100%)──── [12644]
+  [11829] ────(95%)──── [12645]
+  [11829] ────(95%)──── [12646]
+  [11829] ────(95%)──── [12647]
+  [12643] ────(91%)──── [12644]
+  [12643] ────(86%)──── [12645]
+  [12643] ────(97%)──── [12646]
+  [12643] ────(97%)──── [12647]
+  [12644] ────(95%)──── [12645]
+  [12644] ────(95%)──── [12646]
+  [12644] ────(95%)──── [12647]
+  [12645] ────(90%)──── [12646]
+  [12645] ────(90%)──── [12647]
+  [12646] ────(100%)──── [12647]
+
+
+================================================================================
+COMPONENTE 15 - 12 nombres relacionados
+================================================================================
+
+Nombres en este componente:
+--------------------------------------------------------------------------------
+  [ 5415] HOME DECOR HOLDING CO (freq: 34)
+  [ 6403] HOME DECOR CO (freq: 25)
+  [ 7830] HOME PRODUCTS INTERNATIONAL - NORTH AMERICA INC (freq: 16)
+  [ 8825] HOME CREATIONS DIRECT LTD (freq: 12)
+  [ 8826] HOME PRODUCTS INTERNATIONAL INC DE CORP (freq: 12)
+  [11520] HOME PRODUCTS INTERNATIONAL INC (freq: 6)
+  [13171] HOME CREATIONS DIRECT LTD (freq: 4)
+  [13172] HOME FASHIONS INC (freq: 4)
+  [15919] HOME DIRECTOR TECHNOLOGIES INC (freq: 2)
+  [16018] INTERNATIONAL HOME FOODS INC (freq: 2)
+  [18888] HOME FASHIONS INC A CORP OF DE (freq: 1)
+  [18889] HOME IMPRESSIONS INC (freq: 1)
+
+Conexiones (matches) en este componente (33 pares):
+--------------------------------------------------------------------------------
+  [ 8825] ↔ [13171]  Similitud: 100.0%
+    HOME CREATIONS DIRECT LTD
+    HOME CREATIONS DIRECT LTD
+
+  [ 8826] ↔ [11520]  Similitud: 95.0%
+    HOME PRODUCTS INTERNATIONAL INC DE CORP
+    HOME PRODUCTS INTERNATIONAL INC
+
+  [13172] ↔ [18888]  Similitud: 90.0%
+    HOME FASHIONS INC
+    HOME FASHIONS INC A CORP OF DE
+
+  [ 5415] ↔ [ 6403]  Similitud: 85.5%
+    HOME DECOR HOLDING CO
+    HOME DECOR CO
+
+  [ 7830] ↔ [16018]  Similitud: 85.5%
+    HOME PRODUCTS INTERNATIONAL - NORTH AMERICA INC
+    INTERNATIONAL HOME FOODS INC
+
+  [15919] ↔ [18889]  Similitud: 85.5%
+    HOME DIRECTOR TECHNOLOGIES INC
+    HOME IMPRESSIONS INC
+
+  [13172] ↔ [16018]  Similitud: 85.5%
+    HOME FASHIONS INC
+    INTERNATIONAL HOME FOODS INC
+
+  [13172] ↔ [15919]  Similitud: 85.5%
+    HOME FASHIONS INC
+    HOME DIRECTOR TECHNOLOGIES INC
+
+  [11520] ↔ [18889]  Similitud: 85.5%
+    HOME PRODUCTS INTERNATIONAL INC
+    HOME IMPRESSIONS INC
+
+  [11520] ↔ [13172]  Similitud: 85.5%
+    HOME PRODUCTS INTERNATIONAL INC
+    HOME FASHIONS INC
+
+  [ 8826] ↔ [18889]  Similitud: 85.5%
+    HOME PRODUCTS INTERNATIONAL INC DE CORP
+    HOME IMPRESSIONS INC
+
+  [ 8826] ↔ [13172]  Similitud: 85.5%
+    HOME PRODUCTS INTERNATIONAL INC DE CORP
+    HOME FASHIONS INC
+
+  [ 8826] ↔ [13171]  Similitud: 85.5%
+    HOME PRODUCTS INTERNATIONAL INC DE CORP
+    HOME CREATIONS DIRECT LTD
+
+  [ 8825] ↔ [ 8826]  Similitud: 85.5%
+    HOME CREATIONS DIRECT LTD
+    HOME PRODUCTS INTERNATIONAL INC DE CORP
+
+  [ 7830] ↔ [18889]  Similitud: 85.5%
+    HOME PRODUCTS INTERNATIONAL - NORTH AMERICA INC
+    HOME IMPRESSIONS INC
+
+  [ 7830] ↔ [18888]  Similitud: 85.5%
+    HOME PRODUCTS INTERNATIONAL - NORTH AMERICA INC
+    HOME FASHIONS INC A CORP OF DE
+
+  [ 7830] ↔ [15919]  Similitud: 85.5%
+    HOME PRODUCTS INTERNATIONAL - NORTH AMERICA INC
+    HOME DIRECTOR TECHNOLOGIES INC
+
+  [ 5415] ↔ [ 7830]  Similitud: 85.5%
+    HOME DECOR HOLDING CO
+    HOME PRODUCTS INTERNATIONAL - NORTH AMERICA INC
+
+  [ 7830] ↔ [13172]  Similitud: 85.5%
+    HOME PRODUCTS INTERNATIONAL - NORTH AMERICA INC
+    HOME FASHIONS INC
+
+  [ 7830] ↔ [13171]  Similitud: 85.5%
+    HOME PRODUCTS INTERNATIONAL - NORTH AMERICA INC
+    HOME CREATIONS DIRECT LTD
+
+  [ 7830] ↔ [11520]  Similitud: 85.5%
+    HOME PRODUCTS INTERNATIONAL - NORTH AMERICA INC
+    HOME PRODUCTS INTERNATIONAL INC
+
+  [ 7830] ↔ [ 8825]  Similitud: 85.5%
+    HOME PRODUCTS INTERNATIONAL - NORTH AMERICA INC
+    HOME CREATIONS DIRECT LTD
+
+  [ 6403] ↔ [18889]  Similitud: 85.5%
+    HOME DECOR CO
+    HOME IMPRESSIONS INC
+
+  [ 6403] ↔ [18888]  Similitud: 85.5%
+    HOME DECOR CO
+    HOME FASHIONS INC A CORP OF DE
+
+  [ 6403] ↔ [16018]  Similitud: 85.5%
+    HOME DECOR CO
+    INTERNATIONAL HOME FOODS INC
+
+  [ 6403] ↔ [15919]  Similitud: 85.5%
+    HOME DECOR CO
+    HOME DIRECTOR TECHNOLOGIES INC
+
+  [ 6403] ↔ [13171]  Similitud: 85.5%
+    HOME DECOR CO
+    HOME CREATIONS DIRECT LTD
+
+  [ 6403] ↔ [11520]  Similitud: 85.5%
+    HOME DECOR CO
+    HOME PRODUCTS INTERNATIONAL INC
+
+  [ 6403] ↔ [ 8826]  Similitud: 85.5%
+    HOME DECOR CO
+    HOME PRODUCTS INTERNATIONAL INC DE CORP
+
+  [ 6403] ↔ [ 8825]  Similitud: 85.5%
+    HOME DECOR CO
+    HOME CREATIONS DIRECT LTD
+
+  [ 6403] ↔ [ 7830]  Similitud: 85.5%
+    HOME DECOR CO
+    HOME PRODUCTS INTERNATIONAL - NORTH AMERICA INC
+
+  [ 5415] ↔ [ 8826]  Similitud: 85.5%
+    HOME DECOR HOLDING CO
+    HOME PRODUCTS INTERNATIONAL INC DE CORP
+
+  [18888] ↔ [18889]  Similitud: 85.5%
+    HOME FASHIONS INC A CORP OF DE
+    HOME IMPRESSIONS INC
+
+Representación del grafo (conexiones):
+--------------------------------------------------------------------------------
+  [ 5415] ────(86%)──── [ 6403]
+  [ 5415] ────(86%)──── [ 7830]
+  [ 5415] ────(86%)──── [ 8826]
+  [ 6403] ────(86%)──── [ 7830]
+  [ 6403] ────(86%)──── [ 8825]
+  [ 6403] ────(86%)──── [ 8826]
+  [ 6403] ────(86%)──── [11520]
+  [ 6403] ────(86%)──── [13171]
+  [ 6403] ────(86%)──── [15919]
+  [ 6403] ────(86%)──── [16018]
+  [ 6403] ────(86%)──── [18888]
+  [ 6403] ────(86%)──── [18889]
+  [ 7830] ────(86%)──── [ 8825]
+  [ 7830] ────(86%)──── [11520]
+  [ 7830] ────(86%)──── [13171]
+  [ 7830] ────(86%)──── [13172]
+  [ 7830] ────(86%)──── [15919]
+  [ 7830] ────(86%)──── [16018]
+  [ 7830] ────(86%)──── [18888]
+  [ 7830] ────(86%)──── [18889]
+  [ 8825] ────(86%)──── [ 8826]
+  [ 8825] ────(100%)──── [13171]
+  [ 8826] ────(95%)──── [11520]
+  [ 8826] ────(86%)──── [13171]
+  [ 8826] ────(86%)──── [13172]
+  [ 8826] ────(86%)──── [18889]
+  [11520] ────(86%)──── [13172]
+  [11520] ────(86%)──── [18889]
+  [13172] ────(86%)──── [15919]
+  [13172] ────(86%)──── [16018]
+  [13172] ────(90%)──── [18888]
+  [15919] ────(86%)──── [18889]
+  [18888] ────(86%)──── [18889]
+
+
+================================================================================
+ESTADÍSTICAS ADICIONALES
+================================================================================
+
+Distribución de tamaños de componentes:
+  - Componentes con 1 nombre: 0
+  - Componentes con 2-5 nombres: 2,363
+  - Componentes con 6-10 nombres: 374
+  - Componentes con 11-20 nombres: 128
+  - Componentes con >20 nombres: 31
+  - Tamaño máximo: 89

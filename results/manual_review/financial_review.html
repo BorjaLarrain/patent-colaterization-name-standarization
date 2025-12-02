@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Revisión Manual - Componentes Problemáticos</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .component { background: white; margin: 20px 0; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .component-header { background: #e3f2fd; padding: 15px; border-radius: 5px; margin-bottom: 15px; }
+        .component-id { font-size: 18px; font-weight: bold; color: #1976d2; }
+        .issues { color: #d32f2f; margin: 10px 0; }
+        .stats { display: flex; gap: 20px; margin: 10px 0; }
+        .stat { padding: 5px 10px; background: #f0f0f0; border-radius: 3px; }
+        .names-list { margin-top: 15px; }
+        .name-item { padding: 8px; margin: 5px 0; background: #fafafa; border-left: 3px solid #2196f3; }
+        .name-item:hover { background: #e3f2fd; }
+        .standard-name { font-weight: bold; color: #1976d2; }
+        .actions { margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px; }
+        .action-btn { padding: 8px 15px; margin: 5px; border: none; border-radius: 4px; cursor: pointer; }
+        .btn-valid { background: #4caf50; color: white; }
+        .btn-split { background: #ff9800; color: white; }
+        .btn-invalid { background: #f44336; color: white; }
+        .notes { width: 100%; min-height: 60px; margin-top: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>Revisión Manual de Componentes Problemáticos</h1>
+    <p><strong>Tipo:</strong> FINANCIAL</p>
+    <p><strong>Fecha:</strong> 2025-12-01 16:44:21</p>
+    <p><strong>Total componentes a revisar:</strong> 40</p>
+    <hr>
+
+    <div class="component" id="component-0">
+        <div class="component-header">
+            <div class="component-id">Componente 0</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 60 nombres</span>
+                <span class="stat">Similitud promedio: 92.5%</span>
+                <span class="stat">Similitud mínima: 88.1%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 60 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">BANK OF NEW YORK MELLON TRUST CO NA</span></h3>
+            <h4>Todos los nombres en este componente (28):</h4>
+            <div>
+                <div class="name-item">BANK OF NEW YORK MELLON TRUST CO NA</div>
+                <div class="name-item">BANK OF NEW YORK MELLON TRUST CO NA AS SECOND LIENAGENT</div>
+                <div class="name-item">BANK OF NEW YORK</div>
+                <div class="name-item">BANK OF NEW YORK COMMERCIAL</div>
+                <div class="name-item">BANK OF NEW YORK TRUST CO NA</div>
+                <div class="name-item">BANK OF NEW YORK MELLON AS THIRD LIENAGENT</div>
+                <div class="name-item">BANK OF NEW YORK COMMERCIAL CORP THE 530 FIFTH AVE NEW YORK NY</div>
+                <div class="name-item">BANK OF NEW YORK THE FOR THE PARTIES LISTED IN THE FIRST PARAGRAPH OF THE ATTACHED SECURITY AGREEMENT</div>
+                <div class="name-item">BANK OF NEW YORK MELLON TRUST CO NA & US COLLATERAL AGENT</div>
+                <div class="name-item">BANK OF NEW YORK COMMERCIAL CORP</div>
+                <div class="name-item">BANK OF NEW YORK MELLON TRUST NA</div>
+                <div class="name-item">TRUST CO OF NEW YORK US</div>
+                <div class="name-item">BANK OF NEW YORK MELLON TRUST CO NA & NOTES COLLATERAL AGENT</div>
+                <div class="name-item">BANK OF NEW YORK MELLON TRUST CO NA AS JUNIOR NOTES COLLATERAL AGENT</div>
+                <div class="name-item">BANK OF NEW YORK TRUST TRUST CO NA</div>
+                <div class="name-item">BANK OF NEW YORK MELLON F K A THE BANK OF NEW YORK</div>
+                <div class="name-item">BANK OF NEW YORK MELLON AS PARITY LIEN COLLATERAL TRUSTEE</div>
+                <div class="name-item">BANK OF NEW YORK MELLON AS PRIORITY LIEN COLLATERAL TRUSTEE</div>
+                <div class="name-item">BANK OF NEW YORK AS SECURED PARTY</div>
+                <div class="name-item">BANK OF NEW YORK MELLON</div>
+                <div class="name-item">BANK OF NEW YORK MELLON AS SECOND LIENAGENT</div>
+                <div class="name-item">NEW YORK THE BANK OF</div>
+                <div class="name-item">BANK OF NEW YORK AS PARITY LIEN COLLATERAL TRUSTEE</div>
+                <div class="name-item">BANK OF NEW YORK AS PRIORITY LIEN COLLATERAL TRUSTEE</div>
+                <div class="name-item">BANK OF NEW YORK COMMERICAL CORP</div>
+                <div class="name-item">BANK OF NEW YORK MELLON TRUST CO NA & GRANTEE</div>
+                <div class="name-item">BANK OF NEW YORK MELLON LONDON BRANCH AS SECURITY AGENT</div>
+                <div class="name-item">BANK OF NEW YORK ADMINISTRATIVE AGENT</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-3">
+        <div class="component-header">
+            <div class="component-id">Componente 3</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 24 nombres</span>
+                <span class="stat">Similitud promedio: 97.4%</span>
+                <span class="stat">Similitud mínima: 91.1%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 24 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">CREDIT SUISSE AG CAYMAN ISLANDS BRANCH</span></h3>
+            <h4>Todos los nombres en este componente (6):</h4>
+            <div>
+                <div class="name-item">CREDIT SUISSE AG CAYMAN ISLANDS BRANCH</div>
+                <div class="name-item">CREDIT SUISSE CAYMAN ISLANDS BRANCH</div>
+                <div class="name-item">CREDIT SUISSE AG CAYMAN ISLANDS BRANCH AS GRANTEE</div>
+                <div class="name-item">CREDIT SUISSE FIRST BOSTON CAYMAN</div>
+                <div class="name-item">CREDIT SUISSE FIRST BOSTON CAYMAN ISLANDS BRANCH</div>
+                <div class="name-item">CREDIT SUISSE AG CAYMAN ISLAND BRANCH</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-19">
+        <div class="component-header">
+            <div class="component-id">Componente 19</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 47 nombres</span>
+                <span class="stat">Similitud promedio: 98.0%</span>
+                <span class="stat">Similitud mínima: 90.0%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 47 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">BANK OF AMERICA NA</span></h3>
+            <h4>Todos los nombres en este componente (6):</h4>
+            <div>
+                <div class="name-item">BANK OF AMERICA NA</div>
+                <div class="name-item">BANK OF AMERICA CANADA</div>
+                <div class="name-item">BANK OF AMERICA INC</div>
+                <div class="name-item">BANK OF AMERICA NA AS LENDER</div>
+                <div class="name-item">BANK OF AMERICA TEXAS NA</div>
+                <div class="name-item">BANK OF AMERICA NA & US LENDER</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-30">
+        <div class="component-header">
+            <div class="component-id">Componente 30</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 2 nombres</span>
+                <span class="stat">Similitud promedio: 89.1%</span>
+                <span class="stat">Similitud mínima: 89.1%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Similitud promedio baja: 89.1%']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">BANK OF AMERICA NA FOR THE LENDERS</span></h3>
+            <h4>Todos los nombres en este componente (2):</h4>
+            <div>
+                <div class="name-item">BANK OF AMERICA NA FOR THE LENDERS</div>
+                <div class="name-item">BANK OF AMERICA NA FOR ITSELF & OTHER LENDERS</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-33">
+        <div class="component-header">
+            <div class="component-id">Componente 33</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 82 nombres</span>
+                <span class="stat">Similitud promedio: 93.3%</span>
+                <span class="stat">Similitud mínima: 88.0%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 82 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">JPMORGAN CHASE BANK NA</span></h3>
+            <h4>Todos los nombres en este componente (41):</h4>
+            <div>
+                <div class="name-item">JPMORGAN CHASE BANK NA FOR THE REVOLVING LENDERS</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA AS ADMINISTRATIVE</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA ADMINISTRATIVE AGENT</div>
+                <div class="name-item">JPMORGAN CHASE BANK</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA AS LENDER</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA & FIRST PRIORITY REPRESENTATIVE</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA & COLLATERAL AGENT</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA AS SYNDICATIONAGENT US COLLATERAL AGENT & ADMINISTRATIVE AGENT</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA AS GENERAL ADMINISTRATIVE AGENT</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA AS ADMINISTATIVE AGENT</div>
+                <div class="name-item">JPMORGAN CHASE BANK FORMERLY KNOWNAS THE CHASE BANK</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA AS THE SUCCESSOR ADMINISTRATIVE AGENT</div>
+                <div class="name-item">JPMORGAN CHASE NA</div>
+                <div class="name-item">JPMORGAN CHASE BANK SEOUL BRANCH</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA FORMERLY KNOWNAS THE CHASE MANHATTAN BANK</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA & GRANTEE</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA FOR ITSELF & FOR THE LENDERS</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA IN RESPECT OF THE ABL CREDIT AGREEMENT</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA IN RESPECT OF THE TERM LOAN CREDIT AGREEMENT</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA AS THE SUCCESSOR AGENT</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA AS ADMINISTRATIVE ASSISTANT</div>
+                <div class="name-item">JPMORGAN CHASE BANK F K A MORGAN GUARANTY TRUST CO OF NEW YORK</div>
+                <div class="name-item">JPMORGAN CHASE</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA FIRST LIEN</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA SUCCESSOR TO BEAR STEARNS CORPORATE LENDING INC</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA FOR THE LENDERS & FOR THE HOLDERS OF THE NOTES</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA AS ADMNISTRATIVE AGENT</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA AS FIRST-LIENADMINISTRATIVE AGENT</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA A US NATIONAL BANKING ASSOCIATION</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA & FIRST LIEN COLLATERAL AGENT</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA FOR ITSELF &</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA & SECOND LIEN COLLATERAL AGENT</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA & ADMINISTRATIVE AGENT</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA AS PRIORITY COLLATERAL AGENT</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA TORONTO BRANCH AS CANADIANADMINISTRATIVE AGENT & CANADIAN COLLATERAL AGENT</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA AS SHARED COLLATERAL AGENT</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA FOR THE SECURED PARTIES</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA IN ITS CAPACITY</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA F K A JPMORGAN CHASE BANK</div>
+                <div class="name-item">JPMORGAN CHASE BANK NA FOR THE FIRST LIEN TERM LENDERS</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-36">
+        <div class="component-header">
+            <div class="component-id">Componente 36</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 66 nombres</span>
+                <span class="stat">Similitud promedio: 92.9%</span>
+                <span class="stat">Similitud mínima: 88.0%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 66 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">DEUTSCHE BANK TRUST CO AMERICAS</span></h3>
+            <h4>Todos los nombres en este componente (35):</h4>
+            <div>
+                <div class="name-item">DEUTSCHE BANK TRUST CO AMERICAS FORMERLY KNOWNAS BANKERS TRUST CO</div>
+                <div class="name-item">DEUTSCHE BANK TRUST OF CO AMERICAS A COLLATERAL AGENT</div>
+                <div class="name-item">DEUTSCHE BANK TRUST CO AMERICAS</div>
+                <div class="name-item">DEUTSCHE BANK</div>
+                <div class="name-item">DEUTSCHE BANK AG NEW YORK</div>
+                <div class="name-item">DEUTSCHE BANK AG NEW YORK BRANCH & COLLATERAL AGENT</div>
+                <div class="name-item">DEUTSCHE BANK TRUST CO AMERICAS AS SECURITY AGENT</div>
+                <div class="name-item">DEUTSCHE BANK AG NEW YORK BRANCH</div>
+                <div class="name-item">DEUTSCHE BANK AG NEW YORK BRANCH AS REVOLVING COLLATERAL AGENT</div>
+                <div class="name-item">DEUTSCHE BANK AG NEW YORK BRANCH AS ABL AGENT</div>
+                <div class="name-item">DEUTSCHE BANK TRUST CO AMERICAS AS REVOLVING COLLATERAL AGENT</div>
+                <div class="name-item">DEUTSCHE BANK AG NEW YORK BRANCH AS COLLATERAL</div>
+                <div class="name-item">DEUTSCHE BANK AG LONDON BRANCH</div>
+                <div class="name-item">DEUTSCHE BANK TRUST CO AMERICAS AS INDENTURE TRUSTEE</div>
+                <div class="name-item">DEUTSCHE BANK NATIONAL TRUST</div>
+                <div class="name-item">DEUTSCHE BANK TRUST CO AMERICAS FORMERLY KNOWNAS BANKER TRUST CO</div>
+                <div class="name-item">DEUTSCHE BANK TRUST CO AMERICAS F K A BANKERS TRUST CO</div>
+                <div class="name-item">DEUTSCHE BANK AG TOKYO BRANCH</div>
+                <div class="name-item">DEUTSCHE BANK NATIONAL TRUST COMANY</div>
+                <div class="name-item">DEUTSCHE BANK TRUST CO AMERICAS FOR LENDERS</div>
+                <div class="name-item">DEUTSCHE BANK TRUST CO AMERICAS AS COLLETERAL AGENT</div>
+                <div class="name-item">DEUTSCHE BANK TRUST CO</div>
+                <div class="name-item">DEUTSCHE BANK NATIONAL TRUST CO</div>
+                <div class="name-item">DEUTSCHE BANK AG</div>
+                <div class="name-item">DEUTSCHE BANK AG CAYMAN ISLANDS BRANCH</div>
+                <div class="name-item">DEUTSCHE BANK AG CAYMAN ISLANDS BRANCH AS SECOND-LIEN COLLATERAL AGENT</div>
+                <div class="name-item">DEUTSCHE BANK AG NEW YORK BRANCH AS SECURITY AGENT</div>
+                <div class="name-item">DEUTSCHE BANK TRUST CO AMERICAS CORPORATE TRUST & AGENCY SERVICES</div>
+                <div class="name-item">DEUTSCHE BANK AG NEW YORK BRANDH</div>
+                <div class="name-item">DEUTSCHE BANK TRUST CO AMERICAS AS SECOND LIENADMINISTRATIVE AGENT</div>
+                <div class="name-item">DEUTSCHE BANK AG LONDON</div>
+                <div class="name-item">DEUTSCHE BANK AG LONDON BRANCH AS INTERCOMPANY BRIDGE COLLAGERAL AGENT</div>
+                <div class="name-item">DEUTSCHE BANK AG LONDON BRANCH AS INTERCOMPANY PRIMARY COLLATERAL AGENT</div>
+                <div class="name-item">DEUTSCHE BANK AG LONDON BRANCH AS SECURITY AGENT</div>
+                <div class="name-item">DEUTSCHE BANK TRUST CO AMERICAS CORPORATED TRUST & AGENCY SERVICES</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-38">
+        <div class="component-header">
+            <div class="component-id">Componente 38</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 55 nombres</span>
+                <span class="stat">Similitud promedio: 92.3%</span>
+                <span class="stat">Similitud mínima: 88.4%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 55 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">WILMINGTON TRUST NA</span></h3>
+            <h4>Todos los nombres en este componente (33):</h4>
+            <div>
+                <div class="name-item">WILMINGTON TRUST CO FOR THE CLASS B SECURED PARTIES</div>
+                <div class="name-item">WILMINGTON TRUST NA AS SECOND COLLATERAL AGENT</div>
+                <div class="name-item">WILMINGTON TRUST NA IN ITS CAPACITY & COLLATERAL AGENT FOR THE SECURED PARTIES</div>
+                <div class="name-item">WILMINGTON TRUST NA</div>
+                <div class="name-item">WILMINGTON TRUST LONDON LTD AS SECURITY AGENT</div>
+                <div class="name-item">WILMINGTON TRUST</div>
+                <div class="name-item">WILMINGTON TRUST FSB</div>
+                <div class="name-item">WILMINGTON TRUST LONDON LTD</div>
+                <div class="name-item">WILMINGTON TRUST CO</div>
+                <div class="name-item">WILMINGTON TRUST CO RODNEY SQUARE NORTH WILMINGTON DE 19890 A DE BANKING CORP</div>
+                <div class="name-item">WILMINGTON TRUST NA AS NOTE COLLATERAL AGENT</div>
+                <div class="name-item">WILMINGTON TRUST CO A DE BANKING CORP</div>
+                <div class="name-item">WILMINGTON TRUST NATIONAL ASSOCIATON</div>
+                <div class="name-item">WILMINGTON TRUST CO & WADE WILLIAM J TRUSTEE</div>
+                <div class="name-item">WILMINGTON TRUST CO RODNEY SQUARE NORTH WILMINGTON DELAWARE 19890 A CORP OF DE</div>
+                <div class="name-item">WILMINGTON TRUST NA SOLELY IN ITS CAPACITY</div>
+                <div class="name-item">WILMINGTON TRUST NA AS THE SUCCESSOR COLLATERAL AGENT</div>
+                <div class="name-item">WILMINGTON TRUST FSB AS SECOND LIENADMINISTRATIVE AGENT</div>
+                <div class="name-item">WILMINGTON TRUST CO & MICHAEL M LEDYARD TRUSTEE & INDIVIDUAL TRUSTEE</div>
+                <div class="name-item">WILMINGTON TRUST CO RODNEY SQUARE NORTH WILMINGTON DELAWARE 19890 A DELAWARE BANK & TRUST CO</div>
+                <div class="name-item">WILMINGTON TRUST NA FOR THE SECURED PARTIES</div>
+                <div class="name-item">WILMINGTON TRUST NA AS NOTES COLLATERAL TRUSTEE</div>
+                <div class="name-item">WILMINGTON TRUST CO A DE CORP</div>
+                <div class="name-item">WILMINGTON TRUST NA AS SUCCESSOR BY MERGER TO WILMINGTON TRUST FSB</div>
+                <div class="name-item">WILMINGTON TRUST CO A CORP OF DELEWARE</div>
+                <div class="name-item">WILMINGTON TRUST NATIONAL ASSOCATION</div>
+                <div class="name-item">WILMINGTON TRUST FSB AS NOTEHOLDER COLLATERAL AGENT</div>
+                <div class="name-item">WILMINGTON TRUST NA -</div>
+                <div class="name-item">WILMINGTON TRUST CO AS SECOND LIENAGENT</div>
+                <div class="name-item">WILMINGTON TRUST NA AS CO-COLLATERAL TRUSTEE SUCCESSOR COLLATERAL TRUSTEE</div>
+                <div class="name-item">WILMINGTON TRUST CO A DE BANKING CORP TRUSTEE UNDER THE TRUST AGREEMENT</div>
+                <div class="name-item">WILMINGTON TRUST NA SECOND LIEN</div>
+                <div class="name-item">WILMINGTON TRUST NA AS THE CURRENT ADMINISTRATIVE AGENT</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-40">
+        <div class="component-header">
+            <div class="component-id">Componente 40</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 29 nombres</span>
+                <span class="stat">Similitud promedio: 95.6%</span>
+                <span class="stat">Similitud mínima: 90.0%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 29 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">CITIBANK NA</span></h3>
+            <h4>Todos los nombres en este componente (8):</h4>
+            <div>
+                <div class="name-item">CITIBANK NA</div>
+                <div class="name-item">CITIBANK NA AS COLATERAL AGENT</div>
+                <div class="name-item">CITIBANK NA 641 LEXINGTONAVENUE NEW YORK NEW YORK 10043</div>
+                <div class="name-item">CITIBANK NA 399 PARK AVE NEW YORK NY 10043</div>
+                <div class="name-item">CITIBANK NA CITIBANK</div>
+                <div class="name-item">CITIBANK NA A NATIONAL BANKING ASSOCIATION</div>
+                <div class="name-item">CITIBANK NA & COLLATERAL AGENT</div>
+                <div class="name-item">CITIBANK NA COLLATERAL AGENT</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-42">
+        <div class="component-header">
+            <div class="component-id">Componente 42</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 70 nombres</span>
+                <span class="stat">Similitud promedio: 93.8%</span>
+                <span class="stat">Similitud mínima: 88.0%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 70 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">CITICORP USA INC</span></h3>
+            <h4>Todos los nombres en este componente (38):</h4>
+            <div>
+                <div class="name-item">CITICORP INDUSTRIAL CREDIT INC A CORP OF DE</div>
+                <div class="name-item">CITICORP USA INC AS ADMINISTRATOVE AGENT & CITICORP USA INC AS TERM C LOAN COLLATERAL AGENT</div>
+                <div class="name-item">CITICORP USA INC</div>
+                <div class="name-item">CITICORP NORTH AMERICA INC A DE CORP</div>
+                <div class="name-item">CITICORP NORTH AMERICA INC</div>
+                <div class="name-item">CITICORP INDUSTRIAL CREDIT INC</div>
+                <div class="name-item">CITICORP INDUSTRIAL CREDIT INC A DE CORP</div>
+                <div class="name-item">CITICORP USA INC AS TERM C LOAN COLLATERAL AGENT & CITICORP USA INC</div>
+                <div class="name-item">CITICORP NORTH AMERICA</div>
+                <div class="name-item">CITICORP INDUSTIRAL CREDIT INC</div>
+                <div class="name-item">CITICORP INDUSTRIAL CREDIT A CORP OF DE</div>
+                <div class="name-item">CITICORP USA INC C O CITIBANK DELAWARE</div>
+                <div class="name-item">CITICORP NORTH AMERICA INC FOR THE SECURED CREDITORS UNDER THE TERM CREDIT AGREEMENT</div>
+                <div class="name-item">CITICORP NORTH AMERICA INC FOR THE SECURED CREDITORS UNDER THE ABL CREDIT AGREEMENT</div>
+                <div class="name-item">CITICORP NORTH AMERICA INC 599 LEXINGTONAVE NEW YORK NY 10043 A CORP OF DE</div>
+                <div class="name-item">CITICORP</div>
+                <div class="name-item">CITICORP CAPITAL INVESTORS LTD</div>
+                <div class="name-item">CITICORP INDUSTRIAL CREDIT INC 725 SOUTH FIGUEROA STREET LOS ANGELES CALIFORNIA 90017</div>
+                <div class="name-item">CITICORP INDUSTRIAL CREDIT INC BOND COURT BLDG STE 615 1300 E 9TH ST CLEVELAND OH 44114</div>
+                <div class="name-item">CITICORP NORTH AMERICA INC AS REVOLVING CREDIT COLLATERAL AGENT</div>
+                <div class="name-item">CITICORP NORTH AMERICA INC FOR THE FIRST-PRIORITY SECURED PARTIES</div>
+                <div class="name-item">CITICORP NORTH AMERICAN INC</div>
+                <div class="name-item">CITICORP USA INC FOR BANK PRIORITY SECURED PARTIES</div>
+                <div class="name-item">CITICORP USA INC FOR HEDGE PRIORITY SECURED PARTIES</div>
+                <div class="name-item">CITICORP USA INC AS TERM C LOAN COLLATERAL AGENT</div>
+                <div class="name-item">CITICORP NORTH AMERICA INC A CORP OF DE</div>
+                <div class="name-item">CITICORP NORTH AMERICAS INC FOR THE SECURED CREDITORS UNDER THE ABL CREDIT AGREEMENT</div>
+                <div class="name-item">CITICORP USA INC AS SECURITY AGENT</div>
+                <div class="name-item">CITICORP MEZZANINE III LP</div>
+                <div class="name-item">CITICORP TRUSTEE CO LTD</div>
+                <div class="name-item">CITICORP INTERNATIONAL LTD AS COMMON SECURITY AGENT</div>
+                <div class="name-item">CITICORP MILTILEASE SEF INC</div>
+                <div class="name-item">CITICORP NORTH AMERICA INC SECOND LIEN</div>
+                <div class="name-item">CITICORP NORTH AMERICA INC FIRST LIEN</div>
+                <div class="name-item">CITICORP USA INC A DELAWARE CORP</div>
+                <div class="name-item">CITICORP TRUSTEE CO LTD AS SECURITY AGENT</div>
+                <div class="name-item">CITICORP VENTURE CAPITAL LTD</div>
+                <div class="name-item">CITICORP INDUSTRIL CREDIT INC 450 MAMARONECK AVE HARRISON NY 10528 A CORP</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-47">
+        <div class="component-header">
+            <div class="component-id">Componente 47</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 45 nombres</span>
+                <span class="stat">Similitud promedio: 97.1%</span>
+                <span class="stat">Similitud mínima: 88.2%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 45 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">WELLS FARGO BANK NA</span></h3>
+            <h4>Todos los nombres en este componente (12):</h4>
+            <div>
+                <div class="name-item">WELLS FARGO BANK NA</div>
+                <div class="name-item">WELLS FARGO BANK OF TEXAS</div>
+                <div class="name-item">WELLS FAGO BANK NA</div>
+                <div class="name-item">WELLS FARGO BANK MINNESOTA NA</div>
+                <div class="name-item">WELLS FARGO BNAK NA</div>
+                <div class="name-item">WELLS FARGO BANK TEXAS NA</div>
+                <div class="name-item">WELLS FARGO BANK NA LEGAL DEPT</div>
+                <div class="name-item">WELLS FARGO BANK NA -</div>
+                <div class="name-item">WELLS FARGO BANK</div>
+                <div class="name-item">WELLS FARGO BANK NORTHWEST NA</div>
+                <div class="name-item">WELLS FARGO BANK TEXAS</div>
+                <div class="name-item">WELLS FARGO HSBC TRADE BANK NA</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-60">
+        <div class="component-header">
+            <div class="component-id">Componente 60</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 23 nombres</span>
+                <span class="stat">Similitud promedio: 96.9%</span>
+                <span class="stat">Similitud mínima: 90.0%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 23 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">US BANK NA</span></h3>
+            <h4>Todos los nombres en este componente (5):</h4>
+            <div>
+                <div class="name-item">US BANK NA</div>
+                <div class="name-item">US BANK NA & COLLATERAL AGENT</div>
+                <div class="name-item">US BANK NA FOR FIRST LIEN</div>
+                <div class="name-item">US BANK NA FOR SECOND LIEN</div>
+                <div class="name-item">US BANK NA FOR THE SECURED PARTIES</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-71">
+        <div class="component-header">
+            <div class="component-id">Componente 71</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 25 nombres</span>
+                <span class="stat">Similitud promedio: 92.7%</span>
+                <span class="stat">Similitud mínima: 88.5%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 25 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">PNC BANK NA</span></h3>
+            <h4>Todos los nombres en este componente (18):</h4>
+            <div>
+                <div class="name-item">PNC BANK NA</div>
+                <div class="name-item">PNC BANK NA & COLLATERAL AGENT</div>
+                <div class="name-item">PNC BANK NA AS SUCCESSOR IN INTEREST TO NATIONAL CITY BANK</div>
+                <div class="name-item">PNC BANK A NA</div>
+                <div class="name-item">PNC BANK NA AGENT</div>
+                <div class="name-item">PNC AGENT NA</div>
+                <div class="name-item">PNC BANK NATIONAL ASSOC</div>
+                <div class="name-item">PNC BANK NATIONAL ASSOCIATIONAND FIRST UNION NATIONAL BANK</div>
+                <div class="name-item">PNC BANK NATIONAL ASSOCIATIONS</div>
+                <div class="name-item">PNC BANK NA D B A VENTURE BANK PNC</div>
+                <div class="name-item">PNC BANK OHIO NA</div>
+                <div class="name-item">PNC BANK NATIONAL ASSOICATIONS</div>
+                <div class="name-item">PNC BANK NA AS SUCCESSOR-BY-MERGER TO NATIONAL CITY BANK</div>
+                <div class="name-item">PNC BANK DELAWARE</div>
+                <div class="name-item">PNC BANK</div>
+                <div class="name-item">PNC BANK NA D B A MIDLAND LOAN SERVICES A DIVISION OF PNC BANK NA</div>
+                <div class="name-item">PNC BANK CANADA BRANCH</div>
+                <div class="name-item">PNC BANK - NA</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-72">
+        <div class="component-header">
+            <div class="component-id">Componente 72</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 23 nombres</span>
+                <span class="stat">Similitud promedio: 92.2%</span>
+                <span class="stat">Similitud mínima: 90.0%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 23 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">SILICON VALLEY BANK</span></h3>
+            <h4>Todos los nombres en este componente (16):</h4>
+            <div>
+                <div class="name-item">SILICON VALLEY BANK</div>
+                <div class="name-item">SILICON VALLEY BANK DBA SILICON VALLEY EAST</div>
+                <div class="name-item">SILICON VALLEY BANK & A LENDER</div>
+                <div class="name-item">SILICON VALLEY BANK & AS A LENDER</div>
+                <div class="name-item">SILICON VALLEY BANK AGENT</div>
+                <div class="name-item">SILICON VALEY BANK</div>
+                <div class="name-item">SILICON VALLEY EAST</div>
+                <div class="name-item">SILICON VALLEY BANK AS ASSIGNEE</div>
+                <div class="name-item">SILICON VALLEY BANK FOR THE BENEFIT OF THE LENDERS</div>
+                <div class="name-item">SILICON VALLEY BANK ATT LOAN SERVICES</div>
+                <div class="name-item">SILICON VALLEY BANK 3000 LAKESIDE DRIVE SANTA CLARA CA 95054</div>
+                <div class="name-item">SILICON VALLEY BANK A CORP OF CA</div>
+                <div class="name-item">SILICON VALLEY BANK COLLATERAL AGENT</div>
+                <div class="name-item">SILICON VALLEY BANK SUITE 2-200</div>
+                <div class="name-item">SILICON VALLEY BANK & COLLATERAL AGENT</div>
+                <div class="name-item">SILICON VALLEY BANK COMMERCIAL FINANCE DIVISION</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-80">
+        <div class="component-header">
+            <div class="component-id">Componente 80</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 36 nombres</span>
+                <span class="stat">Similitud promedio: 94.5%</span>
+                <span class="stat">Similitud mínima: 88.4%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 36 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">BANK ONE NA</span></h3>
+            <h4>Todos los nombres en este componente (18):</h4>
+            <div>
+                <div class="name-item">BANK ONE INDIANAPOLIS NA</div>
+                <div class="name-item">BANK ONE DAYTON NA</div>
+                <div class="name-item">BANK ONE INDIANA NA</div>
+                <div class="name-item">BANK ONE UTAH NA</div>
+                <div class="name-item">BANK ONE NA</div>
+                <div class="name-item">BANK ONE WISCONSIN</div>
+                <div class="name-item">BANK ONE KENTUCKY NA</div>
+                <div class="name-item">BANK ONE MILWAUKEE NA</div>
+                <div class="name-item">BANK ONE NA A NATIONAL BANKING ASSOCIATION</div>
+                <div class="name-item">BANK ONE OKLAHOMA NA</div>
+                <div class="name-item">BANK ONE</div>
+                <div class="name-item">BANK ONE COLORADO NA</div>
+                <div class="name-item">BANK ONE TEXAS NA</div>
+                <div class="name-item">BANK ONE MICHIGAN</div>
+                <div class="name-item">BANK ONE LEXINGTON NA 200 WEST VINE STREET LEXINGTON KY 40507</div>
+                <div class="name-item">BANK ONE DAYTON NA FOR BANK ONE DAYTON NA & NATIONAL CITY BANK COLUMBUS</div>
+                <div class="name-item">BANK ONE MILWAUKEE NA AGENT</div>
+                <div class="name-item">BANK ONE MICHIGAN F K A NBD BANK</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-82">
+        <div class="component-header">
+            <div class="component-id">Componente 82</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 43 nombres</span>
+                <span class="stat">Similitud promedio: 93.1%</span>
+                <span class="stat">Similitud mínima: 88.6%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 43 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">GENERAL ELECTRIC CAPITAL CORP</span></h3>
+            <h4>Todos los nombres en este componente (31):</h4>
+            <div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORP FOR LENDERS</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORP</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORP SUCCESSOR TO DEUTSCHE BANK TRUST CO</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORP SUCCESSOR TO DEUTSCHE BANK TRUST CO AMERICAS</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORP AS SECOND LIENAGENT</div>
+                <div class="name-item">GENERAL ELECTRIC CAPTIAL CORP</div>
+                <div class="name-item">GENERAL ELECTRIC CREDIT CORP A CORP OF N Y</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CANADA INC</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORPORATIONAS COLLATERAL AGENT</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORPORATON</div>
+                <div class="name-item">GENERAL ELECTRIC CREDIT CORP A CORP OF NEW YORK</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORP & COLLATERAL AGENT</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORPORATIONAS SECOND LIENAGENT</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORP IN THE FIRST LIEN</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORP AS UK AGENT & UK SECURITY TRUSTEE</div>
+                <div class="name-item">GENERAL ELECTRIC CO A CORP OF NY</div>
+                <div class="name-item">GENERAL ELECTRIC CREDIT CORP 8131 LBJ FREEWAY SUITE 180 DALLAS TEXAS 75251</div>
+                <div class="name-item">GENERAL ELECTRIC CREDIT CORP A CORP</div>
+                <div class="name-item">GENERAL ELECTRIC CO</div>
+                <div class="name-item">GENERAL ELECIRIC CAPITAL CORP</div>
+                <div class="name-item">GENERAL ELECTIRC CAPITAL CORP</div>
+                <div class="name-item">GENERAL ELECTRIC CREDIT CORP</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORP AS US AGENT</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORP A CORP OF NY</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORPORATIONAS AGENT</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORPORATIONAS ADMINISTRATIVE AGENT</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORPORATIONAS AGENT FOR LENDERS</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORP AS REVOLVING COLLATERAL AGENT FOR THE REVOLVING LENDERS & AS TERM LOAN COLLATERAL AGENT</div>
+                <div class="name-item">GENERAL ELECTRIC CAPITAL CORPROATION</div>
+                <div class="name-item">GENERAL ELECTRIC CREDIT CORP A NY CORP</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-97">
+        <div class="component-header">
+            <div class="component-id">Componente 97</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 55 nombres</span>
+                <span class="stat">Similitud promedio: 93.6%</span>
+                <span class="stat">Similitud mínima: 88.0%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 55 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">CHASE MANHATTAN BANK</span></h3>
+            <h4>Todos los nombres en este componente (23):</h4>
+            <div>
+                <div class="name-item">CHASE MANHATAN BANK</div>
+                <div class="name-item">CHASE MANHATTAN BANK NA THE A DE CORP</div>
+                <div class="name-item">CHASE MANHATTAN BANK THE A NATIONAL BANKING ORGANIZATION</div>
+                <div class="name-item">CHASE MANHATTAN BANK FOR SECURED PARTIES</div>
+                <div class="name-item">CHASE MANHATTAN BANK NA THE A NATIONAL BANKING ASSOCIATION OF NY</div>
+                <div class="name-item">CHASE MANHATTAN BANK</div>
+                <div class="name-item">CHASE MANHATTAN BANK NA THE FOR THE BANKS</div>
+                <div class="name-item">CHASE MANHATTAN BANK THE NA</div>
+                <div class="name-item">CHASE MANHATTAN BANK NA THE A NATIONAL BANKING ASSOCIATION</div>
+                <div class="name-item">CHASE MANHATTAN BANK ADMINISTRATIVE AGENT</div>
+                <div class="name-item">CHASE MANHATTAN BANK NA</div>
+                <div class="name-item">CHASE MANHATTAN BANK THE FORMERLY KNOWNAS CHEMICAL BANK</div>
+                <div class="name-item">CHASE MANHATTAN BANK THE A NEW YORK BANKING CORP</div>
+                <div class="name-item">CHASE MANHATTAN BANK ADMINSTRATIVE AGENT</div>
+                <div class="name-item">CHASE MANHATTAN BANK THE LOANAND</div>
+                <div class="name-item">CHASE MANHATTAN BANK NATIONAL ASSOC</div>
+                <div class="name-item">CHASE MANHATTAN BANK THE NA AS SECURITY AGENT</div>
+                <div class="name-item">CHASE MANHATTAN BANK AS ADIMINISTRATIVE AGENT</div>
+                <div class="name-item">CHASE MANHATTAN BANK THE A NATIONAL BANKING ASSOCIATION</div>
+                <div class="name-item">CHASE MANHATTAN BANK THE AS ADMINISTRAVTIVE AGENT</div>
+                <div class="name-item">CHASE MANHATTAN BANK THE AS COLLATERAL</div>
+                <div class="name-item">CHASE NANHATTAN BANK</div>
+                <div class="name-item">CHASE MANHATTAN BANK NA THE A NATIONAL BANKING ASSOCIATION OF THE US</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-112">
+        <div class="component-header">
+            <div class="component-id">Componente 112</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 23 nombres</span>
+                <span class="stat">Similitud promedio: 93.9%</span>
+                <span class="stat">Similitud mínima: 90.0%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 23 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">HSBC BANK USA NA</span></h3>
+            <h4>Todos los nombres en este componente (12):</h4>
+            <div>
+                <div class="name-item">HSBC BANK CANADA</div>
+                <div class="name-item">HSBC BANK USA AS JOINT COLLATERAL AGENT</div>
+                <div class="name-item">HSBC BANK USA NA</div>
+                <div class="name-item">HSBC BANK USA NA AS THE SUCCESSOR ADMINISTRATIVE AGENT & COLLATERAL AGENT</div>
+                <div class="name-item">HSBC BANK USA</div>
+                <div class="name-item">HSBC BANK</div>
+                <div class="name-item">HSBC BANK USA INC</div>
+                <div class="name-item">HSBC BANK USA NATIONAL ASSOCIATIONAS INDENTURE TRUSTEE</div>
+                <div class="name-item">HSBC BANK AUSTRALIA LTD</div>
+                <div class="name-item">HSBC BANK CANADA ON BEHALF OF THE LENDERS</div>
+                <div class="name-item">HSBC BANK USA AS JOINT COLLATERIAL AGENT</div>
+                <div class="name-item">HSBC BANK PLC</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-116">
+        <div class="component-header">
+            <div class="component-id">Componente 116</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 21 nombres</span>
+                <span class="stat">Similitud promedio: 91.6%</span>
+                <span class="stat">Similitud mínima: 89.4%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 21 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">COMERICA BANK</span></h3>
+            <h4>Todos los nombres en este componente (16):</h4>
+            <div>
+                <div class="name-item">COMERICA BANK CALIFORNIA</div>
+                <div class="name-item">COMERICA BANK A TEXAS BANKING ASSOCIATIONAND AUTHORIZED FOREIGN BANK UNDER THE BANK ACT CANADA</div>
+                <div class="name-item">COMERICA BANK - CALIFORNIA</div>
+                <div class="name-item">COMERICA BANK-TEXAS</div>
+                <div class="name-item">COMERICA BANK A TEXAS BANKING ASSOCIATION</div>
+                <div class="name-item">COMERICA BANK SUCCESOR BY MERGER TO COMERICA BANK-CALIFORNIA</div>
+                <div class="name-item">COMERICA BANK SUCCESSOR IN INTEREST TO COMERICA BANK-CALIFORNIA</div>
+                <div class="name-item">COMERICA BANK-CA</div>
+                <div class="name-item">COMERICA BANK-CALIFORIA</div>
+                <div class="name-item">COMERICA BANK</div>
+                <div class="name-item">COMERICA BANK A MICHIGAN CORP</div>
+                <div class="name-item">COMERICA BANK-CALIFORNIA SUCCESSOR IN INTEREST TO IMPERIAL BANK</div>
+                <div class="name-item">COMERICA BANK-CALIFORNIA</div>
+                <div class="name-item">COMERICA BANK - TEXAS</div>
+                <div class="name-item">COMERICA BANK SUCCESSOR BY MERGER TO COMERICA BANK-CALIFORNIA</div>
+                <div class="name-item">COMERICA BANK A MICHIGAN BANKING CORP</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-120">
+        <div class="component-header">
+            <div class="component-id">Componente 120</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 24 nombres</span>
+                <span class="stat">Similitud promedio: 93.0%</span>
+                <span class="stat">Similitud mínima: 88.9%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 24 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">WACHOVIA BANK NA</span></h3>
+            <h4>Todos los nombres en este componente (15):</h4>
+            <div>
+                <div class="name-item">WACHOVIA BANK NA</div>
+                <div class="name-item">WACHOVIA BANK NATIONAL ASSOICATION</div>
+                <div class="name-item">WACHOVIA BANK NATIONAL ASSOCATION</div>
+                <div class="name-item">WACHOVIA BANK NA & CONTROL AGENT</div>
+                <div class="name-item">WACHOVIA BANK & TRUST CO NA A NATIONAL BANKING ASSOCIATIONAS AGENT</div>
+                <div class="name-item">WACHOVIA BANK & TRUST CO NA A NATIONAL BANKINNG ASSOCIATIONAS AGENT</div>
+                <div class="name-item">WACHOVIA BANK F K A FIRST UNION NATIONAL BANK</div>
+                <div class="name-item">WACHOVIA BANK NA FOR FIRST LIEN FACILITY</div>
+                <div class="name-item">WACHOVIA BANK NA FOR SECOND LIEN FACILITY</div>
+                <div class="name-item">WACHOVIA BANK NATIONAL ASSOCIATIONAS COLLATERAL AGENT</div>
+                <div class="name-item">WACHOVIA BANK & TRUST CO NA</div>
+                <div class="name-item">WACHOVIA BANK NATIONAL ASOCIATION</div>
+                <div class="name-item">WACHOVIA BANK NATIONAL ASSOCIATIONAS ADMINISTRATIVE AGENT</div>
+                <div class="name-item">WACHOVIA BANK NA AS US AGENT</div>
+                <div class="name-item">WACHOVIA BANK</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-131">
+        <div class="component-header">
+            <div class="component-id">Componente 131</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 28 nombres</span>
+                <span class="stat">Similitud promedio: 96.8%</span>
+                <span class="stat">Similitud mínima: 90.0%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 28 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">FIRST UNION NATIONAL BANK</span></h3>
+            <h4>Todos los nombres en este componente (10):</h4>
+            <div>
+                <div class="name-item">FIRST NATIONAL BAK OF CHICAGO</div>
+                <div class="name-item">FIRST NATIONAL BANK OF BOSTON</div>
+                <div class="name-item">FIRST FREEPORT NATIONAL BANK</div>
+                <div class="name-item">FIRST UNION NATIONAL BANK</div>
+                <div class="name-item">FIRST NATONAL BANK OF CHICAGO</div>
+                <div class="name-item">FIRST NATIONAL BANK OF CHICAGO</div>
+                <div class="name-item">FIRST UNION NATIONAL BANKS</div>
+                <div class="name-item">FIRST NATIONAL BANK</div>
+                <div class="name-item">FIRST UNION NATI0NAL BANK</div>
+                <div class="name-item">FIRST NATINAL BANK OF CHICAGO</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-139">
+        <div class="component-header">
+            <div class="component-id">Componente 139</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 2 nombres</span>
+                <span class="stat">Similitud promedio: 89.2%</span>
+                <span class="stat">Similitud mínima: 89.2%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Similitud promedio baja: 89.2%']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">FIRST NATIONAL BANK OF CHIGAGO THE</span></h3>
+            <h4>Todos los nombres en este componente (2):</h4>
+            <div>
+                <div class="name-item">FIRST NATIONAL BANK OF CHICAGO THE AGENT</div>
+                <div class="name-item">FIRST NATIONAL BANK OF CHIGAGO THE</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-161">
+        <div class="component-header">
+            <div class="component-id">Componente 161</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 22 nombres</span>
+                <span class="stat">Similitud promedio: 92.6%</span>
+                <span class="stat">Similitud mínima: 90.0%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 22 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">CHEMICAL BANK</span></h3>
+            <h4>Todos los nombres en este componente (10):</h4>
+            <div>
+                <div class="name-item">CHEMICAL BANK AGENT</div>
+                <div class="name-item">CHEMICAL BANK A NY CORP</div>
+                <div class="name-item">CHEMICAL BANK A NEW YORK BANKING CORP</div>
+                <div class="name-item">CHEMICAL BANK A NY BANKING CORP</div>
+                <div class="name-item">CHEMICAL BANK COLLATERAL AGENT</div>
+                <div class="name-item">CHEMICAL BANK ADMIN AGENT</div>
+                <div class="name-item">CHEMICAL BANK</div>
+                <div class="name-item">CHEMICAL BANK NEW JERSEY NA</div>
+                <div class="name-item">CHEMICAL BANK N Y CORP</div>
+                <div class="name-item">CHEMICAL BANK ATTN THEODORE L PARKER</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-164">
+        <div class="component-header">
+            <div class="component-id">Componente 164</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 24 nombres</span>
+                <span class="stat">Similitud promedio: 96.3%</span>
+                <span class="stat">Similitud mínima: 88.9%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 24 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">CIT GROUP BUSINESS CREDIT INC</span></h3>
+            <h4>Todos los nombres en este componente (11):</h4>
+            <div>
+                <div class="name-item">CIT GROUP BUSINESS CREDIT INC</div>
+                <div class="name-item">CIT GROUP BUSINESS CREDIT INC THE A NEW YORK CORP</div>
+                <div class="name-item">CIT GROUP BUSINESS CREDIT INC THE AS REVOLVING COLLATERAL AGENT IN THE 2ND PRIORITY LIEN</div>
+                <div class="name-item">CIT BUSINESS GROUP BUSINESS CREDIT INC</div>
+                <div class="name-item">CIT GROUP THE BUSINESS CREDIT INC FOR THE LENDERS</div>
+                <div class="name-item">CIT GROUP BUSINESS CREDIT INC AS LENDER</div>
+                <div class="name-item">CIT GRUOP BUSINESS CREDIT INC</div>
+                <div class="name-item">CIT GROUP BUSINESS CREDIT INC IN ITS CAPACITY FOR THE SECURED PARTIES</div>
+                <div class="name-item">CIT GROUP BUISNESS CREDIT INC</div>
+                <div class="name-item">CIT GROUP THE BUSINESS CREDIT INC</div>
+                <div class="name-item">CIT GROUP BUSINES CREDIT INC</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-174">
+        <div class="component-header">
+            <div class="component-id">Componente 174</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 21 nombres</span>
+                <span class="stat">Similitud promedio: 92.6%</span>
+                <span class="stat">Similitud mínima: 90.0%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 21 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">FLEET NATIONAL BANK</span></h3>
+            <h4>Todos los nombres en este componente (15):</h4>
+            <div>
+                <div class="name-item">FLEET BANK OF MASSACHUSETTS NA FOR THE LENDERS</div>
+                <div class="name-item">FLEET NATIONAL BANK OF MASSACHUSETTS</div>
+                <div class="name-item">FLEET BANK NA</div>
+                <div class="name-item">FLEET BANK OF MASSACHUSETTS NA</div>
+                <div class="name-item">FLEET NATIONAL BANK ACTING FOR ITSELF & OTHER LENDERS UNDER THE CREDIT AGREEMENT DATED FEBRUARY 19 1997</div>
+                <div class="name-item">FLEET BANK ADMINISTRATIVE AGENT</div>
+                <div class="name-item">FLEET NATIONAL BANK</div>
+                <div class="name-item">FLEET BANK NA AS ADMINISTRATOR</div>
+                <div class="name-item">FLEET NATIONAL BANK FOR ITSELF & THE OTHER LENDERS</div>
+                <div class="name-item">FLEET BANK OF MASS NA</div>
+                <div class="name-item">FLEET BANK OF MASSACHUSETTS</div>
+                <div class="name-item">FLEET BANK NA AS ADMINSTRATOR</div>
+                <div class="name-item">FLEET NATIONAL BANK A NATIONAL BANKING ASSOCIATION</div>
+                <div class="name-item">FLEET BANK</div>
+                <div class="name-item">FLEET NATIONAL BANK LONDON U K BRANCH TRADING AS FLEETBOSTON FINANCIAL AS UK AGENT</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-180">
+        <div class="component-header">
+            <div class="component-id">Componente 180</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 23 nombres</span>
+                <span class="stat">Similitud promedio: 94.9%</span>
+                <span class="stat">Similitud mínima: 88.8%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 23 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">CANADIAN IMPERIAL BANK OF COMMERCE</span></h3>
+            <h4>Todos los nombres en este componente (10):</h4>
+            <div>
+                <div class="name-item">CANADIAN IMPERIAL BANK OF COMMERCE</div>
+                <div class="name-item">CANADIAN IMPERIAL BANK OF COMMERCE NEW YORK AGENCY</div>
+                <div class="name-item">CANADIAN IMPERIAL BANK OF COMMERCE AS SECURED PARTY</div>
+                <div class="name-item">CANADIAN IMPERIAL BANK OF COMMERCE ACTING THROUGH ITS NEW YORK AGENCY</div>
+                <div class="name-item">CANADIAN IMPERIAL BANK OF COMMERCE ACTING THROUGH ONE OR MORE OF ITS AGENCIES BRANCHES OR AFFILIATES</div>
+                <div class="name-item">CANADIAN IMPERIAL BANK OF COMMERCE AS SECURITY AGENT</div>
+                <div class="name-item">CANADIAN IMPERIAL BANK OF COMMERCE NEW YORK AGENY</div>
+                <div class="name-item">CANADIAN IMPERIAL BANK OF COMMERCE NY AGENCY</div>
+                <div class="name-item">CANADIAN INPERIAL BANK OF COMMERCE</div>
+                <div class="name-item">CANADIAN IMPERIAL BANK OF COMMERCE ACTING THROUGH ITS NY AGENCY</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-235">
+        <div class="component-header">
+            <div class="component-id">Componente 235</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 35 nombres</span>
+                <span class="stat">Similitud promedio: 91.8%</span>
+                <span class="stat">Similitud mínima: 88.2%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 35 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">CONGRESS FINANCIAL CORP FLORIDA</span></h3>
+            <h4>Todos los nombres en este componente (27):</h4>
+            <div>
+                <div class="name-item">CONGRESS FINANCIAL CORP A CORP OF CA</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP CENTRAL</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP NEW ENGLAND A MASSACHUSETTS CORP</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP A CA CORP</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP SOUTHERN</div>
+                <div class="name-item">CONGRESS FINANCIAL CORPORATIONA CA CORPOATION</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP 1133 AVENUE OF THE AMERICAS NEW YORK NY 10036</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP 1133 AVENUE OF THE AMERICAS NEW YORK NEW YORK 10036 A CORP OF DE</div>
+                <div class="name-item">CONGRESS FINANCIAL CORPORATIONAS AGENT</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP 100 SOUTH WACKER DRIVE CHICAGO ILLINOIS 60606</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP FLORIDA</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP NEW ENGLAND</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP FL</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP SOUTHWEST A CORP OF TEXAS</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP CANADA</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP NORTHWEST</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP WESTERN A CA CORP</div>
+                <div class="name-item">CONGRESS FINANCIAL CORPORATIONA CORP OF CALIFORNIA</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP A CORP OF ILL</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP SOUTHWEST</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP 1133 AVENUE OF THE AMERICAS NEW YORK N Y 10036 A CORP OF CA</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP WESTERN</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP SW</div>
+                <div class="name-item">CONGRESS FINANCIAL CORPORATIONAN IL CORP</div>
+                <div class="name-item">CONGRESS FINANCIAL</div>
+                <div class="name-item">CONGRESS FINANCIAL CORP 1133 AVENUE OF THE AMERICAS NEW YORK NY 10036 A CORP OF CA</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-314">
+        <div class="component-header">
+            <div class="component-id">Componente 314</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 21 nombres</span>
+                <span class="stat">Similitud promedio: 95.4%</span>
+                <span class="stat">Similitud mínima: 88.6%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 21 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">VENTURE LENDING & LEASING IV INC</span></h3>
+            <h4>Todos los nombres en este componente (14):</h4>
+            <div>
+                <div class="name-item">VENTURE LENDING & LEASING II INC</div>
+                <div class="name-item">VENTURE LENDING & LEASING IV INC & VENTURE LENDING & LEASING V INC</div>
+                <div class="name-item">VENTURE LENDING & LEASING INC</div>
+                <div class="name-item">VENTURE LENDING & LEASING III INC</div>
+                <div class="name-item">VENTURE LENDING & LEASING IV INC &</div>
+                <div class="name-item">VENTURE LENDING & LEASING IV INC</div>
+                <div class="name-item">VENTURE LENDING & LEASING IV V INC</div>
+                <div class="name-item">VENTURE LENDING & LEASING V INC & VENTURE LENDING & LEASING VI INC</div>
+                <div class="name-item">VENTURE LANDING & LEASING II INC</div>
+                <div class="name-item">VENTURE LENDING & LEASING VII INC</div>
+                <div class="name-item">VENTURE LENDING & LEASING VI INC</div>
+                <div class="name-item">VENTURE LENDING & LEASING IX INC</div>
+                <div class="name-item">VENTURE LENDING & LEASING V INC</div>
+                <div class="name-item">VENTURE LENDING & LEASING VIII INC</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-317">
+        <div class="component-header">
+            <div class="component-id">Componente 317</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 5 nombres</span>
+                <span class="stat">Similitud promedio: 89.8%</span>
+                <span class="stat">Similitud mínima: 88.2%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Similitud promedio baja: 89.8%']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">SPECIAL SITUATIONS CAYMAN FUND LP</span></h3>
+            <h4>Todos los nombres en este componente (5):</h4>
+            <div>
+                <div class="name-item">SPECIAL SITUATIONS TECHNOLOGY FUND LP</div>
+                <div class="name-item">SPECIAL SITUATIONS CAYMAN FUND LP</div>
+                <div class="name-item">SPECIAL SITUATIONS FUND III LP</div>
+                <div class="name-item">SPECIAL SITUATIONS PRIVATE EQUITY FUND LP</div>
+                <div class="name-item">SPECIAL SITUATIONS TECHNOLOGY FUND II LP</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-345">
+        <div class="component-header">
+            <div class="component-id">Componente 345</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 21 nombres</span>
+                <span class="stat">Similitud promedio: 93.1%</span>
+                <span class="stat">Similitud mínima: 90.0%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Grupo muy grande: 21 nombres']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">MERRILL LYNCH CAPITAL CORP</span></h3>
+            <h4>Todos los nombres en este componente (11):</h4>
+            <div>
+                <div class="name-item">MERRILL LYNCH CAPITAL A DIVISION OF MERRILL LYNCH BUSINESS FINANCIAL SERVICES INC</div>
+                <div class="name-item">MERRILL LYNCH BUSINESS FINANCIAL SERVICES INC</div>
+                <div class="name-item">MERRILL LYNCH CAPITAL A DIVISION OF MERRILL LYNCH BUSINESS FINANCIAL SERVICES INC FOR THE TERM C LOAN LENDERS</div>
+                <div class="name-item">MERRILL LYNCH CAPITAL A DIVISION OF MERRILL LYNCH BUSINESS FINANCIAL SERVICES INC AS REVOLVER COLLATERAL AGENT</div>
+                <div class="name-item">MERRILL LUNCH CAPITAL CORP</div>
+                <div class="name-item">MERRILL LYNCH CAPITAL</div>
+                <div class="name-item">MERRILL LYNCH CAPITAL CANADA INC</div>
+                <div class="name-item">MERRILL LYNCH CAPITAL A DIVISION OF MERRILL LYNCH BUSINESS</div>
+                <div class="name-item">MERRILL LYNCH CAPITAL AS ADMINSTRATIVE AGENT</div>
+                <div class="name-item">MERRILL LYNCH BUSINESS FINANCIAL SERVICES INC THROUGH ITS DIVISION MERRILL LYNCH CAPITAL</div>
+                <div class="name-item">MERRILL LYNCH CAPITAL CORP</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-388">
+        <div class="component-header">
+            <div class="component-id">Componente 388</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 2 nombres</span>
+                <span class="stat">Similitud promedio: 88.2%</span>
+                <span class="stat">Similitud mínima: 88.2%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Similitud promedio baja: 88.2%']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">B III CAPITAL PARTNERS LP</span></h3>
+            <h4>Todos los nombres en este componente (2):</h4>
+            <div>
+                <div class="name-item">B III CAPITAL PARTNERS LP</div>
+                <div class="name-item">B III CAPITAL PARTNER LP C O DDJ CAPITAL MANAGEMENT LLC</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-452">
+        <div class="component-header">
+            <div class="component-id">Componente 452</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 2 nombres</span>
+                <span class="stat">Similitud promedio: 89.7%</span>
+                <span class="stat">Similitud mínima: 89.7%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Similitud promedio baja: 89.7%']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">PATTERSON LINDA L TRUSTEE</span></h3>
+            <h4>Todos los nombres en este componente (2):</h4>
+            <div>
+                <div class="name-item">PATTERSON LINDA L S</div>
+                <div class="name-item">PATTERSON LINDA L TRUSTEE</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-462">
+        <div class="component-header">
+            <div class="component-id">Componente 462</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 3 nombres</span>
+                <span class="stat">Similitud promedio: 89.8%</span>
+                <span class="stat">Similitud mínima: 89.1%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Similitud promedio baja: 89.8%']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">US BANK NA AS SECURED NOTES COLLATERAL AGENT</span></h3>
+            <h4>Todos los nombres en este componente (3):</h4>
+            <div>
+                <div class="name-item">US BANK NA AS SECURED NOTES COLLATERAL AGENT</div>
+                <div class="name-item">US BANK NA AS FIRST LIEN NOTES COLLATERAL AGENT</div>
+                <div class="name-item">US BANK NA AS SECOND LIEN NOTES COLLATERAL AGENT</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-471">
+        <div class="component-header">
+            <div class="component-id">Componente 471</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 2 nombres</span>
+                <span class="stat">Similitud promedio: 89.8%</span>
+                <span class="stat">Similitud mínima: 89.8%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Similitud promedio baja: 89.8%']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">HARVEST SMALL CAP PARTNERS MASTER LTD</span></h3>
+            <h4>Todos los nombres en este componente (2):</h4>
+            <div>
+                <div class="name-item">HARVEST SMALL CAP PARTNERS LP</div>
+                <div class="name-item">HARVEST SMALL CAP PARTNERS MASTER LTD</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-510">
+        <div class="component-header">
+            <div class="component-id">Componente 510</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 2 nombres</span>
+                <span class="stat">Similitud promedio: 88.9%</span>
+                <span class="stat">Similitud mínima: 88.9%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Similitud promedio baja: 88.9%']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">XMARK FUND LP</span></h3>
+            <h4>Todos los nombres en este componente (2):</h4>
+            <div>
+                <div class="name-item">XMARK FUND LTD</div>
+                <div class="name-item">XMARK FUND LP</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-515">
+        <div class="component-header">
+            <div class="component-id">Componente 515</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 2 nombres</span>
+                <span class="stat">Similitud promedio: 89.4%</span>
+                <span class="stat">Similitud mínima: 89.4%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Similitud promedio baja: 89.4%']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">GCG INVESTORS V LP</span></h3>
+            <h4>Todos los nombres en este componente (2):</h4>
+            <div>
+                <div class="name-item">GCG SBIC INVESTORS LP</div>
+                <div class="name-item">GCG INVESTORS V LP</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-527">
+        <div class="component-header">
+            <div class="component-id">Componente 527</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 2 nombres</span>
+                <span class="stat">Similitud promedio: 88.9%</span>
+                <span class="stat">Similitud mínima: 88.9%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Similitud promedio baja: 88.9%']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">SERMATECH INTERNATIONAL CANADA CORP</span></h3>
+            <h4>Todos los nombres en este componente (2):</h4>
+            <div>
+                <div class="name-item">SERMATECH INTERNATIONAL CANADA CORP</div>
+                <div class="name-item">SERMATECH INTERNATIONAL CANADA GP LLC</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-612">
+        <div class="component-header">
+            <div class="component-id">Componente 612</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 2 nombres</span>
+                <span class="stat">Similitud promedio: 88.2%</span>
+                <span class="stat">Similitud mínima: 88.2%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Similitud promedio baja: 88.2%']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">NEVYAS EYE ASSOCIATES PC 401K PROFIT SHARING PLAN F B O ACCOUNT OF H NEVYAS</span></h3>
+            <h4>Todos los nombres en este componente (2):</h4>
+            <div>
+                <div class="name-item">NEVYAS EYE ASSOCIATES PC 401K PROFIT SHARING PLAN F B O ACCOUNT OF H NEVYAS</div>
+                <div class="name-item">NEVYAS EYE ASSOCIATES P C</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-704">
+        <div class="component-header">
+            <div class="component-id">Componente 704</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 2 nombres</span>
+                <span class="stat">Similitud promedio: 88.9%</span>
+                <span class="stat">Similitud mínima: 88.9%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Similitud promedio baja: 88.9%']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">SIRROM CAPITAL CORP</span></h3>
+            <h4>Todos los nombres en este componente (2):</h4>
+            <div>
+                <div class="name-item">SIRROM CAPITAL LP</div>
+                <div class="name-item">SIRROM CAPITAL CORP</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-761">
+        <div class="component-header">
+            <div class="component-id">Componente 761</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 2 nombres</span>
+                <span class="stat">Similitud promedio: 89.2%</span>
+                <span class="stat">Similitud mínima: 89.2%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Similitud promedio baja: 89.2%']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">ROCKWELL SCIENTIFIC CO LLC</span></h3>
+            <h4>Todos los nombres en este componente (2):</h4>
+            <div>
+                <div class="name-item">ROCKWELL SCIENTIFIC CO LLC</div>
+                <div class="name-item">ROCKWELL SCIENTIFIC LICENSING LLC</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <div class="component" id="component-783">
+        <div class="component-header">
+            <div class="component-id">Componente 783</div>
+            <div class="stats">
+                <span class="stat">Tamaño: 2 nombres</span>
+                <span class="stat">Similitud promedio: 88.0%</span>
+                <span class="stat">Similitud mínima: 88.0%</span>
+            </div>
+            <div class="issues"><strong>Problemas identificados:</strong> ['Similitud promedio baja: 88.0%']</div>
+        </div>
+        
+        <div class="names-list">
+            <h3>Nombre estándar: <span class="standard-name">BRENTWOOD ASSOCIATES IX LP</span></h3>
+            <h4>Todos los nombres en este componente (2):</h4>
+            <div>
+                <div class="name-item">BRENTWOOD ASSOCIATES III</div>
+                <div class="name-item">BRENTWOOD ASSOCIATES IX LP</div>
+
+            </div>
+        </div>
+        
+        <div class="actions">
+            <h4>Acción:</h4>
+            <button class="action-btn btn-valid" onclick="markValid(this)">✓ Válido (mantener grupo)</button>
+            <button class="action-btn btn-split" onclick="markSplit(this)">✂ Dividir grupo</button>
+            <button class="action-btn btn-invalid" onclick="markInvalid(this)">✗ Inválido (separar nombres)</button>
+            <textarea class="notes" placeholder="Notas sobre esta decisión..."></textarea>
+        </div>
+    </div>
+
+    <script>
+        function markValid(btn) {
+            const component = btn.closest('.component');
+            component.style.border = '3px solid #4caf50';
+            btn.style.background = '#2e7d32';
+        }
+        function markSplit(btn) {
+            const component = btn.closest('.component');
+            component.style.border = '3px solid #ff9800';
+            btn.style.background = '#f57c00';
+        }
+        function markInvalid(btn) {
+            const component = btn.closest('.component');
+            component.style.border = '3px solid #f44336';
+            btn.style.background = '#c62828';
+        }
+    </script>
+</body>
+</html>

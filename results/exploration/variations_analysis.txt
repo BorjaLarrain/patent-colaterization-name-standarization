@@ -1,0 +1,653 @@
+================================================================================
+ANÁLISIS DE VARIACIONES DE NOMBRES
+Fecha: 2025-12-01 09:14:49
+================================================================================
+
+================================================================================
+VARIACIONES DE NOMBRES DE REFERENCIA
+================================================================================
+
+--------------------------------------------------------------------------------
+REFERENCIA: BANK OF AMERICA
+--------------------------------------------------------------------------------
+Total variaciones encontradas: 121
+Frecuencia total: 481,890
+
+Top 20 variaciones por frecuencia:
+
+   123,191 | BANK OF AMERICA, N.A., AS ADMINISTRATIVE AGENT
+   122,643 | BANK OF AMERICA, N.A., AS COLLATERAL AGENT
+   116,812 | BANK OF AMERICA, N.A.
+    68,088 | BANK OF AMERICA N.A., AS AGENT
+    10,322 | BANK OF AMERICAN, N.A. AS COLLATERAL AGENT
+     8,545 | BANK OF AMERICA, N.A., AS AGENT
+     5,602 | BANK OF AMERICA, N. A.
+     4,800 | BANK OF AMERICA, N.A, AS COLLATERAL AGENT
+     3,948 | BANK OF AMERICA NATIONAL TRUST AND SAVINGS ASSOCIATION
+     2,753 | BANK OF AMERICA, N.A. AS ADMINISTRATIVE AGENT
+     2,418 | BANK OF AMERICA, N.A., AS ADMINISTRATIVE AGENT FOR THE SECURED PARTIES
+     1,759 | BANK OF AMERICA, N.A. AS COLLATERAL AGENT
+     1,551 | BANK OF AMERICA N.A.
+     1,231 | BANK OF AMERICA
+     1,080 | BANK OF AMERICA, N.A.,AS COLLATERAL AGENT
+       729 | BANK OF AMERICA, N.A., AS COLLATERAL TRUSTEE
+       540 | BANK OF AMERICA, N.A., A COLLATERAL AGENT
+       495 | BANK OF AMERICA, N.A., AS ABL COLLATERAL AGENT
+       492 | BANK OF AMERICA, N.A., AS LENDER
+       392 | BANK OF AMERICA, NATIONAL ASSOCIATION, AS ADMINISTRATIVE AGENT
+
+--------------------------------------------------------------------------------
+REFERENCIA: SILICON VALLEY BANK
+--------------------------------------------------------------------------------
+Total variaciones encontradas: 21
+Frecuencia total: 14,592
+
+Top 20 variaciones por frecuencia:
+
+    10,911 | SILICON VALLEY BANK
+     1,998 | SILICON VALLEY BANK, AS ADMINISTRATIVE AGENT
+     1,015 | SILICON VALLEY BANK, AGENT
+       423 | SILICON VALLEY BANK, AS ADMINISTRATIVE AND COLLATERAL AGENT
+        70 | SILICON VALLEY BANK, AS ADMINISTRATIVE AGENT AND COLLATERAL AGENT
+        41 | SILICON VALLEY BANK DBA SILICON VALLEY EAST
+        24 | SILICON VALLEY BANK COMMERCIAL FINANCE DIVISION
+        22 | SILICON VALLEY BANK, AS ASSIGNEE
+        15 | SILICON VALLEY BANK, AS AGENT AND AS A LENDER
+        15 | SILICON VALLEY BANK, AS SERVICING AGENT
+        11 | SILICON VALLEY BANK, AS AGENT
+        10 | SILICON VALLEY BANK, 3000 LAKESIDE DRIVE, SANTA CLARA, CA 95054
+         8 | SILICON VALLEY BANK, DBA: SILICON VALLEY EAST
+         6 | SILICON VALLEY BANK, AS AGENT AND A LENDER
+         5 | SILICON VALLEY BANK DBA: SILICON VALLEY EAST
+         4 | SILICON VALLEY BANK AS AGENT FOR THE BENEFIT OF THE LENDERS
+         4 | SILICON VALLEY BANK ATT: LOAN SERVICES
+         4 | SILICON VALLEY BANK, DBA SILICON VALLEY EAST
+         2 | SILICON VALLEY BANK A CORPORATION OF CA
+         2 | SILICON VALLEY BANK, COLLATERAL AGENT
+
+--------------------------------------------------------------------------------
+REFERENCIA: WELLS FARGO
+--------------------------------------------------------------------------------
+Total variaciones encontradas: 117
+Frecuencia total: 153,200
+
+Top 20 variaciones por frecuencia:
+
+    34,288 | WELLS FARGO BANK, NATIONAL ASSOCIATION
+    29,660 | WELLS FARGO BANK, NATIONAL ASSOCIATION, AS NOTES COLLATERAL AGENT
+    29,461 | WELLS FARGO BANK, NATIONAL ASSOCIATION, AS COLLATERAL AGENT
+    18,909 | WELLS FARGO BANK, NATIONAL ASSOCIATION, AS ADMINISTRATIVE AGENT
+    12,285 | WELLS FARGO BANK NATIONAL ASSOCIATION AS AGENT
+     4,773 | WELLS FARGO BANK, NATIONAL ASSOCIATION, AS COLLATERAL AGENT AND SECOND PRIORITY REPRESENTATIVE
+     3,404 | WELLS FARGO TRUST COMPANY, N.A.
+     3,034 | WELLS FARGO CAPITAL FINANCE, LLC, AS AGENT
+     2,022 | WELLS FARGO FOOTHILL, INC.
+     1,612 | WELLS FARGO BANK, NATIONAL ASSOCIATION, AS AGENT
+     1,376 | WELLS FARGO BANK, N.A.
+     1,222 | WELLS FARGO FOOTHILL, LLC, AS AGENT
+     1,105 | WELLS FARGO CAPITAL FINANCE, LLC, AS ADMINISTRATIVE AGENT
+     1,061 | WELLS FARGO FOOTHILL, LLC
+     1,044 | WELLS FARGO FOOTHILL, LLC AS AGENT
+       944 | WELLS FARGO BANK, NATIONAL ASSOCIATION, AS COLLATERAL TRUSTEE
+       534 | WELLS FARGO BANK, N.A., AS ADMINISTRATIVE AGENT
+       490 | WELLS FARGO BANK MINNESOTA, NATIONAL ASSOCIATION, AS COLLATERAL AGENT
+       483 | WELLS FARGO CAPITAL FINANCE, LLC
+       367 | WELLS FARGO FOOTHILL, INC., AS AGENT
+
+--------------------------------------------------------------------------------
+REFERENCIA: JPMORGAN
+--------------------------------------------------------------------------------
+Total variaciones encontradas: 83
+Frecuencia total: 427,349
+
+Top 20 variaciones por frecuencia:
+
+   114,857 | JPMORGAN CHASE BANK, N.A.
+   103,311 | JPMORGAN CHASE BANK, N.A., AS COLLATERAL AGENT
+    83,248 | JPMORGAN CHASE BANK, N.A., AS ADMINISTRATIVE AGENT
+    65,850 | JPMORGAN CHASE BANK, N.A., AS ADMINISTRATIVE
+    12,661 | JPMORGAN CHASE BANK, AS COLLATERAL AGENT
+     6,734 | JPMORGAN CHASE BANK,N.A,AS ADMINISTRATIVE AGENT
+     6,596 | JPMORGAN CHASE BANK, N.A. AS ADMINISTRATIVE AGENT
+     5,757 | JPMORGAN CHASE BANK, N.A., AS AGENT
+     4,773 | JPMORGAN CHASE BANK, N.A., AS ADMINISTRATIVE AGENT AND FIRST PRIORITY REPRESENTATIVE
+     4,259 | JPMORGAN CHASE BANK, N.A., AS THE ADMINISTRATIVE AGENT
+     4,188 | JPMORGAN CHASE BANK
+     3,520 | JPMORGAN, N.A.
+     2,842 | JPMORGAN CHASE BANK, N.A., AS ADMINISTRATIVE AGENT AND COLLATERAL AGENT
+     1,084 | JPMORGAN CHASE BANK, N.A., AS GENERAL ADMINISTRATIVE AGENT
+       980 | JPMORGAN CHASE BANK, AS ADMINISTRATIVE AGENT
+       650 | JPMORGAN CHASE BANK, N.A., AS SUCCESSOR ADMINISTRATIVE AGENT
+       440 | JPMORGAN CHASE, N.A.
+       438 | JPMORGAN CHASE BANK, N.A
+       346 | JPMORGAN CHASE BANK, NATIONAL ASSOCIATION, FOR ITSELF AND AS ADMINISTRATIVE AGENT FOR THE LENDERS
+       336 | JPMORGAN CHASE BANK, N.A., AS THE SUCCESSOR AGENT
+
+--------------------------------------------------------------------------------
+REFERENCIA: CITI
+--------------------------------------------------------------------------------
+Total variaciones encontradas: 149
+Frecuencia total: 262,314
+
+Top 20 variaciones por frecuencia:
+
+    53,904 | CITIBANK, N.A., AS COLLATERAL AGENT
+    40,821 | CITICORP USA, INC.
+    27,565 | CITIBANK, N.A.
+    26,613 | CITICORP NORTH AMERICA, INC.
+    19,666 | CITIBANK, N.A. AS COLLATERAL AGENT
+    14,271 | CITIBANK, N.A., AS COLLATERAL TRUSTEE
+    13,489 | CITIBANK, N.A., AS ADMINISTRATIVE AGENT
+    13,068 | CITICORP NORTH AMERICA, INC., AS AGENT
+     9,716 | CITIBANK, N.A., AS NOTES COLLATERAL AGENT
+     6,594 | CITICORP USA, INC. AS AGENT FOR HEDGE PRIORITY SECURED PARTIES
+     6,594 | CITICORP USA, INC. AS AGENT FOR BANK PRIORITY SECURED PARTIES
+     5,340 | CITICORP USA, INC., AS ADMINISTRATIVE AGENT
+     5,202 | CITIBANK, N.A., AS AGENT
+     3,225 | CITIZENS BANK, N.A.
+     2,292 | CITIBANK N.A., AS ADMINISTRATIVE AGENT
+     1,349 | CHINA CITIC BANK CORPORATION LIMITED, GUANGZHOU BRANCH, AS COLLATERAL AGENT
+       955 | CITICORP NORTH AMERICA, INC., AS COLLATERAL AGENT
+       888 | CITIBANK., N.A., AS ADMINISTRATIVE AGENT
+       865 | CITICORP NORTH AMERICA, INC., AS "AGENT"
+       803 | CITIBANK, N.A., AS ADMINISTRATIVE AGENT AND COLLATERAL AGENT
+
+--------------------------------------------------------------------------------
+REFERENCIA: GENERAL ELECTRIC CAPITAL
+--------------------------------------------------------------------------------
+Total variaciones encontradas: 33
+Frecuencia total: 18,791
+
+Top 20 variaciones por frecuencia:
+
+     8,402 | GENERAL ELECTRIC CAPITAL CORPORATION, AS AGENT
+     6,978 | GENERAL ELECTRIC CAPITAL CORPORATION
+     1,304 | GENERAL ELECTRIC CAPITAL CORPORATION, AS COLLATERAL AGENT
+     1,122 | GENERAL ELECTRIC CAPITAL CANADA, INC.
+       554 | GENERAL ELECTRIC CAPITAL CORPORATION, AS ADMINISTRATIVE AGENT
+       108 | GENERAL ELECTRIC CAPITAL CORPORATION, AS US AGENT
+        46 | GENERAL ELECTRIC CAPITAL CORPORATION, AS AGENT FOR LENDERS
+        31 | GENERAL ELECTRIC CAPITAL CORPORATION, A CORP. OF NY
+        30 | GENERAL ELECTRIC CAPITAL CORPORATION, AS SECOND LIEN COLLATERAL AGENT
+        25 | HEALTHCARE FINANCIAL SOLUTIONS, LLC (AS SUCCESSOR-IN-INTEREST TO GENERAL ELECTRIC CAPITAL CORPORATION), AS AGENT
+        24 | GENERAL ELECTRIC CAPITAL CORPORATION,AS ADMINISTRATIVE AGENT
+        17 | GENERAL ELECTRIC CAPITAL CORPORATION, AS U.S. AGENT
+        15 | GENERAL ELECTRIC CAPITAL CORPORATION (AS ADMINISTRATIVE AGENT)
+        15 | GENERAL ELECTRIC CAPITAL CORPORATION, AS FIRST LIEN COLLATERAL AGENT
+        14 | GENERAL ELECTRIC CAPITAL CORPORATION AS AGENT FOR LENDERS
+        14 | GENERAL ELECTRIC CAPITAL CORPORATION, AS REVOLVING COLLATERAL AGENT FOR THE REVOLVING LENDERS AND AS TERM LOAN COLLATERAL AGENT
+        14 | GENERAL ELECTRIC CAPITAL CORPORATION AS ADMINISTRATIVE AGENT
+        13 | GENERAL ELECTRIC CAPITAL CORP.
+        12 | GENERAL ELECTRIC CAPITAL
+        10 | GENERAL ELECTRIC CAPITAL CORPORATION, AS COLLATERAL AGENT, SUCCESSOR TO DEUTSCHE BANK TRUST COMPANY AMERICAS
+
+--------------------------------------------------------------------------------
+REFERENCIA: COMERICA
+--------------------------------------------------------------------------------
+Total variaciones encontradas: 21
+Frecuencia total: 3,585
+
+Top 20 variaciones por frecuencia:
+
+     2,167 | COMERICA BANK, AS AGENT
+       632 | COMERICA BANK
+       290 | COMERICA BANK, A TEXAS BANKING ASSOCIATION
+       230 | COMERICA BANK-CALIFORNIA
+       122 | COMERICA BANK, AS ADMINISTRATIVE AGENT
+        79 | COMERICA BANK - CALIFORNIA
+        18 | COMERICA BANK CALIFORNIA
+        11 | COMERICA BANK-TEXAS
+        10 | COMERICA BANK, A TEXAS BANKING ASSOCIATION AND AUTHORIZED FOREIGN BANK UNDER THE BANK ACT (CANADA)
+         4 | COMERICA BANK-CALIFORNIA, AS AGENT
+         4 | COMERICA BANK-CALIFORNIA SUCCESSOR IN INTEREST TO IMPERIAL BANK
+         4 | COMERICA BANK, AS AGENT, A MICHIGAN CORPORATION
+         3 | COMERICA BANK-CALIFORIA
+         2 | COMERICA BANK SUCCESOR BY MERGER TO COMERICA BANK-CALIFORNIA
+         2 | COMERICA BANK, SUCCESSOR IN INTEREST TO COMERICA BANK-CALIFORNIA
+         2 | COMERICA BANK-CA
+         1 | COMERICA BANK - TEXAS
+         1 | COMERICA BANK SUCCESSOR BY MERGER TO COMERICA BANK-CALIFORNIA
+         1 | COMERICA BANK, A MICHIGAN BANKING CORPORATION
+         1 | COMERICA BANK, SUCCESSOR BY MERGER TO COMERICA BANK-CALIFORNIA
+
+--------------------------------------------------------------------------------
+REFERENCIA: CREDIT SUISSE
+--------------------------------------------------------------------------------
+Total variaciones encontradas: 96
+Frecuencia total: 204,519
+
+Top 20 variaciones por frecuencia:
+
+   155,495 | CREDIT SUISSE AG, CAYMAN ISLANDS BRANCH, AS COLLATERAL AGENT
+    13,082 | CREDIT SUISSE AG, CAYMAN ISLANDS BRANCH
+    11,847 | CREDIT SUISSE
+     4,185 | CREDIT SUISSE AG
+     3,988 | CREDIT SUISSE, CAYMAN ISLANDS BRANCH, AS COLLATERAL AGENT
+     3,133 | CREDIT SUISSE FIRST BOSTON, AS COLLATERAL AGENT
+     2,918 | CREDIT SUISSE FIRST BOSTON
+     1,685 | CREDIT SUISSE, CAYMAN ISLANDS BRANCH, AS ADMINISTRATIVE AGENT
+       972 | CREDIT SUISSE, AS COLLATERAL AGENT
+       805 | CREDIT SUISSE AG, CAYMAN ISLANDS BRANCH, AS ADMINISTRATIVE AGENT
+       652 | CREDIT SUISSE, AG, CAYMAN ISLANDS BRANCH, AS COLLATERAL AGENT
+       590 | CREDIT SUISSE, AS ADMINISTRATIVE AGENT
+       535 | CREDIT SUISSE AG, AS COLLATERAL AGENT
+       387 | CREDIT SUISSE FIRST BOSTON, AS U.S. COLLATERAL AGENT
+       352 | CREDIT SUISSE AG, CAYMAN ISLANDS BRANCH AS COLLATERAL AGENT
+       326 | CREDIT SUISSE AG, AS FIRST LIEN COLLATERAL AGENT
+       326 | CREDIT SUISSE AG, AS SECOND LIEN COLLATERAL AGENT
+       324 | CREDIT SUISSE AG, AS ADMINISTRATIVE AND COLLATERAL AGENT
+       261 | CREDIT SUISSE FIRST BOSTON, CAYMAN ISLANDS BRANCH
+       244 | CREDIT SUISSE AG, CAYMAN ISLANDS BRANCH, AS TERM COLLATERAL AGENT
+
+--------------------------------------------------------------------------------
+REFERENCIA: BANK OF NEW YORK
+--------------------------------------------------------------------------------
+Total variaciones encontradas: 63
+Frecuencia total: 671,230
+
+Top 20 variaciones por frecuencia:
+
+   389,277 | THE BANK OF NEW YORK MELLON TRUST COMPANY, N.A.
+   141,093 | THE BANK OF NEW YORK MELLON TRUST COMPANY, N.A., AS NOTES COLLATERAL AGENT
+    43,470 | BANK OF NEW YORK MELLON TRUST COMPANY, N.A., AS FIRST LIEN COLLATERAL AGENT
+    20,336 | THE BANK OF NEW YORK MELLON TRUST COMPANY, N.A., AS TRUSTEE
+    18,320 | THE BANK OF NEW YORK MELLON TRUST COMPANY, N.A., AS COLLATERAL AGENT
+    17,705 | THE BANK OF NEW YORK MELLON TRUST COMPANY, N.A., AS TRUSTEE AND NOTES COLLATERAL AGENT
+     7,491 | THE BANK OF NEW YORK MELLON TRUST COMPANY, N.A., AS COLLATERAL TRUSTEE
+     6,400 | THE BANK OF NEW YORK MELLON, AS COLLATERAL AGENT
+     4,200 | THE BANK OF NEW YORK MELLON, AS NOTES COLLATERAL AGENT
+     3,927 | THE BANK OF NEW YORK MELLON TRUST COMPANY, N.A.,
+     2,361 | BANK OF NEW YORK MELLON TRUST COMPANY, N.A., THE
+     2,344 | THE BANK OF NEW YORK MELLON
+     2,100 | THE BANK OF NEW YORK MELLON TRUST COMPANY, N.A., AS SECOND LIEN AGENT
+     1,925 | BANK OF NEW YORK, THE
+     1,588 | BANK OF NEW YORK MELLON TRUST COMPANY, N.A.
+     1,477 | BANK OF NEW YORK MELLON TRUST, NA, AS NOTES COLLATERAL AGENT, THE
+     1,352 | THE BANK OF NEW YORK, MELLON TRUST COMPANY, N.A.
+     1,155 | THE BANK OF NEW YORK TRUST COMPANY, N.A.
+       983 | THE BANK OF NEW YORK MELLON, AS ADMINISTRATIVE AGENT
+       909 | THE BANK OF NEW YORK MELLON TRUST COMPANY, N.A. AS COLLATERAL AGENT
+
+--------------------------------------------------------------------------------
+REFERENCIA: FLEET
+--------------------------------------------------------------------------------
+Total variaciones encontradas: 42
+Frecuencia total: 2,983
+
+Top 20 variaciones por frecuencia:
+
+       907 | FLEET CAPITAL CORPORATION, AS AGENT
+       456 | FLEET NATIONAL BANK
+       345 | FLEET NATIONAL BANK, AS ADMINISTRATIVE AGENT
+       338 | FLEET CAPITAL CORPORATION
+       252 | FLEET NATIONAL BANK, AS AGENT
+       158 | FLEET BANK
+        82 | FLEET CAPITAL CORPORATION, AS ADMINISTRATIVE AGENT
+        60 | FLEET BANK, NATIONAL ASSOCIATION
+        54 | FLEET CAPITAL CANADA CORPORATION
+        48 | FLEET NATIONAL BANK, AS TRUSTEE
+        41 | FLEET NATIONAL BANK, LONDON U.K. BRANCH, TRADING AS FLEETBOSTON FINANCIAL, AS UK AGENT
+        39 | FLEET BANK OF MASSACHUSETTS, N.A.
+        36 | FLEET CAPITAL CORP.
+        25 | FLEET CAPITAL CORPORATION, AS AGENT, A CORP. OF RHODE ISLAND
+        21 | BANK OF AMERICA, N.A., AS SUCCESSOR BY MERGER TO FLEET NATIONAL BANK
+        13 | FLEET NATIONAL BANK, AS AGENT FOR ITSELF AND THE OTHER LENDERS
+        13 | FLEET PRECIOUS METALS INC.
+        12 | FLEET BANK, ADMINISTRATIVE AGENT
+        10 | FLEET BUSINESS CREDIT, LLC.
+         8 | FLEET NATIONAL BANK, AS COLLATERAL AGENT
+
+--------------------------------------------------------------------------------
+REFERENCIA: PNC BANK
+--------------------------------------------------------------------------------
+Total variaciones encontradas: 24
+Frecuencia total: 14,593
+
+Top 20 variaciones por frecuencia:
+
+    11,243 | PNC BANK, NATIONAL ASSOCIATION
+     1,992 | PNC BANK, NATIONAL ASSOCIATION, AS AGENT
+       489 | PNC BANK, NATIONAL ASSOCIATION, AS COLLATERAL AGENT
+       359 | PNC BANK
+       287 | PNC BANK, NATIONAL ASSOCIATION, AS ADMINISTRATIVE AGENT
+        56 | PNC BANK CANADA BRANCH
+        47 | PNC BANK NATIONAL ASSOCIATION
+        19 | PNC BANK, NA
+        19 | PNC BANK, NATIONAL ASSOCIATION, D/B/A MIDLAND LOAN SERVICES, A DIVISION OF PNC BANK, NATIONAL ASSOCIATION
+        18 | PNC BANK, NATIONAL ASSOICATIONS, AS AGENT
+        17 | PNC BANK - NATIONAL ASSOCIATION
+        11 | PNC BANK, NATIONAL ASSOCIATION (AS SUCCESSOR-BY-MERGER TO NATIONAL CITY BANK), AS COLLATERAL AGENT
+        10 | PNC BANK DELAWARE
+         6 | PNC BANK, NATIONAL ASSOCIATION, AS ADMINISTRATIVE AGENT AND COLLATERAL AGENT
+         5 | PNC BANK, DELAWARE
+         4 | PNC BANK, N.A.
+         4 | PNC BANK, NATIONAL ASSOCIATION (AS SUCCESSOR IN INTEREST TO NATIONAL CITY BANK)
+         1 | PNC BANK, A NATIONAL ASSOCIATION (AS ADMINISTRATIVE AGENT)
+         1 | PNC BANK, N.A., AGENT
+         1 | PNC BANK, NATIONAL ASSOC.
+
+--------------------------------------------------------------------------------
+REFERENCIA: WILMINGTON TRUST
+--------------------------------------------------------------------------------
+Total variaciones encontradas: 55
+Frecuencia total: 152,889
+
+Top 20 variaciones por frecuencia:
+
+    61,501 | WILMINGTON TRUST, NATIONAL ASSOCIATION
+    21,537 | WILMINGTON TRUST
+    18,552 | WILMINGTON TRUST COMPANY
+    16,416 | WILMINGTON TRUST, NATIONAL ASSOCIATION, AS COLLATERAL AGENT
+     9,801 | WILMINGTON TRUST, NATIONAL ASSOCIATION, AS AGENT
+     9,564 | WILMINGTON TRUST, NATIONAL ASSOCIATION, AS NOTES COLLATERAL AGENT
+     7,517 | WILMINGTON TRUST COMPANY, AS COLLATERAL AGENT
+     1,374 | WILMINGTON TRUST FSB, AS ADMINISTRATIVE AGENT
+     1,327 | WILMINGTON TRUST FSB, AS COLLATERAL AGENT
+       819 | WILMINGTON TRUST, NATIONAL ASSOCIATION, AS COLLATERAL TRUSTEE
+       801 | WILMINGTON TRUST, NATIONAL ASSOCIATION, - AS NOTES COLLATERAL AGENT
+       758 | WILMINGTON TRUST, NATIONAL ASSOCIATION, AS CO-COLLATERAL TRUSTEE, SUCCESSOR COLLATERAL TRUSTEE
+       394 | WILMINGTON TRUST, NATIONAL ASSOCIATION, AS U.S. COLLATERAL AGENT
+       380 | WILMINGTON TRUST COMPANY, AS SECOND LIEN COLLATERAL AGENT
+       195 | WILMINGTON TRUST (LONDON) LIMITED
+       192 | WILMINGTON TRUST COMPANY, AS TRUSTEE
+       188 | WILMINGTON TRUST, NATIONAL ASSOCIATION, SOLELY IN ITS CAPACITY AS COLLATERAL TRUSTEE
+       175 | WILMINGTON TRUST (LONDON) LIMITED, AS COLLATERAL AGENT
+       171 | WILMINGTON TRUST FSB
+       160 | WILMINGTON TRUST, AS COLLATERAL TRUSTEE
+
+--------------------------------------------------------------------------------
+REFERENCIA: DEUTSCHE BANK
+--------------------------------------------------------------------------------
+Total variaciones encontradas: 68
+Frecuencia total: 140,531
+
+Top 20 variaciones por frecuencia:
+
+    67,403 | DEUTSCHE BANK TRUST COMPANY AMERICAS
+    29,550 | DEUTSCHE BANK AG NEW YORK BRANCH, AS COLLATERAL AGENT
+    16,135 | DEUTSCHE BANK TRUST COMPANY AMERICAS, AS COLLATERAL AGENT
+    12,398 | DEUTSCHE BANK TRUST COMPANY AMERICAS, AS ADMINISTRATIVE AGENT
+     8,176 | DEUTSCHE BANK AG NEW YORK BRANCH
+     3,093 | DEUTSCHE BANK TRUST COMPANY AMERICAS, AS COLLATERAL TRUSTEE
+       768 | DEUTSCHE BANK TRUST COMPANY AMERICAS, AS SECOND LIEN ADMINISTRATIVE AGENT
+       429 | DEUTSCHE BANK TRUST COMPANY AMERICAS, AS AGENT
+       420 | DEUTSCHE BANK AG NEW YORK BRANCH, AS ADMINISTRATIVE AGENT
+       167 | DEUTSCHE BANK AG
+       165 | DEUTSCHE BANK AG CAYMAN ISLANDS BRANCH
+       164 | DEUTSCHE BANK AG CAYMAN ISLANDS BRANCH AS SECOND-LIEN COLLATERAL AGENT
+       131 | DEUTSCHE BANK AG, NEW YORK BRANCH
+       114 | DEUTSCHE BANK AG NEW YORK BRANCH, AS AGENT
+       107 | DEUTSCHE BANK TRUST OF COMPANY AMERICAS, A COLLATERAL AGENT
+       101 | DEUTSCHE BANK TRUST COMPANY AMERICAS (FORMERLY KNOWN AS BANKERS TRUST COMPANY), AS AGENT
+        97 | DEUTSCHE BANK TRUST COMPANY AMERICAS (FORMERLY KNOWN AS BANKER TRUST COMPANY), AS COLLATERAL AGENT
+        96 | DEUTSCHE BANK AG, LONDON BRANCH
+        88 | DEUTSCHE BANK AG NEW YORK BRANCH, AS SECURITY AGENT
+        79 | DEUTSCHE BANK AG NEW YORK
+
+--------------------------------------------------------------------------------
+REFERENCIA: US BANK
+--------------------------------------------------------------------------------
+Total variaciones encontradas: 8
+Frecuencia total: 639
+
+Top 20 variaciones por frecuencia:
+
+       355 | OPUS BANK
+       236 | US BANK NATIONAL ASSOCIATION, AS NOTES COLLATERAL AGENT
+        11 | NBSC, A DIVISION OF SYNOVUS BANK
+        11 | US BANK NATIONAL ASSOCIATION
+        11 | US BANK TRUST COMPANY, NATIONAL ASSOCIATION, AS NOTES COLLATERAL AGENT
+        10 | NBSC, A DIVISION ON SYNOVUS BANK
+         4 | SYNOVUS BANK
+         1 | COLUMBUS BANK AND TRUST COMPANY
+
+--------------------------------------------------------------------------------
+REFERENCIA: WACHOVIA
+--------------------------------------------------------------------------------
+Total variaciones encontradas: 38
+Frecuencia total: 5,951
+
+Top 20 variaciones por frecuencia:
+
+     1,921 | WACHOVIA CAPITAL FINANCE CORPORATION (CENTRAL), AS ADMINISTRATIVE AGENT
+     1,166 | WACHOVIA BANK, NATIONAL ASSOCIATION
+       856 | WACHOVIA BANK, NATIONAL ASSOCIATION, AS ADMINISTRATIVE AGENT
+       789 | WACHOVIA BANK, NATIONAL ASSOCIATION, AS COLLATERAL AGENT
+       256 | WACHOVIA CAPITAL FINANCE CORPORATION (NEW ENGLAND)
+       211 | WACHOVIA BANK, N.A.
+       156 | WACHOVIA BANK NATIONAL ASSOCIATION
+        95 | WACHOVIA CAPITAL FINANCE CORPORATION (WESTERN)
+        75 | WACHOVIA CAPITAL FINANCE CORPORATION (CENTRAL)
+        75 | WACHOVIA CAPITAL FINANCE CORPORATION (CENTRAL), AS AGENT
+        75 | WACHOVIA BANK, N.A., AS ADMINISTRATIVE AGENT
+        57 | WACHOVIA BANK, NATIONAL ASSOCIATION, AS AGENT
+        54 | WACHOVIA BANK, NATIONAL ASSOCATION
+        30 | WACHOVIA BANK, NATIONAL ASSOCIATION, AS ADMINISTRATIVE AGENT AND CONTROL AGENT
+        23 | WACHOVIA INVESTMENT HOLDINGS, LLC
+        18 | WACHOVIA CAPITAL FINANCE CORPORATION (NEW ENGLAND), AS COLLATERAL AGENT
+        16 | WACHOVIA BANK
+        15 | WACHOVIA CAPITAL FINANCE CORPORATION
+         8 | WELLS FARGO BANK, NATIONAL ASSOCIATION, SUCCESSOR BY MERGER TO WACHOVIA BANK, NATIONAL ASSOCIATION
+         6 | WACHOVIA BANK, NATIONAL ASSOCIATION AS ADMINISTRATIVE AGENT
+
+
+================================================================================
+DICCIONARIO DE PATRONES COMUNES
+================================================================================
+
+Roles funcionales encontrados:
+--------------------------------------------------------------------------------
+  AS A COLLATERAL AGENT                              :      2 ocurrencias
+  AS A LENDER AND ADMINISTRATIVE AGENT               :      1 ocurrencias
+  AS A LENDER AND AS AGENT                           :      1 ocurrencias
+  AS ABL AGENT                                       :      1 ocurrencias
+  AS ABL COLLATERAL AGENT                            :      2 ocurrencias
+  AS ADIMINISTRATIVE AGENT                           :      1 ocurrencias
+  AS ADMIN AGENT                                     :      1 ocurrencias
+  AS ADMINISRATIVE AGENT                             :      1 ocurrencias
+  AS ADMINISTATIVE AGENT                             :      1 ocurrencias
+  AS ADMINISTRAIVE AGENT                             :      1 ocurrencias
+  AS ADMINISTRATIVE AGENT                            :    410 ocurrencias
+  AS ADMINISTRATIVE AGENT AND COLLATERAL AGENT       :     23 ocurrencias
+  AS ADMINISTRATIVE AGENT AND CONTROL AGENT          :      1 ocurrencias
+  AS ADMINISTRATIVE AGENT AND FIRST LIEN COLLATERAL AGENT :      1 ocurrencias
+  AS ADMINISTRATIVE AGENT AND SECOND LIEN COLLATERAL AGENT :      1 ocurrencias
+  AS ADMINISTRATIVE AND COLLATERAL AGENT             :     13 ocurrencias
+  AS ADMINISTRAVTIVE AGENT                           :      1 ocurrencias
+  AS ADMINSITRATIVE AGENT                            :      1 ocurrencias
+  AS ADMINSTRATIVE AGENT                             :      4 ocurrencias
+  AS ADMNISTRATIVE AGENT                             :      1 ocurrencias
+  AS AGENT AND ADMINISTRATIVE AGENT                  :      1 ocurrencias
+  AS AGENT AND AS TRUSTEE                            :      1 ocurrencias
+  AS AGENT FOR HOLDERS OF PROMISSORY NOTES           :      1 ocurrencias
+  AS ALTERNATIVE CURRENCY AGENT                      :      1 ocurrencias
+  AS ASSIGNEE AND ADMINISTRATIVE AGENT               :      1 ocurrencias
+  AS ASSIGNEE AND SUCCESSOR AGENT                    :      1 ocurrencias
+  AS BANKERS TRUST COMPANY AS AGENT                  :      1 ocurrencias
+  AS BANKERS TRUST COMPANY AS COLLATERAL AGENT       :      1 ocurrencias
+  AS CANADIAN ADMINISTRATIVE AGENT AND CANADIAN COLLATERAL AGENT :      1 ocurrencias
+  AS CANADIAN AGENT                                  :      2 ocurrencias
+  AS CANADIAN COLLATERAL AGENT                       :      2 ocurrencias
+  AS COLATERAL AGENT                                 :      1 ocurrencias
+  AS COLLALTERAL AGENT                               :      1 ocurrencias
+  AS COLLARTERAL AGENT                               :      1 ocurrencias
+  AS COLLATER AGENT                                  :      1 ocurrencias
+  AS COLLATERAL AGENT                                :    463 ocurrencias
+  AS COLLATERAL AGENT FOR THE LENDERS AND FOR THE HOLDERS OF THE NOTES :      1 ocurrencias
+  AS COLLATERAL AND ADMINISTRATIVE AGENT             :      1 ocurrencias
+  AS COLLATERAL TRUSTEE                              :     21 ocurrencias
+  AS COLLATERIAL AGENT                               :      2 ocurrencias
+  AS COLLETERAL AGENT                                :      2 ocurrencias
+  AS COMMON SECURITY AGENT                           :      1 ocurrencias
+  AS DOMESTIC ADMINISTRATIVE AGENT                   :      1 ocurrencias
+  AS FACILITY COLLATERAL AGENT                       :      1 ocurrencias
+  AS FIRST AND SECOND LIEN COLLATERAL AGENT          :      1 ocurrencias
+  AS FIRST LEIN ADMINISTRATIVE AGENT AND FIRST LIEN COLLATERAL AGENT :      1 ocurrencias
+  AS FIRST LIEN ADMINISTRATIVE AGENT                 :      7 ocurrencias
+  AS FIRST LIEN ADMINISTRATIVE AGENT AND FIRST LIEN COLLATERAL AGENT :      1 ocurrencias
+  AS FIRST LIEN AGENT                                :      4 ocurrencias
+  AS FIRST LIEN COLLATERAL                           :     21 ocurrencias
+  AS FIRST LIEN COLLATERAL AGENT                     :     20 ocurrencias
+  AS FIRST LIEN NOTES COLLATERAL AGENT               :      1 ocurrencias
+  AS FIRST LIEN TERM LOAN ADMINISTRATIVE AGENT       :      1 ocurrencias
+  AS FOREIGN COLLATERAL AGENT                        :      1 ocurrencias
+  AS GENERAL ADMINISTRATIVE AGENT                    :      2 ocurrencias
+  AS INDENTURE TRUSTEE                               :      2 ocurrencias
+  AS INDIVIDUAL TRUSTEE                              :      1 ocurrencias
+  AS INTERCOMPANY BRIDGE COLLAGERAL AGENT            :      1 ocurrencias
+  AS INTERCOMPANY PRIMARY COLLATERAL AGENT           :      1 ocurrencias
+  AS ITS AGENT                                       :      1 ocurrencias
+  AS JOINT COLLATERAL AGENT                          :      2 ocurrencias
+  AS JOINT COLLATERIAL AGENT                         :      1 ocurrencias
+  AS JUNIOR NOTES COLLATERAL AGENT                   :      1 ocurrencias
+  AS LENDER AND AGENT                                :      1 ocurrencias
+  AS MULTICURRENCY COLLATERAL AGENT                  :      1 ocurrencias
+  AS NEW ADMINISTRATIVE AGENT                        :      1 ocurrencias
+  AS NOTE COLLATERAL AGENT                           :      1 ocurrencias
+  AS NOTEHOLDER COLLATERAL AGENT                     :      2 ocurrencias
+  AS NOTES COLLATERAL AGENT                          :     19 ocurrencias
+  AS NOTES COLLATERAL TRUSTEE                        :      1 ocurrencias
+  AS OFFSHORE SECURITY TRUSTEE                       :      1 ocurrencias
+  AS PARI PASSU COLLATERAL AGENT                     :      1 ocurrencias
+  AS PARITY LIEN COLLATERAL TRUSTEE                  :      2 ocurrencias
+  AS PAYING AGENT                                    :      1 ocurrencias
+  AS PRIMARY COLLATERAL AGENT                        :      1 ocurrencias
+  AS PRIORITY COLLATERAL AGENT                       :      1 ocurrencias
+  AS PRIORITY LIEN COLLATERAL TRUSTEE                :      2 ocurrencias
+  AS PURCHASER AGENT                                 :      2 ocurrencias
+  AS REVOLVER COLLATERAL AGENT                       :      1 ocurrencias
+  AS REVOLVING COLLATERAL AGENT                      :      8 ocurrencias
+  AS REVOLVING COLLATERAL AGENT FOR THE REVOLVING LENDERS AND AS TERM LOAN COLLATERAL AGENT :      1 ocurrencias
+  AS REVOLVING CREDIT COLLATERAL AGENT               :      1 ocurrencias
+  AS SECOND COLLATERAL AGENT                         :      1 ocurrencias
+  AS SECOND LIEN ADMINISTRATIVE AGENT                :      9 ocurrencias
+  AS SECOND LIEN ADMINISTRATIVE AGENT AND SECOND LIEN COLLATERAL AGENT :      2 ocurrencias
+  AS SECOND LIEN AGENT                               :     10 ocurrencias
+  AS SECOND LIEN COLLATERAL AGENT                    :     25 ocurrencias
+  AS SECOND LIEN NOTES COLLATERAL AGENT              :      1 ocurrencias
+  AS SECOND LIEN TERM LOAN ADMINISTRATIVE AGENT      :      1 ocurrencias
+  AS SECURED NOTES COLLATERAL AGENT                  :      2 ocurrencias
+  AS SECURED PARTY AND AGENT                         :      1 ocurrencias
+  AS SECURITY AGENT                                  :     41 ocurrencias
+  AS SECURITY AGENT AND TRUSTEE                      :      1 ocurrencias
+  AS SECURITY TRUSTEE                                :     12 ocurrencias
+  AS SECURITY TRUSTEE AND SECURITY AGENT             :      1 ocurrencias
+  AS SENIOR COLLATERAL AGENT                         :      2 ocurrencias
+  AS SENIOR CREDITOR AGENT                           :      2 ocurrencias
+  AS SERVICING AGENT                                 :      1 ocurrencias
+  AS SHARED COLLATERAL AGENT                         :      1 ocurrencias
+  AS SUCCESSOR ADMINISTRATIVE AGENT                  :      8 ocurrencias
+  AS SUCCESSOR ADMINISTRATIVE AND COLLATERAL AGENT   :      2 ocurrencias
+  AS SUCCESSOR AGENT                                 :     21 ocurrencias
+  AS SUCCESSOR AGENT AND ADMINISTRATIVE AGENT        :      1 ocurrencias
+  AS SUCCESSOR COLLATERAL AGENT                      :     12 ocurrencias
+  AS SUCCESSOR CORPORATE TRUSTEE                     :      2 ocurrencias
+  AS SUCCESSOR SECURITY AGENT                        :      1 ocurrencias
+  AS SUCCESSOR SENIOR COLLATERAL AGENT               :      1 ocurrencias
+  AS SUCCESSOR TO EXISTING ADMINISTRATIVE AGENT      :      1 ocurrencias
+  AS SYNDICATION AGENT                               :      1 ocurrencias
+  AS TERM C LOAN COLLATERAL AGENT                    :      3 ocurrencias
+  AS TERM COLLATERAL AGENT                           :      5 ocurrencias
+  AS THE ADMINISTRATIVE AGENT                        :      9 ocurrencias
+  AS THE AGENT                                       :      2 ocurrencias
+  AS THE COLLATERAL AGENT                            :     18 ocurrencias
+  AS THE CURRENT ADMINISTRATIVE AGENT                :      1 ocurrencias
+  AS THE CURRENT COLLATERAL AGENT                    :      1 ocurrencias
+  AS THE SECURED PARTIES AND AS AGENT                :      1 ocurrencias
+  AS THE SUCCESSOR ADMINISTRATIVE AGENT              :      2 ocurrencias
+  AS THE SUCCESSOR ADMINISTRATIVE AGENT AND COLLATERAL AGENT :      1 ocurrencias
+  AS THE SUCCESSOR AGENT                             :      3 ocurrencias
+  AS THE SUCCESSOR COLLATERAL AGENT                  :      4 ocurrencias
+  AS THE SUCCESSOR NOTES COLLATERAL AGENT            :      1 ocurrencias
+  AS THIRD LIEN AGENT                                :      1 ocurrencias
+  AS TRUSTEE AND COLLATERAL AGENT                    :      3 ocurrencias
+  AS TRUSTEE AND NOTES COLLATERAL AGENT              :      1 ocurrencias
+  AS TRUSTEE AND US COLLATERAL AGENT                 :      1 ocurrencias
+  AS UK AGENT                                        :      2 ocurrencias
+  AS UK AGENT AND UK SECURITY TRUSTEE                :      1 ocurrencias
+  AS US AGENT                                        :      3 ocurrencias
+  AS US COLLATERAL AGENT                             :      2 ocurrencias
+
+================================================================================
+VARIACIONES DE FORMATO
+================================================================================
+
+Variaciones de 'N.A.' encontradas:
+--------------------------------------------------------------------------------
+  \bN\.A\.             :    501 ocurrencias
+  \bN\.A\b             :    517 ocurrencias
+  \bN\. A\.            :      5 ocurrencias
+  \bNA\b               :     48 ocurrencias
+  \bN A\b              :      1 ocurrencias
+
+================================================================================
+ANÁLISIS DETALLADO: BANK OF AMERICA
+================================================================================
+Total variaciones: 121
+Frecuencia total: 481,890
+
+Categorías de variaciones:
+--------------------------------------------------------------------------------
+
+Con roles funcionales: 81 variaciones
+   123,191 | BANK OF AMERICA, N.A., AS ADMINISTRATIVE AGENT
+   122,643 | BANK OF AMERICA, N.A., AS COLLATERAL AGENT
+    68,088 | BANK OF AMERICA N.A., AS AGENT
+    10,322 | BANK OF AMERICAN, N.A. AS COLLATERAL AGENT
+     8,545 | BANK OF AMERICA, N.A., AS AGENT
+
+Sin roles funcionales: 40 variaciones
+   116,812 | BANK OF AMERICA, N.A.
+     5,602 | BANK OF AMERICA, N. A.
+     3,948 | BANK OF AMERICA NATIONAL TRUST AND SAVINGS ASSOCIATION
+     1,551 | BANK OF AMERICA N.A.
+     1,231 | BANK OF AMERICA
+
+Variaciones de N.A.: 108 variaciones
+   123,191 | BANK OF AMERICA, N.A., AS ADMINISTRATIVE AGENT
+   122,643 | BANK OF AMERICA, N.A., AS COLLATERAL AGENT
+   116,812 | BANK OF AMERICA, N.A.
+    68,088 | BANK OF AMERICA N.A., AS AGENT
+    10,322 | BANK OF AMERICAN, N.A. AS COLLATERAL AGENT
+
+Posibles typos: 3 variaciones
+    10,322 | BANK OF AMERICAN, N.A. AS COLLATERAL AGENT
+        26 | BANK OF AMERICAN, N.A.
+         6 | BANK OF AMERICAN, N.A., AS ADMINISTRAIVE AGENT
+
+================================================================================
+PALABRAS MÁS COMUNES (excluyendo stop words)
+================================================================================
+
+Top 30 palabras más comunes:
+--------------------------------------------------------------------------------
+  AGENT                          :  1,878 ocurrencias
+  CAPITAL                        :    782 ocurrencias
+  COLLATERAL                     :    741 ocurrencias
+  CORPORATION                    :    724 ocurrencias
+  ADMINISTRATIVE                 :    507 ocurrencias
+  FUND                           :    459 ocurrencias
+  CREDIT                         :    428 ocurrencias
+  PARTNERS                       :    427 ocurrencias
+  FIRST                          :    258 ocurrencias
+  NEW                            :    257 ocurrencias
+  FINANCE                        :    248 ocurrencias
+  BUSINESS                       :    238 ocurrencias
+  LIMITED                        :    235 ocurrencias
+  YORK                           :    215 ocurrencias
+  FINANCIAL                      :    192 ocurrencias
+  AMERICA                        :    191 ocurrencias
+  VENTURES                       :    185 ocurrencias
+  BANKING                        :    176 ocurrencias
+  CHASE                          :    175 ocurrencias
+  III                            :    175 ocurrencias
+  VENTURE                        :    172 ocurrencias
+  BRANCH                         :    161 ocurrencias
+  FOR                            :    159 ocurrencias
+  GROUP                          :    141 ocurrencias
+  HOLDINGS                       :    140 ocurrencias
+  PARTNERSHIP                    :    134 ocurrencias
+  TRUSTEE                        :    129 ocurrencias
+  SERVICES                       :    129 ocurrencias
+  LIEN                           :    126 ocurrencias
+  FARGO                          :    126 ocurrencias
