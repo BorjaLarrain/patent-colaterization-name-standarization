@@ -66,29 +66,13 @@ def run_grouping(financial_df, non_financial_df, financial_components, non_finan
     print(f"     - Financial: {len(financial_review):,} componentes")
     print(f"     - Non-financial: {len(non_financial_review):,} componentes")
     
-    # Guardar resultados
-    print("\n2. Guardando resultados...")
-    
-    output_file_financial_mapping = final_results_dir / "financial_entity_mapping.csv"
-    output_file_non_financial_mapping = final_results_dir / "non_financial_entity_mapping.csv"
-    
-    financial_mapping.to_csv(output_file_financial_mapping, index=False)
-    non_financial_mapping.to_csv(output_file_non_financial_mapping, index=False)
-    
-    print(f"   ✓ Mapeos guardados:")
-    print(f"     - {output_file_financial_mapping}")
-    print(f"     - {output_file_non_financial_mapping}")
-    
-    # Guardar casos para revisión
-    if len(financial_review) > 0:
-        output_file_financial_review = final_results_dir / "financial_review_cases.csv"
-        financial_review.to_csv(output_file_financial_review, index=False)
-        print(f"     - {output_file_financial_review}")
-    
-    if len(non_financial_review) > 0:
-        output_file_non_financial_review = final_results_dir / "non_financial_review_cases.csv"
-        non_financial_review.to_csv(output_file_non_financial_review, index=False)
-        print(f"     - {output_file_non_financial_review}")
+    # Nota: No guardamos archivos intermedios aquí porque:
+    # - *_entity_mapping.csv (sin _complete) es redundante
+    # - *_review_cases.csv es redundante (Streamlit filtra por needs_review)
+    # El archivo final *_entity_mapping_complete.csv se genera en complete_mapping.py
+    print("\n2. Resultados procesados (archivos finales se generarán en complete_mapping.py)")
+    print("   ℹ️  No se guardan archivos intermedios redundantes")
+    print("   ℹ️  Streamlit puede filtrar casos para revisión dinámicamente")
     
     # Estadísticas
     print("\n3. Estadísticas finales:")

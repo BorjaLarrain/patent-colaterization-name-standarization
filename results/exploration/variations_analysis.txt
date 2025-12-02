@@ -1,6 +1,6 @@
 ================================================================================
 ANÁLISIS DE VARIACIONES DE NOMBRES
-Fecha: 2025-12-01 09:14:49
+Fecha: 2025-12-02 17:46:26
 ================================================================================
 
 ================================================================================
@@ -580,40 +580,6 @@ Variaciones de 'N.A.' encontradas:
   \bNA\b               :     48 ocurrencias
   \bN A\b              :      1 ocurrencias
 
-================================================================================
-ANÁLISIS DETALLADO: BANK OF AMERICA
-================================================================================
-Total variaciones: 121
-Frecuencia total: 481,890
-
-Categorías de variaciones:
---------------------------------------------------------------------------------
-
-Con roles funcionales: 81 variaciones
-   123,191 | BANK OF AMERICA, N.A., AS ADMINISTRATIVE AGENT
-   122,643 | BANK OF AMERICA, N.A., AS COLLATERAL AGENT
-    68,088 | BANK OF AMERICA N.A., AS AGENT
-    10,322 | BANK OF AMERICAN, N.A. AS COLLATERAL AGENT
-     8,545 | BANK OF AMERICA, N.A., AS AGENT
-
-Sin roles funcionales: 40 variaciones
-   116,812 | BANK OF AMERICA, N.A.
-     5,602 | BANK OF AMERICA, N. A.
-     3,948 | BANK OF AMERICA NATIONAL TRUST AND SAVINGS ASSOCIATION
-     1,551 | BANK OF AMERICA N.A.
-     1,231 | BANK OF AMERICA
-
-Variaciones de N.A.: 108 variaciones
-   123,191 | BANK OF AMERICA, N.A., AS ADMINISTRATIVE AGENT
-   122,643 | BANK OF AMERICA, N.A., AS COLLATERAL AGENT
-   116,812 | BANK OF AMERICA, N.A.
-    68,088 | BANK OF AMERICA N.A., AS AGENT
-    10,322 | BANK OF AMERICAN, N.A. AS COLLATERAL AGENT
-
-Posibles typos: 3 variaciones
-    10,322 | BANK OF AMERICAN, N.A. AS COLLATERAL AGENT
-        26 | BANK OF AMERICAN, N.A.
-         6 | BANK OF AMERICAN, N.A., AS ADMINISTRAIVE AGENT
 
 ================================================================================
 PALABRAS MÁS COMUNES (excluyendo stop words)

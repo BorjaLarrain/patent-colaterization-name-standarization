@@ -27,8 +27,14 @@ sys.path.insert(0, str(Path(__file__).parent))
 from modules import exploration, normalization, blocking, matching, grouping, validation, complete_mapping
 
 
-def run_full_pipeline(base_dir=None):
-    """Ejecuta todo el pipeline completo."""
+def run_full_pipeline(base_dir=None, skip_validation=True):
+    """
+    Ejecuta todo el pipeline completo.
+    
+    Args:
+        base_dir: Directorio base del proyecto
+        skip_validation: Si True, omite la fase de validación (útil si usas Streamlit)
+    """
     if base_dir is None:
         base_dir = Path(__file__).parent.parent
     
@@ -76,20 +82,25 @@ def run_full_pipeline(base_dir=None):
         financial_matches_df, non_financial_matches_df, base_dir
     )
     
-    # Fase 6: Validation
-    print("\n" + "=" * 80)
-    print("FASE 6: VALIDACIÓN")
-    print("=" * 80)
-    validation.run_validation(
-        financial_mapping, non_financial_mapping, financial_components, non_financial_components,
-        financial_matches_df, non_financial_matches_df, base_dir
-    )
+    # Fase 6: Validation (Opcional - puede hacerse dinámicamente en Streamlit)
+    if not skip_validation:
+        print("\n" + "=" * 80)
+        print("FASE 6: VALIDACIÓN")
+        print("=" * 80)
+        validation.run_validation(
+            financial_mapping, non_financial_mapping, financial_components, non_financial_components,
+            financial_matches_df, non_financial_matches_df, base_dir
+        )
     
     # Completar mapeo
     print("\n" + "=" * 80)
     print("COMPLETAR MAPEO")
     print("=" * 80)
-    complete_mapping.run_complete_mapping(base_dir)
+    complete_mapping.run_complete_mapping(
+        financial_mapping=financial_mapping,
+        non_financial_mapping=non_financial_mapping,
+        base_dir=base_dir
+    )
     
     print("\n" + "=" * 80)
     print("PIPELINE COMPLETADO EXITOSAMENTE")
@@ -174,7 +185,25 @@ def run_phase(phase_name, base_dir=None):
         )
     
     elif phase_name == "complete":
-        complete_mapping.run_complete_mapping(base_dir)
+        # Intentar cargar mapeos desde archivos si existen (legacy)
+        # Si no existen, complete_mapping.py intentará cargarlos o mostrará error
+        financial_mapping = None
+        non_financial_mapping = None
+        
+        mapping_file_financial = final_results_dir / "financial_entity_mapping.csv"
+        mapping_file_non_financial = final_results_dir / "non_financial_entity_mapping.csv"
+        
+        if mapping_file_financial.exists():
+            financial_mapping = pd.read_csv(mapping_file_financial)
+        
+        if mapping_file_non_financial.exists():
+            non_financial_mapping = pd.read_csv(mapping_file_non_financial)
+        
+        complete_mapping.run_complete_mapping(
+            financial_mapping=financial_mapping,
+            non_financial_mapping=non_financial_mapping,
+            base_dir=base_dir
+        )
     
     else:
         print(f"Error: Fase desconocida: {phase_name}")
@@ -206,16 +235,28 @@ Ejemplos de uso:
         help='Ejecutar solo una fase específica del pipeline'
     )
     
+    parser.add_argument(
+        '--with-validation',
+        action='store_true',
+        help='Incluir fase de validación (por defecto se omite, útil si NO usas Streamlit)'
+    )
+    
     args = parser.parse_args()
     
     base_dir = Path(__file__).parent.parent
+    
+    # Por defecto, omitir validación (útil si usas Streamlit)
+    # Usar --with-validation para incluirla
+    skip_val = not args.with_validation
     
     if args.phase:
         print(f"Ejecutando fase: {args.phase}")
         run_phase(args.phase, base_dir)
     else:
         print("Ejecutando pipeline completo...")
-        run_full_pipeline(base_dir)
+        if skip_val:
+            print("(Omitiendo validación - usa --with-validation para incluirla)")
+        run_full_pipeline(base_dir, skip_validation=skip_val)
 
 
 if __name__ == "__main__":
