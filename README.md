@@ -11,15 +11,78 @@ Este pipeline estandariza nombres de entidades financieras y no financieras, agr
 
 ---
 
+## Estructura del Proyecto (Reorganizada)
+
+El pipeline ha sido reorganizado en módulos consolidados para simplificar la ejecución y mantenimiento:
+
+```
+scripts/
+├── pipeline.py                    # Script principal - ejecuta todo el pipeline
+├── modules/
+│   ├── exploration.py             # Fase 1: Exploración de datos
+│   ├── normalization.py           # Fase 2: Normalización (consolida 5 scripts)
+│   ├── blocking.py                # Fase 3: Blocking (consolida 3 scripts)
+│   ├── matching.py                # Fase 4: Fuzzy matching
+│   ├── grouping.py                # Fase 5: Agrupación y asignación de IDs
+│   ├── validation.py             # Fase 6.1: Validación automática
+│   └── complete_mapping.py       # Completar mapeo final
+└── archive/                       # Scripts antiguos (referencia)
+    └── 01-15_*.py
+```
+
+### Ejecución Simplificada
+
+**Ejecutar todo el pipeline:**
+```bash
+python scripts/pipeline.py
+```
+
+**Ejecutar una fase específica:**
+```bash
+python scripts/pipeline.py --phase exploration   # Solo exploración
+python scripts/pipeline.py --phase normalization # Solo normalización
+python scripts/pipeline.py --phase blocking      # Solo blocking
+python scripts/pipeline.py --phase matching      # Solo matching
+python scripts/pipeline.py --phase grouping      # Solo agrupación
+python scripts/pipeline.py --phase validation    # Solo validación
+python scripts/pipeline.py --phase complete      # Solo completar mapeo
+```
+
+**Ejecutar módulos individuales:**
+```bash
+python -m scripts.modules.exploration
+python -m scripts.modules.normalization
+# etc.
+```
+
+### Archivos Intermedios
+
+Los archivos intermedios han sido reducidos. Solo se guardan los esenciales:
+
+**Mantenidos en `results/intermediate/`:**
+- `*_normalized.csv` - Versión final normalizada (esencial)
+- `*_blocks.json` - Bloques optimizados (esencial para matching)
+- `*_components.json` - Componentes conectados (útil para debugging)
+- `*_matches.csv` - Matches encontrados (útil para análisis)
+
+**Eliminados (procesados en memoria):**
+- `*_normalized_step2_*.csv` - Archivos intermedios de normalización
+- `*_with_blocking_keys.csv` - Puede regenerarse si es necesario
+- `*_blocks_optimized_summary.csv` - Resúmenes redundantes
+
+---
+
 ## Fase 1: Preparación y Exploración de Datos
 
-### 1.1 Carga y Exploración Inicial (`01_exploration.py`)
+**Módulo:** `scripts/modules/exploration.py` (consolida scripts 01-02)
+
+### 1.1 Carga y Exploración Inicial
 - Carga ambas bases de datos (`financial_entity_freq.csv` y `Non_financial_entity_freq.csv`)
 - Calcula estadísticas descriptivas: total de registros, nombres únicos, distribución de frecuencias
 - Identifica patrones comunes: roles funcionales, sufijos legales, variaciones de formato
 - **Output:** `results/exploration/basic_stats.txt`
 
-### 1.2 Análisis de Variaciones (`02_variation_analysis.py`)
+### 1.2 Análisis de Variaciones
 - Identifica variaciones de nombres conocidos (referencia: Figura 10 del paper)
 - Crea diccionario de patrones comunes observados
 - Documenta roles funcionales encontrados ("AS COLLATERAL AGENT", "AS ADMINISTRATIVE AGENT", etc.)
@@ -29,21 +92,23 @@ Este pipeline estandariza nombres de entidades financieras y no financieras, agr
 
 ## Fase 2: Normalización
 
+**Módulo:** `scripts/modules/normalization.py` (consolida scripts 03-07)
+
 **Objetivo:** Limpiar y estandarizar nombres para facilitar comparación.
 
-### 2.1 Limpieza Básica (`03_normalization_step2_1.py`)
+Todos los pasos de normalización se ejecutan en secuencia en memoria, guardando solo el resultado final:
+
+### 2.1 Limpieza Básica
 - Convierte todo a mayúsculas
 - Normaliza puntuación: `N.A.` → `NA`, `U.S.` → `US`
 - Elimina espacios múltiples y trimea espacios
-- **Output:** `results/intermediate/*_normalized_step2_1.csv`
 
-### 2.2 Eliminación de Roles Funcionales (`04_normalization_step2_2.py`)
+### 2.2 Eliminación de Roles Funcionales
 - Elimina roles funcionales usando expresiones regulares:
   - "AS COLLATERAL AGENT", "AS ADMINISTRATIVE AGENT", "AS TRUSTEE", etc.
   - Variaciones con/sin comas y diferentes formatos
-- **Output:** `results/intermediate/*_normalized_step2_2.csv`
 
-### 2.3 Normalización de Sufijos Legales (`05_normalization_step2_3.py`)
+### 2.3 Normalización de Sufijos Legales
 - Estandariza sufijos legales:
   - `NATIONAL ASSOCIATION` → `NA`
   - `CORPORATION` → `CORP`
@@ -51,51 +116,54 @@ Este pipeline estandariza nombres de entidades financieras y no financieras, agr
   - `COMPANY` → `CO`
   - `LIMITED` → `LTD`
 - Maneja variaciones con/sin puntos y espacios
-- **Output:** `results/intermediate/*_normalized_step2_3.csv`
 
-### 2.4 Limpieza de Elementos Comunes (`06_normalization_step2_4.py`)
+### 2.4 Limpieza de Elementos Comunes
 - Elimina "THE" al inicio/final
 - Normaliza "AND" → "&"
 - Normaliza abreviaciones comunes
-- **Output:** `results/intermediate/*_normalized_step2_4.csv`
 
-### 2.5 Normalización Final (`07_normalization_step2_5.py`)
+### 2.5 Normalización Final
 - Elimina espacios múltiples finales
 - Trim de espacios al inicio/final
 - Crea versión normalizada final para matching
-- **Output:** `results/intermediate/*_normalized_final.csv` → `*_normalized.csv`
+
+**Output:** `results/intermediate/*_normalized.csv` (solo resultado final)
 
 ---
 
 ## Fase 3: Blocking
 
+**Módulo:** `scripts/modules/blocking.py` (consolida scripts 08-10)
+
 **Objetivo:** Agrupar nombres por primera palabra para reducir comparaciones.
 
-### 3.1 Extracción de Primera Palabra (`08_blocking_step3_1.py`)
+Todos los pasos de blocking se ejecutan en secuencia, guardando solo los bloques optimizados finales:
+
+### 3.1 Extracción de Primera Palabra
 - Extrae la primera palabra significativa del nombre normalizado
 - Maneja casos especiales: si empieza con "THE", toma la segunda palabra
 - Si es genérica ("BANK", "COMPANY"), considera segunda o tercera palabra
-- **Output:** Agrega columna `blocking_key` a los datos normalizados
 
-### 3.2 Creación de Bloques (`09_blocking_step3_2.py`)
+### 3.2 Creación de Bloques
 - Agrupa todos los nombres por su `blocking_key`
-- Crea índice de bloques para búsquedas eficientes
-- Documenta tamaño de cada bloque
-- **Output:** `results/intermediate/*_blocks.json`, `*_block_index.json`
+- Crea estructura de bloques para búsquedas eficientes
 
-### 3.3 Optimización de Bloques (`10_blocking_step3_3.py`)
-- Identifica bloques grandes (>1000 elementos)
+### 3.3 Optimización de Bloques
+- Identifica bloques grandes (>100 elementos)
 - Aplica sub-bloqueo por segunda palabra o longitud del nombre
 - Mantiene bloques pequeños para eficiencia computacional
-- **Output:** `results/intermediate/*_blocks_optimized.json` → `*_blocks.json`
+
+**Output:** `results/intermediate/*_blocks.json` (solo bloques optimizados finales)
 
 ---
 
 ## Fase 4: Fuzzy Matching
 
+**Módulo:** `scripts/modules/matching.py`
+
 **Objetivo:** Encontrar nombres similares dentro de cada bloque.
 
-### 4. Fuzzy Matching (`11_fuzzy_matching_step4.py`)
+### 4. Fuzzy Matching
 - **Método:** WRatio de `rapidfuzz` (combinación inteligente de métodos character-based y token-based)
 - **Threshold:** 88% (ajustado desde 85% para reducir falsos positivos)
 - **Proceso:**
@@ -116,9 +184,11 @@ Este pipeline estandariza nombres de entidades financieras y no financieras, agr
 
 ## Fase 5: Agrupación y Asignación de IDs
 
+**Módulo:** `scripts/modules/grouping.py`
+
 **Objetivo:** Asignar IDs únicos y seleccionar nombres estándar para cada grupo.
 
-### 5. Agrupación y Asignación de IDs (`12_grouping_and_ids_step5.py`)
+### 5. Agrupación y Asignación de IDs
 - **Asignación de IDs:** Cada componente recibe un `entity_id` único (`financial_0`, `financial_1`, etc.)
 - **Selección de nombre estándar:**
   - Ordena nombres por frecuencia (descendente)
@@ -140,7 +210,9 @@ Este pipeline estandariza nombres de entidades financieras y no financieras, agr
 
 ## Fase 6: Validación y Refinamiento
 
-### 6.1 Validación Automática (`13_validation_step6_1.py`)
+**Módulo:** `scripts/modules/validation.py`
+
+### 6.1 Validación Automática
 - Revisa grupos con baja similitud promedio (< 90%)
 - Identifica posibles falsos positivos
 - Verifica que nombres conocidos (Figura 10) estén correctamente agrupados
@@ -170,7 +242,9 @@ Este pipeline estandariza nombres de entidades financieras y no financieras, agr
 
 ## Script Adicional: Completar Mapeo
 
-### Completar Mapeo Final (`15_complete_mapping.py`)
+**Módulo:** `scripts/modules/complete_mapping.py`
+
+### Completar Mapeo Final
 - **Problema identificado:** El mapeo inicial solo incluía nombres con matches (4,125 de 8,459)
 - **Solución:** Agrega nombres sin matches (singletons) como entidades únicas
 - **Output:** `results/final/*_entity_mapping_complete.csv`
@@ -207,35 +281,34 @@ Este pipeline estandariza nombres de entidades financieras y no financieras, agr
 
 ## Orden de Ejecución
 
+### Método Recomendado (Nuevo)
+
+```bash
+# Ejecutar todo el pipeline de una vez
+python scripts/pipeline.py
+
+# O ejecutar fases individuales
+python scripts/pipeline.py --phase exploration
+python scripts/pipeline.py --phase normalization
+python scripts/pipeline.py --phase blocking
+python scripts/pipeline.py --phase matching
+python scripts/pipeline.py --phase grouping
+python scripts/pipeline.py --phase validation
+python scripts/pipeline.py --phase complete
+```
+
+### Método Antiguo (Scripts Individuales)
+
+Los scripts antiguos están archivados en `scripts/archive/` para referencia. Si necesitas ejecutarlos individualmente:
+
 ```bash
 # Fase 1: Exploración
-python scripts/01_exploration.py
-python scripts/02_variation_analysis.py
+python scripts/archive/01_exploration.py
+python scripts/archive/02_variation_analysis.py
 
-# Fase 2: Normalización
-python scripts/03_normalization_step2_1.py
-python scripts/04_normalization_step2_2.py
-python scripts/05_normalization_step2_3.py
-python scripts/06_normalization_step2_4.py
-python scripts/07_normalization_step2_5.py
-
-# Fase 3: Blocking
-python scripts/08_blocking_step3_1.py
-python scripts/09_blocking_step3_2.py
-python scripts/10_blocking_step3_3.py
-
-# Fase 4: Matching
-python scripts/11_fuzzy_matching_step4.py
-
-# Fase 5: Agrupación
-python scripts/12_grouping_and_ids_step5.py
-
-# Fase 6: Validación
-python scripts/13_validation_step6_1.py
-python scripts/14_manual_review_step6_2.py
-
-# Completar mapeo (incluir singletons)
-python scripts/15_complete_mapping.py
+# Fase 2: Normalización (ahora consolidado en modules/normalization.py)
+python scripts/archive/03_normalization_step2_1.py
+# ... etc
 ```
 
 ---
