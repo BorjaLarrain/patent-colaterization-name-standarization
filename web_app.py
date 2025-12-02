@@ -22,6 +22,7 @@ from datetime import datetime
 import re
 import sys
 import logging
+from database_manager import EntityDatabase
 
 # Configurar logging para reducir ruido
 logging.basicConfig(level=logging.WARNING)
@@ -32,6 +33,9 @@ BASE_DIR = Path(__file__).parent
 RESULTS_DIR = BASE_DIR / "results" / "final"
 MANUAL_REVIEW_DIR = BASE_DIR / "results" / "manual_review"
 MANUAL_REVIEW_DIR.mkdir(parents=True, exist_ok=True)
+DATABASE_DIR = BASE_DIR / "database"
+DATABASE_DIR.mkdir(parents=True, exist_ok=True)
+DB_PATH = DATABASE_DIR / "entities.db"
 
 # Configuración de página
 st.set_page_config(
@@ -45,18 +49,45 @@ st.set_page_config(
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
-# Cache para cargar datos
-@st.cache_data(show_spinner=True)
-def load_mapping_data(entity_type='financial'):
-    """Carga los datos de mapeo"""
+def get_database():
+    """Obtiene o crea la instancia de la base de datos"""
+    if 'db' not in st.session_state:
+        st.session_state.db = EntityDatabase(DB_PATH)
+    return st.session_state.db
+
+def load_mapping_data(entity_type='financial', use_database=True):
+    """
+    Carga los datos de mapeo desde la base de datos o CSV
+    
+    Args:
+        entity_type: Tipo de entidad
+        use_database: Si True, usa base de datos. Si False, usa CSV
+    """
     try:
-        file_path = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
-        
-        if not file_path.exists():
-            return None
-        
-        df = pd.read_csv(file_path)
-        return df
+        if use_database:
+            db = get_database()
+            
+            # Verificar si hay datos en la base de datos
+            stats = db.get_statistics(entity_type)
+            if stats['total_names'] > 0:
+                # Cargar desde base de datos
+                return db.load_entities(entity_type)
+            
+            # Si no hay datos en DB, intentar importar desde CSV
+            csv_path = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
+            if csv_path.exists():
+                # Importar desde CSV a la base de datos
+                with st.spinner("Migrando datos desde CSV a base de datos..."):
+                    db.import_from_csv(csv_path, entity_type, clear_existing=True)
+                return db.load_entities(entity_type)
+            else:
+                return None
+        else:
+            # Cargar directamente desde CSV (modo legacy)
+            file_path = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
+            if not file_path.exists():
+                return None
+            return pd.read_csv(file_path)
     except Exception as e:
         logger.error(f"Error cargando datos: {e}")
         return None
@@ -73,6 +104,8 @@ def initialize_session_state():
         st.session_state.edit_history = []
     if 'selected_entity_id' not in st.session_state:
         st.session_state.selected_entity_id = None
+    if 'use_database' not in st.session_state:
+        st.session_state.use_database = True  # Usar base de datos por defecto
 
 @st.cache_data
 def group_by_entity(df):
@@ -192,27 +225,55 @@ def get_next_entity_id(df, prefix='financial'):
     
     return f"{prefix}_{max_num + 1}"
 
-def save_changes(df, entity_type='financial', backup=True):
-    """Guarda los cambios en un nuevo archivo"""
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+def save_changes(df, entity_type='financial', backup=True, use_database=True):
+    """
+    Guarda los cambios en la base de datos o CSV
     
-    # Crear backup si se solicita
-    if backup:
-        original_file = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
-        if original_file.exists():
-            backup_file = MANUAL_REVIEW_DIR / f"{entity_type}_backup_{timestamp}.csv"
-            df_original = pd.read_csv(original_file)
-            df_original.to_csv(backup_file, index=False)
+    Args:
+        df: DataFrame con los cambios
+        entity_type: Tipo de entidad
+        backup: Si crear backup
+        use_database: Si True, guarda en base de datos. Si False, guarda CSV
     
-    # Guardar archivo editado
-    edited_file = MANUAL_REVIEW_DIR / f"{entity_type}_entity_mapping_edited_{timestamp}.csv"
-    df.to_csv(edited_file, index=False)
-    
-    # También guardar como el archivo "latest"
-    latest_file = MANUAL_REVIEW_DIR / f"{entity_type}_entity_mapping_edited_latest.csv"
-    df.to_csv(latest_file, index=False)
-    
-    return edited_file, latest_file
+    Returns:
+        Ruta del archivo guardado o mensaje de confirmación
+    """
+    if use_database:
+        try:
+            db = get_database()
+            
+            # Crear backup de la base de datos si se solicita
+            if backup:
+                backup_path = db.backup_database()
+            
+            # Actualizar entidades en la base de datos
+            db.update_entities(df, entity_type)
+            
+            return f"Cambios guardados en la base de datos: {DB_PATH.name}"
+        except Exception as e:
+            logger.error(f"Error guardando en base de datos: {e}")
+            raise
+    else:
+        # Modo legacy: guardar CSV
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        
+        # Crear backup si se solicita
+        if backup:
+            original_file = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
+            if original_file.exists():
+                backup_file = MANUAL_REVIEW_DIR / f"{entity_type}_backup_{timestamp}.csv"
+                df_original = pd.read_csv(original_file)
+                df_original.to_csv(backup_file, index=False)
+        
+        # Guardar archivo editado
+        edited_file = MANUAL_REVIEW_DIR / f"{entity_type}_entity_mapping_edited_{timestamp}.csv"
+        df.to_csv(edited_file, index=False)
+        
+        # También guardar como el archivo "latest"
+        latest_file = MANUAL_REVIEW_DIR / f"{entity_type}_entity_mapping_edited_latest.csv"
+        df.to_csv(latest_file, index=False)
+        
+        return edited_file, latest_file
 
 # ============================================================================
 # INTERFAZ PRINCIPAL
@@ -244,15 +305,26 @@ def main():
             index=0
         )
         
+        # Toggle para usar base de datos o CSV
+        use_db = st.checkbox("Usar base de datos SQLite", value=st.session_state.use_database,
+                            help="Si está activado, usa base de datos SQLite. Si no, usa archivos CSV.")
+        st.session_state.use_database = use_db
+        
         if st.button("🔄 Cargar Datos", type="primary"):
             with st.spinner("Cargando datos..."):
-                df = load_mapping_data(entity_type)
+                df = load_mapping_data(entity_type, use_database=use_db)
                 if df is not None:
                     st.session_state.df_original = df.copy()
                     st.session_state.df_edited = df.copy()
                     st.session_state.changes_made = False
                     st.session_state.edit_history = []
-                    st.success(f"✓ Cargados {len(df):,} nombres")
+                    if use_db:
+                        db = get_database()
+                        stats = db.get_statistics(entity_type)
+                        st.success(f"✓ Cargados {len(df):,} nombres desde base de datos")
+                        st.info(f"📊 {stats['unique_entities']:,} entidades únicas en la base de datos")
+                    else:
+                        st.success(f"✓ Cargados {len(df):,} nombres desde CSV")
                 else:
                     st.error(f"No se encontró el archivo para {entity_type}")
         
@@ -273,16 +345,73 @@ def main():
             
             if st.button("💾 Guardar Cambios", type="primary", disabled=not st.session_state.changes_made):
                 with st.spinner("Guardando cambios..."):
-                    edited_file, latest_file = save_changes(
-                        st.session_state.df_edited,
-                        entity_type=entity_type
-                    )
-                    st.session_state.changes_made = False
-                    # Limpiar cache después de guardar
-                    group_by_entity.clear()
-                    st.success(f"✓ Cambios guardados en:\n{edited_file.name}")
-                    st.info(f"Archivo más reciente: {latest_file.name}")
-                    st.balloons()  # Celebración visual
+                    try:
+                        result = save_changes(
+                            st.session_state.df_edited,
+                            entity_type=entity_type,
+                            use_database=st.session_state.use_database
+                        )
+                        st.session_state.changes_made = False
+                        # Limpiar cache después de guardar
+                        group_by_entity.clear()
+                        
+                        if st.session_state.use_database:
+                            st.success(f"✓ Cambios guardados en la base de datos")
+                            st.info(f"📁 Base de datos: `database/entities.db`")
+                            st.balloons()
+                        else:
+                            edited_file, latest_file = result
+                            st.success(f"✓ Cambios guardados en:\n{edited_file.name}")
+                            st.info(f"Archivo más reciente: {latest_file.name}")
+                            st.balloons()
+                    except Exception as e:
+                        st.error(f"❌ Error al guardar: {str(e)}")
+                        logger.exception("Error guardando cambios")
+        
+        st.markdown("---")
+        
+        # Gestión de base de datos
+        if st.session_state.use_database:
+            st.subheader("🗄️ Gestión de Base de Datos")
+            
+            col_db1, col_db2 = st.columns(2)
+            
+            with col_db1:
+                if st.button("📥 Exportar a CSV", help="Exporta los datos actuales a CSV"):
+                    try:
+                        db = get_database()
+                        export_path = MANUAL_REVIEW_DIR / f"{entity_type}_exported_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+                        db.export_to_csv(entity_type, export_path)
+                        st.success(f"✓ Exportado a: {export_path.name}")
+                    except Exception as e:
+                        st.error(f"Error exportando: {e}")
+            
+            with col_db2:
+                if st.button("💾 Crear Backup", help="Crea un backup de la base de datos"):
+                    try:
+                        db = get_database()
+                        backup_path = db.backup_database()
+                        st.success(f"✓ Backup creado: {backup_path.name}")
+                    except Exception as e:
+                        st.error(f"Error creando backup: {e}")
+            
+            # Información de la base de datos
+            try:
+                db = get_database()
+                stats = db.get_statistics(entity_type)
+                
+                with st.expander("📊 Estadísticas de Base de Datos"):
+                    st.metric("Total nombres", f"{stats['total_names']:,}")
+                    st.metric("Entidades únicas", f"{stats['unique_entities']:,}")
+                    st.metric("Tamaño promedio de grupos", f"{stats['avg_group_size']:.1f}")
+                    st.metric("Grupos grandes (>20)", f"{stats['large_groups']:,}")
+                    
+                    # Tamaño del archivo de base de datos
+                    if DB_PATH.exists():
+                        db_size = DB_PATH.stat().st_size / (1024 * 1024)  # MB
+                        st.metric("Tamaño de BD", f"{db_size:.2f} MB")
+            except Exception as e:
+                st.warning(f"No se pudieron cargar estadísticas: {e}")
         
         st.markdown("---")
         st.markdown("### 📝 Historial de Cambios")

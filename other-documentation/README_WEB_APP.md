@@ -33,6 +33,13 @@ pip install -r requirements_web.txt
    - `results/final/financial_entity_mapping_complete.csv`
    - `results/final/non_financial_entity_mapping_complete.csv`
 
+3. **Migra a base de datos SQLite (recomendado)**:
+```bash
+python migrate_to_database.py
+```
+
+Esto creará una base de datos SQLite que evitará crear múltiples archivos CSV cada vez que guardes cambios. Ver `README_DATABASE.md` para más detalles.
+
 ## 🎯 Uso
 
 ### Iniciar la aplicación
@@ -75,11 +82,21 @@ La aplicación se abrirá automáticamente en tu navegador en `http://localhost:
 
 ## 📁 Archivos Generados
 
-Los archivos editados se guardan en `results/manual_review/`:
+### Modo Base de Datos SQLite (Recomendado)
 
+Si usas la base de datos SQLite:
+- **Base de datos**: `database/entities.db` - Todo se guarda aquí, sin crear múltiples archivos
+- **Backups**: `database/entities_backup_*.db` - Backups de la base de datos
+- **Exportaciones**: `results/manual_review/{entity_type}_exported_*.csv` - Cuando exportes a CSV
+
+### Modo CSV (Legacy)
+
+Si no usas la base de datos:
 - `{entity_type}_entity_mapping_edited_{timestamp}.csv`: Archivo con timestamp
 - `{entity_type}_entity_mapping_edited_latest.csv`: Archivo más reciente
 - `{entity_type}_backup_{timestamp}.csv`: Backup del archivo original
+
+**💡 Recomendación**: Usa la base de datos SQLite para evitar múltiples archivos. Actívala en el sidebar de la aplicación.
 
 ## 🔍 Ejemplos de Uso
 
