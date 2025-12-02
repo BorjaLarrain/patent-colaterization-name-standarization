@@ -102,7 +102,10 @@ class EntityDatabase:
             
             # Preparar datos para inserción
             df['entity_type'] = entity_type
-            df['needs_review'] = df.get('needs_review', False).astype(int)
+            if 'needs_review' in df.columns:
+                df['needs_review'] = df['needs_review'].astype(int)
+            else:
+                df['needs_review'] = 0
             df['avg_similarity'] = df.get('avg_similarity', None)
             df['min_similarity'] = df.get('min_similarity', None)
             df['component_size'] = df.get('component_size', 1)
@@ -168,7 +171,10 @@ class EntityDatabase:
             
             # Preparar datos
             df['entity_type'] = entity_type
-            df['needs_review'] = df.get('needs_review', False).astype(int)
+            if 'needs_review' in df.columns:
+                df['needs_review'] = df['needs_review'].astype(int)
+            else:
+                df['needs_review'] = 0
             df['updated_at'] = datetime.now()
             
             # Insertar datos actualizados
@@ -326,4 +332,3 @@ class EntityDatabase:
         
         conn.commit()
         conn.close()
-

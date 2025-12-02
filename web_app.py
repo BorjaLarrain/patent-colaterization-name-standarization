@@ -225,14 +225,14 @@ def get_next_entity_id(df, prefix='financial'):
     
     return f"{prefix}_{max_num + 1}"
 
-def save_changes(df, entity_type='financial', backup=True, use_database=True):
+def save_changes(df, entity_type='financial', backup=False, use_database=True):
     """
     Guarda los cambios en la base de datos o CSV
     
     Args:
         df: DataFrame con los cambios
         entity_type: Tipo de entidad
-        backup: Si crear backup
+        backup: Si crear backup (por defecto False, solo se crea cuando se solicita explícitamente)
         use_database: Si True, guarda en base de datos. Si False, guarda CSV
     
     Returns:
