@@ -67,10 +67,27 @@ def run_matching(financial_df, non_financial_df, financial_blocks, non_financial
     financial_components = find_connected_components(financial_graph, financial_df)
     print(f"   ✓ {len(financial_components):,} grupos encontrados")
     
+    # Post-procesamiento: fusionar entidades relacionadas que comparten las primeras dos palabras
+    print("\n2.1. Fusionando entidades relacionadas (mismo nombre base)...")
+    print("   Financial entities:")
+    financial_components_merged = merge_related_entities_by_first_two_words(
+        financial_components, financial_df, 'normalized_name', similarity_threshold=80
+    )
+    print(f"   ✓ {len(financial_components_merged):,} grupos después de fusión")
+    financial_components = financial_components_merged
+    
     print("   Non-financial entities:")
     non_financial_graph = create_match_graph(non_financial_matches)
     non_financial_components = find_connected_components(non_financial_graph, non_financial_df)
     print(f"   ✓ {len(non_financial_components):,} grupos encontrados")
+    
+    # Post-procesamiento para non-financial
+    print("   Non-financial entities:")
+    non_financial_components_merged = merge_related_entities_by_first_two_words(
+        non_financial_components, non_financial_df, 'normalized_name', similarity_threshold=80
+    )
+    print(f"   ✓ {len(non_financial_components_merged):,} grupos después de fusión")
+    non_financial_components = non_financial_components_merged
     
     # Guardar resultados
     print("\n3. Guardando resultados de matching...")
@@ -238,6 +255,114 @@ def find_connected_components(graph, df):
         components.append({node})
     
     return components
+
+
+def merge_related_entities_by_first_two_words(components, df, name_column='normalized_name', 
+                                             similarity_threshold=80):
+    """
+    Post-procesamiento: Fusiona componentes que comparten las primeras dos palabras
+    y tienen similitud >= threshold.
+    
+    Esto ayuda a agrupar entidades relacionadas como:
+    - "WELLS FARGO BANK NA" y "WELLS FARGO TRUST CO NA"
+    - "CREDIT SUISSE" y "CREDIT SUISSE AG"
+    
+    Args:
+        components: Lista de componentes (sets de índices)
+        df: DataFrame con nombres normalizados
+        name_column: Columna con nombres normalizados
+        similarity_threshold: Threshold de similitud para fusionar (más bajo que el threshold principal)
+    
+    Returns:
+        Lista de componentes fusionados
+    """
+    from rapidfuzz import fuzz
+    import pandas as pd
+    
+    def extract_first_two_words(name):
+        """Extrae las primeras dos palabras significativas."""
+        if pd.isna(name):
+            return None
+        words = str(name).upper().split()
+        if len(words) < 2:
+            return None
+        # Saltar palabras genéricas
+        skip_words = {'THE', 'OF', 'AND', '&', 'A', 'AN', 'AS'}
+        significant = [w for w in words[:4] if w not in skip_words]
+        if len(significant) >= 2:
+            return f"{significant[0]}_{significant[1]}"
+        elif len(significant) == 1:
+            return significant[0]
+        return None
+    
+    # Crear índice: first_two_words -> lista de componentes
+    word_to_components = defaultdict(list)
+    component_to_words = {}
+    
+    for comp_idx, component in enumerate(components):
+        # Obtener las primeras dos palabras del nombre estándar del componente
+        # (usar el nombre con mayor frecuencia o más corto)
+        component_names = [df.loc[idx, name_column] for idx in component]
+        if component_names:
+            # Seleccionar nombre representativo (más corto o más frecuente)
+            representative_name = min(component_names, key=len)
+            two_words = extract_first_two_words(representative_name)
+            if two_words:
+                word_to_components[two_words].append(comp_idx)
+                component_to_words[comp_idx] = two_words
+    
+    # Fusionar componentes que comparten las primeras dos palabras
+    merged_components = []
+    merged_indices = set()
+    
+    for two_words, comp_indices in word_to_components.items():
+        if len(comp_indices) > 1:
+            # Hay múltiples componentes con las mismas dos primeras palabras
+            # Verificar similitud entre sus nombres representativos
+            comp_groups = []
+            for comp_idx in comp_indices:
+                if comp_idx not in merged_indices:
+                    comp_groups.append(comp_idx)
+            
+            if len(comp_groups) > 1:
+                # Intentar fusionar grupos que son suficientemente similares
+                merged_group = set()
+                for comp_idx in comp_groups:
+                    merged_group.update(components[comp_idx])
+                    merged_indices.add(comp_idx)
+                
+                # Calcular similitud promedio entre nombres del grupo fusionado
+                group_names = [df.loc[idx, name_column] for idx in merged_group]
+                if len(group_names) > 1:
+                    # Verificar que la similitud promedio sea razonable
+                    similarities = []
+                    for i, name1 in enumerate(group_names):
+                        for name2 in group_names[i+1:]:
+                            sim = fuzz.WRatio(name1, name2)
+                            similarities.append(sim)
+                    
+                    if similarities and sum(similarities) / len(similarities) >= similarity_threshold:
+                        merged_components.append(merged_group)
+                        continue
+            
+            # Si no se fusionó, agregar componentes individuales
+            for comp_idx in comp_groups:
+                if comp_idx not in merged_indices:
+                    merged_components.append(components[comp_idx])
+                    merged_indices.add(comp_idx)
+        else:
+            # Solo un componente con estas dos palabras
+            comp_idx = comp_indices[0]
+            if comp_idx not in merged_indices:
+                merged_components.append(components[comp_idx])
+                merged_indices.add(comp_idx)
+    
+    # Agregar componentes que no fueron procesados
+    for comp_idx, component in enumerate(components):
+        if comp_idx not in merged_indices:
+            merged_components.append(component)
+    
+    return merged_components
 
 
 if __name__ == "__main__":

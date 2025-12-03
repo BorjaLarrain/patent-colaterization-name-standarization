@@ -100,6 +100,25 @@ class EntityDatabase:
                 cursor.execute("DELETE FROM entities WHERE entity_type = ?", (entity_type,))
                 conn.commit()
             
+            # Limpiar valores nulos en columnas requeridas
+            # Si normalized_name es nulo, usar original_name normalizado
+            df['original_name'] = df['original_name'].fillna('').astype(str)
+            df['normalized_name'] = df['normalized_name'].fillna('').astype(str)
+            df['standard_name'] = df['standard_name'].fillna('').astype(str)
+            
+            # Si normalized_name está vacío, usar original_name en mayúsculas
+            mask_empty_normalized = (df['normalized_name'].str.strip() == '')
+            df.loc[mask_empty_normalized, 'normalized_name'] = df.loc[mask_empty_normalized, 'original_name'].str.upper().str.strip()
+            
+            # Si standard_name está vacío, usar normalized_name
+            mask_empty_standard = (df['standard_name'].str.strip() == '')
+            df.loc[mask_empty_standard, 'standard_name'] = df.loc[mask_empty_standard, 'normalized_name']
+            
+            # Eliminar filas con valores vacíos en columnas críticas
+            df = df[df['original_name'].str.strip() != '']
+            df = df[df['normalized_name'].str.strip() != '']
+            df = df[df['standard_name'].str.strip() != '']
+            
             # Preparar datos para inserción
             df['entity_type'] = entity_type
             if 'needs_review' in df.columns:

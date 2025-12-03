@@ -122,6 +122,19 @@ def basic_cleaning(name):
     cleaned = cleaned.replace('U.S', 'US')
     cleaned = cleaned.replace('U S', 'US')
     
+    # Normalizar nombres compuestos comunes (sin espacios)
+    # Esto ayuda con casos como "WELLSFARGO" -> "WELLS FARGO"
+    common_compound_names = {
+        'WELLSFARGO': 'WELLS FARGO',
+        'JPMORGAN': 'JP MORGAN',
+        'BANKOFAMERICA': 'BANK OF AMERICA',
+        'BANKOFAMER': 'BANK OF AMER',
+    }
+    
+    for compound, expanded in common_compound_names.items():
+        # Reemplazar solo si es una palabra completa (no parte de otra)
+        cleaned = re.sub(r'\b' + compound + r'\b', expanded, cleaned)
+    
     # Eliminar caracteres especiales problemáticos
     cleaned = cleaned.replace('&AMP;', '&')
     cleaned = cleaned.replace('&AMP', '&')

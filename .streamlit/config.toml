@@ -1,30 +1,8 @@
-[server]
-# Configuraciones del servidor para mejorar estabilidad
-port = 8501
-enableCORS = false
-enableXsrfProtection = true
-maxUploadSize = 200
-maxMessageSize = 200
-
-[browser]
-# Configuraciones del navegador
-gatherUsageStats = false
-
-[client]
-# Configuraciones del cliente
-showErrorDetails = false
-toolbarMode = "minimal"
-
-[runner]
-# Configuraciones del runner
-magicEnabled = true
-installTracer = false
-fastReruns = true
-
 [theme]
+# Base theme - will be overridden by CSS toggle
+base = "light"
 primaryColor = "#1f77b4"
 backgroundColor = "#ffffff"
 secondaryBackgroundColor = "#f0f2f6"
 textColor = "#262730"
 font = "sans serif"
-

@@ -1223,265 +1223,117 @@
   "ACACIA": [
     220
   ],
-  "AMERICAN_VEHICULAR": [
-    221
-  ],
-  "AMERICAN_CABLE": [
-    669
-  ],
-  "AMERICAN_COVERS": [
+  "AMERICAN": [
+    221,
+    669,
     1605,
-    13932
-  ],
-  "AMERICAN_MEDICAL": [
     1690,
-    2457,
-    7738,
-    13934
-  ],
-  "AMERICAN_PRECISION": [
-    1733
-  ],
-  "AMERICAN_STANDARD": [
-    1903
-  ],
-  "AMERICAN_ENTERPRISES": [
+    1733,
+    1903,
     1920,
     2242,
-    4174
-  ],
-  "AMERICAN_SCIENCE": [
+    2457,
     2775,
-    13937
-  ],
-  "AMERICAN_RECREATION": [
     3610,
-    6720
-  ],
-  "AMERICAN_PACEMAKER": [
     3823,
-    6253,
-    7359,
-    9783
-  ],
-  "AMERICAN_&": [
     4047,
+    4174,
+    5162,
+    5474,
+    5535,
+    5939,
+    5940,
+    5941,
+    5942,
+    6253,
+    6720,
+    7007,
+    7359,
+    7738,
+    8394,
+    8664,
+    8665,
+    8666,
+    9076,
+    9077,
+    9377,
+    9781,
+    9782,
+    9783,
+    10148,
+    10149,
+    10150,
+    10720,
+    10721,
+    11269,
+    11270,
+    11271,
+    11957,
+    11958,
+    11959,
+    11960,
     12769,
+    12770,
+    12771,
+    12772,
+    12773,
+    12774,
+    12775,
+    12776,
+    12777,
+    12778,
+    12779,
+    13932,
+    13933,
+    13934,
+    13935,
+    13936,
+    13937,
+    13938,
+    13939,
     15208,
     15209,
     15210,
     15211,
     15212,
-    15213
-  ],
-  "AMERICAN_TRAFFIC": [
-    5162,
-    17411
-  ],
-  "AMERICAN_CYANAMID": [
-    5474
-  ],
-  "AMERICAN_TELECONFERENCING": [
-    5535
-  ],
-  "AMERICAN_CONSTRUCTION": [
-    5939,
-    5940
-  ],
-  "AMERICAN_FIBERS": [
-    5941
-  ],
-  "AMERICAN_FILM": [
-    5942,
-    13933
-  ],
-  "AMERICAN_STERILIZER": [
-    7007
-  ],
-  "AMERICAN_MAGNETICS": [
-    8394
-  ],
-  "AMERICAN_DRYER": [
-    8664
-  ],
-  "AMERICAN_PACIFIC": [
-    8665,
-    13935
-  ],
-  "AMERICAN_PREMIER": [
-    8666
-  ],
-  "AMERICAN_BIO": [
-    9076,
-    17392
-  ],
-  "AMERICAN_MONITOR": [
-    9077,
-    10720,
-    10721
-  ],
-  "AMERICAN_PLASTICS": [
-    9377
-  ],
-  "AMERICAN_EAGLE": [
-    9781
-  ],
-  "AMERICAN_NATIONAL": [
-    9782,
-    17400
-  ],
-  "AMERICAN_BIOGENETIC": [
-    10148
-  ],
-  "AMERICAN_GILSONITE": [
-    10149,
-    15220
-  ],
-  "AMERICAN_RAILCAR": [
-    10150
-  ],
-  "AMERICAN_BEVERAGE": [
-    11269
-  ],
-  "AMERICAN_SEALANTS": [
-    11270
-  ],
-  "AMERICAN_TECHNOLOGIES": [
-    11271,
-    17406
-  ],
-  "AMERICAN_CIRCUIT": [
-    11957
-  ],
-  "AMERICAN_DE": [
-    11958
-  ],
-  "AMERICAN_MANUFACTURING": [
-    11959
-  ],
-  "AMERICAN_POWDER": [
-    11960
-  ],
-  "AMERICAN_BIOMED": [
-    12770
-  ],
-  "AMERICAN_CRANE": [
-    12771
-  ],
-  "AMERICAN_FLOWFORM": [
-    12772,
-    12773
-  ],
-  "AMERICAN_ITALIAN": [
-    12774
-  ],
-  "AMERICAN_PANEL": [
-    12775
-  ],
-  "AMERICAN_PASSENGER": [
-    12776,
-    12777
-  ],
-  "AMERICAN_ROCKWOOL": [
-    12778
-  ],
-  "AMERICAN_TECHNICAL": [
-    12779
-  ],
-  "AMERICAN_SAFETY": [
-    13936
-  ],
-  "AMERICAN_SLEEP": [
-    13938
-  ],
-  "AMERICAN_TELECONFERECNING": [
-    13939
-  ],
-  "AMERICAN_BIOSCIENCE": [
-    15214
-  ],
-  "AMERICAN_BUILDINGS": [
+    15213,
+    15214,
     15215,
-    15216
-  ],
-  "AMERICAN_ELECTRONIC": [
-    15217
-  ],
-  "AMERICAN_ENGINEERED": [
-    15218
-  ],
-  "AMERICAN_FREEWAY": [
-    15219
-  ],
-  "AMERICAN_HEALTH": [
-    15221
-  ],
-  "AMERICAN_LAFRANCE": [
-    15222
-  ],
-  "AMERICAN_PHARMACEUTICAL": [
+    15216,
+    15217,
+    15218,
+    15219,
+    15220,
+    15221,
+    15222,
     15223,
-    15224
-  ],
-  "AMERICAN_UNITED": [
-    15225
-  ],
-  "AMERICAN_BANK": [
+    15224,
+    15225,
     17388,
-    17389
-  ],
-  "AMERICAN_BILTRITE": [
+    17389,
     17390,
-    17391
-  ],
-  "AMERICAN_BIOSYSTEMS": [
-    17393
-  ],
-  "AMERICAN_BUILDERS": [
-    17394
-  ],
-  "AMERICAN_BUSINESS": [
-    17395
-  ],
-  "AMERICAN_FLANGE": [
-    17396
-  ],
-  "AMERICAN_INLINE": [
-    17397
-  ],
-  "AMERICAN_LANTERN": [
-    17398
-  ],
-  "AMERICAN_LIFE": [
-    17399
-  ],
-  "AMERICAN_PCS": [
-    17401
-  ],
-  "AMERICAN_RANGE": [
-    17402
-  ],
-  "AMERICAN_ROCK": [
-    17403
-  ],
-  "AMERICAN_SOLAR": [
-    17404
-  ],
-  "AMERICAN_SUGAR": [
-    17405
-  ],
-  "AMERICAN_TELEPHONE": [
-    17407
-  ],
-  "AMERICAN_TOXIC": [
+    17391,
+    17392,
+    17393,
+    17394,
+    17395,
+    17396,
+    17397,
+    17398,
+    17399,
+    17400,
+    17401,
+    17402,
+    17403,
+    17404,
+    17405,
+    17406,
+    17407,
     17408,
     17409,
-    17410
-  ],
-  "AMERICAN_TRAILERS": [
-    17412
-  ],
-  "AMERICAN_WAGERING": [
+    17410,
+    17411,
+    17412,
     17413
   ],
   "BONUTTI": [

@@ -251,6 +251,72 @@ def run_complete_mapping(financial_mapping=None, non_financial_mapping=None, bas
     return complete_mapping_financial, complete_mapping_non_financial
 
 
+def update_database(base_dir=None, overwrite=True):
+    """
+    Actualiza la base de datos con los mapeos completos.
+    
+    Args:
+        base_dir: Directorio base del proyecto
+        overwrite: Si True, sobrescribe datos existentes
+    """
+    import sys
+    
+    if base_dir is None:
+        base_dir = Path(__file__).parent.parent.parent
+    
+    # Agregar el directorio base al path para importar database_manager
+    if str(base_dir) not in sys.path:
+        sys.path.insert(0, str(base_dir))
+    
+    from database_manager import EntityDatabase
+    
+    final_results_dir = base_dir / "results" / "final"
+    database_dir = base_dir / "database"
+    database_dir.mkdir(parents=True, exist_ok=True)
+    db_path = database_dir / "entities.db"
+    
+    print("\n" + "=" * 80)
+    print("ACTUALIZANDO BASE DE DATOS")
+    print("=" * 80)
+    
+    db = EntityDatabase(db_path)
+    
+    # Actualizar financial
+    financial_csv = final_results_dir / "financial_entity_mapping_complete.csv"
+    if financial_csv.exists():
+        print("\n1. Actualizando financial entities...")
+        try:
+            db.import_from_csv(financial_csv, 'financial', clear_existing=overwrite)
+            stats = db.get_statistics('financial')
+            print(f"   ✓ Financial: {stats['total_names']:,} nombres, {stats['unique_entities']:,} entidades")
+        except Exception as e:
+            print(f"   ✗ Error actualizando financial: {e}")
+            import traceback
+            traceback.print_exc()
+    else:
+        print("   ⚠️  No se encontró financial_entity_mapping_complete.csv")
+    
+    # Actualizar non_financial
+    non_financial_csv = final_results_dir / "non_financial_entity_mapping_complete.csv"
+    if non_financial_csv.exists():
+        print("\n2. Actualizando non-financial entities...")
+        try:
+            db.import_from_csv(non_financial_csv, 'non_financial', clear_existing=overwrite)
+            stats = db.get_statistics('non_financial')
+            print(f"   ✓ Non-financial: {stats['total_names']:,} nombres, {stats['unique_entities']:,} entidades")
+        except Exception as e:
+            print(f"   ✗ Error actualizando non-financial: {e}")
+            import traceback
+            traceback.print_exc()
+    else:
+        print("   ⚠️  No se encontró non_financial_entity_mapping_complete.csv")
+    
+    print("\n" + "=" * 80)
+    print("✓ Base de datos actualizada")
+    print(f"✓ Ubicación: {db_path}")
+    print("=" * 80)
+
+
 if __name__ == "__main__":
     run_complete_mapping()
 

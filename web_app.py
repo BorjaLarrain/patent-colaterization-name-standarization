@@ -1,16 +1,16 @@
 """
-Aplicación Web Interactiva para Revisión de Entidades
-=====================================================
-Aplicación Streamlit para revisar, editar y corregir agrupaciones de entidades.
+Interactive Web Application for Entity Review
+=============================================
+Streamlit application to review, edit, and correct entity groupings.
 
-Funcionalidades:
-- Ver todas las entidades agrupadas
-- Buscar por nombre o ID
-- Mover nombres entre grupos
-- Dividir grupos
-- Unir grupos
-- Crear nuevos grupos
-- Guardar cambios
+Features:
+- View all grouped entities
+- Search by name or ID
+- Move names between groups
+- Split groups
+- Merge groups
+- Create new groups
+- Save changes
 """
 
 import streamlit as st
@@ -24,11 +24,11 @@ import sys
 import logging
 from database_manager import EntityDatabase
 
-# Configurar logging para reducir ruido
+# Configure logging to reduce noise
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
-# Configuración de paths
+# Path configuration
 BASE_DIR = Path(__file__).parent
 RESULTS_DIR = BASE_DIR / "results" / "final"
 MANUAL_REVIEW_DIR = BASE_DIR / "results" / "manual_review"
@@ -37,63 +37,521 @@ DATABASE_DIR = BASE_DIR / "database"
 DATABASE_DIR.mkdir(parents=True, exist_ok=True)
 DB_PATH = DATABASE_DIR / "entities.db"
 
-# Configuración de página
+# Page configuration
 st.set_page_config(
-    page_title="Revisión de Entidades",
+    page_title="Entity Review",
     page_icon="🔍",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Suprimir warnings de Streamlit si es necesario
+# Suppress Streamlit warnings if needed
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
+# Dark mode CSS
+DARK_MODE_CSS = """
+<style>
+    :root {
+        --dark-bg: #0e1117;
+        --dark-secondary-bg: #262730;
+        --dark-text: #fafafa;
+        --dark-border: #3a3a3a;
+        --dark-input-bg: #1e1e1e;
+    }
+    
+    /* Main app background */
+    .stApp {
+        background-color: var(--dark-bg) !important;
+        color: var(--dark-text) !important;
+    }
+    
+    /* Main content area */
+    .main .block-container {
+        background-color: var(--dark-bg) !important;
+        color: var(--dark-text) !important;
+    }
+    
+    /* Sidebar */
+    [data-testid="stSidebar"] {
+        background-color: var(--dark-secondary-bg) !important;
+    }
+    [data-testid="stSidebar"] * {
+        color: var(--dark-text) !important;
+    }
+    
+    /* Toolbar */
+    .stAppToolbar,
+    [data-testid="stToolbar"] {
+        background-color: var(--dark-secondary-bg) !important;
+        color: var(--dark-text) !important;
+    }
+    
+    /* All labels */
+    label, .stSelectbox label, .stTextInput label, .stCheckbox label, 
+    .stRadio label, .stNumberInput label, .stMultiselect label {
+        color: var(--dark-text) !important;
+    }
+    
+    /* Selectbox dropdowns and options - comprehensive targeting */
+    .stSelectbox > div > div,
+    .stSelectbox > div > div > div,
+    .stSelectbox [class*="st-bn"],
+    .stSelectbox [class*="st-cm"],
+    .stSelectbox [class*="st-cw"],
+    .stSelectbox [class*="st-cx"],
+    .stSelectbox [class*="st-cy"],
+    .stSelectbox [class*="st-cz"],
+    .stSelectbox [class*="st-d0"],
+    .stSelectbox [class*="st-d1"],
+    .stSelectbox [class*="st-d2"],
+    .stSelectbox [class*="st-d3"],
+    .stSelectbox [class*="st-d4"],
+    div[class*="st-bn"][class*="st-cm"],
+    div[class*="st-bn"][class*="st-cw"],
+    div[class*="st-bn"][class*="st-cx"],
+    div[class*="st-bn"][class*="st-cy"],
+    div[class*="st-bn"][class*="st-cz"],
+    div[class*="st-bn"][class*="st-d0"],
+    div[class*="st-bn"][class*="st-d1"],
+    div[class*="st-bn"][class*="st-d2"],
+    div[class*="st-bn"][class*="st-d3"],
+    div[class*="st-bn"][class*="st-d4"],
+    .stSelectbox select,
+    .stSelectbox option {
+        background-color: var(--dark-input-bg) !important;
+        color: var(--dark-text) !important;
+        border-color: var(--dark-border) !important;
+    }
+    
+    /* Selectbox focused/open state */
+    .stSelectbox [class*="st-bn"][class*="st-cx"],
+    .stSelectbox [class*="st-bn"][class*="st-cy"],
+    .stSelectbox [class*="st-bn"][class*="st-cz"],
+    .stSelectbox [class*="st-bn"][class*="st-d0"] {
+        background-color: var(--dark-input-bg) !important;
+        color: var(--dark-text) !important;
+    }
+    
+    /* Target all divs with Streamlit classes - very specific */
+    div[class*="st-bn"],
+    div[class*="st-cm"],
+    div[class*="st-cw"],
+    div[class*="st-cx"],
+    div[class*="st-cy"],
+    div[class*="st-cz"],
+    div[class*="st-d0"],
+    div[class*="st-d1"],
+    div[class*="st-d2"],
+    div[class*="st-d3"],
+    div[class*="st-d4"],
+    div[class*="st-b3"],
+    div[class*="st-cg"] {
+        background-color: var(--dark-input-bg) !important;
+        color: var(--dark-text) !important;
+    }
+    
+    /* Multiple class combinations */
+    div.st-bn.st-cm,
+    div.st-bn.st-cw,
+    div.st-bn.st-cx,
+    div.st-bn.st-cy,
+    div.st-bn.st-cz,
+    div.st-bn.st-d0,
+    div.st-bn.st-d1,
+    div.st-bn.st-d2,
+    div.st-bn.st-d3,
+    div.st-bn.st-d4,
+    div.st-bn.st-b3,
+    div.st-bn.st-cm.st-cw,
+    div.st-bn.st-cm.st-cx,
+    div.st-bn.st-cm.st-cy,
+    div.st-bn.st-cm.st-cz,
+    div.st-bn.st-cm.st-d0,
+    div.st-bn.st-cm.st-cw.st-cx,
+    div.st-bn.st-cm.st-cw.st-cy,
+    div.st-bn.st-cm.st-cw.st-cz,
+    div.st-bn.st-cm.st-cw.st-d0,
+    div.st-bn.st-cm.st-cw.st-cx.st-cy,
+    div.st-bn.st-cm.st-cw.st-cx.st-cy.st-b3,
+    div.st-bn.st-cm.st-cw.st-cx.st-cy.st-b3.st-cz,
+    div.st-bn.st-cm.st-cw.st-cx.st-cy.st-b3.st-cz.st-d0,
+    div.st-bn.st-cm.st-cw.st-cx.st-cy.st-b3.st-cz.st-d0.st-cg,
+    div.st-bn.st-cm.st-cw.st-cx.st-cy.st-b3.st-cz.st-d0.st-cg.st-d1,
+    div.st-bn.st-cm.st-cw.st-cx.st-cy.st-b3.st-cz.st-d0.st-cg.st-d1.st-d2,
+    div.st-bn.st-cm.st-cw.st-cx.st-cy.st-b3.st-cz.st-d0.st-cg.st-d1.st-d2.st-d3,
+    div.st-bn.st-cm.st-cw.st-cx.st-cy.st-b3.st-cz.st-d0.st-cg.st-d1.st-d2.st-d3.st-d4 {
+        background-color: var(--dark-input-bg) !important;
+        color: var(--dark-text) !important;
+    }
+    
+    /* All input elements */
+    input[type="text"],
+    input[type="number"],
+    input[type="search"],
+    select,
+    textarea {
+        background-color: var(--dark-input-bg) !important;
+        color: var(--dark-text) !important;
+        border-color: var(--dark-border) !important;
+        caret-color: var(--dark-text) !important; /* Make cursor visible */
+    }
+    
+    /* Text input containers */
+    .stTextInput > div > div > input,
+    .stTextInput input {
+        background-color: var(--dark-input-bg) !important;
+        color: var(--dark-text) !important;
+        border-color: var(--dark-border) !important;
+        caret-color: var(--dark-text) !important; /* Make cursor visible */
+    }
+    
+    /* Number input */
+    .stNumberInput > div > div > input {
+        background-color: var(--dark-input-bg) !important;
+        color: var(--dark-text) !important;
+        border-color: var(--dark-border) !important;
+        caret-color: var(--dark-text) !important; /* Make cursor visible */
+    }
+    
+    /* Number input step buttons (up/down arrows) */
+    button[data-testid="stNumberInputStepUp"],
+    button[data-testid="stNumberInputStepDown"],
+    [data-testid="stNumberInputStepUp"],
+    [data-testid="stNumberInputStepDown"],
+    .stNumberInput button,
+    .stNumberInput [class*="st-emotion-cache"] button,
+    button.st-emotion-cache-hp90kq,
+    button.eaba2yi2,
+    [class*="st-emotion-cache-hp90kq"],
+    [class*="eaba2yi2"] {
+        background-color: var(--dark-input-bg) !important;
+        color: var(--dark-text) !important;
+        border-color: var(--dark-border) !important;
+    }
+    
+    button[data-testid="stNumberInputStepUp"]:hover:not(:disabled),
+    button[data-testid="stNumberInputStepDown"]:hover:not(:disabled),
+    [data-testid="stNumberInputStepUp"]:hover:not(:disabled),
+    [data-testid="stNumberInputStepDown"]:hover:not(:disabled),
+    .stNumberInput button:hover:not(:disabled) {
+        background-color: var(--dark-secondary-bg) !important;
+        color: var(--dark-text) !important;
+    }
+    
+    button[data-testid="stNumberInputStepUp"]:disabled,
+    button[data-testid="stNumberInputStepDown"]:disabled,
+    [data-testid="stNumberInputStepUp"]:disabled,
+    [data-testid="stNumberInputStepDown"]:disabled {
+        opacity: 0.5 !important;
+        cursor: not-allowed !important;
+    }
+    
+    /* Ensure caret is visible in all text inputs */
+    input,
+    textarea {
+        caret-color: var(--dark-text) !important;
+    }
+    
+    /* Focus state - make caret more visible */
+    input:focus,
+    textarea:focus {
+        caret-color: #ffffff !important; /* Bright white for visibility */
+        outline-color: var(--dark-text) !important;
+    }
+    
+    /* Multiselect */
+    .stMultiSelect > div > div,
+    .stMultiSelect [class*="st-bn"] {
+        background-color: var(--dark-input-bg) !important;
+        color: var(--dark-text) !important;
+        border-color: var(--dark-border) !important;
+    }
+    
+    /* Checkbox */
+    .stCheckbox label {
+        color: var(--dark-text) !important;
+    }
+    
+    /* Radio buttons */
+    .stRadio label {
+        color: var(--dark-text) !important;
+    }
+    
+    /* Metrics */
+    .stMetric {
+        background-color: var(--dark-secondary-bg) !important;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        color: var(--dark-text) !important;
+    }
+    .stMetric label {
+        color: var(--dark-text) !important;
+    }
+    .stMetric [data-testid="stMetricValue"] {
+        color: var(--dark-text) !important;
+    }
+    .stMetric [data-testid="stMetricLabel"] {
+        color: var(--dark-text) !important;
+    }
+    
+    /* DataFrames */
+    .stDataFrame {
+        background-color: var(--dark-secondary-bg) !important;
+    }
+    .stDataFrame table {
+        background-color: var(--dark-secondary-bg) !important;
+        color: var(--dark-text) !important;
+    }
+    .stDataFrame th,
+    .stDataFrame td {
+        background-color: var(--dark-secondary-bg) !important;
+        color: var(--dark-text) !important;
+        border-color: var(--dark-border) !important;
+    }
+    
+    /* Element containers */
+    .element-container {
+        color: var(--dark-text) !important;
+    }
+    
+    /* All text elements - exclude data frame editor using :not() */
+    h1:not(.dvn-scroller):not(.stDataFrameGlideDataEditor),
+    h2:not(.dvn-scroller):not(.stDataFrameGlideDataEditor),
+    h3:not(.dvn-scroller):not(.stDataFrameGlideDataEditor),
+    h4:not(.dvn-scroller):not(.stDataFrameGlideDataEditor),
+    h5:not(.dvn-scroller):not(.stDataFrameGlideDataEditor),
+    h6:not(.dvn-scroller):not(.stDataFrameGlideDataEditor),
+    p:not(.dvn-scroller):not(.stDataFrameGlideDataEditor),
+    span:not(.dvn-scroller):not(.stDataFrameGlideDataEditor) {
+        color: var(--dark-text) !important;
+    }
+    
+    /* General div rule - exclude data frame editor completely */
+    div:not([class*="dvn-scroller"]):not([class*="stDataFrameGlideDataEditor"]):not(.dvn-scroller):not(.stDataFrameGlideDataEditor):not(.dvn-scroller *):not(.stDataFrameGlideDataEditor *) {
+        color: var(--dark-text) !important;
+    }
+    
+    /* Markdown */
+    .stMarkdown {
+        color: var(--dark-text) !important;
+    }
+    .stMarkdown p,
+    .stMarkdown li,
+    .stMarkdown ul,
+    .stMarkdown ol {
+        color: var(--dark-text) !important;
+    }
+    
+    /* Expanders */
+    .stExpander {
+        background-color: var(--dark-secondary-bg) !important;
+        border: 1px solid var(--dark-border) !important;
+    }
+    .stExpander label {
+        color: var(--dark-text) !important;
+    }
+    .stExpander [data-testid="stExpander"] {
+        background-color: var(--dark-secondary-bg) !important;
+    }
+    
+    /* Buttons */
+    .stButton > button {
+        background-color: #1f77b4 !important;
+        color: white !important;
+        border-color: #1f77b4 !important;
+    }
+    .stButton > button:hover {
+        background-color: #1565a0 !important;
+    }
+    
+    /* Info/Warning/Success/Error boxes */
+    .stInfo,
+    .stWarning,
+    .stSuccess,
+    .stError {
+        background-color: var(--dark-secondary-bg) !important;
+        color: var(--dark-text) !important;
+    }
+    
+    /* Tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        background-color: var(--dark-secondary-bg) !important;
+    }
+    .stTabs [data-baseweb="tab"] {
+        color: var(--dark-text) !important;
+        background-color: var(--dark-secondary-bg) !important;
+    }
+    .stTabs [aria-selected="true"] {
+        background-color: var(--dark-bg) !important;
+        color: var(--dark-text) !important;
+    }
+    
+    /* Dropdown menus */
+    [role="listbox"],
+    [role="option"] {
+        background-color: var(--dark-input-bg) !important;
+        color: var(--dark-text) !important;
+    }
+    
+    /* BaseWeb components (used by Streamlit for dropdowns) */
+    [data-baseweb="select"],
+    [data-baseweb="popover"],
+    [data-baseweb="menu"],
+    [data-baseweb="menu-item"] {
+        background-color: var(--dark-input-bg) !important;
+        color: var(--dark-text) !important;
+    }
+    
+    /* Override any white backgrounds */
+    div[style*="background-color: rgb(255, 255, 255)"],
+    div[style*="background-color:white"],
+    div[style*="background-color:#ffffff"],
+    div[style*="background-color:#fff"] {
+        background-color: var(--dark-input-bg) !important;
+        color: var(--dark-text) !important;
+    }
+    
+    /* Ensure text is visible in all Streamlit components */
+    .stSelectbox,
+    .stTextInput,
+    .stNumberInput,
+    .stMultiselect,
+    .stRadio,
+    .stCheckbox {
+        color: var(--dark-text) !important;
+    }
+    
+    /* Fix for any remaining white backgrounds - but exclude data frame editor */
+    *:not(.dvn-scroller):not(.stDataFrameGlideDataEditor):not([class*="dvn-scroller"]):not([class*="stDataFrameGlideDataEditor"]):not(.dvn-scroller *):not(.stDataFrameGlideDataEditor *) {
+        color: inherit;
+    }
+    
+    /* Specific fix for toolbar text */
+    .stAppToolbar *,
+    [data-testid="stToolbar"] * {
+        color: var(--dark-text) !important;
+    }
+    
+    /* List items (like in expanders/menus) */
+    li,
+    li[class*="st-emotion"],
+    li[class*="e8lvnlb5"],
+    li[class*="e1e4lema2"],
+    .st-emotion-cache-1jfa4hj,
+    .e8lvnlb5 {
+        background-color: var(--dark-secondary-bg) !important;
+        color: var(--dark-text) !important;
+    }
+    
+    /* Secondary buttons */
+    button[data-testid="stBaseButton-secondary"],
+    button[data-testid="stBaseButton-secondary"] *,
+    button.kind-secondary,
+    button[class*="st-emotion-cache-1v8qxnj"],
+    button[class*="st-emotion-cache-g4hvad"],
+    .st-emotion-cache-1v8qxnj,
+    .st-emotion-cache-g4hvad,
+    .e1e4lema2 {
+        background-color: var(--dark-secondary-bg) !important;
+        color: var(--dark-text) !important;
+        border-color: var(--dark-border) !important;
+    }
+    
+    button[data-testid="stBaseButton-secondary"]:hover,
+    button.kind-secondary:hover {
+        background-color: var(--dark-input-bg) !important;
+        color: var(--dark-text) !important;
+    }
+    
+    /* Element toolbar containers */
+    [data-testid="stElementToolbarButtonContainer"],
+    div[data-testid="stElementToolbarButtonContainer"],
+    .st-emotion-cache-rw8y77,
+    .et0utro1 {
+        background-color: var(--dark-secondary-bg) !important;
+        color: var(--dark-text) !important;
+    }
+    
+    /* All emotion cache classes - but exclude data frame editor */
+    [class*="st-emotion-cache"]:not(.stDataFrameGlideDataEditor):not([class*="dvn-scroller"]),
+    [class*="e1e4lema2"],
+    [class*="e8lvnlb5"],
+    [class*="et0utro1"] {
+        color: var(--dark-text) !important;
+    }
+    
+    /* ========================================================================
+       Data Frame Editor - COMPLETELY EXCLUDED from dark mode
+       No styling applied - preserves original appearance
+       ======================================================================== */
+    
+    /* Exclude data frame editor from all dark mode rules */
+    .dvn-scroller,
+    .stDataFrameGlideDataEditor,
+    div[class*="dvn-scroller"],
+    div[class*="stDataFrameGlideDataEditor"],
+    .dvn-scroller *,
+    .stDataFrameGlideDataEditor *,
+    div[class*="dvn-scroller"] *,
+    div[class*="stDataFrameGlideDataEditor"] * {
+        /* No dark mode styling - use original Streamlit defaults */
+        color: initial !important;
+        background-color: initial !important;
+    }
+</style>
+"""
+
+def apply_dark_mode():
+    """Apply dark mode CSS if enabled"""
+    if st.session_state.get('dark_mode', False):
+        st.markdown(DARK_MODE_CSS, unsafe_allow_html=True)
+
 def get_database():
-    """Obtiene o crea la instancia de la base de datos"""
+    """Get or create the database instance"""
     if 'db' not in st.session_state:
         st.session_state.db = EntityDatabase(DB_PATH)
     return st.session_state.db
 
 def load_mapping_data(entity_type='financial', use_database=True):
     """
-    Carga los datos de mapeo desde la base de datos o CSV
+    Load mapping data from database or CSV
     
     Args:
-        entity_type: Tipo de entidad
-        use_database: Si True, usa base de datos. Si False, usa CSV
+        entity_type: Entity type
+        use_database: If True, use database. If False, use CSV
     """
     try:
         if use_database:
             db = get_database()
             
-            # Verificar si hay datos en la base de datos
+            # Check if there's data in the database
             stats = db.get_statistics(entity_type)
             if stats['total_names'] > 0:
-                # Cargar desde base de datos
+                # Load from database
                 return db.load_entities(entity_type)
             
-            # Si no hay datos en DB, intentar importar desde CSV
+            # If no data in DB, try importing from CSV
             csv_path = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
             if csv_path.exists():
-                # Importar desde CSV a la base de datos
-                with st.spinner("Migrando datos desde CSV a base de datos..."):
+                # Import from CSV to database
+                with st.spinner("Migrating data from CSV to database..."):
                     db.import_from_csv(csv_path, entity_type, clear_existing=True)
                 return db.load_entities(entity_type)
             else:
                 return None
         else:
-            # Cargar directamente desde CSV (modo legacy)
+            # Load directly from CSV (legacy mode)
             file_path = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
             if not file_path.exists():
                 return None
             return pd.read_csv(file_path)
     except Exception as e:
-        logger.error(f"Error cargando datos: {e}")
+        logger.error(f"Error loading data: {e}")
         return None
 
 def initialize_session_state():
-    """Inicializa el estado de la sesión"""
+    """Initialize session state"""
     if 'df_original' not in st.session_state:
         st.session_state.df_original = None
     if 'df_edited' not in st.session_state:
@@ -105,11 +563,21 @@ def initialize_session_state():
     if 'selected_entity_id' not in st.session_state:
         st.session_state.selected_entity_id = None
     if 'use_database' not in st.session_state:
-        st.session_state.use_database = True  # Usar base de datos por defecto
+        st.session_state.use_database = True  # Use database by default
+    if 'dark_mode' not in st.session_state:
+        st.session_state.dark_mode = False
+    if 'active_tab' not in st.session_state:
+        st.session_state.active_tab = None
+    if 'current_page' not in st.session_state:
+        st.session_state.current_page = 1
+    if 'groups_per_page' not in st.session_state:
+        st.session_state.groups_per_page = 25
+    if 'last_filter_state' not in st.session_state:
+        st.session_state.last_filter_state = None
 
 @st.cache_data
 def group_by_entity(df):
-    """Agrupa nombres por entity_id (con cache para mejorar rendimiento)"""
+    """Group names by entity_id (with cache to improve performance)"""
     grouped = defaultdict(list)
     for _, row in df.iterrows():
         grouped[row['entity_id']].append({
@@ -125,7 +593,7 @@ def group_by_entity(df):
     return dict(grouped)
 
 def calculate_group_stats(group):
-    """Calcula estadísticas de un grupo"""
+    """Calculate statistics for a group"""
     total_freq = sum(n['frequency'] for n in group)
     names_count = len(group)
     standard_name = group[0]['standard_name'] if group else ""
@@ -142,68 +610,68 @@ def calculate_group_stats(group):
     }
 
 def apply_changes(df, changes):
-    """Aplica cambios al dataframe"""
+    """Apply changes to dataframe"""
     df_new = df.copy()
     
     for change in changes:
         change_type = change['type']
         
         if change_type == 'move_name':
-            # Mover un nombre a otro entity_id
+            # Move a name to another entity_id
             old_entity_id = change['old_entity_id']
             new_entity_id = change['new_entity_id']
             original_name = change['original_name']
             
-            # Actualizar entity_id
+            # Update entity_id
             mask = (df_new['entity_id'] == old_entity_id) & (df_new['original_name'] == original_name)
             if mask.any():
                 df_new.loc[mask, 'entity_id'] = new_entity_id
-                # Actualizar standard_name del nuevo grupo
+                # Update standard_name of the new group
                 new_group = df_new[df_new['entity_id'] == new_entity_id]
                 if len(new_group) > 0:
                     new_standard = new_group.iloc[0]['standard_name']
                     df_new.loc[mask, 'standard_name'] = new_standard
-                # Actualizar component_size
+                # Update component_size
                 df_new.loc[mask, 'component_size'] = len(df_new[df_new['entity_id'] == new_entity_id])
         
         elif change_type == 'split_group':
-            # Dividir un grupo: crear nuevo entity_id
+            # Split a group: create new entity_id
             old_entity_id = change['old_entity_id']
             names_to_split = change['names']
             new_entity_id = change['new_entity_id']
             
-            # Mover nombres al nuevo grupo
+            # Move names to new group
             mask = (df_new['entity_id'] == old_entity_id) & (df_new['original_name'].isin(names_to_split))
             if mask.any():
                 df_new.loc[mask, 'entity_id'] = new_entity_id
-                # El standard_name será el más frecuente del nuevo grupo
+                # The standard_name will be the most frequent of the new group
                 new_group = df_new[df_new['entity_id'] == new_entity_id]
                 if len(new_group) > 0:
                     new_standard = new_group.nlargest(1, 'frequency').iloc[0]['normalized_name']
                     df_new.loc[mask, 'standard_name'] = new_standard
-                # Actualizar component_size
+                # Update component_size
                 for entity_id in [old_entity_id, new_entity_id]:
                     size = len(df_new[df_new['entity_id'] == entity_id])
                     df_new.loc[df_new['entity_id'] == entity_id, 'component_size'] = size
         
         elif change_type == 'merge_groups':
-            # Unir grupos
+            # Merge groups
             source_entity_id = change['source_entity_id']
             target_entity_id = change['target_entity_id']
             
-            # Mover todos los nombres al grupo destino
+            # Move all names to target group
             mask = df_new['entity_id'] == source_entity_id
             if mask.any():
                 df_new.loc[mask, 'entity_id'] = target_entity_id
-                # Actualizar standard_name al del grupo destino
+                # Update standard_name to target group's
                 target_standard = df_new[df_new['entity_id'] == target_entity_id].iloc[0]['standard_name']
                 df_new.loc[mask, 'standard_name'] = target_standard
-                # Actualizar component_size
+                # Update component_size
                 size = len(df_new[df_new['entity_id'] == target_entity_id])
                 df_new.loc[df_new['entity_id'] == target_entity_id, 'component_size'] = size
         
         elif change_type == 'change_standard_name':
-            # Cambiar el nombre estándar de un grupo
+            # Change the standard name of a group
             entity_id = change['entity_id']
             new_standard_name = change['new_standard_name']
             
@@ -213,7 +681,7 @@ def apply_changes(df, changes):
     return df_new
 
 def get_next_entity_id(df, prefix='financial'):
-    """Obtiene el siguiente ID disponible para una nueva entidad"""
+    """Get the next available ID for a new entity"""
     existing_ids = df['entity_id'].unique()
     max_num = 0
     
@@ -227,37 +695,37 @@ def get_next_entity_id(df, prefix='financial'):
 
 def save_changes(df, entity_type='financial', backup=False, use_database=True):
     """
-    Guarda los cambios en la base de datos o CSV
+    Save changes to database or CSV
     
     Args:
-        df: DataFrame con los cambios
-        entity_type: Tipo de entidad
-        backup: Si crear backup (por defecto False, solo se crea cuando se solicita explícitamente)
-        use_database: Si True, guarda en base de datos. Si False, guarda CSV
+        df: DataFrame with changes
+        entity_type: Entity type
+        backup: Whether to create backup (default False, only created when explicitly requested)
+        use_database: If True, save to database. If False, save CSV
     
     Returns:
-        Ruta del archivo guardado o mensaje de confirmación
+        Path of saved file or confirmation message
     """
     if use_database:
         try:
             db = get_database()
             
-            # Crear backup de la base de datos si se solicita
+            # Create database backup if requested
             if backup:
                 backup_path = db.backup_database()
             
-            # Actualizar entidades en la base de datos
+            # Update entities in database
             db.update_entities(df, entity_type)
             
-            return f"Cambios guardados en la base de datos: {DB_PATH.name}"
+            return f"Changes saved to database: {DB_PATH.name}"
         except Exception as e:
-            logger.error(f"Error guardando en base de datos: {e}")
+            logger.error(f"Error saving to database: {e}")
             raise
     else:
-        # Modo legacy: guardar CSV
+        # Legacy mode: save CSV
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         
-        # Crear backup si se solicita
+        # Create backup if requested
         if backup:
             original_file = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
             if original_file.exists():
@@ -265,53 +733,66 @@ def save_changes(df, entity_type='financial', backup=False, use_database=True):
                 df_original = pd.read_csv(original_file)
                 df_original.to_csv(backup_file, index=False)
         
-        # Guardar archivo editado
+        # Save edited file
         edited_file = MANUAL_REVIEW_DIR / f"{entity_type}_entity_mapping_edited_{timestamp}.csv"
         df.to_csv(edited_file, index=False)
         
-        # También guardar como el archivo "latest"
+        # Also save as "latest" file
         latest_file = MANUAL_REVIEW_DIR / f"{entity_type}_entity_mapping_edited_latest.csv"
         df.to_csv(latest_file, index=False)
         
         return edited_file, latest_file
 
 # ============================================================================
-# INTERFAZ PRINCIPAL
+# MAIN INTERFACE
 # ============================================================================
 
 def main():
     initialize_session_state()
     
-    st.title("🔍 Revisión y Edición de Entidades Agrupadas")
+    # Apply dark mode if enabled
+    apply_dark_mode()
     
-    # Nota sobre errores de WebSocket (colapsable)
-    with st.expander("ℹ️ Nota sobre errores en la terminal"):
+    st.title("🔍 Entity Review and Editing")
+    
+    # Note about WebSocket errors (collapsible)
+    with st.expander("ℹ️ Note about terminal errors"):
         st.info("""
-        Si ves errores de `WebSocketClosedError` en la terminal, **no te preocupes**. 
-        Estos son errores comunes e inofensivos de Streamlit que ocurren cuando el navegador 
-        cierra la conexión inesperadamente. **No afectan la funcionalidad de la aplicación.**
+        If you see `WebSocketClosedError` errors in the terminal, **don't worry**. 
+        These are common and harmless Streamlit errors that occur when the browser 
+        closes the connection unexpectedly. **They do not affect the application's functionality.**
         
-        Puedes ignorarlos completamente. La aplicación seguirá funcionando normalmente.
+        You can ignore them completely. The application will continue to work normally.
         """)
     
     st.markdown("---")
     
-    # Sidebar: Selección de tipo de entidad
+    # Sidebar: Entity type selection
     with st.sidebar:
-        st.header("Configuración")
+        st.header("Settings")
+        
+        # Dark mode toggle
+        dark_mode = st.checkbox("🌙 Dark Mode", value=st.session_state.dark_mode,
+                                help="Toggle dark mode theme")
+        if dark_mode != st.session_state.dark_mode:
+            st.session_state.dark_mode = dark_mode
+            st.rerun()
+        
+        st.markdown("---")
+        
         entity_type = st.selectbox(
-            "Tipo de entidad",
+            "Entity Type",
             ['financial', 'non_financial'],
             index=0
         )
         
-        # Toggle para usar base de datos o CSV
-        use_db = st.checkbox("Usar base de datos SQLite", value=st.session_state.use_database,
-                            help="Si está activado, usa base de datos SQLite. Si no, usa archivos CSV.")
+        # Toggle to use database or CSV
+        use_db = st.checkbox("Use SQLite Database", value=st.session_state.use_database,
+                            help="If enabled, uses SQLite database. Otherwise, uses CSV files.")
         st.session_state.use_database = use_db
         
-        if st.button("🔄 Cargar Datos", type="primary"):
-            with st.spinner("Cargando datos..."):
+        if st.button("🔄 Load Data", type="primary"):
+            with st.spinner("Loading data..."):
                 df = load_mapping_data(entity_type, use_database=use_db)
                 if df is not None:
                     st.session_state.df_original = df.copy()
@@ -321,30 +802,30 @@ def main():
                     if use_db:
                         db = get_database()
                         stats = db.get_statistics(entity_type)
-                        st.success(f"✓ Cargados {len(df):,} nombres desde base de datos")
-                        st.info(f"📊 {stats['unique_entities']:,} entidades únicas en la base de datos")
+                        st.success(f"✓ Loaded {len(df):,} names from database")
+                        st.info(f"📊 {stats['unique_entities']:,} unique entities in database")
                     else:
-                        st.success(f"✓ Cargados {len(df):,} nombres desde CSV")
+                        st.success(f"✓ Loaded {len(df):,} names from CSV")
                 else:
-                    st.error(f"No se encontró el archivo para {entity_type}")
+                    st.error(f"File not found for {entity_type}")
         
         st.markdown("---")
         
         if st.session_state.df_edited is not None:
-            st.subheader("Estado")
+            st.subheader("Status")
             total_entities = st.session_state.df_edited['entity_id'].nunique()
             total_names = len(st.session_state.df_edited)
             
-            st.metric("Entidades únicas", f"{total_entities:,}")
-            st.metric("Total nombres", f"{total_names:,}")
+            st.metric("Unique Entities", f"{total_entities:,}")
+            st.metric("Total Names", f"{total_names:,}")
             
             if st.session_state.changes_made:
-                st.warning("⚠️ Hay cambios sin guardar")
+                st.warning("⚠️ There are unsaved changes")
             
             st.markdown("---")
             
-            if st.button("💾 Guardar Cambios", type="primary", disabled=not st.session_state.changes_made):
-                with st.spinner("Guardando cambios..."):
+            if st.button("💾 Save Changes", type="primary", disabled=not st.session_state.changes_made):
+                with st.spinner("Saving changes..."):
                     try:
                         result = save_changes(
                             st.session_state.df_edited,
@@ -352,142 +833,175 @@ def main():
                             use_database=st.session_state.use_database
                         )
                         st.session_state.changes_made = False
-                        # Limpiar cache después de guardar
+                        # Clear cache after saving
                         group_by_entity.clear()
                         
                         if st.session_state.use_database:
-                            st.success(f"✓ Cambios guardados en la base de datos")
-                            st.info(f"📁 Base de datos: `database/entities.db`")
+                            st.success(f"✓ Changes saved to database")
+                            st.info(f"📁 Database: `database/entities.db`")
                             st.balloons()
                         else:
                             edited_file, latest_file = result
-                            st.success(f"✓ Cambios guardados en:\n{edited_file.name}")
-                            st.info(f"Archivo más reciente: {latest_file.name}")
+                            st.success(f"✓ Changes saved to:\n{edited_file.name}")
+                            st.info(f"Latest file: {latest_file.name}")
                             st.balloons()
                     except Exception as e:
-                        st.error(f"❌ Error al guardar: {str(e)}")
-                        logger.exception("Error guardando cambios")
+                        st.error(f"❌ Error saving: {str(e)}")
+                        logger.exception("Error saving changes")
         
         st.markdown("---")
         
-        # Gestión de base de datos
+        # Database management
         if st.session_state.use_database:
-            st.subheader("🗄️ Gestión de Base de Datos")
+            st.subheader("🗄️ Database Management")
             
             col_db1, col_db2 = st.columns(2)
             
             with col_db1:
-                if st.button("📥 Exportar a CSV", help="Exporta los datos actuales a CSV"):
+                if st.button("📥 Export to CSV", help="Export current data to CSV"):
                     try:
                         db = get_database()
                         export_path = MANUAL_REVIEW_DIR / f"{entity_type}_exported_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
                         db.export_to_csv(entity_type, export_path)
-                        st.success(f"✓ Exportado a: {export_path.name}")
+                        st.success(f"✓ Exported to: {export_path.name}")
                     except Exception as e:
-                        st.error(f"Error exportando: {e}")
+                        st.error(f"Error exporting: {e}")
             
             with col_db2:
-                if st.button("💾 Crear Backup", help="Crea un backup de la base de datos"):
+                if st.button("💾 Create Backup", help="Create a database backup"):
                     try:
                         db = get_database()
                         backup_path = db.backup_database()
-                        st.success(f"✓ Backup creado: {backup_path.name}")
+                        st.success(f"✓ Backup created: {backup_path.name}")
                     except Exception as e:
-                        st.error(f"Error creando backup: {e}")
+                        st.error(f"Error creating backup: {e}")
             
-            # Información de la base de datos
+            # Database information
             try:
                 db = get_database()
                 stats = db.get_statistics(entity_type)
                 
-                with st.expander("📊 Estadísticas de Base de Datos"):
-                    st.metric("Total nombres", f"{stats['total_names']:,}")
-                    st.metric("Entidades únicas", f"{stats['unique_entities']:,}")
-                    st.metric("Tamaño promedio de grupos", f"{stats['avg_group_size']:.1f}")
-                    st.metric("Grupos grandes (>20)", f"{stats['large_groups']:,}")
+                with st.expander("📊 Database Statistics"):
+                    st.metric("Total Names", f"{stats['total_names']:,}")
+                    st.metric("Unique Entities", f"{stats['unique_entities']:,}")
+                    st.metric("Average Group Size", f"{stats['avg_group_size']:.1f}")
+                    st.metric("Large Groups (>20)", f"{stats['large_groups']:,}")
                     
-                    # Tamaño del archivo de base de datos
+                    # Database file size
                     if DB_PATH.exists():
                         db_size = DB_PATH.stat().st_size / (1024 * 1024)  # MB
-                        st.metric("Tamaño de BD", f"{db_size:.2f} MB")
+                        st.metric("Database Size", f"{db_size:.2f} MB")
             except Exception as e:
-                st.warning(f"No se pudieron cargar estadísticas: {e}")
+                st.warning(f"Could not load statistics: {e}")
         
         st.markdown("---")
-        st.markdown("### 📝 Historial de Cambios")
+        st.markdown("### 📝 Change History")
         if st.session_state.edit_history:
             for i, change in enumerate(st.session_state.edit_history[-5:], 1):
                 st.text(f"{i}. {change}")
         else:
-            st.text("No hay cambios aún")
+            st.text("No changes yet")
     
-    # Contenido principal
+    # Main content
     if st.session_state.df_edited is None:
-        st.info("👈 Por favor, carga los datos desde el panel lateral")
+        st.info("👈 Please load data from the sidebar panel")
         return
     
-    # Tabs para diferentes vistas
-    tab1, tab2, tab3, tab4 = st.tabs([
-        "📋 Vista de Grupos",
-        "🔍 Búsqueda",
-        "✏️ Editar Grupo",
-        "📊 Estadísticas"
-    ])
+    # Tabs for different views
+    # Determine which tab to show first (if Edit button was clicked)
+    tab_labels = ["📋 Group View", "🔍 Search", "✏️ Edit Group", "📊 Statistics"]
     
-    # TAB 1: Vista de Grupos
-    with tab1:
-        st.header("Vista de Grupos")
+    # If active_tab is set and selected_entity_id exists, switch to Edit tab
+    if st.session_state.active_tab == "edit" and st.session_state.selected_entity_id:
+        # Use JavaScript to switch to the Edit tab (index 2)
+        # This runs after Streamlit finishes rendering
+        st.markdown("""
+        <script>
+        function switchToEditTab() {
+            var tabs = document.querySelectorAll('[data-baseweb="tab"]');
+            if (tabs.length > 2) {
+                tabs[2].click();
+                return true;
+            }
+            return false;
+        }
         
-        # Información de rendimiento
+        // Try immediately
+        if (!switchToEditTab()) {
+            // If tabs aren't ready, wait a bit and try again
+            setTimeout(function() {
+                if (!switchToEditTab()) {
+                    // Last attempt after a longer delay
+                    setTimeout(switchToEditTab, 500);
+                }
+            }, 200);
+        }
+        </script>
+        """, unsafe_allow_html=True)
+        st.session_state.active_tab = None  # Reset after switching
+    
+    tab1, tab2, tab3, tab4 = st.tabs(tab_labels)
+    
+    # TAB 1: Group View
+    with tab1:
+        st.header("Group View")
+        
+        # Performance information
         if st.session_state.df_edited is not None:
             total_entities = st.session_state.df_edited['entity_id'].nunique()
             total_names = len(st.session_state.df_edited)
             if total_entities > 1000:
-                st.info(f"ℹ️ **Optimización activa**: Con {total_entities:,} entidades, se recomienda usar filtros para mejorar el rendimiento. Los singletons están ocultos por defecto.")
+                st.info(f"ℹ️ **Optimization active**: With {total_entities:,} entities, it's recommended to use filters to improve performance. Singletons are hidden by default.")
         
-        # Filtros
+        # Filters
         col1, col2, col3, col4 = st.columns(4)
         with col1:
             sort_by = st.selectbox(
-                "Ordenar por",
-                ['Frecuencia total', 'Número de nombres', 'ID de entidad'],
+                "Sort by",
+                ['Total Frequency', 'Number of Names', 'Entity ID'],
                 index=0
             )
         with col2:
             filter_size = st.selectbox(
-                "Filtrar por tamaño",
-                ['Sin singletons (<2)', 'Todos', 'Grandes (>20)', 'Medianos (5-20)', 'Pequeños (2-5)'],
-                index=0  # Por defecto ocultar singletons
+                "Filter by Size",
+                ['No Singletons (<2)', 'All', 'Large (>20)', 'Medium (5-20)', 'Small (2-5)'],
+                index=0  # Hide singletons by default
             )
         with col3:
-            filter_review = st.checkbox("Solo grupos marcados para revisión", value=False)
+            filter_review = st.checkbox("Only groups marked for review", value=False)
         with col4:
-            # Búsqueda rápida por ID o nombre estándar
-            quick_search = st.text_input("🔍 Búsqueda rápida (ID o nombre)", "")
+            # Quick search by ID or standard name
+            quick_search = st.text_input("🔍 Quick Search (ID or name)", "")
         
-        # Agrupar datos (ya tiene cache en la función)
+        # Check if filters changed and reset page if needed
+        current_filter_state = (sort_by, filter_size, filter_review, quick_search)
+        if st.session_state.last_filter_state is not None and current_filter_state != st.session_state.last_filter_state:
+            st.session_state.current_page = 1
+        st.session_state.last_filter_state = current_filter_state
+        
+        # Group data (already has cache in the function)
         grouped = group_by_entity(st.session_state.df_edited)
         
-        # Filtrar grupos
+        # Filter groups
         filtered_groups = {}
         for entity_id, names in grouped.items():
             stats = calculate_group_stats(names)
             
-            # Filtro por tamaño (por defecto ocultar singletons)
-            if filter_size == 'Sin singletons (<2)' and stats['names_count'] < 2:
+            # Filter by size (hide singletons by default)
+            if filter_size == 'No Singletons (<2)' and stats['names_count'] < 2:
                 continue
-            elif filter_size == 'Grandes (>20)' and stats['names_count'] <= 20:
+            elif filter_size == 'Large (>20)' and stats['names_count'] <= 20:
                 continue
-            elif filter_size == 'Medianos (5-20)' and not (5 <= stats['names_count'] <= 20):
+            elif filter_size == 'Medium (5-20)' and not (5 <= stats['names_count'] <= 20):
                 continue
-            elif filter_size == 'Pequeños (2-5)' and not (2 <= stats['names_count'] < 5):
+            elif filter_size == 'Small (2-5)' and not (2 <= stats['names_count'] < 5):
                 continue
             
-            # Filtro por revisión
+            # Filter by review
             if filter_review and not any(n.get('needs_review', False) for n in names):
                 continue
             
-            # Búsqueda rápida
+            # Quick search
             if quick_search:
                 search_lower = quick_search.lower()
                 if (search_lower not in entity_id.lower() and 
@@ -496,14 +1010,14 @@ def main():
             
             filtered_groups[entity_id] = names
         
-        # Ordenar grupos
-        if sort_by == 'Frecuencia total':
+        # Sort groups
+        if sort_by == 'Total Frequency':
             sorted_groups = sorted(
                 filtered_groups.items(),
                 key=lambda x: calculate_group_stats(x[1])['total_frequency'],
                 reverse=True
             )
-        elif sort_by == 'Número de nombres':
+        elif sort_by == 'Number of Names':
             sorted_groups = sorted(
                 filtered_groups.items(),
                 key=lambda x: calculate_group_stats(x[1])['names_count'],
@@ -512,67 +1026,126 @@ def main():
         else:
             sorted_groups = sorted(filtered_groups.items())
         
-        # Paginación
-        groups_per_page = st.sidebar.selectbox(
-            "Grupos por página",
-            [10, 25, 50, 100, 250],
-            index=1 if len(sorted_groups) > 100 else 2
-        )
+        # Pagination controls - moved to main content area
+        groups_per_page = st.session_state.groups_per_page
+        total_pages = (len(sorted_groups) + groups_per_page - 1) // groups_per_page if len(sorted_groups) > 0 else 1
         
-        total_pages = (len(sorted_groups) + groups_per_page - 1) // groups_per_page
+        # Ensure current_page is within valid range
+        if st.session_state.current_page > total_pages:
+            st.session_state.current_page = total_pages
+        if st.session_state.current_page < 1:
+            st.session_state.current_page = 1
         
-        if total_pages > 1:
-            page_number = st.sidebar.number_input(
-                f"Página (de {total_pages})",
-                min_value=1,
-                max_value=total_pages,
-                value=1,
-                step=1
+        page_number = st.session_state.current_page
+        
+        # Pagination controls row - compact layout
+        col_pag1, col_pag2, col_pag3, col_pag4 = st.columns([2, 2, 3, 3])
+        
+        with col_pag1:
+            st.markdown("**Groups per page:**")
+            new_groups_per_page = st.selectbox(
+                "Groups per Page",
+                [10, 25, 50, 100, 250],
+                index=[10, 25, 50, 100, 250].index(groups_per_page) if groups_per_page in [10, 25, 50, 100, 250] else 1,
+                label_visibility="collapsed",
+                key="groups_per_page_selector"
             )
+            if new_groups_per_page != groups_per_page:
+                st.session_state.groups_per_page = new_groups_per_page
+                # Recalculate page number to stay on same relative position
+                if total_pages > 1:
+                    relative_position = (page_number - 1) / total_pages
+                    new_total_pages = (len(sorted_groups) + new_groups_per_page - 1) // new_groups_per_page if len(sorted_groups) > 0 else 1
+                    st.session_state.current_page = max(1, min(new_total_pages, int(relative_position * new_total_pages) + 1))
+                st.rerun()
+        
+        with col_pag2:
+            if total_pages > 1:
+                st.markdown("**Go to page:**")
+                new_page = st.number_input(
+                    "Go to page:",
+                    min_value=1,
+                    max_value=total_pages,
+                    value=page_number,
+                    step=1,
+                    label_visibility="collapsed",
+                    key="page_number_input_top"
+                )
+                if new_page != page_number:
+                    st.session_state.current_page = new_page
+                    st.rerun()
+            else:
+                st.markdown("**All groups shown**")
+        
+        with col_pag3:
+            if total_pages > 1:
+                st.markdown(f"**Page {page_number} of {total_pages}**")
+                # Navigation buttons
+                nav_col1, nav_col2, nav_col3, nav_col4 = st.columns(4)
+                with nav_col1:
+                    if st.button("⏮️ First", disabled=(page_number == 1), use_container_width=True, key="nav_first_top"):
+                        st.session_state.current_page = 1
+                        st.rerun()
+                with nav_col2:
+                    if st.button("◀️ Previous", disabled=(page_number == 1), use_container_width=True, key="nav_prev_top"):
+                        st.session_state.current_page = max(1, page_number - 1)
+                        st.rerun()
+                with nav_col3:
+                    if st.button("Next ▶️", disabled=(page_number >= total_pages), use_container_width=True, key="nav_next_top"):
+                        st.session_state.current_page = min(total_pages, page_number + 1)
+                        st.rerun()
+                with nav_col4:
+                    if st.button("Last ⏭️", disabled=(page_number >= total_pages), use_container_width=True, key="nav_last_top"):
+                        st.session_state.current_page = total_pages
+                        st.rerun()
+        
+        # Calculate paginated groups
+        if total_pages > 1:
             start_idx = (page_number - 1) * groups_per_page
             end_idx = start_idx + groups_per_page
             paginated_groups = sorted_groups[start_idx:end_idx]
         else:
             paginated_groups = sorted_groups
-            page_number = 1
         
-        # Mostrar información
+        # Show information
         col_info1, col_info2, col_info3 = st.columns(3)
         with col_info1:
-            st.metric("Total grupos encontrados", f"{len(sorted_groups):,}")
+            st.metric("Total Groups Found", f"{len(sorted_groups):,}")
         with col_info2:
-            st.metric("Mostrando grupos", f"{len(paginated_groups):,}")
+            st.metric("Showing Groups", f"{len(paginated_groups):,}")
         with col_info3:
             if total_pages > 1:
-                st.metric("Página", f"{page_number}/{total_pages}")
+                st.metric("Page", f"{page_number}/{total_pages}")
+            else:
+                st.metric("Page", "1/1")
         
         st.markdown("---")
         
-        # Mostrar grupos paginados
+        # Show paginated groups
         if len(paginated_groups) == 0:
-            st.warning("No se encontraron grupos con los filtros seleccionados.")
+            st.warning("No groups found with the selected filters.")
         else:
             for entity_id, names in paginated_groups:
                 stats = calculate_group_stats(names)
                 
                 with st.expander(
-                    f"**{entity_id}** | {stats['names_count']} nombres | "
-                    f"Frecuencia: {stats['total_frequency']:,} | "
-                    f"Estándar: {stats['standard_name'][:50]}..."
+                    f"**{entity_id}** | {stats['names_count']} names | "
+                    f"Frequency: {stats['total_frequency']:,} | "
+                    f"Standard: {stats['standard_name'][:50]}..."
                 ):
                     col1, col2 = st.columns([2, 1])
                     
                     with col1:
-                        st.markdown(f"**Nombre estándar:** {stats['standard_name']}")
+                        st.markdown(f"**Standard Name:** {stats['standard_name']}")
                         if stats['avg_similarity']:
-                            st.markdown(f"**Similitud promedio:** {stats['avg_similarity']:.1f}%")
+                            st.markdown(f"**Average Similarity:** {stats['avg_similarity']:.1f}%")
                         
-                        st.markdown("**Nombres en este grupo:**")
+                        st.markdown("**Names in this group:**")
                         names_df = pd.DataFrame(names)
                         names_df = names_df[['original_name', 'normalized_name', 'frequency']]
                         names_df = names_df.sort_values('frequency', ascending=False)
                         
-                        # Limitar altura de dataframe para grupos grandes
+                        # Limit dataframe height for large groups
                         max_rows_to_show = 20
                         if len(names_df) > max_rows_to_show:
                             st.dataframe(
@@ -581,7 +1154,7 @@ def main():
                                 hide_index=True,
                                 height=400
                             )
-                            st.info(f"Mostrando primeros {max_rows_to_show} de {len(names_df)} nombres. Usa la pestaña 'Editar Grupo' para ver todos.")
+                            st.info(f"Showing first {max_rows_to_show} of {len(names_df)} names. Use the 'Edit Group' tab to see all.")
                         else:
                             st.dataframe(
                                 names_df,
@@ -591,34 +1164,60 @@ def main():
                             )
                     
                     with col2:
-                        st.markdown("**Acciones:**")
-                        if st.button("✏️ Editar", key=f"edit_{entity_id}"):
+                        st.markdown("**Actions:**")
+                        if st.button("✏️ Edit", key=f"edit_{entity_id}"):
                             st.session_state.selected_entity_id = entity_id
+                            st.session_state.active_tab = "edit"
                             st.rerun()
+            
+            # Navigation buttons at the bottom of the page
+            if total_pages > 1:
+                st.markdown("---")
+                st.markdown("### Navigation")
+                col_bot1, col_bot2, col_bot3, col_bot4, col_bot5 = st.columns([1, 1, 1, 1, 2])
+                
+                with col_bot1:
+                    if st.button("⏮️ First", disabled=(page_number == 1), use_container_width=True, key="nav_first_bottom"):
+                        st.session_state.current_page = 1
+                        st.rerun()
+                with col_bot2:
+                    if st.button("◀️ Previous", disabled=(page_number == 1), use_container_width=True, key="nav_prev_bottom"):
+                        st.session_state.current_page = max(1, page_number - 1)
+                        st.rerun()
+                with col_bot3:
+                    st.markdown(f"**Page {page_number} of {total_pages}**")
+                with col_bot4:
+                    if st.button("Next ▶️", disabled=(page_number >= total_pages), use_container_width=True, key="nav_next_bottom"):
+                        st.session_state.current_page = min(total_pages, page_number + 1)
+                        st.rerun()
+                with col_bot5:
+                    if st.button("Last ⏭️", disabled=(page_number >= total_pages), use_container_width=True, key="nav_last_bottom"):
+                        st.session_state.current_page = total_pages
+                        st.rerun()
     
-    # TAB 2: Búsqueda
+    # TAB 2: Search
     with tab2:
-        st.header("Búsqueda de Nombres")
-        st.caption("🔍 Busca nombres por cualquier parte del texto. Para mejores resultados, busca por palabras clave.")
+        st.header("Name Search")
+        st.caption("🔍 Search names by any part of the text. For best results, search by keywords.")
         
         col_search1, col_search2 = st.columns([3, 1])
         with col_search1:
             search_query = st.text_input(
-                "Buscar por nombre (original o normalizado), ID de entidad o nombre estándar",
-                placeholder="Ej: BANK OF AMERICA o financial_0"
+                "Search by name (original or normalized), entity ID or standard name",
+                placeholder="E.g.: BANK OF AMERICA or financial_0"
             )
         with col_search2:
-            max_results = st.selectbox("Límite de resultados", [50, 100, 250, 500], index=1)
+            max_results = st.selectbox("Result Limit", [50, 100, 250, 500], index=1)
         
         if search_query:
-            with st.spinner("Buscando..."):
+            with st.spinner("Searching..."):
                 df_search = st.session_state.df_edited.copy()
                 
-                # Optimizar búsqueda: solo buscar si hay al menos 3 caracteres
+                # Optimize search: only search if there are at least 3 characters
                 if len(search_query) < 3:
-                    st.warning("⚠️ Por favor ingresa al menos 3 caracteres para buscar")
+                    st.warning("⚠️ Please enter at least 3 characters to search")
                 else:
-                    # Buscar en múltiples columnas (más eficiente)
+                    # Search in multiple columns (more efficient)
                     search_lower = search_query.lower()
                     mask = (
                         df_search['original_name'].str.lower().str.contains(search_lower, na=False) |
@@ -630,23 +1229,23 @@ def main():
                     results = df_search[mask]
                     
                     if len(results) > 0:
-                        # Limitar resultados
+                        # Limit results
                         if len(results) > max_results:
-                            st.warning(f"⚠️ Se encontraron {len(results):,} resultados, mostrando solo los primeros {max_results}")
+                            st.warning(f"⚠️ Found {len(results):,} results, showing only the first {max_results}")
                             results = results.head(max_results)
                         
-                        st.success(f"✓ Encontrados {len(results):,} resultados")
+                        st.success(f"✓ Found {len(results):,} results")
                         
-                        # Agrupar por entity_id
+                        # Group by entity_id
                         entity_ids_found = results['entity_id'].unique()
-                        st.write(f"**En {len(entity_ids_found)} entidad(es) diferente(s)**")
+                        st.write(f"**In {len(entity_ids_found)} different entity(ies)**")
                         
-                        # Paginación para resultados múltiples
+                        # Pagination for multiple results
                         if len(entity_ids_found) > 10:
-                            results_per_page = st.selectbox("Entidades por página", [5, 10, 20], index=1)
+                            results_per_page = st.selectbox("Entities per Page", [5, 10, 20], index=1)
                             total_entity_pages = (len(entity_ids_found) + results_per_page - 1) // results_per_page
                             entity_page = st.number_input(
-                                f"Página de entidades (de {total_entity_pages})",
+                                f"Entity Page (of {total_entity_pages})",
                                 min_value=1,
                                 max_value=total_entity_pages,
                                 value=1,
@@ -661,7 +1260,7 @@ def main():
                         for entity_id in paginated_entities:
                             entity_results = results[results['entity_id'] == entity_id]
                             
-                            with st.expander(f"**{entity_id}** ({len(entity_results)} nombres encontrados)"):
+                            with st.expander(f"**{entity_id}** ({len(entity_results)} names found)"):
                                 display_cols = ['original_name', 'normalized_name', 'standard_name', 'frequency']
                                 st.dataframe(
                                     entity_results[display_cols].sort_values('frequency', ascending=False),
@@ -670,18 +1269,19 @@ def main():
                                     height=min(400, len(entity_results) * 35 + 50)
                                 )
                                 
-                                if st.button("✏️ Editar", key=f"search_edit_{entity_id}"):
+                                if st.button("✏️ Edit", key=f"search_edit_{entity_id}"):
                                     st.session_state.selected_entity_id = entity_id
+                                    st.session_state.active_tab = "edit"
                                     st.rerun()
                     else:
-                        st.warning("No se encontraron resultados. Intenta con otras palabras clave.")
+                        st.warning("No results found. Try other keywords.")
     
-    # TAB 3: Editar Grupo
+    # TAB 3: Edit Group
     with tab3:
-        st.header("Editar Grupo")
+        st.header("Edit Group")
         
         if st.session_state.selected_entity_id is None:
-            st.info("Selecciona un grupo para editar desde la vista de grupos o búsqueda")
+            st.info("Select a group to edit from the group view or search")
         else:
             entity_id = st.session_state.selected_entity_id
             entity_data = st.session_state.df_edited[
@@ -689,133 +1289,133 @@ def main():
             ]
             
             if len(entity_data) == 0:
-                st.warning("El grupo seleccionado ya no existe")
+                st.warning("The selected group no longer exists")
                 st.session_state.selected_entity_id = None
             else:
-                st.subheader(f"Editando: **{entity_id}**")
+                st.subheader(f"Editing: **{entity_id}**")
                 
-                # Información del grupo
+                # Group information
                 col1, col2, col3, col4 = st.columns(4)
                 with col1:
-                    st.metric("Número de nombres", len(entity_data))
+                    st.metric("Number of Names", len(entity_data))
                 with col2:
-                    st.metric("Frecuencia total", f"{entity_data['frequency'].sum():,}")
+                    st.metric("Total Frequency", f"{entity_data['frequency'].sum():,}")
                 with col3:
-                    st.metric("Nombre estándar", entity_data.iloc[0]['standard_name'][:30] + "...")
+                    st.metric("Standard Name", entity_data.iloc[0]['standard_name'][:30] + "...")
                 with col4:
                     current_size = entity_data.iloc[0]['component_size']
-                    st.metric("Tamaño actual", current_size)
+                    st.metric("Current Size", current_size)
                 
                 st.markdown("---")
                 
-                # Opciones de edición
+                # Edit options
                 edit_option = st.radio(
-                    "¿Qué quieres hacer?",
+                    "What would you like to do?",
                     [
-                        "Mover nombres a otro grupo",
-                        "Dividir grupo (crear nuevo grupo)",
-                        "Unir con otro grupo",
-                        "Cambiar nombre estándar",
-                        "Ver todos los nombres"
+                        "Move names to another group",
+                        "Split group (create new group)",
+                        "Merge with another group",
+                        "Change standard name",
+                        "View all names"
                     ]
                 )
                 
-                # Mostrar nombres del grupo
-                st.markdown("### Nombres en este grupo:")
+                # Show group names
+                st.markdown("### Names in this group:")
                 names_display = entity_data[['original_name', 'normalized_name', 'frequency']].copy()
                 names_display = names_display.sort_values('frequency', ascending=False)
                 st.dataframe(names_display, use_container_width=True, hide_index=True)
                 
                 st.markdown("---")
                 
-                # OPCION 1: Mover nombres a otro grupo
-                if edit_option == "Mover nombres a otro grupo":
-                    st.subheader("Mover nombres a otro grupo")
+                # OPTION 1: Move names to another group
+                if edit_option == "Move names to another group":
+                    st.subheader("Move names to another group")
                     
-                    # Seleccionar nombres a mover
+                    # Select names to move
                     names_to_move = st.multiselect(
-                        "Selecciona nombres a mover:",
+                        "Select names to move:",
                         options=entity_data['original_name'].tolist(),
                         default=[]
                     )
                     
                     if names_to_move:
-                        # Buscar grupo destino
+                        # Find target group
                         all_entity_ids = sorted(st.session_state.df_edited['entity_id'].unique().tolist())
                         target_entity_id = st.selectbox(
-                            "Selecciona el grupo destino:",
+                            "Select target group:",
                             options=all_entity_ids,
                             index=0 if entity_id not in all_entity_ids else all_entity_ids.index(entity_id)
                         )
                         
-                        if st.button("✅ Mover nombres", type="primary"):
-                            # Obtener standard_name del grupo destino antes de mover
+                        if st.button("✅ Move Names", type="primary"):
+                            # Get standard_name of target group before moving
                             target_group = st.session_state.df_edited[
                                 st.session_state.df_edited['entity_id'] == target_entity_id
                             ]
                             target_standard = target_group.iloc[0]['standard_name'] if len(target_group) > 0 else None
                             
-                            # Mover todos los nombres seleccionados
+                            # Move all selected names
                             for name in names_to_move:
                                 mask = (st.session_state.df_edited['entity_id'] == entity_id) & \
                                        (st.session_state.df_edited['original_name'] == name)
                                 st.session_state.df_edited.loc[mask, 'entity_id'] = target_entity_id
                                 if target_standard:
                                     st.session_state.df_edited.loc[mask, 'standard_name'] = target_standard
-                                st.session_state.edit_history.append(f"Mover '{name[:50]}...' de {entity_id} a {target_entity_id}")
+                                st.session_state.edit_history.append(f"Move '{name[:50]}...' from {entity_id} to {target_entity_id}")
                             
-                            # Actualizar component_size para ambos grupos
+                            # Update component_size for both groups
                             for eid in [entity_id, target_entity_id]:
                                 size = len(st.session_state.df_edited[st.session_state.df_edited['entity_id'] == eid])
-                                if size > 0:  # Solo actualizar si el grupo aún existe
+                                if size > 0:  # Only update if group still exists
                                     st.session_state.df_edited.loc[
                                         st.session_state.df_edited['entity_id'] == eid,
                                         'component_size'
                                     ] = size
                             
                             st.session_state.changes_made = True
-                            st.success(f"✓ {len(names_to_move)} nombre(s) movido(s)")
+                            st.success(f"✓ {len(names_to_move)} name(s) moved")
                             
-                            # Si el grupo original quedó vacío, limpiar selección
+                            # If original group is empty, clear selection
                             remaining_in_group = len(st.session_state.df_edited[
                                 st.session_state.df_edited['entity_id'] == entity_id
                             ])
                             if remaining_in_group == 0:
                                 st.session_state.selected_entity_id = None
-                                st.info("El grupo original quedó vacío y fue eliminado")
+                                st.info("The original group is now empty and was removed")
                             
                             st.rerun()
                 
-                # OPCION 2: Dividir grupo
-                elif edit_option == "Dividir grupo (crear nuevo grupo)":
-                    st.subheader("Dividir grupo")
+                # OPTION 2: Split group
+                elif edit_option == "Split group (create new group)":
+                    st.subheader("Split Group")
                     
                     names_to_split = st.multiselect(
-                        "Selecciona nombres para crear un nuevo grupo:",
+                        "Select names to create a new group:",
                         options=entity_data['original_name'].tolist(),
                         default=[]
                     )
                     
                     if names_to_split:
-                        if st.button("✅ Crear nuevo grupo", type="primary"):
-                            # Crear nuevo entity_id
+                        if st.button("✅ Create New Group", type="primary"):
+                            # Create new entity_id
                             prefix = entity_id.split('_')[0]
                             new_entity_id = get_next_entity_id(st.session_state.df_edited, prefix)
                             
-                            # Mover nombres al nuevo grupo
+                            # Move names to new group
                             mask = (st.session_state.df_edited['entity_id'] == entity_id) & \
                                    (st.session_state.df_edited['original_name'].isin(names_to_split))
                             
                             st.session_state.df_edited.loc[mask, 'entity_id'] = new_entity_id
                             
-                            # Establecer nuevo standard_name (el más frecuente)
+                            # Set new standard_name (most frequent)
                             new_group = st.session_state.df_edited[
                                 st.session_state.df_edited['entity_id'] == new_entity_id
                             ]
                             new_standard = new_group.nlargest(1, 'frequency').iloc[0]['normalized_name']
                             st.session_state.df_edited.loc[mask, 'standard_name'] = new_standard
                             
-                            # Actualizar component_size
+                            # Update component_size
                             for eid in [entity_id, new_entity_id]:
                                 size = len(st.session_state.df_edited[st.session_state.df_edited['entity_id'] == eid])
                                 st.session_state.df_edited.loc[
@@ -823,18 +1423,18 @@ def main():
                                     'component_size'
                                 ] = size
                             
-                            st.session_state.edit_history.append(f"Dividir {entity_id}: {len(names_to_split)} nombres → {new_entity_id}")
+                            st.session_state.edit_history.append(f"Split {entity_id}: {len(names_to_split)} names → {new_entity_id}")
                             st.session_state.changes_made = True
-                            st.success(f"✓ Grupo dividido. Nuevo grupo: {new_entity_id}")
+                            st.success(f"✓ Group split. New group: {new_entity_id}")
                             st.rerun()
                 
-                # OPCION 3: Unir con otro grupo
-                elif edit_option == "Unir con otro grupo":
-                    st.subheader("Unir con otro grupo")
+                # OPTION 3: Merge with another group
+                elif edit_option == "Merge with another group":
+                    st.subheader("Merge with Another Group")
                     
                     all_entity_ids = sorted(st.session_state.df_edited['entity_id'].unique().tolist())
                     target_entity_id = st.selectbox(
-                        "Selecciona el grupo con el que unir:",
+                        "Select group to merge with:",
                         options=[eid for eid in all_entity_ids if eid != entity_id]
                     )
                     
@@ -842,18 +1442,18 @@ def main():
                         target_info = st.session_state.df_edited[
                             st.session_state.df_edited['entity_id'] == target_entity_id
                         ]
-                        st.info(f"El grupo destino tiene {len(target_info)} nombres")
+                        st.info(f"The target group has {len(target_info)} names")
                         
-                        if st.button("✅ Unir grupos", type="primary"):
-                            # Mover todos los nombres al grupo destino
+                        if st.button("✅ Merge Groups", type="primary"):
+                            # Move all names to target group
                             mask = st.session_state.df_edited['entity_id'] == entity_id
                             st.session_state.df_edited.loc[mask, 'entity_id'] = target_entity_id
                             
-                            # Actualizar standard_name al del grupo destino
+                            # Update standard_name to target group's
                             target_standard = target_info.iloc[0]['standard_name']
                             st.session_state.df_edited.loc[mask, 'standard_name'] = target_standard
                             
-                            # Actualizar component_size
+                            # Update component_size
                             size = len(st.session_state.df_edited[
                                 st.session_state.df_edited['entity_id'] == target_entity_id
                             ])
@@ -862,68 +1462,68 @@ def main():
                                 'component_size'
                             ] = size
                             
-                            st.session_state.edit_history.append(f"Unir {entity_id} con {target_entity_id}")
+                            st.session_state.edit_history.append(f"Merge {entity_id} with {target_entity_id}")
                             st.session_state.changes_made = True
-                            st.success(f"✓ Grupos unidos en {target_entity_id}")
+                            st.success(f"✓ Groups merged into {target_entity_id}")
                             st.session_state.selected_entity_id = None
                             st.rerun()
                 
-                # OPCION 4: Cambiar nombre estándar
-                elif edit_option == "Cambiar nombre estándar":
-                    st.subheader("Cambiar nombre estándar")
+                # OPTION 4: Change standard name
+                elif edit_option == "Change standard name":
+                    st.subheader("Change Standard Name")
                     
                     current_standard = entity_data.iloc[0]['standard_name']
-                    st.info(f"**Nombre estándar actual:** {current_standard}")
+                    st.info(f"**Current standard name:** {current_standard}")
                     
-                    # Opciones: seleccionar de los nombres existentes o escribir uno nuevo
+                    # Options: select from existing names or write a new one
                     option = st.radio(
-                        "Seleccionar de nombres existentes o escribir nuevo:",
-                        ["Seleccionar existente", "Escribir nuevo"]
+                        "Select from existing names or write new:",
+                        ["Select Existing", "Write New"]
                     )
                     
-                    if option == "Seleccionar existente":
+                    if option == "Select Existing":
                         new_standard = st.selectbox(
-                            "Selecciona nuevo nombre estándar:",
+                            "Select new standard name:",
                             options=sorted(entity_data['normalized_name'].unique())
                         )
                     else:
-                        new_standard = st.text_input("Nuevo nombre estándar:", value=current_standard)
+                        new_standard = st.text_input("New standard name:", value=current_standard)
                     
-                    if st.button("✅ Cambiar nombre estándar", type="primary"):
+                    if st.button("✅ Change Standard Name", type="primary"):
                         mask = st.session_state.df_edited['entity_id'] == entity_id
                         st.session_state.df_edited.loc[mask, 'standard_name'] = new_standard
                         
-                        st.session_state.edit_history.append(f"Cambiar standard_name de {entity_id} a '{new_standard}'")
+                        st.session_state.edit_history.append(f"Change standard_name of {entity_id} to '{new_standard}'")
                         st.session_state.changes_made = True
-                        st.success(f"✓ Nombre estándar actualizado a: {new_standard}")
+                        st.success(f"✓ Standard name updated to: {new_standard}")
                         st.rerun()
     
-    # TAB 4: Estadísticas
+    # TAB 4: Statistics
     with tab4:
-        st.header("Estadísticas Generales")
+        st.header("General Statistics")
         
         df = st.session_state.df_edited
         
         col1, col2, col3, col4 = st.columns(4)
         with col1:
-            st.metric("Total nombres", f"{len(df):,}")
+            st.metric("Total Names", f"{len(df):,}")
         with col2:
-            st.metric("Entidades únicas", f"{df['entity_id'].nunique():,}")
+            st.metric("Unique Entities", f"{df['entity_id'].nunique():,}")
         with col3:
             grouped_sizes = df.groupby('entity_id').size()
-            st.metric("Tamaño promedio", f"{grouped_sizes.mean():.1f}")
+            st.metric("Average Size", f"{grouped_sizes.mean():.1f}")
         with col4:
-            st.metric("Tamaño máximo", f"{grouped_sizes.max():,}")
+            st.metric("Maximum Size", f"{grouped_sizes.max():,}")
         
         st.markdown("---")
         
-        # Distribución de tamaños
-        st.subheader("Distribución de tamaños de grupos")
+        # Size distribution
+        st.subheader("Group Size Distribution")
         size_dist = df.groupby('entity_id').size().value_counts().sort_index()
         st.bar_chart(size_dist)
         
-        # Top grupos por frecuencia
-        st.subheader("Top 10 grupos por frecuencia total")
+        # Top groups by frequency
+        st.subheader("Top 10 Groups by Total Frequency")
         top_groups = df.groupby('entity_id').agg({
             'frequency': 'sum',
             'original_name': 'count'
@@ -934,7 +1534,7 @@ if __name__ == "__main__":
     try:
         main()
     except Exception as e:
-        st.error(f"❌ Error crítico en la aplicación: {str(e)}")
-        st.info("Por favor, recarga la página o reinicia la aplicación.")
-        logger.exception("Error crítico en la aplicación")
+        st.error(f"❌ Critical error in application: {str(e)}")
+        st.info("Please reload the page or restart the application.")
+        logger.exception("Critical error in application")
 

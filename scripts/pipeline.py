@@ -102,11 +102,15 @@ def run_full_pipeline(base_dir=None, skip_validation=True):
         base_dir=base_dir
     )
     
+    # Actualizar base de datos
+    complete_mapping.update_database(base_dir, overwrite=True)
+    
     print("\n" + "=" * 80)
     print("PIPELINE COMPLETADO EXITOSAMENTE")
     print("=" * 80)
     print("✓ Todas las fases se ejecutaron correctamente")
     print("✓ Resultados finales en: results/final/")
+    print("✓ Base de datos actualizada en: database/entities.db")
     print("=" * 80)
 
 

@@ -25,7 +25,8 @@ PREPOSITIONS = {
 }
 
 # Umbral para considerar un bloque como "grande"
-LARGE_BLOCK_THRESHOLD = 100
+# Aumentado para reducir sub-bloqueo innecesario que separa nombres relacionados
+LARGE_BLOCK_THRESHOLD = 200
 
 
 def create_blocks(financial_df, non_financial_df, base_dir=None):
@@ -177,6 +178,46 @@ def extract_second_word(name):
     return words[1] if words[1] else None
 
 
+def extract_first_two_words(name):
+    """Extrae las primeras dos palabras significativas de un nombre normalizado."""
+    if pd.isna(name) or not str(name).strip():
+        return None
+    
+    words = str(name).strip().upper().split()
+    
+    if len(words) < 2:
+        return None
+    
+    # Obtener primera y segunda palabra, saltando palabras genéricas
+    first_word = words[0]
+    if first_word == 'THE' and len(words) > 1:
+        first_word = words[1] if len(words) > 1 else None
+        second_word = words[2] if len(words) > 2 else None
+    else:
+        second_word = words[1] if len(words) > 1 else None
+    
+    # Si alguna palabra es genérica, intentar obtener la siguiente significativa
+    if first_word in GENERIC_WORDS or first_word in PREPOSITIONS:
+        if len(words) > 1:
+            first_word = words[1]
+            second_word = words[2] if len(words) > 2 else None
+    
+    if second_word in GENERIC_WORDS or second_word in PREPOSITIONS:
+        if len(words) > 2:
+            second_word = words[2]
+        elif len(words) > 3:
+            second_word = words[3]
+        else:
+            second_word = None
+    
+    if first_word and second_word:
+        return f"{first_word}_{second_word}"
+    elif first_word:
+        return first_word
+    else:
+        return None
+
+
 def extract_name_length_category(name):
     """Categoriza un nombre por su longitud."""
     if pd.isna(name):
@@ -210,6 +251,23 @@ def sub_block_by_second_word(df, block_indices, name_column='normalized_name'):
     return dict(sub_blocks)
 
 
+def sub_block_by_first_two_words(df, block_indices, name_column='normalized_name'):
+    """Aplica sub-bloqueo por primeras dos palabras significativas.
+    Esto preserva nombres relacionados que comparten las mismas dos primeras palabras."""
+    sub_blocks = defaultdict(list)
+    
+    for idx in block_indices:
+        name = df.loc[idx, name_column]
+        two_words_key = extract_first_two_words(name)
+        
+        if two_words_key:
+            sub_blocks[two_words_key].append(idx)
+        else:
+            sub_blocks["_NO_TWO_WORDS"].append(idx)
+    
+    return dict(sub_blocks)
+
+
 def sub_block_by_length(df, block_indices, name_column='normalized_name'):
     """Aplica sub-bloqueo por longitud del nombre."""
     sub_blocks = defaultdict(list)
@@ -224,7 +282,12 @@ def sub_block_by_length(df, block_indices, name_column='normalized_name'):
 
 def optimize_blocks(df, blocks, name_column='normalized_name', threshold=LARGE_BLOCK_THRESHOLD):
     """
-    Optimiza bloques grandes aplicando sub-bloqueo.
+    Optimiza bloques grandes aplicando sub-bloqueo inteligente.
+    
+    Estrategia mejorada:
+    1. Primero intenta sub-bloqueo por primeras dos palabras (preserva nombres relacionados)
+    2. Si eso no ayuda suficiente, intenta por segunda palabra
+    3. Solo como último recurso usa sub-bloqueo por longitud (evita separar nombres relacionados)
     
     Returns:
         tuple: (optimized_blocks, sub_blocked_count)
@@ -239,15 +302,44 @@ def optimize_blocks(df, blocks, name_column='normalized_name', threshold=LARGE_B
         if block_size <= threshold:
             optimized_blocks[blocking_key] = block_indices
         else:
-            # Bloque grande: aplicar sub-bloqueo
+            # Bloque grande: aplicar sub-bloqueo inteligente
             sub_blocked_count += 1
             
-            # Intentar sub-bloqueo por segunda palabra primero
-            sub_blocks = sub_block_by_second_word(df, block_indices, name_column)
+            # Estrategia 1: Sub-bloqueo por primeras dos palabras
+            # Esto preserva nombres relacionados como "CREDIT SUISSE", "CREDIT SUISSE AG", etc.
+            sub_blocks = sub_block_by_first_two_words(df, block_indices, name_column)
             
-            # Si el sub-bloqueo por segunda palabra no ayuda mucho, intentar por longitud
-            if len(sub_blocks) < block_size * 0.3:
-                sub_blocks = sub_block_by_length(df, block_indices, name_column)
+            # Verificar si el sub-bloqueo por dos palabras es efectivo
+            # Si crea suficientes sub-bloques (más del 40% del tamaño original), usarlo
+            if len(sub_blocks) >= block_size * 0.4:
+                # Buen sub-bloqueo: usar estos sub-bloques
+                pass
+            else:
+                # Estrategia 2: Intentar sub-bloqueo por segunda palabra
+                sub_blocks_second = sub_block_by_second_word(df, block_indices, name_column)
+                
+                # Si el sub-bloqueo por segunda palabra es mejor, usarlo
+                if len(sub_blocks_second) > len(sub_blocks):
+                    sub_blocks = sub_blocks_second
+                
+                # Estrategia 3: Solo si aún no es suficiente Y el bloque es muy grande (>500),
+                # aplicar sub-bloqueo por longitud como último recurso
+                # Pero solo si el bloque es extremadamente grande para evitar separar nombres relacionados
+                if len(sub_blocks) < block_size * 0.2 and block_size > 500:
+                    # Para bloques muy grandes, usar híbrido: primero por dos palabras, luego por longitud
+                    # dentro de cada sub-bloque de dos palabras
+                    hybrid_blocks = {}
+                    for two_word_key, two_word_indices in sub_blocks.items():
+                        if len(two_word_indices) > 200:  # Si el sub-bloque de dos palabras sigue siendo grande
+                            # Sub-bloquear por longitud dentro de este grupo
+                            length_sub_blocks = sub_block_by_length(df, two_word_indices, name_column)
+                            for length_key, length_indices in length_sub_blocks.items():
+                                hybrid_key = f"{two_word_key}_{length_key}"
+                                hybrid_blocks[hybrid_key] = length_indices
+                        else:
+                            # Mantener el sub-bloque de dos palabras como está
+                            hybrid_blocks[two_word_key] = two_word_indices
+                    sub_blocks = hybrid_blocks
             
             # Crear nuevas claves de bloque con formato: "ORIGINAL_KEY_SUBKEY"
             for sub_key, sub_indices in sub_blocks.items():
