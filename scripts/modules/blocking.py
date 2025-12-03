@@ -84,7 +84,7 @@ def create_blocks(financial_df, non_financial_df, base_dir=None, transaction_typ
     
     # Guardar solo bloques optimizados finales con sufijo del tipo de transacción
     print("\n4. Guardando bloques optimizados...")
-    suffix = f"_{transaction_type}" if transaction_type != 'pledge' else ""
+    suffix = f"_{transaction_type}"
     output_file_financial = results_dir / f"financial_blocks{suffix}.json"
     output_file_non_financial = results_dir / f"non_financial_blocks{suffix}.json"
     
@@ -356,8 +356,8 @@ if __name__ == "__main__":
     base_dir = Path(__file__).parent.parent.parent
     results_dir = base_dir / "results" / "intermediate"
     
-    financial_df = pd.read_csv(results_dir / "financial_normalized.csv")
-    non_financial_df = pd.read_csv(results_dir / "non_financial_normalized.csv")
+    financial_df = pd.read_csv(results_dir / "financial_normalized_pledge.csv")
+    non_financial_df = pd.read_csv(results_dir / "non_financial_normalized_pledge.csv")
     
-    create_blocks(financial_df, non_financial_df, base_dir)
+    create_blocks(financial_df, non_financial_df, base_dir, transaction_type='pledge')
 

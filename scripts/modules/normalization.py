@@ -80,7 +80,7 @@ def normalize_names(financial_df, non_financial_df, base_dir=None, transaction_t
     
     # Guardar solo el resultado final con sufijo del tipo de transacción
     print("\n4. Guardando resultados finales...")
-    suffix = f"_{transaction_type}" if transaction_type != 'pledge' else ""
+    suffix = f"_{transaction_type}"
     output_file_financial = results_dir / f"financial_normalized{suffix}.csv"
     output_file_non_financial = results_dir / f"non_financial_normalized{suffix}.csv"
     
@@ -321,5 +321,5 @@ if __name__ == "__main__":
     financial_df = pd.read_csv(data_dir / 'financial_entity_freq_pledge.csv')
     non_financial_df = pd.read_csv(data_dir / 'non_financial_entity_freq_pledge.csv')
     
-    normalize_names(financial_df, non_financial_df, base_dir)
+    normalize_names(financial_df, non_financial_df, base_dir, transaction_type='pledge')
 

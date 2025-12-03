@@ -241,19 +241,19 @@ if __name__ == "__main__":
     results_dir = base_dir / "results" / "intermediate"
     final_results_dir = base_dir / "results" / "final"
     
-    financial_df = pd.read_csv(results_dir / "financial_normalized.csv")
-    non_financial_df = pd.read_csv(results_dir / "non_financial_normalized.csv")
-    financial_matches_df = pd.read_csv(results_dir / "financial_matches.csv")
-    non_financial_matches_df = pd.read_csv(results_dir / "non_financial_matches.csv")
+    financial_df = pd.read_csv(results_dir / "financial_normalized_pledge.csv")
+    non_financial_df = pd.read_csv(results_dir / "non_financial_normalized_pledge.csv")
+    financial_matches_df = pd.read_csv(results_dir / "financial_matches_pledge.csv")
+    non_financial_matches_df = pd.read_csv(results_dir / "non_financial_matches_pledge.csv")
     
-    with open(results_dir / "financial_components.json", 'r', encoding='utf-8') as f:
+    with open(results_dir / "financial_components_pledge.json", 'r', encoding='utf-8') as f:
         financial_components_json = json.load(f)
         financial_components = [set(int(idx) for idx in comp) for comp in financial_components_json.values()]
     
-    with open(results_dir / "non_financial_components.json", 'r', encoding='utf-8') as f:
+    with open(results_dir / "non_financial_components_pledge.json", 'r', encoding='utf-8') as f:
         non_financial_components_json = json.load(f)
         non_financial_components = [set(int(idx) for idx in comp) for comp in non_financial_components_json.values()]
     
     run_grouping(financial_df, non_financial_df, financial_components, non_financial_components,
-                 financial_matches_df, non_financial_matches_df, base_dir)
+                 financial_matches_df, non_financial_matches_df, base_dir, transaction_type='pledge')
 

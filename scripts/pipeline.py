@@ -192,73 +192,80 @@ def run_phase(phase_name, base_dir=None):
         exploration.run_exploration(base_dir)
     
     elif phase_name == "normalization":
+        # Note: run_phase only processes pledge data for backward compatibility
+        # Use run_pipeline_for_type or run_full_pipeline for both pledge and release
         financial_df = pd.read_csv(data_dir / 'financial_entity_freq_pledge.csv')
         non_financial_df = pd.read_csv(data_dir / 'non_financial_entity_freq_pledge.csv')
-        normalization.normalize_names(financial_df, non_financial_df, base_dir)
+        normalization.normalize_names(financial_df, non_financial_df, base_dir, transaction_type='pledge')
     
     elif phase_name == "blocking":
-        financial_df = pd.read_csv(results_dir / "financial_normalized.csv")
-        non_financial_df = pd.read_csv(results_dir / "non_financial_normalized.csv")
-        blocking.create_blocks(financial_df, non_financial_df, base_dir)
+        # Note: run_phase only processes pledge data for backward compatibility
+        financial_df = pd.read_csv(results_dir / "financial_normalized_pledge.csv")
+        non_financial_df = pd.read_csv(results_dir / "non_financial_normalized_pledge.csv")
+        blocking.create_blocks(financial_df, non_financial_df, base_dir, transaction_type='pledge')
     
     elif phase_name == "matching":
-        financial_df = pd.read_csv(results_dir / "financial_normalized.csv")
-        non_financial_df = pd.read_csv(results_dir / "non_financial_normalized.csv")
+        # Note: run_phase only processes pledge data for backward compatibility
+        financial_df = pd.read_csv(results_dir / "financial_normalized_pledge.csv")
+        non_financial_df = pd.read_csv(results_dir / "non_financial_normalized_pledge.csv")
         
-        with open(results_dir / "financial_blocks.json", 'r', encoding='utf-8') as f:
+        with open(results_dir / "financial_blocks_pledge.json", 'r', encoding='utf-8') as f:
             financial_blocks = {k: [int(i) for i in v] for k, v in json.load(f).items()}
         
-        with open(results_dir / "non_financial_blocks.json", 'r', encoding='utf-8') as f:
+        with open(results_dir / "non_financial_blocks_pledge.json", 'r', encoding='utf-8') as f:
             non_financial_blocks = {k: [int(i) for i in v] for k, v in json.load(f).items()}
         
-        matching.run_matching(financial_df, non_financial_df, financial_blocks, non_financial_blocks, base_dir)
+        matching.run_matching(financial_df, non_financial_df, financial_blocks, non_financial_blocks, base_dir, transaction_type='pledge')
     
     elif phase_name == "grouping":
-        financial_df = pd.read_csv(results_dir / "financial_normalized.csv")
-        non_financial_df = pd.read_csv(results_dir / "non_financial_normalized.csv")
-        financial_matches_df = pd.read_csv(results_dir / "financial_matches.csv")
-        non_financial_matches_df = pd.read_csv(results_dir / "non_financial_matches.csv")
+        # Note: run_phase only processes pledge data for backward compatibility
+        financial_df = pd.read_csv(results_dir / "financial_normalized_pledge.csv")
+        non_financial_df = pd.read_csv(results_dir / "non_financial_normalized_pledge.csv")
+        financial_matches_df = pd.read_csv(results_dir / "financial_matches_pledge.csv")
+        non_financial_matches_df = pd.read_csv(results_dir / "non_financial_matches_pledge.csv")
         
-        with open(results_dir / "financial_components.json", 'r', encoding='utf-8') as f:
+        with open(results_dir / "financial_components_pledge.json", 'r', encoding='utf-8') as f:
             financial_components_json = json.load(f)
             financial_components = [set(int(idx) for idx in comp) for comp in financial_components_json.values()]
         
-        with open(results_dir / "non_financial_components.json", 'r', encoding='utf-8') as f:
+        with open(results_dir / "non_financial_components_pledge.json", 'r', encoding='utf-8') as f:
             non_financial_components_json = json.load(f)
             non_financial_components = [set(int(idx) for idx in comp) for comp in non_financial_components_json.values()]
         
         grouping.run_grouping(
             financial_df, non_financial_df, financial_components, non_financial_components,
-            financial_matches_df, non_financial_matches_df, base_dir
+            financial_matches_df, non_financial_matches_df, base_dir, transaction_type='pledge'
         )
     
     elif phase_name == "validation":
-        financial_mapping = pd.read_csv(final_results_dir / "financial_entity_mapping.csv")
-        non_financial_mapping = pd.read_csv(final_results_dir / "non_financial_entity_mapping.csv")
-        financial_matches_df = pd.read_csv(results_dir / "financial_matches.csv")
-        non_financial_matches_df = pd.read_csv(results_dir / "non_financial_matches.csv")
+        # Note: run_phase only processes pledge data for backward compatibility
+        financial_mapping = pd.read_csv(final_results_dir / "financial_entity_mapping_pledge.csv")
+        non_financial_mapping = pd.read_csv(final_results_dir / "non_financial_entity_mapping_pledge.csv")
+        financial_matches_df = pd.read_csv(results_dir / "financial_matches_pledge.csv")
+        non_financial_matches_df = pd.read_csv(results_dir / "non_financial_matches_pledge.csv")
         
-        with open(results_dir / "financial_components.json", 'r', encoding='utf-8') as f:
+        with open(results_dir / "financial_components_pledge.json", 'r', encoding='utf-8') as f:
             financial_components_json = json.load(f)
             financial_components = [set(int(idx) for idx in comp) for comp in financial_components_json.values()]
         
-        with open(results_dir / "non_financial_components.json", 'r', encoding='utf-8') as f:
+        with open(results_dir / "non_financial_components_pledge.json", 'r', encoding='utf-8') as f:
             non_financial_components_json = json.load(f)
             non_financial_components = [set(int(idx) for idx in comp) for comp in non_financial_components_json.values()]
         
         validation.run_validation(
             financial_mapping, non_financial_mapping, financial_components, non_financial_components,
-            financial_matches_df, non_financial_matches_df, base_dir
+            financial_matches_df, non_financial_matches_df, base_dir, transaction_type='pledge'
         )
     
     elif phase_name == "complete":
+        # Note: run_phase only processes pledge data for backward compatibility
         # Intentar cargar mapeos desde archivos si existen (legacy)
         # Si no existen, complete_mapping.py intentará cargarlos o mostrará error
         financial_mapping = None
         non_financial_mapping = None
         
-        mapping_file_financial = final_results_dir / "financial_entity_mapping.csv"
-        mapping_file_non_financial = final_results_dir / "non_financial_entity_mapping.csv"
+        mapping_file_financial = final_results_dir / "financial_entity_mapping_pledge.csv"
+        mapping_file_non_financial = final_results_dir / "non_financial_entity_mapping_pledge.csv"
         
         if mapping_file_financial.exists():
             financial_mapping = pd.read_csv(mapping_file_financial)
@@ -269,7 +276,8 @@ def run_phase(phase_name, base_dir=None):
         complete_mapping.run_complete_mapping(
             financial_mapping=financial_mapping,
             non_financial_mapping=non_financial_mapping,
-            base_dir=base_dir
+            base_dir=base_dir,
+            transaction_type='pledge'
         )
     
     else:

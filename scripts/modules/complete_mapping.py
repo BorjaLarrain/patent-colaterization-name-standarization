@@ -41,7 +41,7 @@ def run_complete_mapping(financial_mapping=None, non_financial_mapping=None, bas
     
     # Cargar datos originales y normalizados con sufijo según tipo
     print("1. Cargando datos...")
-    suffix = f"_{transaction_type}" if transaction_type != 'pledge' else ""
+    suffix = f"_{transaction_type}"
     original_file_financial = data_dir / f"financial_entity_freq_{transaction_type}.csv"
     # Note: release file uses 'nonfinancial' (no underscore), pledge uses 'non_financial'
     if transaction_type == 'release':
@@ -298,7 +298,7 @@ def update_database(base_dir=None, overwrite=True):
     
     # Actualizar financial - procesar tanto pledge como release
     for transaction_type in ['pledge', 'release']:
-        suffix = f"_{transaction_type}" if transaction_type != 'pledge' else ""
+        suffix = f"_{transaction_type}"
         financial_csv = final_results_dir / f"financial_entity_mapping_complete{suffix}.csv"
         if financial_csv.exists():
             print(f"\n1. Actualizando financial entities ({transaction_type})...")
@@ -315,7 +315,7 @@ def update_database(base_dir=None, overwrite=True):
     
     # Actualizar non_financial - procesar tanto pledge como release
     for transaction_type in ['pledge', 'release']:
-        suffix = f"_{transaction_type}" if transaction_type != 'pledge' else ""
+        suffix = f"_{transaction_type}"
         non_financial_csv = final_results_dir / f"non_financial_entity_mapping_complete{suffix}.csv"
         if non_financial_csv.exists():
             print(f"\n2. Actualizando non-financial entities ({transaction_type})...")
