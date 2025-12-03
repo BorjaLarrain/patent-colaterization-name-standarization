@@ -11,7 +11,7 @@ from datetime import datetime
 
 
 def run_grouping(financial_df, non_financial_df, financial_components, non_financial_components,
-                 financial_matches_df, non_financial_matches_df, base_dir=None):
+                 financial_matches_df, non_financial_matches_df, base_dir=None, transaction_type='pledge'):
     """
     Ejecuta agrupación y asignación de IDs.
     
@@ -23,6 +23,7 @@ def run_grouping(financial_df, non_financial_df, financial_components, non_finan
         financial_matches_df: DataFrame con matches financieros
         non_financial_matches_df: DataFrame con matches no financieros
         base_dir: Directorio base del proyecto
+        transaction_type: Tipo de transacción ('pledge' o 'release')
         
     Returns:
         tuple: (financial_mapping, non_financial_mapping, financial_review, non_financial_review)
@@ -34,7 +35,7 @@ def run_grouping(financial_df, non_financial_df, financial_components, non_finan
     final_results_dir.mkdir(parents=True, exist_ok=True)
     
     print("=" * 80)
-    print("FASE 5: AGRUPACIÓN Y ASIGNACIÓN DE IDs")
+    print(f"FASE 5: AGRUPACIÓN Y ASIGNACIÓN DE IDs ({transaction_type.upper()})")
     print("=" * 80)
     print(f"Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print()

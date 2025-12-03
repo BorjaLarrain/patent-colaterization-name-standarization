@@ -11,7 +11,7 @@ from pathlib import Path
 from datetime import datetime
 
 
-def normalize_names(financial_df, non_financial_df, base_dir=None):
+def normalize_names(financial_df, non_financial_df, base_dir=None, transaction_type='pledge'):
     """
     Normaliza nombres aplicando todos los pasos de normalización.
     
@@ -19,6 +19,7 @@ def normalize_names(financial_df, non_financial_df, base_dir=None):
         financial_df: DataFrame con entidades financieras (columna 'ee_name')
         non_financial_df: DataFrame con entidades no financieras (columna 'or_name')
         base_dir: Directorio base del proyecto
+        transaction_type: Tipo de transacción ('pledge' o 'release')
         
     Returns:
         tuple: (financial_normalized, non_financial_normalized) - DataFrames normalizados
@@ -30,7 +31,7 @@ def normalize_names(financial_df, non_financial_df, base_dir=None):
     results_dir.mkdir(parents=True, exist_ok=True)
     
     print("=" * 80)
-    print("FASE 2: NORMALIZACIÓN")
+    print(f"FASE 2: NORMALIZACIÓN ({transaction_type.upper()})")
     print("=" * 80)
     print(f"Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print()
@@ -77,10 +78,11 @@ def normalize_names(financial_df, non_financial_df, base_dir=None):
     non_financial_normalized = non_financial_work[['or_name', 'freq', 'name_normalized_final']].copy()
     non_financial_normalized.columns = ['original_name', 'frequency', 'normalized_name']
     
-    # Guardar solo el resultado final
+    # Guardar solo el resultado final con sufijo del tipo de transacción
     print("\n4. Guardando resultados finales...")
-    output_file_financial = results_dir / "financial_normalized.csv"
-    output_file_non_financial = results_dir / "non_financial_normalized.csv"
+    suffix = f"_{transaction_type}" if transaction_type != 'pledge' else ""
+    output_file_financial = results_dir / f"financial_normalized{suffix}.csv"
+    output_file_non_financial = results_dir / f"non_financial_normalized{suffix}.csv"
     
     financial_normalized.to_csv(output_file_financial, index=False)
     non_financial_normalized.to_csv(output_file_non_financial, index=False)
@@ -98,7 +100,7 @@ def normalize_names(financial_df, non_financial_df, base_dir=None):
     print("\n" + "=" * 80)
     print("RESUMEN")
     print("=" * 80)
-    print(f"✓ Normalización completada")
+    print(f"✓ Normalización completada para {transaction_type}")
     print(f"✓ Resultados guardados en: {results_dir}")
     print("=" * 80)
     
@@ -316,8 +318,8 @@ if __name__ == "__main__":
     base_dir = Path(__file__).parent.parent.parent
     data_dir = base_dir / "original-data"
     
-    financial_df = pd.read_csv(data_dir / 'financial_entity_freq.csv')
-    non_financial_df = pd.read_csv(data_dir / 'Non_financial_entity_freq.csv')
+    financial_df = pd.read_csv(data_dir / 'financial_entity_freq_pledge.csv')
+    non_financial_df = pd.read_csv(data_dir / 'non_financial_entity_freq_pledge.csv')
     
     normalize_names(financial_df, non_financial_df, base_dir)
 

@@ -17,7 +17,7 @@ SIMILARITY_THRESHOLD = 88  # Threshold de similitud (0-100)
 MIN_BLOCK_SIZE_FOR_MATCHING = 2  # Solo hacer matching en bloques con al menos 2 nombres
 
 
-def run_matching(financial_df, non_financial_df, financial_blocks, non_financial_blocks, base_dir=None):
+def run_matching(financial_df, non_financial_df, financial_blocks, non_financial_blocks, base_dir=None, transaction_type='pledge'):
     """
     Ejecuta fuzzy matching en los bloques.
     
@@ -27,6 +27,7 @@ def run_matching(financial_df, non_financial_df, financial_blocks, non_financial
         financial_blocks: Diccionario de bloques financieros
         non_financial_blocks: Diccionario de bloques no financieros
         base_dir: Directorio base del proyecto
+        transaction_type: Tipo de transacción ('pledge' o 'release')
         
     Returns:
         tuple: (financial_components, non_financial_components, financial_matches_df, non_financial_matches_df)
@@ -38,7 +39,7 @@ def run_matching(financial_df, non_financial_df, financial_blocks, non_financial
     results_dir.mkdir(parents=True, exist_ok=True)
     
     print("=" * 80)
-    print("FASE 4: FUZZY MATCHING")
+    print(f"FASE 4: FUZZY MATCHING ({transaction_type.upper()})")
     print("=" * 80)
     print(f"Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"Threshold de similitud: {SIMILARITY_THRESHOLD}%")
@@ -101,8 +102,9 @@ def run_matching(financial_df, non_financial_df, financial_blocks, non_financial
     non_financial_matches_df['name1'] = non_financial_matches_df['idx1'].apply(lambda x: non_financial_df.loc[x, 'normalized_name'])
     non_financial_matches_df['name2'] = non_financial_matches_df['idx2'].apply(lambda x: non_financial_df.loc[x, 'normalized_name'])
     
-    output_file_financial_matches = results_dir / "financial_matches.csv"
-    output_file_non_financial_matches = results_dir / "non_financial_matches.csv"
+    suffix = f"_{transaction_type}" if transaction_type != 'pledge' else ""
+    output_file_financial_matches = results_dir / f"financial_matches{suffix}.csv"
+    output_file_non_financial_matches = results_dir / f"non_financial_matches{suffix}.csv"
     
     financial_matches_df.to_csv(output_file_financial_matches, index=False)
     non_financial_matches_df.to_csv(output_file_non_financial_matches, index=False)
@@ -115,8 +117,8 @@ def run_matching(financial_df, non_financial_df, financial_blocks, non_financial
     financial_components_json = {str(i): [int(idx) for idx in comp] for i, comp in enumerate(financial_components)}
     non_financial_components_json = {str(i): [int(idx) for idx in comp] for i, comp in enumerate(non_financial_components)}
     
-    output_file_financial_components = results_dir / "financial_components.json"
-    output_file_non_financial_components = results_dir / "non_financial_components.json"
+    output_file_financial_components = results_dir / f"financial_components{suffix}.json"
+    output_file_non_financial_components = results_dir / f"non_financial_components{suffix}.json"
     
     with open(output_file_financial_components, 'w', encoding='utf-8') as f:
         json.dump(financial_components_json, f, indent=2)

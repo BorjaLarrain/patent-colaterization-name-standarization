@@ -37,8 +37,8 @@ def run_exploration(base_dir=None):
     
     # Cargar datos
     print("1. Cargando datos...")
-    financial_df = pd.read_csv(data_dir / 'financial_entity_freq.csv')
-    non_financial_df = pd.read_csv(data_dir / 'Non_financial_entity_freq.csv')
+    financial_df = pd.read_csv(data_dir / 'financial_entity_freq_pledge.csv')
+    non_financial_df = pd.read_csv(data_dir / 'non_financial_entity_freq_pledge.csv')
     print(f"   ✓ Financial entities: {len(financial_df):,} registros")
     print(f"   ✓ Non-financial entities: {len(non_financial_df):,} registros")
     

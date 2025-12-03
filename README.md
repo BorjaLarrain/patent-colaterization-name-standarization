@@ -58,7 +58,7 @@ scripts/
 ## Pipeline Phases
 
 ### Phase 1: Exploration
-- Loads input data (`financial_entity_freq.csv`, `Non_financial_entity_freq.csv`)
+- Loads input data (`financial_entity_freq_pledge.csv`, `non_financial_entity_freq_pledge.csv`)
 - Calculates descriptive statistics
 - Identifies common patterns (functional roles, legal suffixes)
 - **Output:** `results/exploration/basic_stats.txt`, `variations_analysis.txt`

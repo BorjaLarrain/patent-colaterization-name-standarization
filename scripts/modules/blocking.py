@@ -29,7 +29,7 @@ PREPOSITIONS = {
 LARGE_BLOCK_THRESHOLD = 200
 
 
-def create_blocks(financial_df, non_financial_df, base_dir=None):
+def create_blocks(financial_df, non_financial_df, base_dir=None, transaction_type='pledge'):
     """
     Crea bloques optimizados para fuzzy matching.
     
@@ -37,6 +37,7 @@ def create_blocks(financial_df, non_financial_df, base_dir=None):
         financial_df: DataFrame con nombres normalizados (columna 'normalized_name')
         non_financial_df: DataFrame con nombres normalizados (columna 'normalized_name')
         base_dir: Directorio base del proyecto
+        transaction_type: Tipo de transacción ('pledge' o 'release')
         
     Returns:
         tuple: (financial_blocks, non_financial_blocks) - Diccionarios de bloques optimizados
@@ -48,7 +49,7 @@ def create_blocks(financial_df, non_financial_df, base_dir=None):
     results_dir.mkdir(parents=True, exist_ok=True)
     
     print("=" * 80)
-    print("FASE 3: BLOCKING")
+    print(f"FASE 3: BLOCKING ({transaction_type.upper()})")
     print("=" * 80)
     print(f"Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print()
@@ -81,10 +82,11 @@ def create_blocks(financial_df, non_financial_df, base_dir=None):
     print(f"   ✓ Financial: {financial_sub_blocked} bloques sub-bloqueados")
     print(f"   ✓ Non-financial: {non_financial_sub_blocked} bloques sub-bloqueados")
     
-    # Guardar solo bloques optimizados finales
+    # Guardar solo bloques optimizados finales con sufijo del tipo de transacción
     print("\n4. Guardando bloques optimizados...")
-    output_file_financial = results_dir / "financial_blocks.json"
-    output_file_non_financial = results_dir / "non_financial_blocks.json"
+    suffix = f"_{transaction_type}" if transaction_type != 'pledge' else ""
+    output_file_financial = results_dir / f"financial_blocks{suffix}.json"
+    output_file_non_financial = results_dir / f"non_financial_blocks{suffix}.json"
     
     financial_blocks_json = {str(k): [int(i) for i in v] for k, v in financial_blocks_opt.items()}
     non_financial_blocks_json = {str(k): [int(i) for i in v] for k, v in non_financial_blocks_opt.items()}
@@ -106,7 +108,7 @@ def create_blocks(financial_df, non_financial_df, base_dir=None):
     print("\n" + "=" * 80)
     print("RESUMEN")
     print("=" * 80)
-    print(f"✓ Blocking completado")
+    print(f"✓ Blocking completado para {transaction_type}")
     print(f"✓ Resultados guardados en: {results_dir}")
     print("=" * 80)
     

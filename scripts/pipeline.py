@@ -27,9 +27,116 @@ sys.path.insert(0, str(Path(__file__).parent))
 from modules import exploration, normalization, blocking, matching, grouping, validation, complete_mapping
 
 
+def run_pipeline_for_type(transaction_type, base_dir=None, skip_validation=True):
+    """
+    Ejecuta el pipeline completo para un tipo de transacción (pledge o release).
+    
+    Args:
+        transaction_type: 'pledge' o 'release'
+        base_dir: Directorio base del proyecto
+        skip_validation: Si True, omite la fase de validación (útil si usas Streamlit)
+    """
+    if base_dir is None:
+        base_dir = Path(__file__).parent.parent
+    
+    data_dir = base_dir / "original-data"
+    
+    print("\n" + "=" * 80)
+    print(f"PROCESANDO TRANSACCIONES: {transaction_type.upper()}")
+    print("=" * 80)
+    
+    # Cargar datos según el tipo
+    financial_file = data_dir / f'financial_entity_freq_{transaction_type}.csv'
+    # Note: release file uses 'nonfinancial' (no underscore), pledge uses 'non_financial'
+    if transaction_type == 'release':
+        non_financial_file = data_dir / f'nonfinancial_entity_freq_{transaction_type}.csv'
+    else:
+        non_financial_file = data_dir / f'non_financial_entity_freq_{transaction_type}.csv'
+    
+    # Verificar que los archivos existen
+    if not financial_file.exists():
+        print(f"⚠️ Archivo no encontrado: {financial_file}")
+        print(f"   Saltando procesamiento de {transaction_type}")
+        return
+    
+    if not non_financial_file.exists():
+        print(f"⚠️ Archivo no encontrado: {non_financial_file}")
+        print(f"   Saltando procesamiento de {transaction_type}")
+        return
+    
+    financial_df = pd.read_csv(financial_file)
+    non_financial_df = pd.read_csv(non_financial_file)
+    
+    # Fix column names for release files (they have swapped column names)
+    if transaction_type == 'release':
+        # Financial release file has 'or_name' instead of 'ee_name'
+        if 'or_name' in financial_df.columns and 'ee_name' not in financial_df.columns:
+            financial_df = financial_df.rename(columns={'or_name': 'ee_name'})
+        # Non-financial release file has 'ee_name' instead of 'or_name'
+        if 'ee_name' in non_financial_df.columns and 'or_name' not in non_financial_df.columns:
+            non_financial_df = non_financial_df.rename(columns={'ee_name': 'or_name'})
+    
+    # Fase 2: Normalización
+    print("\n" + "=" * 80)
+    print(f"FASE 2: NORMALIZACIÓN ({transaction_type.upper()})")
+    print("=" * 80)
+    financial_normalized, non_financial_normalized = normalization.normalize_names(
+        financial_df, non_financial_df, base_dir, transaction_type=transaction_type
+    )
+    
+    # Fase 3: Blocking
+    print("\n" + "=" * 80)
+    print(f"FASE 3: BLOCKING ({transaction_type.upper()})")
+    print("=" * 80)
+    financial_blocks, non_financial_blocks = blocking.create_blocks(
+        financial_normalized, non_financial_normalized, base_dir, transaction_type=transaction_type
+    )
+    
+    # Fase 4: Matching
+    print("\n" + "=" * 80)
+    print(f"FASE 4: FUZZY MATCHING ({transaction_type.upper()})")
+    print("=" * 80)
+    financial_components, non_financial_components, financial_matches_df, non_financial_matches_df = matching.run_matching(
+        financial_normalized, non_financial_normalized, financial_blocks, non_financial_blocks, 
+        base_dir, transaction_type=transaction_type
+    )
+    
+    # Fase 5: Grouping
+    print("\n" + "=" * 80)
+    print(f"FASE 5: AGRUPACIÓN Y ASIGNACIÓN DE IDs ({transaction_type.upper()})")
+    print("=" * 80)
+    financial_mapping, non_financial_mapping, financial_review, non_financial_review = grouping.run_grouping(
+        financial_normalized, non_financial_normalized, financial_components, non_financial_components,
+        financial_matches_df, non_financial_matches_df, base_dir, transaction_type=transaction_type
+    )
+    
+    # Fase 6: Validation (Opcional - puede hacerse dinámicamente en Streamlit)
+    if not skip_validation:
+        print("\n" + "=" * 80)
+        print(f"FASE 6: VALIDACIÓN ({transaction_type.upper()})")
+        print("=" * 80)
+        validation.run_validation(
+            financial_mapping, non_financial_mapping, financial_components, non_financial_components,
+            financial_matches_df, non_financial_matches_df, base_dir, transaction_type=transaction_type
+        )
+    
+    # Completar mapeo
+    print("\n" + "=" * 80)
+    print(f"COMPLETAR MAPEO ({transaction_type.upper()})")
+    print("=" * 80)
+    complete_mapping.run_complete_mapping(
+        financial_mapping=financial_mapping,
+        non_financial_mapping=non_financial_mapping,
+        base_dir=base_dir,
+        transaction_type=transaction_type
+    )
+    
+    print(f"\n✓ Pipeline completado para {transaction_type}")
+
+
 def run_full_pipeline(base_dir=None, skip_validation=True):
     """
-    Ejecuta todo el pipeline completo.
+    Ejecuta todo el pipeline completo para ambos tipos de transacción (pledge y release).
     
     Args:
         base_dir: Directorio base del proyecto
@@ -43,66 +150,22 @@ def run_full_pipeline(base_dir=None, skip_validation=True):
     print("=" * 80)
     print()
     
-    # Fase 1: Exploración
+    # Fase 1: Exploración (solo para pledge por ahora)
     print("\n" + "=" * 80)
     print("FASE 1: EXPLORACIÓN")
     print("=" * 80)
     financial_df, non_financial_df = exploration.run_exploration(base_dir)
     
-    # Fase 2: Normalización
+    # Procesar pledge
+    run_pipeline_for_type('pledge', base_dir, skip_validation)
+    
+    # Procesar release
+    run_pipeline_for_type('release', base_dir, skip_validation)
+    
+    # Actualizar base de datos (para ambos tipos)
     print("\n" + "=" * 80)
-    print("FASE 2: NORMALIZACIÓN")
+    print("ACTUALIZANDO BASE DE DATOS")
     print("=" * 80)
-    financial_normalized, non_financial_normalized = normalization.normalize_names(
-        financial_df, non_financial_df, base_dir
-    )
-    
-    # Fase 3: Blocking
-    print("\n" + "=" * 80)
-    print("FASE 3: BLOCKING")
-    print("=" * 80)
-    financial_blocks, non_financial_blocks = blocking.create_blocks(
-        financial_normalized, non_financial_normalized, base_dir
-    )
-    
-    # Fase 4: Matching
-    print("\n" + "=" * 80)
-    print("FASE 4: FUZZY MATCHING")
-    print("=" * 80)
-    financial_components, non_financial_components, financial_matches_df, non_financial_matches_df = matching.run_matching(
-        financial_normalized, non_financial_normalized, financial_blocks, non_financial_blocks, base_dir
-    )
-    
-    # Fase 5: Grouping
-    print("\n" + "=" * 80)
-    print("FASE 5: AGRUPACIÓN Y ASIGNACIÓN DE IDs")
-    print("=" * 80)
-    financial_mapping, non_financial_mapping, financial_review, non_financial_review = grouping.run_grouping(
-        financial_normalized, non_financial_normalized, financial_components, non_financial_components,
-        financial_matches_df, non_financial_matches_df, base_dir
-    )
-    
-    # Fase 6: Validation (Opcional - puede hacerse dinámicamente en Streamlit)
-    if not skip_validation:
-        print("\n" + "=" * 80)
-        print("FASE 6: VALIDACIÓN")
-        print("=" * 80)
-        validation.run_validation(
-            financial_mapping, non_financial_mapping, financial_components, non_financial_components,
-            financial_matches_df, non_financial_matches_df, base_dir
-        )
-    
-    # Completar mapeo
-    print("\n" + "=" * 80)
-    print("COMPLETAR MAPEO")
-    print("=" * 80)
-    complete_mapping.run_complete_mapping(
-        financial_mapping=financial_mapping,
-        non_financial_mapping=non_financial_mapping,
-        base_dir=base_dir
-    )
-    
-    # Actualizar base de datos
     complete_mapping.update_database(base_dir, overwrite=True)
     
     print("\n" + "=" * 80)
@@ -124,13 +187,13 @@ def run_phase(phase_name, base_dir=None):
     data_dir = base_dir / "original-data"
     
     if phase_name == "exploration":
-        financial_df = pd.read_csv(data_dir / 'financial_entity_freq.csv')
-        non_financial_df = pd.read_csv(data_dir / 'Non_financial_entity_freq.csv')
+        financial_df = pd.read_csv(data_dir / 'financial_entity_freq_pledge.csv')
+        non_financial_df = pd.read_csv(data_dir / 'non_financial_entity_freq_pledge.csv')
         exploration.run_exploration(base_dir)
     
     elif phase_name == "normalization":
-        financial_df = pd.read_csv(data_dir / 'financial_entity_freq.csv')
-        non_financial_df = pd.read_csv(data_dir / 'Non_financial_entity_freq.csv')
+        financial_df = pd.read_csv(data_dir / 'financial_entity_freq_pledge.csv')
+        non_financial_df = pd.read_csv(data_dir / 'non_financial_entity_freq_pledge.csv')
         normalization.normalize_names(financial_df, non_financial_df, base_dir)
     
     elif phase_name == "blocking":

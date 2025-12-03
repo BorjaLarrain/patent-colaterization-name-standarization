@@ -12,7 +12,7 @@ from datetime import datetime
 from . import grouping
 
 
-def run_complete_mapping(financial_mapping=None, non_financial_mapping=None, base_dir=None):
+def run_complete_mapping(financial_mapping=None, non_financial_mapping=None, base_dir=None, transaction_type='pledge'):
     """
     Completa el mapeo agregando nombres faltantes (singletons).
     
@@ -20,6 +20,7 @@ def run_complete_mapping(financial_mapping=None, non_financial_mapping=None, bas
         financial_mapping: DataFrame con mapeo financiero (si None, intenta cargar desde archivo)
         non_financial_mapping: DataFrame con mapeo no financiero (si None, intenta cargar desde archivo)
         base_dir: Directorio base del proyecto
+        transaction_type: Tipo de transacción ('pledge' o 'release')
         
     Returns:
         tuple: (complete_financial_mapping, complete_non_financial_mapping)
@@ -33,17 +34,22 @@ def run_complete_mapping(financial_mapping=None, non_financial_mapping=None, bas
     final_results_dir.mkdir(parents=True, exist_ok=True)
     
     print("=" * 80)
-    print("COMPLETAR MAPEO FINAL")
+    print(f"COMPLETAR MAPEO FINAL ({transaction_type.upper()})")
     print("=" * 80)
     print(f"Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print()
     
-    # Cargar datos originales y normalizados
+    # Cargar datos originales y normalizados con sufijo según tipo
     print("1. Cargando datos...")
-    original_file_financial = data_dir / "financial_entity_freq.csv"
-    original_file_non_financial = data_dir / "Non_financial_entity_freq.csv"
-    normalized_file_financial = results_dir / "financial_normalized.csv"
-    normalized_file_non_financial = results_dir / "non_financial_normalized.csv"
+    suffix = f"_{transaction_type}" if transaction_type != 'pledge' else ""
+    original_file_financial = data_dir / f"financial_entity_freq_{transaction_type}.csv"
+    # Note: release file uses 'nonfinancial' (no underscore), pledge uses 'non_financial'
+    if transaction_type == 'release':
+        original_file_non_financial = data_dir / f"nonfinancial_entity_freq_{transaction_type}.csv"
+    else:
+        original_file_non_financial = data_dir / f"non_financial_entity_freq_{transaction_type}.csv"
+    normalized_file_financial = results_dir / f"financial_normalized{suffix}.csv"
+    normalized_file_non_financial = results_dir / f"non_financial_normalized{suffix}.csv"
     
     if not all(f.exists() for f in [original_file_financial, normalized_file_financial]):
         print("   ✗ Error: No se encontraron los archivos necesarios.")
@@ -55,20 +61,29 @@ def run_complete_mapping(financial_mapping=None, non_financial_mapping=None, bas
     original_financial = pd.read_csv(original_file_financial)
     original_non_financial = pd.read_csv(original_file_non_financial) if original_file_non_financial.exists() else None
     
+    # Fix column names for release files (they have swapped column names)
+    if transaction_type == 'release':
+        # Financial release file has 'or_name' instead of 'ee_name'
+        if original_financial is not None and 'or_name' in original_financial.columns and 'ee_name' not in original_financial.columns:
+            original_financial = original_financial.rename(columns={'or_name': 'ee_name'})
+        # Non-financial release file has 'ee_name' instead of 'or_name'
+        if original_non_financial is not None and 'ee_name' in original_non_financial.columns and 'or_name' not in original_non_financial.columns:
+            original_non_financial = original_non_financial.rename(columns={'ee_name': 'or_name'})
+    
     normalized_financial = pd.read_csv(normalized_file_financial)
     normalized_non_financial = pd.read_csv(normalized_file_non_financial) if normalized_file_non_financial.exists() else None
     
     # Si no se pasaron los mapeos como parámetros, intentar cargarlos o generarlos
     if financial_mapping is None:
-        mapping_file_financial = final_results_dir / "financial_entity_mapping.csv"
+        mapping_file_financial = final_results_dir / f"financial_entity_mapping{suffix}.csv"
         if mapping_file_financial.exists():
             financial_mapping = pd.read_csv(mapping_file_financial)
             print("   ℹ️  Mapeo financiero cargado desde archivo (modo legacy)")
         else:
             # Intentar generar desde componentes
             print("   ℹ️  No se encontró archivo de mapeo, intentando generar desde componentes...")
-            components_file = results_dir / "financial_components.json"
-            matches_file = results_dir / "financial_matches.csv"
+            components_file = results_dir / f"financial_components{suffix}.json"
+            matches_file = results_dir / f"financial_matches{suffix}.csv"
             
             if components_file.exists() and matches_file.exists():
                 print("   ✓ Generando mapeo desde componentes...")
@@ -90,14 +105,14 @@ def run_complete_mapping(financial_mapping=None, non_financial_mapping=None, bas
         print("   ✓ Mapeo financiero recibido como parámetro")
     
     if non_financial_mapping is None and original_non_financial is not None:
-        mapping_file_non_financial = final_results_dir / "non_financial_entity_mapping.csv"
+        mapping_file_non_financial = final_results_dir / f"non_financial_entity_mapping{suffix}.csv"
         if mapping_file_non_financial.exists():
             non_financial_mapping = pd.read_csv(mapping_file_non_financial)
             print("   ℹ️  Mapeo no financiero cargado desde archivo (modo legacy)")
         else:
             # Intentar generar desde componentes
-            components_file = results_dir / "non_financial_components.json"
-            matches_file = results_dir / "non_financial_matches.csv"
+            components_file = results_dir / f"non_financial_components{suffix}.json"
+            matches_file = results_dir / f"non_financial_matches{suffix}.csv"
             
             if components_file.exists() and matches_file.exists() and normalized_non_financial is not None:
                 print("   ℹ️  Generando mapeo no financiero desde componentes...")
@@ -213,9 +228,9 @@ def run_complete_mapping(financial_mapping=None, non_financial_mapping=None, bas
         
         print(f"   ✓ Mapeo completo non-financial: {len(complete_mapping_non_financial):,} nombres")
     
-    # Guardar mapeos completos
+    # Guardar mapeos completos con sufijo del tipo de transacción
     print("\n6. Guardando mapeos completos...")
-    output_file_financial = final_results_dir / "financial_entity_mapping_complete.csv"
+    output_file_financial = final_results_dir / f"financial_entity_mapping_complete{suffix}.csv"
     complete_mapping_financial.to_csv(output_file_financial, index=False)
     print(f"   ✓ {output_file_financial}")
     print(f"     - Total nombres: {len(complete_mapping_financial):,}")
@@ -223,7 +238,7 @@ def run_complete_mapping(financial_mapping=None, non_financial_mapping=None, bas
     print(f"     - Singletons: {len(complete_mapping_financial[complete_mapping_financial['component_size'] == 1]):,}")
     
     if complete_mapping_non_financial is not None:
-        output_file_non_financial = final_results_dir / "non_financial_entity_mapping_complete.csv"
+        output_file_non_financial = final_results_dir / f"non_financial_entity_mapping_complete{suffix}.csv"
         complete_mapping_non_financial.to_csv(output_file_non_financial, index=False)
         print(f"   ✓ {output_file_non_financial}")
         print(f"     - Total nombres: {len(complete_mapping_non_financial):,}")
@@ -281,35 +296,39 @@ def update_database(base_dir=None, overwrite=True):
     
     db = EntityDatabase(db_path)
     
-    # Actualizar financial
-    financial_csv = final_results_dir / "financial_entity_mapping_complete.csv"
-    if financial_csv.exists():
-        print("\n1. Actualizando financial entities...")
-        try:
-            db.import_from_csv(financial_csv, 'financial', clear_existing=overwrite)
-            stats = db.get_statistics('financial')
-            print(f"   ✓ Financial: {stats['total_names']:,} nombres, {stats['unique_entities']:,} entidades")
-        except Exception as e:
-            print(f"   ✗ Error actualizando financial: {e}")
-            import traceback
-            traceback.print_exc()
-    else:
-        print("   ⚠️  No se encontró financial_entity_mapping_complete.csv")
+    # Actualizar financial - procesar tanto pledge como release
+    for transaction_type in ['pledge', 'release']:
+        suffix = f"_{transaction_type}" if transaction_type != 'pledge' else ""
+        financial_csv = final_results_dir / f"financial_entity_mapping_complete{suffix}.csv"
+        if financial_csv.exists():
+            print(f"\n1. Actualizando financial entities ({transaction_type})...")
+            try:
+                # Para release, no limpiar datos existentes (append)
+                clear_existing = overwrite and transaction_type == 'pledge'
+                db.import_from_csv(financial_csv, f'financial_{transaction_type}', clear_existing=clear_existing)
+                stats = db.get_statistics(f'financial_{transaction_type}')
+                print(f"   ✓ Financial ({transaction_type}): {stats['total_names']:,} nombres, {stats['unique_entities']:,} entidades")
+            except Exception as e:
+                print(f"   ✗ Error actualizando financial ({transaction_type}): {e}")
+                import traceback
+                traceback.print_exc()
     
-    # Actualizar non_financial
-    non_financial_csv = final_results_dir / "non_financial_entity_mapping_complete.csv"
-    if non_financial_csv.exists():
-        print("\n2. Actualizando non-financial entities...")
-        try:
-            db.import_from_csv(non_financial_csv, 'non_financial', clear_existing=overwrite)
-            stats = db.get_statistics('non_financial')
-            print(f"   ✓ Non-financial: {stats['total_names']:,} nombres, {stats['unique_entities']:,} entidades")
-        except Exception as e:
-            print(f"   ✗ Error actualizando non-financial: {e}")
-            import traceback
-            traceback.print_exc()
-    else:
-        print("   ⚠️  No se encontró non_financial_entity_mapping_complete.csv")
+    # Actualizar non_financial - procesar tanto pledge como release
+    for transaction_type in ['pledge', 'release']:
+        suffix = f"_{transaction_type}" if transaction_type != 'pledge' else ""
+        non_financial_csv = final_results_dir / f"non_financial_entity_mapping_complete{suffix}.csv"
+        if non_financial_csv.exists():
+            print(f"\n2. Actualizando non-financial entities ({transaction_type})...")
+            try:
+                # Para release, no limpiar datos existentes (append)
+                clear_existing = overwrite and transaction_type == 'pledge'
+                db.import_from_csv(non_financial_csv, f'non_financial_{transaction_type}', clear_existing=clear_existing)
+                stats = db.get_statistics(f'non_financial_{transaction_type}')
+                print(f"   ✓ Non-financial ({transaction_type}): {stats['total_names']:,} nombres, {stats['unique_entities']:,} entidades")
+            except Exception as e:
+                print(f"   ✗ Error actualizando non-financial ({transaction_type}): {e}")
+                import traceback
+                traceback.print_exc()
     
     print("\n" + "=" * 80)
     print("✓ Base de datos actualizada")
