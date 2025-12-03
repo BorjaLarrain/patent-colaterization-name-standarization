@@ -70,7 +70,7 @@ def run_validation(financial_mapping, non_financial_mapping, financial_component
     # Guardar resultados
     print("\n3. Guardando resultados de validación...")
     
-    suffix = f"_{transaction_type}"
+    suffix = f"_{transaction_type}" if transaction_type else ""
     output_file_financial = validation_dir / f"financial_validation_report{suffix}.csv"
     output_file_non_financial = validation_dir / f"non_financial_validation_report{suffix}.csv"
     output_file_financial_problematic = validation_dir / f"financial_problematic_components{suffix}.csv"
@@ -221,19 +221,19 @@ if __name__ == "__main__":
     results_dir = base_dir / "results" / "intermediate"
     final_results_dir = base_dir / "results" / "final"
     
-    financial_mapping = pd.read_csv(final_results_dir / "financial_entity_mapping_pledge.csv")
-    non_financial_mapping = pd.read_csv(final_results_dir / "non_financial_entity_mapping_pledge.csv")
-    financial_matches_df = pd.read_csv(results_dir / "financial_matches_pledge.csv")
-    non_financial_matches_df = pd.read_csv(results_dir / "non_financial_matches_pledge.csv")
+    financial_mapping = pd.read_csv(final_results_dir / "financial_entity_mapping.csv")
+    non_financial_mapping = pd.read_csv(final_results_dir / "non_financial_entity_mapping.csv")
+    financial_matches_df = pd.read_csv(results_dir / "financial_matches.csv")
+    non_financial_matches_df = pd.read_csv(results_dir / "non_financial_matches.csv")
     
-    with open(results_dir / "financial_components_pledge.json", 'r', encoding='utf-8') as f:
+    with open(results_dir / "financial_components.json", 'r', encoding='utf-8') as f:
         financial_components_json = json.load(f)
         financial_components = [set(int(idx) for idx in comp) for comp in financial_components_json.values()]
     
-    with open(results_dir / "non_financial_components_pledge.json", 'r', encoding='utf-8') as f:
+    with open(results_dir / "non_financial_components.json", 'r', encoding='utf-8') as f:
         non_financial_components_json = json.load(f)
         non_financial_components = [set(int(idx) for idx in comp) for comp in non_financial_components_json.values()]
     
     run_validation(financial_mapping, non_financial_mapping, financial_components, non_financial_components,
-                  financial_matches_df, non_financial_matches_df, base_dir, transaction_type='pledge')
+                  financial_matches_df, non_financial_matches_df, base_dir, transaction_type=None)
 

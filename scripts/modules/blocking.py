@@ -49,7 +49,10 @@ def create_blocks(financial_df, non_financial_df, base_dir=None, transaction_typ
     results_dir.mkdir(parents=True, exist_ok=True)
     
     print("=" * 80)
-    print(f"FASE 3: BLOCKING ({transaction_type.upper()})")
+    if transaction_type:
+        print(f"FASE 3: BLOCKING ({transaction_type.upper()})")
+    else:
+        print("FASE 3: BLOCKING")
     print("=" * 80)
     print(f"Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print()
@@ -82,9 +85,9 @@ def create_blocks(financial_df, non_financial_df, base_dir=None, transaction_typ
     print(f"   ✓ Financial: {financial_sub_blocked} bloques sub-bloqueados")
     print(f"   ✓ Non-financial: {non_financial_sub_blocked} bloques sub-bloqueados")
     
-    # Guardar solo bloques optimizados finales con sufijo del tipo de transacción
+    # Guardar solo bloques optimizados finales con sufijo del tipo de transacción (si existe)
     print("\n4. Guardando bloques optimizados...")
-    suffix = f"_{transaction_type}"
+    suffix = f"_{transaction_type}" if transaction_type else ""
     output_file_financial = results_dir / f"financial_blocks{suffix}.json"
     output_file_non_financial = results_dir / f"non_financial_blocks{suffix}.json"
     
@@ -108,7 +111,10 @@ def create_blocks(financial_df, non_financial_df, base_dir=None, transaction_typ
     print("\n" + "=" * 80)
     print("RESUMEN")
     print("=" * 80)
-    print(f"✓ Blocking completado para {transaction_type}")
+    if transaction_type:
+        print(f"✓ Blocking completado para {transaction_type}")
+    else:
+        print("✓ Blocking completado")
     print(f"✓ Resultados guardados en: {results_dir}")
     print("=" * 80)
     
@@ -356,8 +362,8 @@ if __name__ == "__main__":
     base_dir = Path(__file__).parent.parent.parent
     results_dir = base_dir / "results" / "intermediate"
     
-    financial_df = pd.read_csv(results_dir / "financial_normalized_pledge.csv")
-    non_financial_df = pd.read_csv(results_dir / "non_financial_normalized_pledge.csv")
+    financial_df = pd.read_csv(results_dir / "financial_normalized.csv")
+    non_financial_df = pd.read_csv(results_dir / "non_financial_normalized.csv")
     
-    create_blocks(financial_df, non_financial_df, base_dir, transaction_type='pledge')
+    create_blocks(financial_df, non_financial_df, base_dir, transaction_type=None)
 

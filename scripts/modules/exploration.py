@@ -35,12 +35,47 @@ def run_exploration(base_dir=None):
     print(f"Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print()
     
-    # Cargar datos
-    print("1. Cargando datos...")
-    financial_df = pd.read_csv(data_dir / 'financial_entity_freq_pledge.csv')
-    non_financial_df = pd.read_csv(data_dir / 'non_financial_entity_freq_pledge.csv')
-    print(f"   ✓ Financial entities: {len(financial_df):,} registros")
-    print(f"   ✓ Non-financial entities: {len(non_financial_df):,} registros")
+    # Cargar y fusionar datos
+    print("1. Cargando y fusionando datos...")
+    
+    # Merge financial files
+    financial_pledge_file = data_dir / 'financial_entity_freq_pledge.csv'
+    financial_release_file = data_dir / 'financial_entity_freq_release.csv'
+    financial_dfs = []
+    if financial_pledge_file.exists():
+        financial_dfs.append(pd.read_csv(financial_pledge_file))
+    if financial_release_file.exists():
+        df_release = pd.read_csv(financial_release_file)
+        if 'or_name' in df_release.columns and 'ee_name' not in df_release.columns:
+            df_release = df_release.rename(columns={'or_name': 'ee_name'})
+        financial_dfs.append(df_release)
+    
+    if financial_dfs:
+        financial_df = pd.concat(financial_dfs, ignore_index=True)
+        financial_df = financial_df.groupby('ee_name', as_index=False)['freq'].sum()
+    else:
+        raise FileNotFoundError("No se encontraron archivos financieros")
+    
+    # Merge non-financial files
+    non_financial_pledge_file = data_dir / 'non_financial_entity_freq_pledge.csv'
+    non_financial_release_file = data_dir / 'nonfinancial_entity_freq_release.csv'
+    non_financial_dfs = []
+    if non_financial_pledge_file.exists():
+        non_financial_dfs.append(pd.read_csv(non_financial_pledge_file))
+    if non_financial_release_file.exists():
+        df_release = pd.read_csv(non_financial_release_file)
+        if 'ee_name' in df_release.columns and 'or_name' not in df_release.columns:
+            df_release = df_release.rename(columns={'ee_name': 'or_name'})
+        non_financial_dfs.append(df_release)
+    
+    if non_financial_dfs:
+        non_financial_df = pd.concat(non_financial_dfs, ignore_index=True)
+        non_financial_df = non_financial_df.groupby('or_name', as_index=False)['freq'].sum()
+    else:
+        raise FileNotFoundError("No se encontraron archivos no financieros")
+    
+    print(f"   ✓ Financial entities (merged): {len(financial_df):,} registros únicos")
+    print(f"   ✓ Non-financial entities (merged): {len(non_financial_df):,} registros únicos")
     
     # Ejecutar análisis básico
     print("\n2. Ejecutando análisis básico...")

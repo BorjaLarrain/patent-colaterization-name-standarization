@@ -31,7 +31,10 @@ def normalize_names(financial_df, non_financial_df, base_dir=None, transaction_t
     results_dir.mkdir(parents=True, exist_ok=True)
     
     print("=" * 80)
-    print(f"FASE 2: NORMALIZACIÓN ({transaction_type.upper()})")
+    if transaction_type:
+        print(f"FASE 2: NORMALIZACIÓN ({transaction_type.upper()})")
+    else:
+        print("FASE 2: NORMALIZACIÓN")
     print("=" * 80)
     print(f"Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print()
@@ -78,9 +81,9 @@ def normalize_names(financial_df, non_financial_df, base_dir=None, transaction_t
     non_financial_normalized = non_financial_work[['or_name', 'freq', 'name_normalized_final']].copy()
     non_financial_normalized.columns = ['original_name', 'frequency', 'normalized_name']
     
-    # Guardar solo el resultado final con sufijo del tipo de transacción
+    # Guardar solo el resultado final con sufijo del tipo de transacción (si existe)
     print("\n4. Guardando resultados finales...")
-    suffix = f"_{transaction_type}"
+    suffix = f"_{transaction_type}" if transaction_type else ""
     output_file_financial = results_dir / f"financial_normalized{suffix}.csv"
     output_file_non_financial = results_dir / f"non_financial_normalized{suffix}.csv"
     
@@ -100,7 +103,10 @@ def normalize_names(financial_df, non_financial_df, base_dir=None, transaction_t
     print("\n" + "=" * 80)
     print("RESUMEN")
     print("=" * 80)
-    print(f"✓ Normalización completada para {transaction_type}")
+    if transaction_type:
+        print(f"✓ Normalización completada para {transaction_type}")
+    else:
+        print("✓ Normalización completada")
     print(f"✓ Resultados guardados en: {results_dir}")
     print("=" * 80)
     
@@ -315,11 +321,14 @@ def final_normalization(name):
 
 if __name__ == "__main__":
     # Para ejecución independiente
+    import sys
+    sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+    from scripts.pipeline import merge_csv_files
+    
     base_dir = Path(__file__).parent.parent.parent
-    data_dir = base_dir / "original-data"
     
-    financial_df = pd.read_csv(data_dir / 'financial_entity_freq_pledge.csv')
-    non_financial_df = pd.read_csv(data_dir / 'non_financial_entity_freq_pledge.csv')
+    # Merge CSV files first
+    merged_financial, merged_non_financial = merge_csv_files(base_dir)
     
-    normalize_names(financial_df, non_financial_df, base_dir, transaction_type='pledge')
+    normalize_names(merged_financial, merged_non_financial, base_dir, transaction_type=None)
 

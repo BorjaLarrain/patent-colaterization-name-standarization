@@ -513,31 +513,19 @@ def get_database():
         st.session_state.db = EntityDatabase(DB_PATH)
     return st.session_state.db
 
-def load_mapping_data(entity_type='financial', transaction_type='pledge', use_database=True):
+def load_mapping_data(entity_type='financial', use_database=True):
     """
     Load mapping data from database or CSV
     
     Args:
         entity_type: Entity type ('financial' or 'non_financial')
-        transaction_type: Transaction type ('pledge' or 'release')
         use_database: If True, use database. If False, use CSV
     """
     try:
-        suffix = f"_{transaction_type}" if transaction_type != 'pledge' else ""
-        
         if use_database:
             db = get_database()
             
-            # Try loading with transaction type suffix first
-            db_entity_type = f"{entity_type}_{transaction_type}"
-            try:
-                stats = db.get_statistics(db_entity_type)
-                if stats['total_names'] > 0:
-                    return db.load_entities(db_entity_type)
-            except:
-                pass
-            
-            # Fallback to legacy entity_type without transaction suffix
+            # Load entity_type directly (no transaction_type suffix)
             try:
                 stats = db.get_statistics(entity_type)
                 if stats['total_names'] > 0:
@@ -546,28 +534,18 @@ def load_mapping_data(entity_type='financial', transaction_type='pledge', use_da
                 pass
             
             # If no data in DB, try importing from CSV
-            csv_path = RESULTS_DIR / f"{entity_type}_entity_mapping_complete{suffix}.csv"
+            csv_path = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
             if csv_path.exists():
                 # Import from CSV to database
                 with st.spinner("Migrating data from CSV to database..."):
-                    db.import_from_csv(csv_path, db_entity_type, clear_existing=True)
-                return db.load_entities(db_entity_type)
-            else:
-                # Try legacy file name (without suffix)
-                csv_path_legacy = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
-                if csv_path_legacy.exists():
-                    with st.spinner("Migrating data from CSV to database..."):
-                        db.import_from_csv(csv_path_legacy, db_entity_type, clear_existing=True)
-                    return db.load_entities(db_entity_type)
-                return None
+                    db.import_from_csv(csv_path, entity_type, clear_existing=True)
+                return db.load_entities(entity_type)
+            return None
         else:
-            # Load directly from CSV (legacy mode)
-            file_path = RESULTS_DIR / f"{entity_type}_entity_mapping_complete{suffix}.csv"
+            # Load directly from CSV
+            file_path = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
             if not file_path.exists():
-                # Try legacy file name
-                file_path = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
-                if not file_path.exists():
-                    return None
+                return None
             return pd.read_csv(file_path)
     except Exception as e:
         logger.error(f"Error loading data: {e}")
@@ -597,8 +575,6 @@ def initialize_session_state():
         st.session_state.groups_per_page = 25
     if 'last_filter_state' not in st.session_state:
         st.session_state.last_filter_state = None
-    if 'transaction_type' not in st.session_state:
-        st.session_state.transaction_type = 'pledge'
 
 @st.cache_data
 def group_by_entity(df):
@@ -718,22 +694,19 @@ def get_next_entity_id(df, prefix='financial'):
     
     return f"{prefix}_{max_num + 1}"
 
-def save_changes(df, entity_type='financial', transaction_type='pledge', backup=False, use_database=True):
+def save_changes(df, entity_type='financial', backup=False, use_database=True):
     """
     Save changes to database or CSV
     
     Args:
         df: DataFrame with changes
-        entity_type: Entity type
-        transaction_type: Transaction type ('pledge' or 'release')
+        entity_type: Entity type ('financial' or 'non_financial')
         backup: Whether to create backup (default False, only created when explicitly requested)
         use_database: If True, save to database. If False, save CSV
     
     Returns:
         Path of saved file or confirmation message
     """
-    suffix = f"_{transaction_type}" if transaction_type != 'pledge' else ""
-    
     if use_database:
         try:
             db = get_database()
@@ -742,9 +715,8 @@ def save_changes(df, entity_type='financial', transaction_type='pledge', backup=
             if backup:
                 backup_path = db.backup_database()
             
-            # Update entities in database with transaction type
-            db_entity_type = f"{entity_type}_{transaction_type}"
-            db.update_entities(df, db_entity_type)
+            # Update entities in database (no transaction_type suffix)
+            db.update_entities(df, entity_type)
             
             return f"Changes saved to database: {DB_PATH.name}"
         except Exception as e:
@@ -756,18 +728,18 @@ def save_changes(df, entity_type='financial', transaction_type='pledge', backup=
         
         # Create backup if requested
         if backup:
-            original_file = RESULTS_DIR / f"{entity_type}_entity_mapping_complete{suffix}.csv"
+            original_file = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
             if original_file.exists():
-                backup_file = MANUAL_REVIEW_DIR / f"{entity_type}_{transaction_type}_backup_{timestamp}.csv"
+                backup_file = MANUAL_REVIEW_DIR / f"{entity_type}_backup_{timestamp}.csv"
                 df_original = pd.read_csv(original_file)
                 df_original.to_csv(backup_file, index=False)
         
         # Save edited file
-        edited_file = MANUAL_REVIEW_DIR / f"{entity_type}_{transaction_type}_entity_mapping_edited_{timestamp}.csv"
+        edited_file = MANUAL_REVIEW_DIR / f"{entity_type}_entity_mapping_edited_{timestamp}.csv"
         df.to_csv(edited_file, index=False)
         
         # Also save as "latest" file
-        latest_file = MANUAL_REVIEW_DIR / f"{entity_type}_{transaction_type}_entity_mapping_edited_latest.csv"
+        latest_file = MANUAL_REVIEW_DIR / f"{entity_type}_entity_mapping_edited_latest.csv"
         df.to_csv(latest_file, index=False)
         
         return edited_file, latest_file
@@ -812,16 +784,9 @@ def main():
         entity_type = st.selectbox(
             "Entity Type",
             ['financial', 'non_financial'],
-            index=0
+            index=0,
+            help="Select financial or non-financial entities (data includes both pledge and release)"
         )
-        
-        transaction_type = st.selectbox(
-            "Transaction Type",
-            ['pledge', 'release'],
-            index=0 if st.session_state.transaction_type == 'pledge' else 1,
-            help="Select whether to view pledge or release transactions"
-        )
-        st.session_state.transaction_type = transaction_type
         
         # Toggle to use database or CSV
         use_db = st.checkbox("Use SQLite Database", value=st.session_state.use_database,
@@ -830,7 +795,7 @@ def main():
         
         if st.button("🔄 Load Data", type="primary"):
             with st.spinner("Loading data..."):
-                df = load_mapping_data(entity_type, transaction_type=transaction_type, use_database=use_db)
+                df = load_mapping_data(entity_type, use_database=use_db)
                 if df is not None:
                     st.session_state.df_original = df.copy()
                     st.session_state.df_edited = df.copy()
@@ -867,7 +832,6 @@ def main():
                         result = save_changes(
                             st.session_state.df_edited,
                             entity_type=entity_type,
-                            transaction_type=st.session_state.transaction_type,
                             use_database=st.session_state.use_database
                         )
                         st.session_state.changes_made = False
@@ -897,14 +861,13 @@ def main():
             
             with col_db1:
                 if st.button("📥 Export to CSV", help="Export current data to CSV"):
-            try:
-                db = get_database()
-                db_entity_type = f"{entity_type}_{st.session_state.transaction_type}"
-                export_path = MANUAL_REVIEW_DIR / f"{entity_type}_{st.session_state.transaction_type}_exported_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
-                db.export_to_csv(db_entity_type, export_path)
-                st.success(f"✓ Exported to: {export_path.name}")
-            except Exception as e:
-                st.error(f"Error exporting: {e}")
+                    try:
+                        db = get_database()
+                        export_path = MANUAL_REVIEW_DIR / f"{entity_type}_exported_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+                        db.export_to_csv(entity_type, export_path)
+                        st.success(f"✓ Exported to: {export_path.name}")
+                    except Exception as e:
+                        st.error(f"Error exporting: {e}")
             
             with col_db2:
                 if st.button("💾 Create Backup", help="Create a database backup"):
@@ -918,8 +881,7 @@ def main():
             # Database information
             try:
                 db = get_database()
-                db_entity_type = f"{entity_type}_{st.session_state.transaction_type}"
-                stats = db.get_statistics(db_entity_type)
+                stats = db.get_statistics(entity_type)
                 
                 with st.expander("📊 Database Statistics"):
                     st.metric("Total Names", f"{stats['total_names']:,}")

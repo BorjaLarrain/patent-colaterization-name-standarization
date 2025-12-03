@@ -39,7 +39,10 @@ def run_matching(financial_df, non_financial_df, financial_blocks, non_financial
     results_dir.mkdir(parents=True, exist_ok=True)
     
     print("=" * 80)
-    print(f"FASE 4: FUZZY MATCHING ({transaction_type.upper()})")
+    if transaction_type:
+        print(f"FASE 4: FUZZY MATCHING ({transaction_type.upper()})")
+    else:
+        print("FASE 4: FUZZY MATCHING")
     print("=" * 80)
     print(f"Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"Threshold de similitud: {SIMILARITY_THRESHOLD}%")
@@ -102,7 +105,7 @@ def run_matching(financial_df, non_financial_df, financial_blocks, non_financial
     non_financial_matches_df['name1'] = non_financial_matches_df['idx1'].apply(lambda x: non_financial_df.loc[x, 'normalized_name'])
     non_financial_matches_df['name2'] = non_financial_matches_df['idx2'].apply(lambda x: non_financial_df.loc[x, 'normalized_name'])
     
-    suffix = f"_{transaction_type}"
+    suffix = f"_{transaction_type}" if transaction_type else ""
     output_file_financial_matches = results_dir / f"financial_matches{suffix}.csv"
     output_file_non_financial_matches = results_dir / f"non_financial_matches{suffix}.csv"
     
@@ -372,14 +375,14 @@ if __name__ == "__main__":
     base_dir = Path(__file__).parent.parent.parent
     results_dir = base_dir / "results" / "intermediate"
     
-    financial_df = pd.read_csv(results_dir / "financial_normalized_pledge.csv")
-    non_financial_df = pd.read_csv(results_dir / "non_financial_normalized_pledge.csv")
+    financial_df = pd.read_csv(results_dir / "financial_normalized.csv")
+    non_financial_df = pd.read_csv(results_dir / "non_financial_normalized.csv")
     
-    with open(results_dir / "financial_blocks_pledge.json", 'r', encoding='utf-8') as f:
+    with open(results_dir / "financial_blocks.json", 'r', encoding='utf-8') as f:
         financial_blocks = {k: [int(i) for i in v] for k, v in json.load(f).items()}
     
-    with open(results_dir / "non_financial_blocks_pledge.json", 'r', encoding='utf-8') as f:
+    with open(results_dir / "non_financial_blocks.json", 'r', encoding='utf-8') as f:
         non_financial_blocks = {k: [int(i) for i in v] for k, v in json.load(f).items()}
     
-    run_matching(financial_df, non_financial_df, financial_blocks, non_financial_blocks, base_dir, transaction_type='pledge')
+    run_matching(financial_df, non_financial_df, financial_blocks, non_financial_blocks, base_dir, transaction_type=None)
 
