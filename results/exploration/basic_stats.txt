@@ -1,89 +1,89 @@
 ================================================================================
 EXPLORACIÓN INICIAL DE DATOS
-Fecha: 2025-12-02 23:15:03
+Fecha: 2025-12-03 18:04:29
 ================================================================================
 
 ================================================================================
 FINANCIAL ENTITIES
 ================================================================================
-Total registros: 8,459
-Nombres únicos: 8,459
-Frecuencia total: 3,301,247
+Total registros: 11,281
+Nombres únicos: 11,281
+Frecuencia total: 5,506,362
 
 Top 10 por frecuencia:
 --------------------------------------------------------------------------------
-   389,277 | THE BANK OF NEW YORK MELLON TRUST COMPANY, N.A.
-   155,495 | CREDIT SUISSE AG, CAYMAN ISLANDS BRANCH, AS COLLATERAL AGENT
-   141,093 | THE BANK OF NEW YORK MELLON TRUST COMPANY, N.A., AS NOTES COLLATERAL AGENT
-   123,191 | BANK OF AMERICA, N.A., AS ADMINISTRATIVE AGENT
-   122,643 | BANK OF AMERICA, N.A., AS COLLATERAL AGENT
-   116,812 | BANK OF AMERICA, N.A.
-   114,857 | JPMORGAN CHASE BANK, N.A.
-   103,311 | JPMORGAN CHASE BANK, N.A., AS COLLATERAL AGENT
-    83,248 | JPMORGAN CHASE BANK, N.A., AS ADMINISTRATIVE AGENT
-    70,936 | BARCLAYS BANK PLC, AS ADMINISTRATIVE AGENT
+         7 | 1,4GROUP, INC.
+         4 | 10X FUND L.P.
+         4 | 10X FUND, LP
+         4 | 1172038 ALBERTA ULC
+        10 | 1192159 ONTARIO INC.
+        38 | 1538731 ALBERTA LTD., AS AGENT
+        10 | 1695382 ONTARIO LIMITED
+        10 | 1998 CO-INVESTING LLC
+         1 | 1PM, INC.
+         1 | 2002 MEAD & CAROL TREADWELL REVERSIBLE TRUST
 
 ================================================================================
 NON-FINANCIAL ENTITIES
 ================================================================================
-Total registros: 21,453
-Nombres únicos: 21,453
-Frecuencia total: 3,301,247
+Total registros: 26,250
+Nombres únicos: 26,250
+Frecuencia total: 5,506,362
 
 Top 10 por frecuencia:
 --------------------------------------------------------------------------------
-    55,314 | DELL PRODUCTS L.P.
-    51,331 | WYSE TECHNOLOGY L.L.C.
-    48,411 | MICRON TECHNOLOGY, INC.
-    47,600 | DELL MARKETING L.P.
-    47,600 | DELL USA L.P.
-    47,600 | FORCE10 NETWORKS, INC.
-    46,448 | EMC IP HOLDING COMPANY LLC
-    45,477 | EMC CORPORATION
-    42,214 | GM GLOBAL TECHNOLOGY OPERATIONS, INC.
-    39,183 | DELL INTERNATIONAL L.L.C.
+        59 | "A" COMPANY ORTHODONTICS
+        16 | "CAROLINE" EINHUDERTDRITTE VERMOGENSVERWALTUNGSGESELLSCHAFT
+        25 | 0741693 B.C. LTD.
+       112 | 0741693 BRITISH COLUMBIA LTD.
+         2 | 101 ACQUISITION, INC.
+       303 | 17111 WATERVIEW PKWY LLC
+        40 | 180 MEDICAL, INC.
+         1 | 1900 CEDAR SPRINGS, LP
+        11 | 1966
+        13 | 1ST DETECT CORPORATION
 
 ================================================================================
 DISTRIBUCIÓN DE FRECUENCIAS (Financial Entities)
 ================================================================================
-Media:        390.26
-Desv. Est.:   6,122.25
+Media:        488.11
+Desv. Est.:   7,793.86
 Mínimo:       1
 25% (Q1):     2
 50% (Mediana): 5
-75% (Q3):     20
-Máximo:       389,277
+75% (Q3):     22
+Máximo:       396,893
 
 ================================================================================
 PATRONES: ROLES FUNCIONALES
 ================================================================================
-AS AGENT                                 :    529 ocurrencias
-AS COLLATERAL AGENT                      :    463 ocurrencias
-AS ADMINISTRATIVE AGENT                  :    410 ocurrencias
-AS TRUSTEE                               :     36 ocurrencias
-AS COLLATERAL TRUSTEE                    :     21 ocurrencias
-AS NOTES COLLATERAL AGENT                :     19 ocurrencias
+AS AGENT                                 :    690 ocurrencias
+AS COLLATERAL AGENT                      :    610 ocurrencias
+AS ADMINISTRATIVE AGENT                  :    523 ocurrencias
+AS TRUSTEE                               :     46 ocurrencias
+AS COLLATERAL TRUSTEE                    :     25 ocurrencias
+AS NOTES COLLATERAL AGENT                :     23 ocurrencias
 
 ================================================================================
 PATRONES: SUFIJOS LEGALES
 ================================================================================
-\bINC\.                                  :  1,211 ocurrencias
-\bLLC                                    :  1,108 ocurrencias
-\bL\.P\.                                 :    728 ocurrencias
-\bCORPORATION                            :    702 ocurrencias
-\bCOMPANY                                :    519 ocurrencias
-\bN\.A\.                                 :    501 ocurrencias
-\bCORP\.                                 :    329 ocurrencias
-\bNATIONAL ASSOCIATION                   :    288 ocurrencias
-\bCO\.                                   :    105 ocurrencias
-\bPLC                                    :     62 ocurrencias
-\bL\.L\.C\.                              :     53 ocurrencias
-\bINCORPORATED                           :     44 ocurrencias
+\bINC\.                                  :  1,728 ocurrencias
+\bLLC                                    :  1,420 ocurrencias
+\bCORPORATION                            :  1,034 ocurrencias
+\bL\.P\.                                 :    889 ocurrencias
+\bN\.A\.                                 :    839 ocurrencias
+\bCOMPANY                                :    719 ocurrencias
+\bNATIONAL ASSOCIATION                   :    484 ocurrencias
+\bCORP\.                                 :    403 ocurrencias
+\bCO\.                                   :    137 ocurrencias
+\bPLC                                    :     85 ocurrencias
+\bL\.L\.C\.                              :     74 ocurrencias
+\bINCORPORATED                           :     62 ocurrencias
 
 ================================================================================
 ESTADÍSTICAS DE LONGITUD DE NOMBRES (Financial)
 ================================================================================
-Longitud promedio: 35.9 caracteres
-Longitud mediana:  31.0 caracteres
-Longitud mínima:   3 caracteres
+Longitud promedio: 38.9 caracteres
+Longitud mediana:  33.0 caracteres
+Longitud mínima:   2 caracteres
 Longitud máxima:   301 caracteres
