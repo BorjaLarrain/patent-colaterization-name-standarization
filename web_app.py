@@ -575,6 +575,8 @@ def initialize_session_state():
         st.session_state.groups_per_page = 25
     if 'last_filter_state' not in st.session_state:
         st.session_state.last_filter_state = None
+    if 'tab_switch_counter' not in st.session_state:
+        st.session_state.tab_switch_counter = 0
 
 @st.cache_data
 def group_by_entity(df):
@@ -693,6 +695,74 @@ def get_next_entity_id(df, prefix='financial'):
             max_num = max(max_num, num)
     
     return f"{prefix}_{max_num + 1}"
+
+def sort_entity_ids_numerically(entity_ids):
+    """
+    Sort entity IDs numerically instead of lexicographically.
+    Handles formats like 'financial_0', 'financial_1', 'financial_10', etc.
+    
+    Args:
+        entity_ids: List of entity ID strings
+    
+    Returns:
+        Sorted list of entity IDs (numerically sorted)
+    """
+    def extract_sort_key(eid):
+        """Extract numeric part for sorting"""
+        if not isinstance(eid, str):
+            eid = str(eid)
+        
+        # Try to match pattern like "financial_123" or "non_financial_456"
+        match = re.match(r'^(\w+)_(\d+)$', eid)
+        if match:
+            prefix = match.group(1)
+            number = int(match.group(2))
+            return (prefix, number)
+        else:
+            # Fallback to string sorting if pattern doesn't match
+            return (eid, 0)
+    
+    return sorted(entity_ids, key=extract_sort_key)
+
+def format_group_options(df, entity_ids, exclude_id=None, search_filter=""):
+    """
+    Format entity IDs with their standard names for dropdown display.
+    
+    Args:
+        df: DataFrame with entity data
+        entity_ids: List of entity IDs to format
+        exclude_id: Optional entity ID to exclude from the list
+        search_filter: Optional search string to filter by ID or standard name
+    
+    Returns:
+        Tuple of (formatted_options, id_to_formatted_dict) where:
+        - formatted_options: List of formatted strings like "financial_0 - Standard Name"
+        - id_to_formatted_dict: Dictionary mapping entity_id to formatted string
+    """
+    formatted_options = []
+    id_to_formatted_dict = {}
+    search_lower = search_filter.lower() if search_filter else ""
+    
+    for eid in entity_ids:
+        if exclude_id and eid == exclude_id:
+            continue
+        
+        # Get standard name for this entity
+        entity_rows = df[df['entity_id'] == eid]
+        if len(entity_rows) > 0:
+            standard_name = entity_rows.iloc[0]['standard_name']
+            formatted = f"{eid} - {standard_name}"
+            
+            # Apply search filter if provided
+            if search_filter:
+                if (search_lower not in eid.lower() and 
+                    search_lower not in standard_name.lower()):
+                    continue
+            
+            formatted_options.append(formatted)
+            id_to_formatted_dict[formatted] = eid
+    
+    return formatted_options, id_to_formatted_dict
 
 def save_changes(df, entity_type='financial', backup=False, use_database=True):
     """
@@ -913,36 +983,198 @@ def main():
     # Determine which tab to show first (if Edit button was clicked)
     tab_labels = ["📋 Group View", "🔍 Search", "✏️ Edit Group", "📊 Statistics"]
     
-    # If active_tab is set and selected_entity_id exists, switch to Edit tab
-    if st.session_state.active_tab == "edit" and st.session_state.selected_entity_id:
-        # Use JavaScript to switch to the Edit tab (index 2)
-        # This runs after Streamlit finishes rendering
-        st.markdown("""
-        <script>
-        function switchToEditTab() {
-            var tabs = document.querySelectorAll('[data-baseweb="tab"]');
-            if (tabs.length > 2) {
-                tabs[2].click();
-                return true;
-            }
-            return false;
-        }
-        
-        // Try immediately
-        if (!switchToEditTab()) {
-            // If tabs aren't ready, wait a bit and try again
-            setTimeout(function() {
-                if (!switchToEditTab()) {
-                    // Last attempt after a longer delay
-                    setTimeout(switchToEditTab, 500);
-                }
-            }, 200);
-        }
-        </script>
-        """, unsafe_allow_html=True)
-        st.session_state.active_tab = None  # Reset after switching
+    # Check if we need to switch to Edit tab
+    should_switch_to_edit = (
+        st.session_state.active_tab == "edit" and 
+        st.session_state.selected_entity_id is not None
+    )
     
+    # Create tabs
     tab1, tab2, tab3, tab4 = st.tabs(tab_labels)
+    
+    # If we need to switch to Edit tab, use the window.parent approach (Streamlit runs in iframe)
+    if should_switch_to_edit:
+        # Increment counter to force script re-execution
+        st.session_state.tab_switch_counter += 1
+        counter = st.session_state.tab_switch_counter
+        
+        # Show a brief message that we're switching tabs
+        with st.container():
+            st.info(f"🔄 Switching to Edit tab... (Script #{counter} - Check browser console for debug logs)")
+        
+        # Use st.components.v1.html for more reliable script execution
+        # Create a unique script each time using the counter with detailed logging
+        # Log to parent window console so it's visible in main browser console
+        import streamlit.components.v1 as components
+        
+        script_html = f"""
+        <div id="tab-switcher-wrapper-{counter}"></div>
+        <script id="tab-switcher-{counter}">
+        (function() {{
+            // Use parent window console so logs appear in main browser console
+            var log = function() {{
+                try {{
+                    if (window.parent && window.parent.console) {{
+                        window.parent.console.log.apply(window.parent.console, arguments);
+                    }} else {{
+                        console.log.apply(console, arguments);
+                    }}
+                }} catch(e) {{
+                    console.log.apply(console, arguments);
+                }}
+            }};
+            
+            var logError = function() {{
+                try {{
+                    if (window.parent && window.parent.console) {{
+                        window.parent.console.error.apply(window.parent.console, arguments);
+                    }} else {{
+                        console.error.apply(console, arguments);
+                    }}
+                }} catch(e) {{
+                    console.error.apply(console, arguments);
+                }}
+            }};
+            
+            var logWarn = function() {{
+                try {{
+                    if (window.parent && window.parent.console) {{
+                        window.parent.console.warn.apply(window.parent.console, arguments);
+                    }} else {{
+                        console.warn.apply(console, arguments);
+                    }}
+                }} catch(e) {{
+                    console.warn.apply(console, arguments);
+                }}
+            }};
+            
+            // First, try to log to main console with a simple test
+            try {{
+                if (window.parent && window.parent.console) {{
+                    window.parent.console.log('%c[TAB SWITCHER] ===== Script {counter} STARTING =====', 'color: blue; font-weight: bold; font-size: 14px;');
+                }}
+            }} catch(e) {{
+                console.log('[TAB SWITCHER] Script {counter} starting (fallback console)');
+            }}
+            
+            log('[TAB SWITCHER] ===== Script {counter} starting execution =====');
+            log('[TAB SWITCHER] Current window:', window.location.href);
+            log('[TAB SWITCHER] Parent window exists:', !!window.parent);
+            log('[TAB SWITCHER] Script element exists:', !!document.getElementById('tab-switcher-{counter}'));
+            
+            // Remove any previous script executions
+            var scriptId = 'tab-switcher-{counter}';
+            var currentScript = document.getElementById(scriptId);
+            if (currentScript && currentScript.dataset.executed === 'true') {{
+                log('[TAB SWITCHER] Script {counter} already executed, skipping');
+                return; // Already executed
+            }}
+            if (currentScript) {{
+                currentScript.dataset.executed = 'true';
+            }}
+            
+            function clickEditTab(attempt) {{
+                log('[TAB SWITCHER] ===== Attempt ' + attempt + ' to click Edit tab =====');
+                
+                try {{
+                    // Access parent document (Streamlit runs in iframe)
+                    var parentDoc = window.parent.document;
+                    log('[TAB SWITCHER] Parent document accessed:', !!parentDoc);
+                    
+                    if (!parentDoc) {{
+                        logError('[TAB SWITCHER] ERROR: Cannot access window.parent.document');
+                        return false;
+                    }}
+                    
+                    // Method 1: Find tabs by role attribute
+                    var tabGroup = parentDoc.querySelector('[data-testid="stTabs"]');
+                    log('[TAB SWITCHER] Tab group found:', !!tabGroup);
+                    
+                    if (tabGroup) {{
+                        var tabs = tabGroup.querySelectorAll('button[role="tab"]');
+                        log('[TAB SWITCHER] Found ' + tabs.length + ' tabs with role="tab"');
+                        
+                        if (tabs.length >= 3) {{
+                            log('[TAB SWITCHER] Tab 0:', tabs[0].textContent);
+                            log('[TAB SWITCHER] Tab 1:', tabs[1].textContent);
+                            log('[TAB SWITCHER] Tab 2:', tabs[2].textContent);
+                            log('[TAB SWITCHER] Clicking tab at index 2');
+                            tabs[2].click();
+                            log('[TAB SWITCHER] ✓ Click executed on tab index 2');
+                            
+                            // Verify it worked
+                            setTimeout(function() {{
+                                var isSelected = tabs[2].getAttribute('aria-selected') === 'true';
+                                log('[TAB SWITCHER] Tab selected after click:', isSelected);
+                                if (!isSelected) {{
+                                    logWarn('[TAB SWITCHER] WARNING: Tab click did not select the tab');
+                                }}
+                            }}, 200);
+                            
+                            return true;
+                        }}
+                    }}
+                    
+                    // Method 2: Find by data-testid="stTab"
+                    var allTabs = parentDoc.querySelectorAll('[data-testid="stTab"]');
+                    log('[TAB SWITCHER] Found ' + allTabs.length + ' tabs with data-testid="stTab"');
+                    
+                    if (allTabs.length >= 3) {{
+                        log('[TAB SWITCHER] Tab 0:', allTabs[0].textContent);
+                        log('[TAB SWITCHER] Tab 1:', allTabs[1].textContent);
+                        log('[TAB SWITCHER] Tab 2:', allTabs[2].textContent);
+                        log('[TAB SWITCHER] Clicking tab at index 2 (method 2)');
+                        allTabs[2].click();
+                        log('[TAB SWITCHER] ✓ Click executed on tab index 2 (method 2)');
+                        return true;
+                    }}
+                    
+                    // Method 3: Find by text content (most reliable)
+                    log('[TAB SWITCHER] Trying to find tab by text content');
+                    for (var i = 0; i < allTabs.length; i++) {{
+                        var text = (allTabs[i].textContent || allTabs[i].innerText || '').trim();
+                        log('[TAB SWITCHER] Tab ' + i + ' text: "' + text + '"');
+                        
+                        if (text.includes('✏️') || text.includes('Edit Group') || text.includes('Edit')) {{
+                            log('[TAB SWITCHER] ✓ Found Edit tab at index ' + i + ', clicking');
+                            allTabs[i].click();
+                            log('[TAB SWITCHER] ✓ Click executed on Edit tab');
+                            
+                            // Verify it worked
+                            setTimeout(function() {{
+                                var isSelected = allTabs[i].getAttribute('aria-selected') === 'true';
+                                log('[TAB SWITCHER] Tab selected after click:', isSelected);
+                            }}, 200);
+                            
+                            return true;
+                        }}
+                    }}
+                    
+                    logWarn('[TAB SWITCHER] WARNING: Could not find Edit tab');
+                    return false;
+                }} catch(e) {{
+                    logError('[TAB SWITCHER] ERROR switching tab:', e);
+                    logError('[TAB SWITCHER] Error stack:', e.stack);
+                    return false;
+                }}
+            }}
+            
+            // Try multiple times with increasing delays to ensure it works
+            log('[TAB SWITCHER] Scheduling multiple attempts');
+            setTimeout(function() {{ clickEditTab(1); }}, 100);
+            setTimeout(function() {{ clickEditTab(2); }}, 300);
+            setTimeout(function() {{ clickEditTab(3); }}, 600);
+            setTimeout(function() {{ clickEditTab(4); }}, 1000);
+        }})();
+        </script>
+        """
+        
+        # Use components.html instead of st.markdown for better script execution
+        # Note: components.html doesn't support 'key' parameter, so we use counter in script ID instead
+        components.html(script_html, height=0)
+        
+        # Reset the flag after injecting script
+        st.session_state.active_tab = None
     
     # TAB 1: Group View
     with tab1:
@@ -1133,7 +1365,7 @@ def main():
                 with st.expander(
                     f"**{entity_id}** | {stats['names_count']} names | "
                     f"Frequency: {stats['total_frequency']:,} | "
-                    f"Standard: {stats['standard_name'][:50]}..."
+                    f"Standard: {stats['standard_name'][:50]}"
                 ):
                     col1, col2 = st.columns([2, 1])
                     
@@ -1209,7 +1441,7 @@ def main():
                 placeholder="E.g.: BANK OF AMERICA or financial_0"
             )
         with col_search2:
-            max_results = st.selectbox("Result Limit", [50, 100, 250, 500], index=1)
+            max_entities = st.selectbox("Entity Limit", [10, 25, 50, 100, 250], index=1)
         
         if search_query:
             with st.spinner("Searching..."):
@@ -1231,16 +1463,21 @@ def main():
                     results = df_search[mask]
                     
                     if len(results) > 0:
-                        # Limit results
-                        if len(results) > max_results:
-                            st.warning(f"⚠️ Found {len(results):,} results, showing only the first {max_results}")
-                            results = results.head(max_results)
-                        
-                        st.success(f"✓ Found {len(results):,} results")
-                        
-                        # Group by entity_id
+                        # Get all unique entity IDs from search results
                         entity_ids_found = results['entity_id'].unique()
-                        st.write(f"**In {len(entity_ids_found)} different entity(ies)**")
+                        total_entities_found = len(entity_ids_found)
+                        total_names_found = len(results)
+                        
+                        # Limit by number of entities, not names
+                        if total_entities_found > max_entities:
+                            st.warning(f"⚠️ Found {total_entities_found:,} entities ({total_names_found:,} total names), showing only the first {max_entities} entities")
+                            entity_ids_found = entity_ids_found[:max_entities]
+                            # Filter results to only include names from the limited entities
+                            results = results[results['entity_id'].isin(entity_ids_found)]
+                        else:
+                            st.success(f"✓ Found {total_entities_found:,} entities ({total_names_found:,} total names)")
+                        
+                        st.write(f"**Showing {len(entity_ids_found)} different entity(ies)**")
                         
                         # Pagination for multiple results
                         if len(entity_ids_found) > 10:
@@ -1262,7 +1499,16 @@ def main():
                         for entity_id in paginated_entities:
                             entity_results = results[results['entity_id'] == entity_id]
                             
-                            with st.expander(f"**{entity_id}** ({len(entity_results)} names found)"):
+                            # Calculate stats for display (matching group view format)
+                            total_frequency = entity_results['frequency'].sum()
+                            standard_name = entity_results.iloc[0]['standard_name'] if len(entity_results) > 0 else ""
+                            names_count = len(entity_results)
+                            
+                            with st.expander(
+                                f"**{entity_id}** | {names_count} names | "
+                                f"Frequency: {total_frequency:,} | "
+                                f"Standard: {standard_name[:50]}"
+                            ):
                                 display_cols = ['original_name', 'normalized_name', 'standard_name', 'frequency']
                                 st.dataframe(
                                     entity_results[display_cols].sort_values('frequency', ascending=False),
@@ -1342,51 +1588,88 @@ def main():
                     )
                     
                     if names_to_move:
-                        # Find target group
-                        all_entity_ids = sorted(st.session_state.df_edited['entity_id'].unique().tolist())
-                        target_entity_id = st.selectbox(
-                            "Select target group:",
-                            options=all_entity_ids,
-                            index=0 if entity_id not in all_entity_ids else all_entity_ids.index(entity_id)
+                        # Find target group with numerical sorting
+                        all_entity_ids = sort_entity_ids_numerically(
+                            st.session_state.df_edited['entity_id'].unique().tolist()
                         )
                         
-                        if st.button("✅ Move Names", type="primary"):
-                            # Get standard_name of target group before moving
-                            target_group = st.session_state.df_edited[
-                                st.session_state.df_edited['entity_id'] == target_entity_id
-                            ]
-                            target_standard = target_group.iloc[0]['standard_name'] if len(target_group) > 0 else None
+                        # Search filter for groups
+                        search_filter = st.text_input(
+                            "🔍 Search groups by ID or name:",
+                            key="move_search_filter",
+                            placeholder="Type to filter groups..."
+                        )
+                        
+                        formatted_options, id_to_formatted_dict = format_group_options(
+                            st.session_state.df_edited, 
+                            all_entity_ids,
+                            search_filter=search_filter
+                        )
+                        
+                        if formatted_options:
+                            # Find default index (try to keep current selection if possible)
+                            default_idx = 0
+                            if entity_id in all_entity_ids:
+                                # Try to find the formatted option for current entity_id
+                                entity_rows = st.session_state.df_edited[st.session_state.df_edited['entity_id'] == entity_id]
+                                if len(entity_rows) > 0:
+                                    current_formatted = f"{entity_id} - {entity_rows.iloc[0]['standard_name']}"
+                                    if current_formatted in formatted_options:
+                                        default_idx = formatted_options.index(current_formatted)
                             
-                            # Move all selected names
-                            for name in names_to_move:
-                                mask = (st.session_state.df_edited['entity_id'] == entity_id) & \
-                                       (st.session_state.df_edited['original_name'] == name)
-                                st.session_state.df_edited.loc[mask, 'entity_id'] = target_entity_id
-                                if target_standard:
-                                    st.session_state.df_edited.loc[mask, 'standard_name'] = target_standard
-                                st.session_state.edit_history.append(f"Move '{name[:50]}...' from {entity_id} to {target_entity_id}")
+                            selected_formatted = st.selectbox(
+                                "Select target group:",
+                                options=formatted_options,
+                                index=default_idx,
+                                key="move_target_group"
+                            )
                             
-                            # Update component_size for both groups
-                            for eid in [entity_id, target_entity_id]:
-                                size = len(st.session_state.df_edited[st.session_state.df_edited['entity_id'] == eid])
-                                if size > 0:  # Only update if group still exists
-                                    st.session_state.df_edited.loc[
-                                        st.session_state.df_edited['entity_id'] == eid,
-                                        'component_size'
-                                    ] = size
-                            
-                            st.session_state.changes_made = True
-                            st.success(f"✓ {len(names_to_move)} name(s) moved")
-                            
-                            # If original group is empty, clear selection
-                            remaining_in_group = len(st.session_state.df_edited[
-                                st.session_state.df_edited['entity_id'] == entity_id
-                            ])
-                            if remaining_in_group == 0:
-                                st.session_state.selected_entity_id = None
-                                st.info("The original group is now empty and was removed")
-                            
-                            st.rerun()
+                            # Extract entity_id from formatted string
+                            target_entity_id = id_to_formatted_dict[selected_formatted]
+                        else:
+                            st.warning("No groups found matching your search.")
+                            target_entity_id = None
+                        
+                        if st.button("✅ Move Names", type="primary", disabled=(target_entity_id is None)):
+                            if target_entity_id is None:
+                                st.error("Please select a valid target group.")
+                            else:
+                                # Get standard_name of target group before moving
+                                target_group = st.session_state.df_edited[
+                                    st.session_state.df_edited['entity_id'] == target_entity_id
+                                ]
+                                target_standard = target_group.iloc[0]['standard_name'] if len(target_group) > 0 else None
+                                
+                                # Move all selected names
+                                for name in names_to_move:
+                                    mask = (st.session_state.df_edited['entity_id'] == entity_id) & \
+                                           (st.session_state.df_edited['original_name'] == name)
+                                    st.session_state.df_edited.loc[mask, 'entity_id'] = target_entity_id
+                                    if target_standard:
+                                        st.session_state.df_edited.loc[mask, 'standard_name'] = target_standard
+                                    st.session_state.edit_history.append(f"Move '{name[:50]}...' from {entity_id} to {target_entity_id}")
+                                
+                                # Update component_size for both groups
+                                for eid in [entity_id, target_entity_id]:
+                                    size = len(st.session_state.df_edited[st.session_state.df_edited['entity_id'] == eid])
+                                    if size > 0:  # Only update if group still exists
+                                        st.session_state.df_edited.loc[
+                                            st.session_state.df_edited['entity_id'] == eid,
+                                            'component_size'
+                                        ] = size
+                                
+                                st.session_state.changes_made = True
+                                st.success(f"✓ {len(names_to_move)} name(s) moved")
+                                
+                                # If original group is empty, clear selection
+                                remaining_in_group = len(st.session_state.df_edited[
+                                    st.session_state.df_edited['entity_id'] == entity_id
+                                ])
+                                if remaining_in_group == 0:
+                                    st.session_state.selected_entity_id = None
+                                    st.info("The original group is now empty and was removed")
+                                
+                                st.rerun()
                 
                 # OPTION 2: Split group
                 elif edit_option == "Split group (create new group)":
@@ -1434,11 +1717,37 @@ def main():
                 elif edit_option == "Merge with another group":
                     st.subheader("Merge with Another Group")
                     
-                    all_entity_ids = sorted(st.session_state.df_edited['entity_id'].unique().tolist())
-                    target_entity_id = st.selectbox(
-                        "Select group to merge with:",
-                        options=[eid for eid in all_entity_ids if eid != entity_id]
+                    # Sort entity IDs numerically
+                    all_entity_ids = sort_entity_ids_numerically(
+                        st.session_state.df_edited['entity_id'].unique().tolist()
                     )
+                    
+                    # Search filter for groups
+                    search_filter = st.text_input(
+                        "🔍 Search groups by ID or name:",
+                        key="merge_search_filter",
+                        placeholder="Type to filter groups..."
+                    )
+                    
+                    formatted_options, id_to_formatted_dict = format_group_options(
+                        st.session_state.df_edited, 
+                        all_entity_ids,
+                        exclude_id=entity_id,
+                        search_filter=search_filter
+                    )
+                    
+                    if formatted_options:
+                        selected_formatted = st.selectbox(
+                            "Select group to merge with:",
+                            options=formatted_options,
+                            key="merge_target_group"
+                        )
+                        
+                        # Extract entity_id from formatted string
+                        target_entity_id = id_to_formatted_dict.get(selected_formatted)
+                    else:
+                        st.warning("No groups found matching your search.")
+                        target_entity_id = None
                     
                     if target_entity_id:
                         target_info = st.session_state.df_edited[
@@ -1469,6 +1778,9 @@ def main():
                             st.success(f"✓ Groups merged into {target_entity_id}")
                             st.session_state.selected_entity_id = None
                             st.rerun()
+                    elif target_entity_id is None and formatted_options is not None:
+                        # Show message if search filter returned no results
+                        st.info("Please select a group from the dropdown above or adjust your search filter.")
                 
                 # OPTION 4: Change standard name
                 elif edit_option == "Change standard name":

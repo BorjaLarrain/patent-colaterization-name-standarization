@@ -8,7 +8,7 @@ This pipeline standardizes financial and non-financial entity names by grouping 
 2. **Normalization**: Cleans and standardizes names (removes functional roles, normalizes legal suffixes, handles punctuation)
 3. **Blocking**: Groups names by first word to reduce computational complexity
 4. **Fuzzy Matching**: Uses WRatio (88% similarity threshold) to find similar names within blocks and builds connected components
-5. **Grouping**: Assigns unique entity IDs and selects standard names (preferring highest frequency, then shortest)
+5. **Grouping**: Assigns unique entity IDs and selects standard names using root-name simplification (aggregates frequencies by root, preferring highest frequency root)
 6. **Validation**: Identifies problematic groups (low similarity, large groups) for manual review
 7. **Complete Mapping**: Adds singleton names (without matches) as unique entities
 
@@ -86,7 +86,11 @@ Cleans and standardizes names:
 
 ### Phase 5: Grouping
 - Assigns unique `entity_id` to each component
-- Selects `standard_name` (highest frequency, then shortest)
+- Selects `standard_name` using root-name simplification:
+  - Extracts root names by removing legal suffixes (AG, INC, LLC, etc.) and branch/location tokens (BRANCH, TRUST, AMERICAS, etc.)
+  - Aggregates frequencies by root name (sums all variants sharing the same root)
+  - Chooses the root with highest total frequency; if tie, prefers shortest underlying name
+  - Returns the simplified root as `standard_name` (e.g., "CREDIT SUISSE" instead of "CREDIT SUISSE AG CAYMAN ISLANDS BRANCH")
 - Identifies problematic cases for review
 - **Output:** `results/final/*_entity_mapping.csv`, `*_review_cases.csv`
 
@@ -136,7 +140,7 @@ Cleans and standardizes names:
 
 ## Important Notes
 
-1. **`standard_name` is the definitive name** to use in subsequent analyses
+1. **`standard_name` is the definitive name** to use in subsequent analyses. It is a simplified root name (e.g., "CREDIT SUISSE", "DEUTSCHE BANK") that removes legal suffixes and branch/location qualifiers for better recognizability
 2. **The `_complete.csv` file includes ALL names**, not just those with matches
 3. **Singletons** (names without matches) have `component_size = 1` and `standard_name = normalized_name`
 4. **Manual review** is important to identify and correct false positives

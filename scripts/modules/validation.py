@@ -8,15 +8,6 @@ import pandas as pd
 import json
 from pathlib import Path
 from datetime import datetime
-from rapidfuzz import fuzz
-
-# Nombres de referencia de la Figura 10
-REFERENCE_NAMES = [
-    "BANK OF AMERICA", "SILICON VALLEY BANK", "WELLS FARGO", "JPMORGAN",
-    "CITI", "GENERAL ELECTRIC CAPITAL", "COMERICA", "CREDIT SUISSE",
-    "BANK OF NEW YORK", "FLEET", "PNC BANK", "WILMINGTON TRUST",
-    "DEUTSCHE BANK", "US BANK", "WACHOVIA"
-]
 
 # Umbrales para validación
 LOW_SIMILARITY_THRESHOLD = 90.0
@@ -111,12 +102,11 @@ def run_validation(financial_mapping, non_financial_mapping, financial_component
 
 
 def validate_component_quality(df, component_indices, matches_df, name_column='normalized_name'):
-    """Valida la calidad de un componente y identifica problemas potenciales."""
+    """Valida la calidad de un componente e identifica problemas potenciales."""
     if len(component_indices) == 1:
         return {
             'is_valid': True,
-            'issues': [],
-            'reference_match': None
+            'issues': []
         }
     
     component_matches = matches_df[
@@ -127,8 +117,7 @@ def validate_component_quality(df, component_indices, matches_df, name_column='n
     if len(component_matches) == 0:
         return {
             'is_valid': False,
-            'issues': ['No hay matches dentro del componente'],
-            'reference_match': None
+            'issues': ['No hay matches dentro del componente']
         }
     
     similarities = component_matches['similarity'].tolist()
@@ -146,24 +135,11 @@ def validate_component_quality(df, component_indices, matches_df, name_column='n
     if len(component_indices) > LARGE_GROUP_SIZE:
         issues.append(f'Grupo muy grande: {len(component_indices)} nombres')
     
-    # Verificar nombres de referencia
-    reference_match = None
-    component_names = [df.loc[idx, name_column] for idx in component_indices]
-    for name in component_names:
-        for ref in REFERENCE_NAMES:
-            similarity = fuzz.WRatio(name.upper(), ref.upper())
-            if similarity >= 80:
-                reference_match = ref
-                break
-        if reference_match:
-            break
-    
     is_valid = len(issues) == 0
     
     return {
         'is_valid': is_valid,
-        'issues': issues,
-        'reference_match': reference_match
+        'issues': issues
     }
 
 
@@ -196,8 +172,7 @@ def validate_all_components(mapping_df, components, matches_df, name_column='nor
             'component_id': component_id,
             'size': len(component_indices),
             'is_valid': validation['is_valid'],
-            'issues': '; '.join(validation['issues']) if validation['issues'] else None,
-            'reference_match': validation['reference_match']
+            'issues': '; '.join(validation['issues']) if validation['issues'] else None
         })
         
         if not validation['is_valid']:
