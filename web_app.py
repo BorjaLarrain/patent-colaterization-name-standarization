@@ -22,6 +22,7 @@ from datetime import datetime
 import re
 import sys
 import logging
+import html
 from database_manager import EntityDatabase
 
 # Configure logging to reduce noise
@@ -1543,7 +1544,15 @@ def main():
                 with col2:
                     st.metric("Total Frequency", f"{entity_data['frequency'].sum():,}")
                 with col3:
-                    st.metric("Standard Name", entity_data.iloc[0]['standard_name'][:30] + "...")
+                    # Display full standard name with proper wrapping
+                    standard_name = entity_data.iloc[0]['standard_name']
+                    st.markdown("**Standard Name**")
+                    # Display full name with wrapping - styled to match metric appearance
+                    escaped_name = html.escape(standard_name)
+                    st.markdown(
+                        f'<div style="font-size: 1.5rem; font-weight: 600; color: rgb(49, 51, 63); word-wrap: break-word; overflow-wrap: break-word; white-space: normal; line-height: 1.4; padding-top: 0.5rem;">{escaped_name}</div>',
+                        unsafe_allow_html=True
+                    )
                 with col4:
                     current_size = entity_data.iloc[0]['component_size']
                     st.metric("Current Size", current_size)
@@ -1669,11 +1678,70 @@ def main():
                 elif edit_option == "Split group (create new group)":
                     st.subheader("Split Group")
                     
-                    names_to_split = st.multiselect(
-                        "Select names to create a new group:",
-                        options=entity_data['original_name'].tolist(),
-                        default=[]
-                    )
+                    # Get all available names
+                    available_names = entity_data['original_name'].tolist()
+                    
+                    # Use a unique key for checkbox states
+                    checkbox_key_prefix = f"split_checkbox_{entity_id}"
+                    
+                    # Initialize session state for selected names if not exists
+                    selected_key = f"split_selected_{entity_id}"
+                    if selected_key not in st.session_state:
+                        st.session_state[selected_key] = []
+                    
+                    # Create columns for Select All / Clear All buttons
+                    col1, col2, col3 = st.columns([1, 1, 2])
+                    with col1:
+                        if st.button("📋 Select All", key=f"split_select_all_{entity_id}"):
+                            st.session_state[selected_key] = available_names.copy()
+                            # Initialize all checkboxes to True
+                            for name in available_names:
+                                st.session_state[f"{checkbox_key_prefix}_{name}"] = True
+                            st.rerun()
+                    with col2:
+                        if st.button("🗑️ Clear All", key=f"split_clear_all_{entity_id}"):
+                            st.session_state[selected_key] = []
+                            # Initialize all checkboxes to False
+                            for name in available_names:
+                                st.session_state[f"{checkbox_key_prefix}_{name}"] = False
+                            st.rerun()
+                    
+                    st.markdown("**Select names to create a new group (check multiple boxes):**")
+                    
+                    # Create a scrollable container for checkboxes
+                    with st.container():
+                        # Use columns for better layout (2 columns)
+                        num_cols = 2
+                        cols = st.columns(num_cols)
+                        
+                        names_to_split = []
+                        for idx, name in enumerate(available_names):
+                            col_idx = idx % num_cols
+                            checkbox_key = f"{checkbox_key_prefix}_{name}"
+                            
+                            # Initialize checkbox state if not exists (use previous selection if available)
+                            if checkbox_key not in st.session_state:
+                                st.session_state[checkbox_key] = name in st.session_state[selected_key]
+                            
+                            # Create checkbox - Streamlit will manage the state via the key
+                            with cols[col_idx]:
+                                checked = st.checkbox(
+                                    name,
+                                    value=st.session_state[checkbox_key],
+                                    key=checkbox_key
+                                )
+                                
+                                if checked:
+                                    names_to_split.append(name)
+                        
+                        # Update session state with current selection
+                        st.session_state[selected_key] = names_to_split.copy()
+                    
+                    # Show selection count
+                    if names_to_split:
+                        st.info(f"✓ {len(names_to_split)} name(s) selected for the new group")
+                    elif len(available_names) > 0:
+                        st.caption(f"💡 Tip: Check the boxes above to select multiple names. {len(available_names)} name(s) available.")
                     
                     if names_to_split:
                         if st.button("✅ Create New Group", type="primary"):
