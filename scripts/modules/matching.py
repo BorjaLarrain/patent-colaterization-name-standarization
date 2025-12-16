@@ -71,6 +71,15 @@ def run_matching(financial_df, non_financial_df, financial_blocks, non_financial
     financial_components = find_connected_components(financial_graph, financial_df)
     print(f"   ✓ {len(financial_components):,} grupos encontrados")
     
+    # Validar y dividir componentes con conexiones transitivas débiles
+    print("\n2.0. Validando componentes (eliminando conexiones transitivas débiles)...")
+    print("   Financial entities:")
+    financial_components = validate_and_split_components(
+        financial_components, financial_df, financial_matches, 'normalized_name', 
+        min_pairwise_similarity=88
+    )
+    print(f"   ✓ {len(financial_components):,} grupos después de validación")
+    
     # Post-procesamiento: fusionar entidades relacionadas que comparten las primeras dos palabras
     print("\n2.1. Fusionando entidades relacionadas (mismo nombre base)...")
     print("   Financial entities:")
@@ -84,6 +93,14 @@ def run_matching(financial_df, non_financial_df, financial_blocks, non_financial
     non_financial_graph = create_match_graph(non_financial_matches)
     non_financial_components = find_connected_components(non_financial_graph, non_financial_df)
     print(f"   ✓ {len(non_financial_components):,} grupos encontrados")
+    
+    # Validar componentes non-financial también
+    print("   Non-financial entities:")
+    non_financial_components = validate_and_split_components(
+        non_financial_components, non_financial_df, non_financial_matches, 'normalized_name',
+        min_pairwise_similarity=85
+    )
+    print(f"   ✓ {len(non_financial_components):,} grupos después de validación")
     
     # Post-procesamiento para non-financial
     print("   Non-financial entities:")
@@ -260,6 +277,106 @@ def find_connected_components(graph, df):
         components.append({node})
     
     return components
+
+
+def validate_and_split_components(components, df, matches_list, name_column='normalized_name', 
+                                  min_pairwise_similarity=85):
+    """
+    Valida componentes y los divide si contienen pares con similitud muy baja.
+    
+    Esto previene falsos positivos causados por cierre transitivo débil:
+    Si A→B (88%) y B→C (88%), pero A↔C solo tiene 83%, el componente
+    se divide para separar A-C.
+    
+    Args:
+        components: Lista de componentes (sets de índices)
+        df: DataFrame con nombres normalizados
+        matches_list: Lista de matches como (idx1, idx2, similarity)
+        name_column: Columna con nombres normalizados
+        min_pairwise_similarity: Similitud mínima entre cualquier par en un componente
+        
+    Returns:
+        Lista de componentes validados (potencialmente divididos)
+    """
+    # Crear diccionario de similitudes para acceso rápido
+    similarity_dict = {}
+    for idx1, idx2, sim in matches_list:
+        similarity_dict[(idx1, idx2)] = sim
+        similarity_dict[(idx2, idx1)] = sim
+    
+    validated_components = []
+    split_count = 0
+    
+    for component in components:
+        if len(component) <= 1:
+            # Singletons no necesitan validación
+            validated_components.append(component)
+            continue
+        
+        # Calcular similitud entre todos los pares en el componente
+        component_list = list(component)
+        min_similarity = 100.0
+        weak_pairs = []
+        
+        for i, idx1 in enumerate(component_list):
+            for idx2 in component_list[i+1:]:
+                # Buscar similitud en matches directos
+                sim = similarity_dict.get((idx1, idx2), None)
+                
+                if sim is None:
+                    # Si no hay match directo, calcularlo (puede ser conexión transitiva)
+                    name1 = df.loc[idx1, name_column]
+                    name2 = df.loc[idx2, name_column]
+                    sim = calculate_similarity(name1, name2)
+                
+                if sim < min_similarity:
+                    min_similarity = sim
+                
+                # Guardar pares débiles (por debajo del umbral)
+                if sim < min_pairwise_similarity:
+                    weak_pairs.append((idx1, idx2, sim))
+        
+        # Si todos los pares tienen buena similitud, mantener el componente intacto
+        if min_similarity >= min_pairwise_similarity:
+            validated_components.append(component)
+        else:
+            # Hay pares débiles: necesitamos dividir el componente
+            # Usar el grafo de matches pero excluyendo edges débiles
+            split_count += 1
+            
+            # Crear subgrafo solo con edges fuertes (>= min_pairwise_similarity)
+            strong_graph = defaultdict(set)
+            for idx1, idx2, sim in matches_list:
+                if idx1 in component and idx2 in component and sim >= min_pairwise_similarity:
+                    strong_graph[idx1].add(idx2)
+                    strong_graph[idx2].add(idx1)
+            
+            # Encontrar componentes conectados en el subgrafo fuerte
+            visited = set()
+            
+            def dfs(node, sub_component):
+                visited.add(node)
+                sub_component.add(node)
+                for neighbor in strong_graph.get(node, []):
+                    if neighbor not in visited and neighbor in component:
+                        dfs(neighbor, sub_component)
+            
+            for idx in component:
+                if idx not in visited:
+                    sub_component = set()
+                    dfs(idx, sub_component)
+                    if sub_component:
+                        validated_components.append(sub_component)
+            
+            # Agregar nodos que quedaron aislados (sin conexiones fuertes)
+            isolated = component - visited
+            for idx in isolated:
+                validated_components.append({idx})
+    
+    if split_count > 0:
+        print(f"   → {split_count} componentes divididos por similitud mínima baja")
+    
+    return validated_components
 
 
 def merge_related_entities_by_first_two_words(components, df, name_column='normalized_name', 

@@ -19,6 +19,9 @@ LEGAL_SUFFIXES = {
     'NA', 'N.A', 'N.A.'  # National Association suffix
 }
 
+# Suffixes to keep in standard names (not removed during root name extraction)
+KEEP_SUFFIXES = {'LLC', 'NA', 'N.A', 'N.A.', 'CORP', 'CO'}
+
 # Branch, location, and geographic tokens to always strip
 # NOTE: "TRUST" and "COMPANY" are kept here - they'll be stripped from non-exception names
 # but exceptions are checked FIRST, so they won't be stripped from exception names
@@ -338,7 +341,8 @@ def extract_root_name(name: str) -> str:
                 return exception_upper
         
         # Solo continuar eliminando si el token actual está en nuestras listas de stripping
-        if i > 0 and (tokens[i-1] in LEGAL_SUFFIXES or tokens[i-1] in BRANCH_GEO_TOKENS):
+        # PERO preservar los sufijos en KEEP_SUFFIXES
+        if i > 0 and (tokens[i-1] in LEGAL_SUFFIXES or tokens[i-1] in BRANCH_GEO_TOKENS) and tokens[i-1] not in KEEP_SUFFIXES:
             continue
         else:
             # Si llegamos a un token que no está en las listas, no tiene sentido seguir
@@ -352,7 +356,8 @@ def extract_root_name(name: str) -> str:
     while i >= 0:
         token = tokens[i]
         # Si es un sufijo legal o token geográfico/sucursal, saltarlo
-        if token in LEGAL_SUFFIXES or token in BRANCH_GEO_TOKENS:
+        # PERO preservar los sufijos en KEEP_SUFFIXES
+        if (token in LEGAL_SUFFIXES or token in BRANCH_GEO_TOKENS) and token not in KEEP_SUFFIXES:
             i -= 1
             continue
         # Si llegamos aquí, es un token que queremos mantener
@@ -361,7 +366,8 @@ def extract_root_name(name: str) -> str:
     
     # También eliminar cualquier token restante que sea sufijo/geográfico en el medio
     # (por si acaso quedó alguno)
-    final_tokens = [t for t in filtered_tokens if t not in LEGAL_SUFFIXES and t not in BRANCH_GEO_TOKENS]
+    # PERO preservar los sufijos en KEEP_SUFFIXES
+    final_tokens = [t for t in filtered_tokens if (t not in LEGAL_SUFFIXES and t not in BRANCH_GEO_TOKENS) or t in KEEP_SUFFIXES]
     
     # Asegurar que al menos quede un token
     if not final_tokens:

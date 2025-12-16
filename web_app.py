@@ -1175,7 +1175,7 @@ def main():
             total_entities = st.session_state.df_edited['entity_id'].nunique()
             total_names = len(st.session_state.df_edited)
             if total_entities > 1000:
-                st.info(f"ℹ️ **Optimization active**: With {total_entities:,} entities, it's recommended to use filters to improve performance. Singletons are hidden by default.")
+                st.info(f"ℹ️ **Optimization active**: With {total_entities:,} entities, it's recommended to use filters to improve performance. Use 'All' to see all groups including singletons.")
         
         # Filters
         col1, col2, col3, col4 = st.columns(4)
@@ -1188,7 +1188,7 @@ def main():
         with col2:
             filter_size = st.selectbox(
                 "Filter by Size",
-                ['No Singletons (<2)', 'All', 'Large (>20)', 'Medium (5-20)', 'Small (2-5)'],
+                ['No Singletons (<2)', 'All', 'Only Singletons (=1)', 'Large (>20)', 'Medium (5-20)', 'Small (2-5)'],
                 index=0  # Hide singletons by default
             )
         with col3:
@@ -1211,8 +1211,10 @@ def main():
         for entity_id, names in grouped.items():
             stats = calculate_group_stats(names)
             
-            # Filter by size (hide singletons by default)
+            # Filter by size
             if filter_size == 'No Singletons (<2)' and stats['names_count'] < 2:
+                continue
+            elif filter_size == 'Only Singletons (=1)' and stats['names_count'] != 1:
                 continue
             elif filter_size == 'Large (>20)' and stats['names_count'] <= 20:
                 continue
@@ -1220,6 +1222,7 @@ def main():
                 continue
             elif filter_size == 'Small (2-5)' and not (2 <= stats['names_count'] < 5):
                 continue
+            # When filter_size == 'All', no filtering is applied (show all groups including singletons)
             
             # Filter by review
             if filter_review and not any(n.get('needs_review', False) for n in names):
@@ -1247,8 +1250,9 @@ def main():
                 key=lambda x: calculate_group_stats(x[1])['names_count'],
                 reverse=True
             )
-        else:
-            sorted_groups = sorted(filtered_groups.items())
+        else:  # Sort by Entity ID
+            sorted_entity_ids = sort_entity_ids_numerically(list(filtered_groups.keys()))
+            sorted_groups = [(eid, filtered_groups[eid]) for eid in sorted_entity_ids]
         
         # Pagination controls - moved to main content area
         groups_per_page = st.session_state.groups_per_page
