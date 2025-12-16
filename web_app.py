@@ -826,16 +826,6 @@ def main():
     
     st.title("🔍 Entity Review and Editing")
     
-    # Note about WebSocket errors (collapsible)
-    with st.expander("ℹ️ Note about terminal errors"):
-        st.info("""
-        If you see `WebSocketClosedError` errors in the terminal, **don't worry**. 
-        These are common and harmless Streamlit errors that occur when the browser 
-        closes the connection unexpectedly. **They do not affect the application's functionality.**
-        
-        You can ignore them completely. The application will continue to work normally.
-        """)
-    
     st.markdown("---")
     
     # Sidebar: Entity type selection
