@@ -924,7 +924,7 @@ def main():
                 if st.button("📥 Export to CSV", help="Export current data to CSV"):
                     try:
                         db = get_database()
-                        export_path = MANUAL_REVIEW_DIR / f"{entity_type}_exported_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+                        export_path = MANUAL_REVIEW_DIR / f"{entity_type}_entities_standardized.csv"
                         db.export_to_csv(entity_type, export_path)
                         st.success(f"✓ Exported to: {export_path.name}")
                     except Exception as e:

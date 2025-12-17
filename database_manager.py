@@ -10,6 +10,7 @@ import pandas as pd
 from pathlib import Path
 from datetime import datetime
 import json
+import re
 from typing import Optional, List, Tuple
 
 class EntityDatabase:
@@ -165,11 +166,24 @@ class EntityDatabase:
                 CASE WHEN needs_review = 1 THEN 1 ELSE 0 END as needs_review
             FROM entities
             WHERE entity_type = ?
-            ORDER BY entity_id, frequency DESC
         """
         
         df = pd.read_sql_query(query, conn, params=(entity_type,))
         conn.close()
+        
+        # Sort entity_id numerically instead of lexicographically
+        # Extract numeric part from entity_id (e.g., "financial_123" -> 123)
+        def extract_numeric_key(entity_id):
+            """Extract numeric part for sorting"""
+            match = re.search(r'_(\d+)$', str(entity_id))
+            if match:
+                return int(match.group(1))
+            return 0
+        
+        # Sort by entity_id numerically, then by frequency descending
+        df['_sort_key'] = df['entity_id'].apply(extract_numeric_key)
+        df = df.sort_values(by=['_sort_key', 'frequency'], ascending=[True, False])
+        df = df.drop(columns=['_sort_key'])
         
         return df
     
@@ -268,6 +282,8 @@ class EntityDatabase:
             output_path: Ruta donde guardar el CSV
         """
         df = self.load_entities(entity_type)
+        # Filter to only include required columns
+        df = df[['entity_id', 'original_name', 'standard_name', 'frequency', 'component_size']]
         df.to_csv(output_path, index=False)
     
     def get_statistics(self, entity_type: str) -> dict:
