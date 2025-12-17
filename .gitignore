@@ -1,4 +1,4 @@
 .cursor/
 .DS_Store
 __pycache__/
-entities.db
+database/entities.db
