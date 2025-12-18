@@ -464,6 +464,12 @@ Ejemplos de uso:
         help='Incluir fase de validación (por defecto se omite, útil si NO usas Streamlit)'
     )
     
+    parser.add_argument(
+        '--yes',
+        action='store_true',
+        help='Ejecutar sin confirmación manual (útil para scripts automatizados)'
+    )
+    
     args = parser.parse_args()
     
     base_dir = Path(__file__).parent.parent
@@ -471,6 +477,26 @@ Ejemplos de uso:
     # Por defecto, omitir validación (útil si usas Streamlit)
     # Usar --with-validation para incluirla
     skip_val = not args.with_validation
+    
+    # Solicitar confirmación manual antes de ejecutar
+    if not args.yes:
+        if args.phase:
+            print(f"\n⚠️  Se ejecutará la fase: {args.phase}")
+        else:
+            print("\n⚠️  Se ejecutará el PIPELINE COMPLETO")
+            if skip_val:
+                print("   (Omitiendo validación - usa --with-validation para incluirla)")
+        
+        print("\n¿Desea continuar? (yes/no): ", end='', flush=True)
+        try:
+            response = input().strip().lower()
+            if response not in ['yes', 'y', 'sí', 'si']:
+                print("\n❌ Ejecución cancelada por el usuario.")
+                sys.exit(0)
+        except (KeyboardInterrupt, EOFError):
+            print("\n\n❌ Ejecución cancelada por el usuario.")
+            sys.exit(0)
+        print()
     
     if args.phase:
         print(f"Ejecutando fase: {args.phase}")
