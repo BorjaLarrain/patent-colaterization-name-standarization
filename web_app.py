@@ -740,6 +740,11 @@ def format_group_options(df, entity_ids, exclude_id=None, search_filter=""):
         - formatted_options: List of formatted strings like "financial_0 - Standard Name"
         - id_to_formatted_dict: Dictionary mapping entity_id to formatted string
     """
+    # OPTIMIZATION: Pre-compute entity_id -> standard_name mapping using groupby
+    # This is much faster than filtering the DataFrame for each entity_id
+    # (prevents O(n*m) complexity where n=entities, m=rows)
+    entity_to_standard = df.groupby('entity_id')['standard_name'].first().to_dict()
+    
     formatted_options = []
     id_to_formatted_dict = {}
     search_lower = search_filter.lower() if search_filter else ""
@@ -748,20 +753,21 @@ def format_group_options(df, entity_ids, exclude_id=None, search_filter=""):
         if exclude_id and eid == exclude_id:
             continue
         
-        # Get standard name for this entity
-        entity_rows = df[df['entity_id'] == eid]
-        if len(entity_rows) > 0:
-            standard_name = entity_rows.iloc[0]['standard_name']
-            formatted = f"{eid} - {standard_name}"
-            
-            # Apply search filter if provided
-            if search_filter:
-                if (search_lower not in eid.lower() and 
-                    search_lower not in standard_name.lower()):
-                    continue
-            
-            formatted_options.append(formatted)
-            id_to_formatted_dict[formatted] = eid
+        # Get standard name from pre-computed dictionary (O(1) lookup)
+        standard_name = entity_to_standard.get(eid)
+        if standard_name is None:
+            continue
+        
+        formatted = f"{eid} - {standard_name}"
+        
+        # Apply search filter if provided
+        if search_filter:
+            if (search_lower not in eid.lower() and 
+                search_lower not in standard_name.lower()):
+                continue
+        
+        formatted_options.append(formatted)
+        id_to_formatted_dict[formatted] = eid
     
     return formatted_options, id_to_formatted_dict
 
