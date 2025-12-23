@@ -1,0 +1,344 @@
+"""
+Módulo de Blocking
+=================
+Consolida los scripts de blocking (08-10) en un solo módulo.
+Crea bloques optimizados y guarda solo el resultado final.
+"""
+
+import pandas as pd
+import json
+from pathlib import Path
+from datetime import datetime
+from collections import defaultdict
+
+# Palabras genéricas que no son distintivas
+GENERIC_WORDS = {
+    'THE', 'BANK', 'COMPANY', 'CO', 'CORP', 'INC', 'LTD', 'LLC', 'LP',
+    'PLC', 'NA', 'TRUST', 'TRUSTEE', 'AGENT', 'ASSOCIATION', 'ASSOC',
+    'GROUP', 'GRP', 'HOLDINGS', 'HLDG', 'INTERNATIONAL', 'INTL', 'US',
+    'USA', 'NATIONAL', 'NATL'
+}
+
+# Preposiciones y artículos que no son distintivos
+PREPOSITIONS = {
+    'OF', 'AND', '&', 'FOR', 'IN', 'ON', 'AT', 'TO', 'BY', 'WITH', 'FROM'
+}
+
+# Umbral para considerar un bloque como "grande"
+# Aumentado para reducir sub-bloqueo innecesario que separa nombres relacionados
+LARGE_BLOCK_THRESHOLD = 200
+
+
+def create_blocks_single(entity_df, entity_type, base_dir=None):
+    """
+    Crea bloques optimizados para fuzzy matching para un solo tipo de entidad.
+    
+    Args:
+        entity_df: DataFrame con nombres normalizados (columna 'normalized_name')
+        entity_type: Tipo de entidad ('financial_security', 'financial_release', etc.)
+        base_dir: Directorio base del proyecto
+        
+    Returns:
+        Diccionario de bloques optimizados
+    """
+    if base_dir is None:
+        base_dir = Path(__file__).parent.parent.parent
+    
+    results_dir = base_dir / "results_transaction" / "intermediate"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    
+    print("=" * 80)
+    print(f"FASE 3: BLOCKING ({entity_type.upper()})")
+    print("=" * 80)
+    print(f"Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print()
+    
+    # Resetear índices
+    entity_df = entity_df.reset_index(drop=True)
+    
+    # Paso 3.1: Extraer claves de blocking
+    print("3.1. Extrayendo claves de blocking...")
+    entity_df['blocking_key'] = entity_df['normalized_name'].apply(extract_first_significant_word)
+    print(f"   ✓ Claves de blocking extraídas")
+    
+    # Paso 3.2: Crear bloques iniciales
+    print("3.2. Creando bloques iniciales...")
+    blocks = create_blocks_dict(entity_df, 'blocking_key')
+    print(f"   ✓ {len(blocks):,} bloques iniciales")
+    
+    # Paso 3.3: Optimizar bloques grandes
+    print("3.3. Optimizando bloques grandes...")
+    blocks_opt, sub_blocked = optimize_blocks(
+        entity_df, blocks, 'normalized_name', LARGE_BLOCK_THRESHOLD
+    )
+    print(f"   ✓ {sub_blocked} bloques sub-bloqueados")
+    
+    # Guardar bloques optimizados
+    print("\n4. Guardando bloques optimizados...")
+    output_file = results_dir / f"{entity_type}_blocks.json"
+    
+    blocks_json = {str(k): [int(i) for i in v] for k, v in blocks_opt.items()}
+    
+    with open(output_file, 'w', encoding='utf-8') as f:
+        json.dump(blocks_json, f, indent=2)
+    
+    print(f"   ✓ {output_file}")
+    
+    # Estadísticas
+    print("\n5. Estadísticas:")
+    print(f"   - Bloques finales: {len(blocks_opt):,}")
+    
+    print("\n" + "=" * 80)
+    print("RESUMEN")
+    print("=" * 80)
+    print(f"✓ Blocking completado para {entity_type}")
+    print(f"✓ Resultados guardados en: {results_dir}")
+    print("=" * 80)
+    
+    return blocks_opt
+
+
+def extract_first_significant_word(name):
+    """Extrae la primera palabra significativa de un nombre normalizado."""
+    if pd.isna(name) or not str(name).strip():
+        return None
+    
+    name_str = str(name).strip().upper()
+    words = name_str.split()
+    
+    if not words:
+        return None
+    
+    # Si empieza con "THE", tomar la segunda palabra
+    if words[0] == 'THE' and len(words) > 1:
+        first_word = words[1]
+    else:
+        first_word = words[0]
+    
+    # Si la primera palabra es muy genérica, buscar palabra significativa
+    if first_word in GENERIC_WORDS or first_word in PREPOSITIONS:
+        if len(words) >= 3 and words[0] in GENERIC_WORDS and words[1] == 'OF':
+            first_word = words[2]
+        elif len(words) > 1 and words[1] not in GENERIC_WORDS and words[1] not in PREPOSITIONS:
+            first_word = words[1]
+        elif len(words) > 2 and words[1] in PREPOSITIONS and words[2] not in GENERIC_WORDS and words[2] not in PREPOSITIONS:
+            first_word = words[2]
+        elif len(words) > 3 and words[3] not in GENERIC_WORDS and words[3] not in PREPOSITIONS:
+            first_word = words[3]
+        else:
+            for word in words[1:]:
+                if word not in PREPOSITIONS:
+                    first_word = word
+                    break
+    
+    # Limpiar la palabra
+    import re
+    first_word = re.sub(r'[^\w]', '', first_word)
+    
+    return first_word if first_word else None
+
+
+def create_blocks_dict(df, blocking_key_column='blocking_key'):
+    """Crea bloques agrupando nombres por su clave de blocking."""
+    blocks = defaultdict(list)
+    
+    for idx, row in df.iterrows():
+        blocking_key = row[blocking_key_column]
+        if pd.notna(blocking_key):
+            blocks[blocking_key].append(idx)
+    
+    return dict(blocks)
+
+
+def extract_second_word(name):
+    """Extrae la segunda palabra de un nombre normalizado."""
+    if pd.isna(name) or not str(name).strip():
+        return None
+    
+    words = str(name).strip().upper().split()
+    
+    if len(words) < 2:
+        return None
+    
+    return words[1] if words[1] else None
+
+
+def extract_first_two_words(name):
+    """Extrae las primeras dos palabras significativas de un nombre normalizado."""
+    if pd.isna(name) or not str(name).strip():
+        return None
+    
+    words = str(name).strip().upper().split()
+    
+    if len(words) < 2:
+        return None
+    
+    # Obtener primera y segunda palabra, saltando palabras genéricas
+    first_word = words[0]
+    if first_word == 'THE' and len(words) > 1:
+        first_word = words[1] if len(words) > 1 else None
+        second_word = words[2] if len(words) > 2 else None
+    else:
+        second_word = words[1] if len(words) > 1 else None
+    
+    # Si alguna palabra es genérica, intentar obtener la siguiente significativa
+    if first_word in GENERIC_WORDS or first_word in PREPOSITIONS:
+        if len(words) > 1:
+            first_word = words[1]
+            second_word = words[2] if len(words) > 2 else None
+    
+    if second_word in GENERIC_WORDS or second_word in PREPOSITIONS:
+        if len(words) > 2:
+            second_word = words[2]
+        elif len(words) > 3:
+            second_word = words[3]
+        else:
+            second_word = None
+    
+    if first_word and second_word:
+        return f"{first_word}_{second_word}"
+    elif first_word:
+        return first_word
+    else:
+        return None
+
+
+def extract_name_length_category(name):
+    """Categoriza un nombre por su longitud."""
+    if pd.isna(name):
+        return "UNKNOWN"
+    
+    length = len(str(name))
+    
+    if length <= 15:
+        return "SHORT"
+    elif length <= 30:
+        return "MEDIUM"
+    elif length <= 50:
+        return "LONG"
+    else:
+        return "VERY_LONG"
+
+
+def sub_block_by_second_word(df, block_indices, name_column='normalized_name'):
+    """Aplica sub-bloqueo por segunda palabra."""
+    sub_blocks = defaultdict(list)
+    
+    for idx in block_indices:
+        name = df.loc[idx, name_column]
+        second_word = extract_second_word(name)
+        
+        if second_word:
+            sub_blocks[second_word].append(idx)
+        else:
+            sub_blocks["_NO_SECOND_WORD"].append(idx)
+    
+    return dict(sub_blocks)
+
+
+def sub_block_by_first_two_words(df, block_indices, name_column='normalized_name'):
+    """Aplica sub-bloqueo por primeras dos palabras significativas.
+    Esto preserva nombres relacionados que comparten las mismas dos primeras palabras."""
+    sub_blocks = defaultdict(list)
+    
+    for idx in block_indices:
+        name = df.loc[idx, name_column]
+        two_words_key = extract_first_two_words(name)
+        
+        if two_words_key:
+            sub_blocks[two_words_key].append(idx)
+        else:
+            sub_blocks["_NO_TWO_WORDS"].append(idx)
+    
+    return dict(sub_blocks)
+
+
+def sub_block_by_length(df, block_indices, name_column='normalized_name'):
+    """Aplica sub-bloqueo por longitud del nombre."""
+    sub_blocks = defaultdict(list)
+    
+    for idx in block_indices:
+        name = df.loc[idx, name_column]
+        length_cat = extract_name_length_category(name)
+        sub_blocks[length_cat].append(idx)
+    
+    return dict(sub_blocks)
+
+
+def optimize_blocks(df, blocks, name_column='normalized_name', threshold=LARGE_BLOCK_THRESHOLD):
+    """
+    Optimiza bloques grandes aplicando sub-bloqueo inteligente.
+    
+    Estrategia mejorada:
+    1. Primero intenta sub-bloqueo por primeras dos palabras (preserva nombres relacionados)
+    2. Si eso no ayuda suficiente, intenta por segunda palabra
+    3. Solo como último recurso usa sub-bloqueo por longitud (evita separar nombres relacionados)
+    
+    Returns:
+        tuple: (optimized_blocks, sub_blocked_count)
+    """
+    optimized_blocks = {}
+    sub_blocked_count = 0
+    
+    for blocking_key, block_indices in blocks.items():
+        block_size = len(block_indices)
+        
+        # Si el bloque es pequeño, mantenerlo como está
+        if block_size <= threshold:
+            optimized_blocks[blocking_key] = block_indices
+        else:
+            # Bloque grande: aplicar sub-bloqueo inteligente
+            sub_blocked_count += 1
+            
+            # Estrategia 1: Sub-bloqueo por primeras dos palabras
+            # Esto preserva nombres relacionados como "CREDIT SUISSE", "CREDIT SUISSE AG", etc.
+            sub_blocks = sub_block_by_first_two_words(df, block_indices, name_column)
+            
+            # Verificar si el sub-bloqueo por dos palabras es efectivo
+            # Si crea suficientes sub-bloques (más del 40% del tamaño original), usarlo
+            if len(sub_blocks) >= block_size * 0.4:
+                # Buen sub-bloqueo: usar estos sub-bloques
+                pass
+            else:
+                # Estrategia 2: Intentar sub-bloqueo por segunda palabra
+                sub_blocks_second = sub_block_by_second_word(df, block_indices, name_column)
+                
+                # Si el sub-bloqueo por segunda palabra es mejor, usarlo
+                if len(sub_blocks_second) > len(sub_blocks):
+                    sub_blocks = sub_blocks_second
+                
+                # Estrategia 3: Solo si aún no es suficiente Y el bloque es muy grande (>500),
+                # aplicar sub-bloqueo por longitud como último recurso
+                # Pero solo si el bloque es extremadamente grande para evitar separar nombres relacionados
+                if len(sub_blocks) < block_size * 0.2 and block_size > 500:
+                    # Para bloques muy grandes, usar híbrido: primero por dos palabras, luego por longitud
+                    # dentro de cada sub-bloque de dos palabras
+                    hybrid_blocks = {}
+                    for two_word_key, two_word_indices in sub_blocks.items():
+                        if len(two_word_indices) > 200:  # Si el sub-bloque de dos palabras sigue siendo grande
+                            # Sub-bloquear por longitud dentro de este grupo
+                            length_sub_blocks = sub_block_by_length(df, two_word_indices, name_column)
+                            for length_key, length_indices in length_sub_blocks.items():
+                                hybrid_key = f"{two_word_key}_{length_key}"
+                                hybrid_blocks[hybrid_key] = length_indices
+                        else:
+                            # Mantener el sub-bloque de dos palabras como está
+                            hybrid_blocks[two_word_key] = two_word_indices
+                    sub_blocks = hybrid_blocks
+            
+            # Crear nuevas claves de bloque con formato: "ORIGINAL_KEY_SUBKEY"
+            for sub_key, sub_indices in sub_blocks.items():
+                new_key = f"{blocking_key}_{sub_key}"
+                optimized_blocks[new_key] = sub_indices
+    
+    return optimized_blocks, sub_blocked_count
+
+
+if __name__ == "__main__":
+    # Para ejecución independiente
+    base_dir = Path(__file__).parent.parent.parent
+    results_dir = base_dir / "results_transaction" / "intermediate"
+    
+    entity_df = pd.read_csv(results_dir / "financial_security_normalized.csv")
+    create_blocks_single(entity_df, "financial_security", base_dir)
+

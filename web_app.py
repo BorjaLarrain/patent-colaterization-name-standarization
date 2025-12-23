@@ -24,6 +24,7 @@ import sys
 import logging
 import html
 from database_manager import EntityDatabase
+from database_manager_transaction import EntityDatabaseTransaction
 
 # Configure logging to reduce noise
 logging.basicConfig(level=logging.WARNING)
@@ -32,11 +33,13 @@ logger = logging.getLogger(__name__)
 # Path configuration
 BASE_DIR = Path(__file__).parent
 RESULTS_DIR = BASE_DIR / "results" / "final"
+RESULTS_TRANSACTION_DIR = BASE_DIR / "results_transaction" / "final"
 MANUAL_REVIEW_DIR = BASE_DIR / "results" / "manual_review"
 MANUAL_REVIEW_DIR.mkdir(parents=True, exist_ok=True)
 DATABASE_DIR = BASE_DIR / "database"
 DATABASE_DIR.mkdir(parents=True, exist_ok=True)
 DB_PATH = DATABASE_DIR / "entities.db"
+DB_TRANSACTION_PATH = DATABASE_DIR / "entities_by_transaction.db"
 
 # Page configuration
 st.set_page_config(
@@ -508,46 +511,88 @@ def apply_dark_mode():
     if st.session_state.get('dark_mode', False):
         st.markdown(DARK_MODE_CSS, unsafe_allow_html=True)
 
-def get_database():
+def get_database(pipeline_type='original'):
     """Get or create the database instance"""
-    if 'db' not in st.session_state:
-        st.session_state.db = EntityDatabase(DB_PATH)
-    return st.session_state.db
+    if pipeline_type == 'transaction':
+        if 'db_transaction' not in st.session_state:
+            st.session_state.db_transaction = EntityDatabaseTransaction(DB_TRANSACTION_PATH)
+        return st.session_state.db_transaction
+    else:
+        if 'db' not in st.session_state:
+            st.session_state.db = EntityDatabase(DB_PATH)
+        return st.session_state.db
 
-def load_mapping_data(entity_type='financial', use_database=True):
+def load_mapping_data(entity_type='financial', use_database=True, pipeline_type='original', 
+                     transaction_type=None):
     """
     Load mapping data from database or CSV
     
     Args:
-        entity_type: Entity type ('financial' or 'non_financial')
+        entity_type: Entity type ('financial' or 'non_financial') for original pipeline,
+                     or full type ('financial_security', etc.) for transaction pipeline
         use_database: If True, use database. If False, use CSV
+        pipeline_type: 'original' or 'transaction'
+        transaction_type: 'security' or 'release' (only for transaction pipeline)
     """
     try:
-        if use_database:
-            db = get_database()
+        if pipeline_type == 'transaction':
+            # Transaction pipeline: entity_type is full type like 'financial_security'
+            if transaction_type:
+                # Build entity_type from components
+                if entity_type == 'financial':
+                    full_entity_type = f'financial_{transaction_type}'
+                else:
+                    full_entity_type = f'non_financial_{transaction_type}'
+            else:
+                # Assume entity_type is already full type
+                full_entity_type = entity_type
             
-            # Load entity_type directly (no transaction_type suffix)
-            try:
-                stats = db.get_statistics(entity_type)
-                if stats['total_names'] > 0:
-                    return db.load_entities(entity_type)
-            except:
-                pass
-            
-            # If no data in DB, try importing from CSV
-            csv_path = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
-            if csv_path.exists():
-                # Import from CSV to database
-                with st.spinner("Migrating data from CSV to database..."):
-                    db.import_from_csv(csv_path, entity_type, clear_existing=True)
-                return db.load_entities(entity_type)
-            return None
-        else:
-            # Load directly from CSV
-            file_path = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
-            if not file_path.exists():
+            if use_database:
+                db = get_database('transaction')
+                try:
+                    stats = db.get_statistics(full_entity_type)
+                    if stats['total_names'] > 0:
+                        return db.load_entities(full_entity_type)
+                except:
+                    pass
+                
+                # If no data in DB, try importing from CSV
+                csv_path = RESULTS_TRANSACTION_DIR / f"{full_entity_type}_entity_mapping_complete.csv"
+                if csv_path.exists():
+                    with st.spinner("Migrating data from CSV to database..."):
+                        db.import_from_csv(csv_path, full_entity_type, clear_existing=True)
+                    return db.load_entities(full_entity_type)
                 return None
-            return pd.read_csv(file_path)
+            else:
+                # Load directly from CSV
+                file_path = RESULTS_TRANSACTION_DIR / f"{full_entity_type}_entity_mapping_complete.csv"
+                if not file_path.exists():
+                    return None
+                return pd.read_csv(file_path)
+        else:
+            # Original pipeline
+            if use_database:
+                db = get_database('original')
+                try:
+                    stats = db.get_statistics(entity_type)
+                    if stats['total_names'] > 0:
+                        return db.load_entities(entity_type)
+                except:
+                    pass
+                
+                # If no data in DB, try importing from CSV
+                csv_path = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
+                if csv_path.exists():
+                    with st.spinner("Migrating data from CSV to database..."):
+                        db.import_from_csv(csv_path, entity_type, clear_existing=True)
+                    return db.load_entities(entity_type)
+                return None
+            else:
+                # Load directly from CSV
+                file_path = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
+                if not file_path.exists():
+                    return None
+                return pd.read_csv(file_path)
     except Exception as e:
         logger.error(f"Error loading data: {e}")
         return None
@@ -578,6 +623,10 @@ def initialize_session_state():
         st.session_state.last_filter_state = None
     if 'tab_switch_counter' not in st.session_state:
         st.session_state.tab_switch_counter = 0
+    if 'pipeline_type' not in st.session_state:
+        st.session_state.pipeline_type = 'original'
+    if 'transaction_type' not in st.session_state:
+        st.session_state.transaction_type = 'security'
 
 @st.cache_data
 def group_by_entity(df):
@@ -771,55 +820,78 @@ def format_group_options(df, entity_ids, exclude_id=None, search_filter=""):
     
     return formatted_options, id_to_formatted_dict
 
-def save_changes(df, entity_type='financial', backup=False, use_database=True):
+def save_changes(df, entity_type='financial', backup=False, use_database=True, 
+                pipeline_type='original', transaction_type=None):
     """
     Save changes to database or CSV
     
     Args:
         df: DataFrame with changes
-        entity_type: Entity type ('financial' or 'non_financial')
-        backup: Whether to create backup (default False, only created when explicitly requested)
+        entity_type: Entity type ('financial' or 'non_financial') for original pipeline,
+                     or full type for transaction pipeline
+        backup: Whether to create backup
         use_database: If True, save to database. If False, save CSV
-    
-    Returns:
-        Path of saved file or confirmation message
+        pipeline_type: 'original' or 'transaction'
+        transaction_type: 'security' or 'release' (only for transaction pipeline)
     """
-    if use_database:
-        try:
-            db = get_database()
-            
-            # Create database backup if requested
+    if pipeline_type == 'transaction':
+        # Build full entity type
+        if transaction_type:
+            if entity_type == 'financial':
+                full_entity_type = f'financial_{transaction_type}'
+            else:
+                full_entity_type = f'non_financial_{transaction_type}'
+        else:
+            full_entity_type = entity_type
+        
+        if use_database:
+            try:
+                db = get_database('transaction')
+                if backup:
+                    backup_path = db.backup_database()
+                db.update_entities(df, full_entity_type)
+                return f"Changes saved to database: {DB_TRANSACTION_PATH.name}"
+            except Exception as e:
+                logger.error(f"Error saving to database: {e}")
+                raise
+        else:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             if backup:
-                backup_path = db.backup_database()
-            
-            # Update entities in database (no transaction_type suffix)
-            db.update_entities(df, entity_type)
-            
-            return f"Changes saved to database: {DB_PATH.name}"
-        except Exception as e:
-            logger.error(f"Error saving to database: {e}")
-            raise
+                original_file = RESULTS_TRANSACTION_DIR / f"{full_entity_type}_entity_mapping_complete.csv"
+                if original_file.exists():
+                    backup_file = MANUAL_REVIEW_DIR / f"{full_entity_type}_backup_{timestamp}.csv"
+                    df_original = pd.read_csv(original_file)
+                    df_original.to_csv(backup_file, index=False)
+            edited_file = MANUAL_REVIEW_DIR / f"{full_entity_type}_entity_mapping_edited_{timestamp}.csv"
+            df.to_csv(edited_file, index=False)
+            latest_file = MANUAL_REVIEW_DIR / f"{full_entity_type}_entity_mapping_edited_latest.csv"
+            df.to_csv(latest_file, index=False)
+            return edited_file, latest_file
     else:
-        # Legacy mode: save CSV
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        
-        # Create backup if requested
-        if backup:
-            original_file = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
-            if original_file.exists():
-                backup_file = MANUAL_REVIEW_DIR / f"{entity_type}_backup_{timestamp}.csv"
-                df_original = pd.read_csv(original_file)
-                df_original.to_csv(backup_file, index=False)
-        
-        # Save edited file
-        edited_file = MANUAL_REVIEW_DIR / f"{entity_type}_entity_mapping_edited_{timestamp}.csv"
-        df.to_csv(edited_file, index=False)
-        
-        # Also save as "latest" file
-        latest_file = MANUAL_REVIEW_DIR / f"{entity_type}_entity_mapping_edited_latest.csv"
-        df.to_csv(latest_file, index=False)
-        
-        return edited_file, latest_file
+        # Original pipeline
+        if use_database:
+            try:
+                db = get_database('original')
+                if backup:
+                    backup_path = db.backup_database()
+                db.update_entities(df, entity_type)
+                return f"Changes saved to database: {DB_PATH.name}"
+            except Exception as e:
+                logger.error(f"Error saving to database: {e}")
+                raise
+        else:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            if backup:
+                original_file = RESULTS_DIR / f"{entity_type}_entity_mapping_complete.csv"
+                if original_file.exists():
+                    backup_file = MANUAL_REVIEW_DIR / f"{entity_type}_backup_{timestamp}.csv"
+                    df_original = pd.read_csv(original_file)
+                    df_original.to_csv(backup_file, index=False)
+            edited_file = MANUAL_REVIEW_DIR / f"{entity_type}_entity_mapping_edited_{timestamp}.csv"
+            df.to_csv(edited_file, index=False)
+            latest_file = MANUAL_REVIEW_DIR / f"{entity_type}_entity_mapping_edited_latest.csv"
+            df.to_csv(latest_file, index=False)
+            return edited_file, latest_file
 
 # ============================================================================
 # MAIN INTERFACE
@@ -848,12 +920,42 @@ def main():
         
         st.markdown("---")
         
-        entity_type = st.selectbox(
-            "Entity Type",
-            ['financial', 'non_financial'],
-            index=0,
-            help="Select financial or non-financial entities (data includes both pledge and release)"
+        # Pipeline type selection
+        pipeline_type = st.radio(
+            "Pipeline Type",
+            ['Original Pipeline', 'Transaction Pipeline'],
+            index=0 if st.session_state.pipeline_type == 'original' else 1,
+            help="Select which pipeline to use"
         )
+        st.session_state.pipeline_type = 'original' if pipeline_type == 'Original Pipeline' else 'transaction'
+        
+        # Entity type and transaction type selection
+        if st.session_state.pipeline_type == 'transaction':
+            entity_type_sel = st.selectbox(
+                "Entity Type",
+                ['financial', 'non_financial'],
+                index=0,
+                help="Select financial or non-financial entities"
+            )
+            
+            transaction_type_sel = st.selectbox(
+                "Transaction Type",
+                ['security', 'release'],
+                index=0 if st.session_state.transaction_type == 'security' else 1,
+                help="Select security (pledge) or release transaction type"
+            )
+            st.session_state.transaction_type = transaction_type_sel
+            
+            # Build full entity type for display
+            full_entity_type = f"{entity_type_sel}_{transaction_type_sel}"
+        else:
+            entity_type_sel = st.selectbox(
+                "Entity Type",
+                ['financial', 'non_financial'],
+                index=0,
+                help="Select financial or non-financial entities (data includes both pledge and release)"
+            )
+            transaction_type_sel = None
         
         # Toggle to use database or CSV
         use_db = st.checkbox("Use SQLite Database", value=st.session_state.use_database,
@@ -862,21 +964,34 @@ def main():
         
         if st.button("🔄 Load Data", type="primary"):
             with st.spinner("Loading data..."):
-                df = load_mapping_data(entity_type, use_database=use_db)
+                df = load_mapping_data(
+                    entity_type_sel, 
+                    use_database=use_db,
+                    pipeline_type=st.session_state.pipeline_type,
+                    transaction_type=transaction_type_sel
+                )
                 if df is not None:
                     st.session_state.df_original = df.copy()
                     st.session_state.df_edited = df.copy()
                     st.session_state.changes_made = False
                     st.session_state.edit_history = []
                     if use_db:
-                        db = get_database()
-                        stats = db.get_statistics(entity_type)
+                        db = get_database(st.session_state.pipeline_type)
+                        if st.session_state.pipeline_type == 'transaction':
+                            full_type = f"{entity_type_sel}_{st.session_state.transaction_type}"
+                            stats = db.get_statistics(full_type)
+                        else:
+                            stats = db.get_statistics(entity_type_sel)
                         st.success(f"✓ Loaded {len(df):,} names from database")
                         st.info(f"📊 {stats['unique_entities']:,} unique entities in database")
                     else:
                         st.success(f"✓ Loaded {len(df):,} names from CSV")
                 else:
-                    st.error(f"File not found for {entity_type}")
+                    if st.session_state.pipeline_type == 'transaction':
+                        full_type = f"{entity_type_sel}_{st.session_state.transaction_type}"
+                        st.error(f"File not found for {full_type}")
+                    else:
+                        st.error(f"File not found for {entity_type_sel}")
         
         st.markdown("---")
         
@@ -898,8 +1013,10 @@ def main():
                     try:
                         result = save_changes(
                             st.session_state.df_edited,
-                            entity_type=entity_type,
-                            use_database=st.session_state.use_database
+                            entity_type=entity_type_sel,
+                            use_database=st.session_state.use_database,
+                            pipeline_type=st.session_state.pipeline_type,
+                            transaction_type=transaction_type_sel
                         )
                         st.session_state.changes_made = False
                         # Clear cache after saving
@@ -907,7 +1024,10 @@ def main():
                         
                         if st.session_state.use_database:
                             st.success(f"✓ Changes saved to database")
-                            st.info(f"📁 Database: `database/entities.db`")
+                            if st.session_state.pipeline_type == 'transaction':
+                                st.info(f"📁 Database: `database/entities_by_transaction.db`")
+                            else:
+                                st.info(f"📁 Database: `database/entities.db`")
                             st.balloons()
                         else:
                             edited_file, latest_file = result
@@ -929,9 +1049,14 @@ def main():
             with col_db1:
                 if st.button("📥 Export to CSV", help="Export current data to CSV"):
                     try:
-                        db = get_database()
-                        export_path = MANUAL_REVIEW_DIR / f"{entity_type}_entities_standardized.csv"
-                        db.export_to_csv(entity_type, export_path)
+                        db = get_database(st.session_state.pipeline_type)
+                        if st.session_state.pipeline_type == 'transaction':
+                            full_type = f"{entity_type_sel}_{st.session_state.transaction_type}"
+                            export_path = MANUAL_REVIEW_DIR / f"{full_type}_entities_standardized.csv"
+                            db.export_to_csv(full_type, export_path)
+                        else:
+                            export_path = MANUAL_REVIEW_DIR / f"{entity_type_sel}_entities_standardized.csv"
+                            db.export_to_csv(entity_type_sel, export_path)
                         st.success(f"✓ Exported to: {export_path.name}")
                     except Exception as e:
                         st.error(f"Error exporting: {e}")
@@ -939,7 +1064,7 @@ def main():
             with col_db2:
                 if st.button("💾 Create Backup", help="Create a database backup"):
                     try:
-                        db = get_database()
+                        db = get_database(st.session_state.pipeline_type)
                         backup_path = db.backup_database()
                         st.success(f"✓ Backup created: {backup_path.name}")
                     except Exception as e:
@@ -947,8 +1072,14 @@ def main():
             
             # Database information
             try:
-                db = get_database()
-                stats = db.get_statistics(entity_type)
+                db = get_database(st.session_state.pipeline_type)
+                if st.session_state.pipeline_type == 'transaction':
+                    full_type = f"{entity_type_sel}_{st.session_state.transaction_type}"
+                    stats = db.get_statistics(full_type)
+                    db_path = DB_TRANSACTION_PATH
+                else:
+                    stats = db.get_statistics(entity_type_sel)
+                    db_path = DB_PATH
                 
                 with st.expander("📊 Database Statistics"):
                     st.metric("Total Names", f"{stats['total_names']:,}")
@@ -957,8 +1088,8 @@ def main():
                     st.metric("Large Groups (>20)", f"{stats['large_groups']:,}")
                     
                     # Database file size
-                    if DB_PATH.exists():
-                        db_size = DB_PATH.stat().st_size / (1024 * 1024)  # MB
+                    if db_path.exists():
+                        db_size = db_path.stat().st_size / (1024 * 1024)  # MB
                         st.metric("Database Size", f"{db_size:.2f} MB")
             except Exception as e:
                 st.warning(f"Could not load statistics: {e}")
