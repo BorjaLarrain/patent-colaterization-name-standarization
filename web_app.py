@@ -1883,7 +1883,11 @@ def main():
                     if names_to_split:
                         if st.button("✅ Create New Group", type="primary"):
                             # Create new entity_id
-                            prefix = entity_id.split('_')[0]
+                            # Extract prefix correctly: for "financial_security_0" -> "financial_security"
+                            # For "financial_0" -> "financial"
+                            parts = entity_id.split('_')
+                            # Remove the last part (the number) and join the rest
+                            prefix = '_'.join(parts[:-1])
                             new_entity_id = get_next_entity_id(st.session_state.df_edited, prefix)
                             
                             # Move names to new group
