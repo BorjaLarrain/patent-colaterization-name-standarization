@@ -1,0 +1,99 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{float}
+
+\title{Entity Frequency Statistics Report}
+\author{Generated Report}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Financial Security Entities}
+
+This section shows statistics for financial entities in security (pledge) transactions.
+
+\subsection{Top 20 Entities by Frequency}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../graphs/financial_security_bar.png}
+    \caption{Top 20 financial security entities ranked by total frequency}
+\end{figure}
+
+\subsection{Top 20 Entities by Percentage of Total}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../graphs/financial_security_percentage.png}
+    \caption{Top 20 financial security entities showing percentage of total frequency}
+\end{figure}
+
+\newpage
+
+\section{Financial Release Entities}
+
+This section shows statistics for financial entities in release transactions.
+
+\subsection{Top 20 Entities by Frequency}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../graphs/financial_release_bar.png}
+    \caption{Top 20 financial release entities ranked by total frequency}
+\end{figure}
+
+\subsection{Top 20 Entities by Percentage of Total}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../graphs/financial_release_percentage.png}
+    \caption{Top 20 financial release entities showing percentage of total frequency}
+\end{figure}
+
+\newpage
+
+\section{Non-Financial Security Entities}
+
+This section shows statistics for non-financial entities in security (pledge) transactions.
+
+\subsection{Top 20 Entities by Frequency}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../graphs/non_financial_security_bar.png}
+    \caption{Top 20 non-financial security entities ranked by total frequency}
+\end{figure}
+
+\subsection{Top 20 Entities by Percentage of Total}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../graphs/non_financial_security_percentage.png}
+    \caption{Top 20 non-financial security entities showing percentage of total frequency}
+\end{figure}
+
+\newpage
+
+\section{Non-Financial Release Entities}
+
+This section shows statistics for non-financial entities in release transactions.
+
+\subsection{Top 20 Entities by Frequency}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../graphs/non_financial_release_bar.png}
+    \caption{Top 20 non-financial release entities ranked by total frequency}
+\end{figure}
+
+\subsection{Top 20 Entities by Percentage of Total}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../graphs/non_financial_release_percentage.png}
+    \caption{Top 20 non-financial release entities showing percentage of total frequency}
+\end{figure}
+
+\end{document}

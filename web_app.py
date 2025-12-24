@@ -23,8 +23,17 @@ import re
 import sys
 import logging
 import html
+import base64
+import streamlit.components.v1 as components
 from database_manager import EntityDatabase
 from database_manager_transaction import EntityDatabaseTransaction
+from utils.graph_generator import (
+    generate_top_20_bar_graph_plotly,
+    generate_top_20_percentage_graph_plotly,
+    generate_top_20_bar_graph_matplotlib,
+    generate_top_20_percentage_graph_matplotlib
+)
+from utils.latex_report_generator import generate_latex_report, compile_latex_to_pdf
 
 # Configure logging to reduce noise
 logging.basicConfig(level=logging.WARNING)
@@ -40,6 +49,10 @@ DATABASE_DIR = BASE_DIR / "database"
 DATABASE_DIR.mkdir(parents=True, exist_ok=True)
 DB_PATH = DATABASE_DIR / "entities.db"
 DB_TRANSACTION_PATH = DATABASE_DIR / "entities_by_transaction.db"
+GRAPHS_DIR = BASE_DIR / "results" / "graphs"
+GRAPHS_DIR.mkdir(parents=True, exist_ok=True)
+LATEX_DIR = BASE_DIR / "results" / "latex"
+LATEX_DIR.mkdir(parents=True, exist_ok=True)
 
 # Page configuration
 st.set_page_config(
@@ -1133,7 +1146,7 @@ def main():
         # Use st.components.v1.html for more reliable script execution
         # Create a unique script each time using the counter with detailed logging
         # Log to parent window console so it's visible in main browser console
-        import streamlit.components.v1 as components
+        # Note: components is already imported at module level, don't import locally
         
         script_html = f"""
         <div id="tab-switcher-wrapper-{counter}"></div>
@@ -2034,18 +2047,211 @@ def main():
         
         st.markdown("---")
         
-        # Size distribution
-        st.subheader("Group Size Distribution")
-        size_dist = df.groupby('entity_id').size().value_counts().sort_index()
-        st.bar_chart(size_dist)
+        # Check pipeline type
+        if st.session_state.pipeline_type == 'transaction':
+            # Transaction pipeline: Show graphs for all 4 entity types
+            st.subheader("Entity Frequency Graphs")
+            st.caption("Interactive graphs showing top 20 entities by frequency and percentage for each transaction type.")
+            
+            # Entity types for transaction pipeline
+            entity_types = [
+                ('financial_security', 'Financial Security'),
+                ('financial_release', 'Financial Release'),
+                ('non_financial_security', 'Non-Financial Security'),
+                ('non_financial_release', 'Non-Financial Release')
+            ]
+            
+            # Create tabs for each entity type
+            graph_tabs = st.tabs([label for _, label in entity_types])
+            
+            for tab_idx, (entity_type, label) in enumerate(entity_types):
+                with graph_tabs[tab_idx]:
+                    st.markdown(f"### {label}")
+                    
+                    # Load data for this entity type
+                    entity_df = load_mapping_data(
+                        entity_type=entity_type,
+                        use_database=st.session_state.use_database,
+                        pipeline_type='transaction',
+                        transaction_type=None
+                    )
+                    
+                    if entity_df is not None and len(entity_df) > 0:
+                        # Check if we have enough data
+                        unique_entities = entity_df['entity_id'].nunique()
+                        if unique_entities == 0:
+                            st.warning(f"No entities found for {label}")
+                        else:
+                            # Display metrics
+                            col1, col2 = st.columns(2)
+                            with col1:
+                                st.metric("Total Names", f"{len(entity_df):,}")
+                            with col2:
+                                st.metric("Unique Entities", f"{unique_entities:,}")
+                            
+                            st.markdown("---")
+                            
+                            # Generate and display bar graph
+                            st.markdown("#### Top 20 Entities by Frequency")
+                            try:
+                                bar_fig = generate_top_20_bar_graph_plotly(entity_df, entity_type)
+                                st.plotly_chart(bar_fig, use_container_width=True)
+                            except Exception as e:
+                                st.error(f"Error generating bar graph: {e}")
+                                logger.exception("Error generating bar graph")
+                            
+                            st.markdown("---")
+                            
+                            # Generate and display percentage graph
+                            st.markdown("#### Top 20 Entities by Percentage of Total")
+                            try:
+                                pct_fig = generate_top_20_percentage_graph_plotly(entity_df, entity_type)
+                                st.plotly_chart(pct_fig, use_container_width=True)
+                            except Exception as e:
+                                st.error(f"Error generating percentage graph: {e}")
+                                logger.exception("Error generating percentage graph")
+                    else:
+                        st.info(f"No data available for {label}. Please load data from the sidebar.")
+            
+            st.markdown("---")
+            
+            # LaTeX Report Generation Section
+            st.subheader("📄 LaTeX Report Generation")
+            st.caption("Generate a PDF report with all graphs included.")
+            
+            # Initialize session state for PDF path if not exists
+            if 'generated_pdf_path' not in st.session_state:
+                st.session_state.generated_pdf_path = None
+            
+            col_report1, col_report2 = st.columns([1, 1])
+            
+            with col_report1:
+                if st.button("📄 Generate LaTeX Report", type="primary", use_container_width=True):
+                    with st.spinner("Generating graphs and LaTeX report..."):
+                        try:
+                            # Generate all graphs as PNG files
+                            graph_paths = {}
+                            entity_types_list = [
+                                'financial_security',
+                                'financial_release',
+                                'non_financial_security',
+                                'non_financial_release'
+                            ]
+                            
+                            all_data_available = True
+                            for entity_type in entity_types_list:
+                                # Load data
+                                entity_df = load_mapping_data(
+                                    entity_type=entity_type,
+                                    use_database=st.session_state.use_database,
+                                    pipeline_type='transaction',
+                                    transaction_type=None
+                                )
+                                
+                                if entity_df is None or len(entity_df) == 0:
+                                    st.warning(f"No data available for {entity_type}. Skipping...")
+                                    all_data_available = False
+                                    continue
+                                
+                                # Generate bar graph
+                                bar_path = GRAPHS_DIR / f"{entity_type}_bar.png"
+                                try:
+                                    generate_top_20_bar_graph_matplotlib(entity_df, entity_type, bar_path)
+                                    graph_paths[f"{entity_type}_bar"] = bar_path
+                                except Exception as e:
+                                    st.error(f"Error generating bar graph for {entity_type}: {e}")
+                                    logger.exception(f"Error generating bar graph for {entity_type}")
+                                
+                                # Generate percentage graph
+                                pct_path = GRAPHS_DIR / f"{entity_type}_percentage.png"
+                                try:
+                                    generate_top_20_percentage_graph_matplotlib(entity_df, entity_type, pct_path)
+                                    graph_paths[f"{entity_type}_percentage"] = pct_path
+                                except Exception as e:
+                                    st.error(f"Error generating percentage graph for {entity_type}: {e}")
+                                    logger.exception(f"Error generating percentage graph for {entity_type}")
+                            
+                            if len(graph_paths) == 8 and all_data_available:
+                                # Generate LaTeX file
+                                latex_path = LATEX_DIR / "entity_statistics_report.tex"
+                                generate_latex_report(graph_paths, latex_path)
+                                
+                                # Compile to PDF
+                                pdf_path = compile_latex_to_pdf(latex_path, LATEX_DIR)
+                                
+                                if pdf_path and pdf_path.exists():
+                                    st.session_state.generated_pdf_path = pdf_path
+                                    st.success("✓ LaTeX report generated successfully!")
+                                else:
+                                    st.error("❌ PDF compilation failed. Please check that pdflatex is installed.")
+                                    st.info("Install LaTeX with: `brew install basictex` or `brew install mactex`")
+                            elif len(graph_paths) > 0:
+                                st.warning(f"Generated {len(graph_paths)} out of 8 graphs. Some data may be missing.")
+                            else:
+                                st.error("Could not generate any graphs. Please ensure data is loaded.")
+                                
+                        except Exception as e:
+                            st.error(f"Error generating report: {e}")
+                            logger.exception("Error generating LaTeX report")
+            
+            with col_report2:
+                # #region agent log
+                _has_pdf = hasattr(st.session_state, 'generated_pdf_path') and st.session_state.generated_pdf_path is not None
+                _comp_in_globals = 'components' in globals()
+                _comp_in_locals = 'components' in locals()
+                with open('/Users/borjalarrain/Desktop/Investigacion/patent-colaterization-name-standarization/.cursor/debug.log', 'a') as f: f.write(f'{{"sessionId":"debug-session","runId":"run1","hypothesisId":"B","location":"web_app.py:2197","message":"Entering col_report2 block","data":{{"has_pdf_path":{_has_pdf},"components_in_globals":{_comp_in_globals},"components_in_locals_before":{_comp_in_locals}}},"timestamp":{int(__import__("time").time()*1000)}}}\n')
+                # #endregion
+                if st.session_state.generated_pdf_path and st.session_state.generated_pdf_path.exists():
+                    # Display PDF viewer
+                    st.markdown("#### 📄 Generated Report")
+                    
+                    # Read PDF and convert to base64
+                    try:
+                        # #region agent log
+                        _comp_type = type(components).__name__ if 'components' in globals() else 'NOT_IN_GLOBALS'
+                        _comp_in_locals_check = 'components' in locals()
+                        with open('/Users/borjalarrain/Desktop/Investigacion/patent-colaterization-name-standarization/.cursor/debug.log', 'a') as f: f.write(f'{{"sessionId":"debug-session","runId":"run1","hypothesisId":"B","location":"web_app.py:2203","message":"Before PDF read - checking components","data":{{"components_type":"{_comp_type}","components_in_locals":{_comp_in_locals_check}}},"timestamp":{int(__import__("time").time()*1000)}}}\n')
+                        # #endregion
+                        with open(st.session_state.generated_pdf_path, "rb") as pdf_file:
+                            pdf_bytes = pdf_file.read()
+                            pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')
+                            
+                            # Display PDF in iframe
+                            pdf_display = f'''
+                            <iframe src="data:application/pdf;base64,{pdf_base64}" 
+                                    width="100%" height="600" type="application/pdf">
+                            </iframe>
+                            '''
+                            # #region agent log
+                            _comp_in_globals_final = 'components' in globals()
+                            _comp_in_locals_final = 'components' in locals()
+                            with open('/Users/borjalarrain/Desktop/Investigacion/patent-colaterization-name-standarization/.cursor/debug.log', 'a') as f: f.write(f'{{"sessionId":"debug-session","runId":"run1","hypothesisId":"B","location":"web_app.py:2214","message":"Before components.html call","data":{{"components_in_globals":{_comp_in_globals_final},"components_in_locals":{_comp_in_locals_final}}},"timestamp":{int(__import__("time").time()*1000)}}}\n')
+                            # #endregion
+                            components.html(pdf_display, height=600)
+                            
+                            # Download button
+                            st.download_button(
+                                "📥 Download PDF",
+                                pdf_bytes,
+                                file_name="entity_statistics_report.pdf",
+                                mime="application/pdf",
+                                use_container_width=True
+                            )
+                    except Exception as e:
+                        st.error(f"Error displaying PDF: {e}")
+                        logger.exception("Error displaying PDF")
+                else:
+                    st.info("Generate a report to view and download the PDF.")
         
-        # Top groups by frequency
-        st.subheader("Top 10 Groups by Total Frequency")
-        top_groups = df.groupby('entity_id').agg({
-            'frequency': 'sum',
-            'original_name': 'count'
-        }).rename(columns={'original_name': 'count'}).sort_values('frequency', ascending=False).head(10)
-        st.dataframe(top_groups, use_container_width=True)
+        else:
+            # Original pipeline: Show message
+            st.info("📊 Graph visualizations are only available for the Transaction Pipeline. "
+                   "Please switch to Transaction Pipeline in the sidebar to view graphs.")
+            
+            # Optionally, show basic graphs for original pipeline if requested
+            st.markdown("---")
+            st.subheader("Basic Statistics")
+            st.caption("For detailed graphs, please use the Transaction Pipeline.")
 
 if __name__ == "__main__":
     try:
