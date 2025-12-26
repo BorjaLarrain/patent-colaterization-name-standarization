@@ -1189,6 +1189,20 @@ def main():
                 if DB_PATENT_PATH.exists():
                     db_size = DB_PATENT_PATH.stat().st_size / (1024 * 1024)  # MB
                     st.metric("Database Size", f"{db_size:.2f} MB")
+                
+                st.markdown("---")
+                st.markdown("**Migration:**")
+                if st.button("🔄 Migrate to Standardized Names", help="Update existing records with standardized names from mapping files"):
+                    with st.spinner("Migrating existing data to standardized names..."):
+                        try:
+                            migration_stats = db_patent.migrate_existing_data()
+                            st.success("✓ Migration completed successfully!")
+                            st.info(f"Security: {migration_stats['security_rows_migrated']:,} rows migrated")
+                            st.info(f"Release: {migration_stats['release_rows_migrated']:,} rows migrated")
+                            st.info(f"Unmapped firms/banks: {migration_stats['security_unmapped_firms_count'] + migration_stats['security_unmapped_banks_count'] + migration_stats['release_unmapped_firms_count'] + migration_stats['release_unmapped_banks_count']:,}")
+                        except Exception as e:
+                            st.error(f"Error during migration: {e}")
+                            logger.exception("Error during migration")
         except Exception as e:
             pass  # Database might not exist yet
         
@@ -2518,11 +2532,34 @@ def main():
                         
                         st.markdown("---")
                         
+                        # Toggle for standardized vs original names
+                        use_standardized = st.checkbox(
+                            "Use Standardized Names",
+                            value=True,
+                            key=f"use_standardized_{transaction_type}",
+                            help="Toggle between standardized entity names and original names"
+                        )
+                        
                         # Display top 20 pairs table
                         st.markdown("#### Top 20 (Firm-Bank) Pairs")
-                        display_df = top_pairs_df[['pair_name', 'firm_name', 'bank_name', 'frequency', 'percentage']].copy()
-                        display_df['percentage'] = display_df['percentage'].round(2)
-                        display_df.columns = ['Pair Name', 'Firm Name', 'Bank Name', 'Frequency', 'Percentage (%)']
+                        
+                        # Select columns based on toggle
+                        if use_standardized and 'pair_standard_name' in top_pairs_df.columns:
+                            # Use standardized names
+                            display_df = top_pairs_df.copy()
+                            # Fill missing standardized names with original
+                            display_df['pair_display'] = display_df['pair_standard_name'].fillna(display_df['pair_name'])
+                            display_df['firm_display'] = display_df['firm_standard_name'].fillna(display_df['firm_name'])
+                            display_df['bank_display'] = display_df['bank_standard_name'].fillna(display_df['bank_name'])
+                            display_df = display_df[['pair_display', 'firm_display', 'bank_display', 'frequency', 'percentage']].copy()
+                            display_df.columns = ['Pair Name (Standardized)', 'Firm Name (Standardized)', 'Bank Name (Standardized)', 'Frequency', 'Percentage (%)']
+                        else:
+                            # Use original names
+                            display_df = top_pairs_df[['pair_name', 'firm_name', 'bank_name', 'frequency', 'percentage']].copy()
+                            display_df.columns = ['Pair Name', 'Firm Name', 'Bank Name', 'Frequency', 'Percentage (%)']
+                        
+                        # Round percentage (use the renamed column name)
+                        display_df['Percentage (%)'] = display_df['Percentage (%)'].round(2)
                         st.dataframe(display_df, use_container_width=True, hide_index=True)
                         
                         st.markdown("---")

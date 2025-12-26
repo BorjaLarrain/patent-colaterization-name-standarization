@@ -240,12 +240,19 @@ def prepare_pair_graph_data(df: pd.DataFrame, top_n: int = 20) -> pd.DataFrame:
     Prepare data for pair graph generation by grouping pairs and calculating statistics.
     
     Args:
-        df: DataFrame with columns: pair_name, frequency (and optionally percentage)
+        df: DataFrame with columns: pair_name, frequency (and optionally percentage, pair_standard_name)
         top_n: Number of top pairs to return
         
     Returns:
-        DataFrame with columns: pair_name, frequency, percentage
+        DataFrame with columns: pair_name (using standardized if available), frequency, percentage
     """
+    df = df.copy()
+    
+    # Use standardized name if available, fallback to original pair_name
+    if 'pair_standard_name' in df.columns:
+        # Replace pair_name with standardized version where available
+        df['pair_name'] = df['pair_standard_name'].fillna(df['pair_name'])
+    
     # If percentage already exists, use it; otherwise calculate
     if 'percentage' not in df.columns:
         total_frequency = df['frequency'].sum()
@@ -257,7 +264,8 @@ def prepare_pair_graph_data(df: pd.DataFrame, top_n: int = 20) -> pd.DataFrame:
     # Reset index
     grouped = grouped.reset_index(drop=True)
     
-    return grouped
+    # Return only the columns needed for graphing
+    return grouped[['pair_name', 'frequency', 'percentage']]
 
 
 def generate_top_20_pair_bar_graph_matplotlib(df: pd.DataFrame, transaction_type: str, output_path: Path) -> None:
