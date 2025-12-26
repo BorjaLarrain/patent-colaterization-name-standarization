@@ -234,3 +234,221 @@ def generate_top_20_percentage_graph_plotly(df: pd.DataFrame, entity_type: str) 
     
     return fig
 
+
+def prepare_pair_graph_data(df: pd.DataFrame, top_n: int = 20) -> pd.DataFrame:
+    """
+    Prepare data for pair graph generation by grouping pairs and calculating statistics.
+    
+    Args:
+        df: DataFrame with columns: pair_name, frequency (and optionally percentage)
+        top_n: Number of top pairs to return
+        
+    Returns:
+        DataFrame with columns: pair_name, frequency, percentage
+    """
+    # If percentage already exists, use it; otherwise calculate
+    if 'percentage' not in df.columns:
+        total_frequency = df['frequency'].sum()
+        df['percentage'] = (df['frequency'] / total_frequency * 100) if total_frequency > 0 else 0
+    
+    # Sort by frequency descending and select top N
+    grouped = df.sort_values('frequency', ascending=False).head(top_n)
+    
+    # Reset index
+    grouped = grouped.reset_index(drop=True)
+    
+    return grouped
+
+
+def generate_top_20_pair_bar_graph_matplotlib(df: pd.DataFrame, transaction_type: str, output_path: Path) -> None:
+    """
+    Generate a bar graph of top 20 (firm-bank) pairs by frequency using matplotlib.
+    
+    Args:
+        df: DataFrame with pair data (columns: pair_name, frequency)
+        transaction_type: Type of transaction ('security' or 'release')
+        output_path: Path to save the PNG file
+        
+    Returns:
+        None
+    """
+    # Prepare data
+    graph_data = prepare_pair_graph_data(df, top_n=20)
+    
+    # Create figure
+    fig, ax = plt.subplots(figsize=(14, 8))
+    
+    # Truncate long names for better display (pairs can be very long)
+    labels = [name[:60] + '...' if len(name) > 60 else name for name in graph_data['pair_name']]
+    
+    # Create bar plot (vertical bars: pairs on X-axis, frequency on Y-axis)
+    bars = ax.bar(range(len(graph_data)), graph_data['frequency'], color='steelblue')
+    
+    # Customize axes
+    ax.set_xticks(range(len(graph_data)))
+    ax.set_xticklabels(labels, rotation=45, ha='right', fontsize=8)
+    ax.set_xlabel('(Firm - Bank) Pair', fontsize=12, fontweight='bold')
+    ax.set_ylabel('Frequency', fontsize=12, fontweight='bold')
+    ax.set_title(f'Top 20 (Firm-Bank) Pairs by Frequency - {transaction_type.title()}', 
+                 fontsize=14, fontweight='bold', pad=20)
+    
+    # Add value labels on bars
+    if len(graph_data) > 0:
+        max_freq = graph_data['frequency'].max()
+        for i, (idx, row) in enumerate(graph_data.iterrows()):
+            freq = row['frequency']
+            ax.text(i, freq + max_freq * 0.01, 
+                    f'{freq:,}', ha='center', va='bottom', fontsize=7)
+    
+    # Add grid for better readability
+    ax.grid(axis='y', alpha=0.3, linestyle='--')
+    
+    # Adjust layout
+    plt.tight_layout()
+    
+    # Save figure
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_path, dpi=300, bbox_inches='tight')
+    plt.close(fig)  # Close figure to free memory
+
+
+def generate_top_20_pair_percentage_graph_matplotlib(df: pd.DataFrame, transaction_type: str, output_path: Path) -> None:
+    """
+    Generate a line/point graph of top 20 (firm-bank) pairs showing percentage of total frequency.
+    
+    Args:
+        df: DataFrame with pair data (columns: pair_name, frequency)
+        transaction_type: Type of transaction ('security' or 'release')
+        output_path: Path to save the PNG file
+        
+    Returns:
+        None
+    """
+    # Prepare data
+    graph_data = prepare_pair_graph_data(df, top_n=20)
+    
+    # Create figure
+    fig, ax = plt.subplots(figsize=(14, 8))
+    
+    # Truncate long names for better display
+    labels = [name[:60] + '...' if len(name) > 60 else name for name in graph_data['pair_name']]
+    
+    # Create line plot with markers
+    ax.plot(range(len(graph_data)), graph_data['percentage'], 
+            marker='o', markersize=8, linewidth=2, color='crimson', label='Percentage')
+    
+    # Customize axes
+    ax.set_xticks(range(len(graph_data)))
+    ax.set_xticklabels(labels, rotation=45, ha='right', fontsize=8)
+    ax.set_ylabel('Percentage of Total (%)', fontsize=12, fontweight='bold')
+    ax.set_xlabel('(Firm - Bank) Pair', fontsize=12, fontweight='bold')
+    ax.set_title(f'Top 20 (Firm-Bank) Pairs by Percentage of Total - {transaction_type.title()}', 
+                 fontsize=14, fontweight='bold', pad=20)
+    
+    # Add value labels on points
+    if len(graph_data) > 0:
+        max_pct = graph_data['percentage'].max()
+        for i, (idx, row) in enumerate(graph_data.iterrows()):
+            pct = row['percentage']
+            ax.text(i, pct + max_pct * 0.02, 
+                    f'{pct:.2f}%', ha='center', fontsize=7, rotation=0)
+    
+    # Add grid for better readability
+    ax.grid(alpha=0.3, linestyle='--')
+    
+    # Adjust layout
+    plt.tight_layout()
+    
+    # Save figure
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_path, dpi=300, bbox_inches='tight')
+    plt.close(fig)  # Close figure to free memory
+
+
+def generate_top_20_pair_bar_graph_plotly(df: pd.DataFrame, transaction_type: str) -> go.Figure:
+    """
+    Generate an interactive bar graph of top 20 (firm-bank) pairs by frequency using Plotly.
+    
+    Args:
+        df: DataFrame with pair data (columns: pair_name, frequency)
+        transaction_type: Type of transaction ('security' or 'release')
+        
+    Returns:
+        plotly.graph_objects.Figure object
+    """
+    # Prepare data
+    graph_data = prepare_pair_graph_data(df, top_n=20)
+    
+    # Truncate long names for better display
+    labels = [name[:70] + '...' if len(name) > 70 else name for name in graph_data['pair_name']]
+    
+    # Create bar chart (vertical bars: pairs on X-axis, frequency on Y-axis)
+    fig = go.Figure(data=[
+        go.Bar(
+            x=labels,
+            y=graph_data['frequency'],
+            marker=dict(color='steelblue'),
+            text=[f'{freq:,}' for freq in graph_data['frequency']],
+            textposition='outside',
+            hovertemplate='<b>%{x}</b><br>Frequency: %{y:,}<extra></extra>'
+        )
+    ])
+    
+    # Customize layout
+    fig.update_layout(
+        title=f'Top 20 (Firm-Bank) Pairs by Frequency - {transaction_type.title()}',
+        xaxis_title='(Firm - Bank) Pair',
+        yaxis_title='Frequency',
+        height=600,
+        showlegend=False,
+        xaxis=dict(tickangle=-45),  # Rotate labels for readability
+        margin=dict(l=100, r=50, t=80, b=200)  # More bottom margin for rotated labels
+    )
+    
+    return fig
+
+
+def generate_top_20_pair_percentage_graph_plotly(df: pd.DataFrame, transaction_type: str) -> go.Figure:
+    """
+    Generate an interactive line/point graph of top 20 (firm-bank) pairs showing percentage using Plotly.
+    
+    Args:
+        df: DataFrame with pair data (columns: pair_name, frequency)
+        transaction_type: Type of transaction ('security' or 'release')
+        
+    Returns:
+        plotly.graph_objects.Figure object
+    """
+    # Prepare data
+    graph_data = prepare_pair_graph_data(df, top_n=20)
+    
+    # Truncate long names for better display
+    labels = [name[:70] + '...' if len(name) > 70 else name for name in graph_data['pair_name']]
+    
+    # Create line chart with markers
+    fig = go.Figure(data=[
+        go.Scatter(
+            x=labels,
+            y=graph_data['percentage'],
+            mode='lines+markers',
+            marker=dict(size=10, color='crimson'),
+            line=dict(width=2, color='crimson'),
+            text=[f'{pct:.2f}%' for pct in graph_data['percentage']],
+            textposition='top center',
+            hovertemplate='<b>%{x}</b><br>Percentage: %{y:.2f}%<extra></extra>'
+        )
+    ])
+    
+    # Customize layout
+    fig.update_layout(
+        title=f'Top 20 (Firm-Bank) Pairs by Percentage of Total - {transaction_type.title()}',
+        xaxis_title='(Firm - Bank) Pair',
+        yaxis_title='Percentage of Total (%)',
+        height=600,
+        showlegend=False,
+        xaxis=dict(tickangle=-45),
+        margin=dict(l=100, r=50, t=80, b=200)
+    )
+    
+    return fig
+

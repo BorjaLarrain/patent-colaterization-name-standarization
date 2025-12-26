@@ -27,11 +27,16 @@ import base64
 import streamlit.components.v1 as components
 from database_manager import EntityDatabase
 from database_manager_transaction import EntityDatabaseTransaction
+from database_manager_patent import PatentTransactionDatabase
 from utils.graph_generator import (
     generate_top_20_bar_graph_plotly,
     generate_top_20_percentage_graph_plotly,
     generate_top_20_bar_graph_matplotlib,
-    generate_top_20_percentage_graph_matplotlib
+    generate_top_20_percentage_graph_matplotlib,
+    generate_top_20_pair_bar_graph_plotly,
+    generate_top_20_pair_percentage_graph_plotly,
+    generate_top_20_pair_bar_graph_matplotlib,
+    generate_top_20_pair_percentage_graph_matplotlib
 )
 from utils.latex_report_generator import generate_latex_report, compile_latex_to_pdf
 
@@ -49,7 +54,9 @@ DATABASE_DIR = BASE_DIR / "database"
 DATABASE_DIR.mkdir(parents=True, exist_ok=True)
 DB_PATH = DATABASE_DIR / "entities.db"
 DB_TRANSACTION_PATH = DATABASE_DIR / "entities_by_transaction.db"
+DB_PATENT_PATH = DATABASE_DIR / "patent_transactions.db"
 GRAPHS_DIR = BASE_DIR / "results" / "graphs"
+ORIGINAL_DATA_DIR = BASE_DIR / "original-data"
 GRAPHS_DIR.mkdir(parents=True, exist_ok=True)
 LATEX_DIR = BASE_DIR / "results" / "latex"
 LATEX_DIR.mkdir(parents=True, exist_ok=True)
@@ -535,6 +542,12 @@ def get_database(pipeline_type='original'):
             st.session_state.db = EntityDatabase(DB_PATH)
         return st.session_state.db
 
+def get_patent_database():
+    """Get or create the patent transaction database instance"""
+    if 'db_patent' not in st.session_state:
+        st.session_state.db_patent = PatentTransactionDatabase(DB_PATENT_PATH)
+    return st.session_state.db_patent
+
 def load_mapping_data(entity_type='financial', use_database=True, pipeline_type='original', 
                      transaction_type=None):
     """
@@ -640,6 +653,8 @@ def initialize_session_state():
         st.session_state.pipeline_type = 'original'
     if 'transaction_type' not in st.session_state:
         st.session_state.transaction_type = 'security'
+    if 'use_patent_database' not in st.session_state:
+        st.session_state.use_patent_database = True
 
 @st.cache_data
 def group_by_entity(df):
@@ -1108,6 +1123,76 @@ def main():
                 st.warning(f"Could not load statistics: {e}")
         
         st.markdown("---")
+        
+        # Patent Transaction Analysis Section
+        st.subheader("🔗 Patent Transaction Analysis")
+        
+        use_patent_db = st.checkbox("Use Patent Transaction Database", value=st.session_state.use_patent_database,
+                                    help="If enabled, uses SQLite database for patent pairs. Otherwise, loads from CSV files.")
+        st.session_state.use_patent_database = use_patent_db
+        
+        if st.button("🔄 Load Patent Data", type="secondary"):
+            with st.spinner("Loading patent transaction data..."):
+                try:
+                    db_patent = get_patent_database()
+                    
+                    # Check if data exists in database
+                    stats_security = db_patent.get_statistics('security')
+                    stats_release = db_patent.get_statistics('release')
+                    
+                    if stats_security['total_pairs'] == 0 or stats_release['total_pairs'] == 0:
+                        # Load from CSV files
+                        security_csv = ORIGINAL_DATA_DIR / "security_patent.csv"
+                        release_csv = ORIGINAL_DATA_DIR / "release_patent.csv"
+                        
+                        if security_csv.exists():
+                            st.info("Importing security data from CSV...")
+                            db_patent.import_from_csv(security_csv, 'security', clear_existing=True)
+                            st.success("✓ Security data imported")
+                        
+                        if release_csv.exists():
+                            st.info("Importing release data from CSV...")
+                            db_patent.import_from_csv(release_csv, 'release', clear_existing=True)
+                            st.success("✓ Release data imported")
+                        
+                        # Refresh stats
+                        stats_security = db_patent.get_statistics('security')
+                        stats_release = db_patent.get_statistics('release')
+                    
+                    st.success(f"✓ Patent data loaded")
+                    st.info(f"📊 Security: {stats_security['total_pairs']:,} pairs, {stats_security['unique_firms']:,} firms, {stats_security['unique_banks']:,} banks")
+                    st.info(f"📊 Release: {stats_release['total_pairs']:,} pairs, {stats_release['unique_firms']:,} firms, {stats_release['unique_banks']:,} banks")
+                except Exception as e:
+                    st.error(f"Error loading patent data: {e}")
+                    logger.exception("Error loading patent data")
+        
+        # Display patent database statistics
+        try:
+            db_patent = get_patent_database()
+            stats_security = db_patent.get_statistics('security')
+            stats_release = db_patent.get_statistics('release')
+            
+            with st.expander("📊 Patent Database Statistics"):
+                st.markdown("**Security Transactions:**")
+                st.metric("Total Pairs", f"{stats_security['total_pairs']:,}")
+                st.metric("Unique Firms", f"{stats_security['unique_firms']:,}")
+                st.metric("Unique Banks", f"{stats_security['unique_banks']:,}")
+                st.metric("Total Frequency", f"{stats_security['total_frequency']:,}")
+                
+                st.markdown("---")
+                st.markdown("**Release Transactions:**")
+                st.metric("Total Pairs", f"{stats_release['total_pairs']:,}")
+                st.metric("Unique Firms", f"{stats_release['unique_firms']:,}")
+                st.metric("Unique Banks", f"{stats_release['unique_banks']:,}")
+                st.metric("Total Frequency", f"{stats_release['total_frequency']:,}")
+                
+                if DB_PATENT_PATH.exists():
+                    db_size = DB_PATENT_PATH.stat().st_size / (1024 * 1024)  # MB
+                    st.metric("Database Size", f"{db_size:.2f} MB")
+        except Exception as e:
+            pass  # Database might not exist yet
+        
+        st.markdown("---")
         st.markdown("### 📝 Change History")
         if st.session_state.edit_history:
             for i, change in enumerate(st.session_state.edit_history[-5:], 1):
@@ -1122,7 +1207,7 @@ def main():
     
     # Tabs for different views
     # Determine which tab to show first (if Edit button was clicked)
-    tab_labels = ["📋 Group View", "🔍 Search", "✏️ Edit Group", "📊 Statistics"]
+    tab_labels = ["📋 Group View", "🔍 Search", "✏️ Edit Group", "📊 Statistics", "🔗 Patent Pairs"]
     
     # Check if we need to switch to Edit tab
     should_switch_to_edit = (
@@ -1131,7 +1216,7 @@ def main():
     )
     
     # Create tabs
-    tab1, tab2, tab3, tab4 = st.tabs(tab_labels)
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(tab_labels)
     
     # If we need to switch to Edit tab, use the window.parent approach (Streamlit runs in iframe)
     if should_switch_to_edit:
@@ -2171,7 +2256,34 @@ def main():
                                     st.error(f"Error generating percentage graph for {entity_type}: {e}")
                                     logger.exception(f"Error generating percentage graph for {entity_type}")
                             
-                            if len(graph_paths) == 8 and all_data_available:
+                            # Generate patent pair graphs if data is available
+                            try:
+                                db_patent = get_patent_database()
+                                
+                                # Security pairs
+                                security_pairs_df = db_patent.get_top_pairs('security', top_n=20)
+                                if len(security_pairs_df) > 0:
+                                    security_bar_path = GRAPHS_DIR / "security_pair_bar.png"
+                                    security_pct_path = GRAPHS_DIR / "security_pair_percentage.png"
+                                    generate_top_20_pair_bar_graph_matplotlib(security_pairs_df, 'security', security_bar_path)
+                                    generate_top_20_pair_percentage_graph_matplotlib(security_pairs_df, 'security', security_pct_path)
+                                    graph_paths['security_pair_bar'] = security_bar_path
+                                    graph_paths['security_pair_percentage'] = security_pct_path
+                                
+                                # Release pairs
+                                release_pairs_df = db_patent.get_top_pairs('release', top_n=20)
+                                if len(release_pairs_df) > 0:
+                                    release_bar_path = GRAPHS_DIR / "release_pair_bar.png"
+                                    release_pct_path = GRAPHS_DIR / "release_pair_percentage.png"
+                                    generate_top_20_pair_bar_graph_matplotlib(release_pairs_df, 'release', release_bar_path)
+                                    generate_top_20_pair_percentage_graph_matplotlib(release_pairs_df, 'release', release_pct_path)
+                                    graph_paths['release_pair_bar'] = release_bar_path
+                                    graph_paths['release_pair_percentage'] = release_pct_path
+                            except Exception as e:
+                                st.warning(f"Could not generate patent pair graphs: {e}")
+                                logger.exception("Error generating patent pair graphs")
+                            
+                            if len(graph_paths) >= 8:  # At least 8 entity graphs, pair graphs are optional
                                 # Generate LaTeX file
                                 latex_path = LATEX_DIR / "entity_statistics_report.tex"
                                 generate_latex_report(graph_paths, latex_path)
@@ -2206,7 +2318,7 @@ def main():
                                         st.info(f"LaTeX file location: {latex_path}")
                                         st.info(f"Expected PDF location: {expected_pdf}")
                             elif len(graph_paths) > 0:
-                                st.warning(f"Generated {len(graph_paths)} out of 8 graphs. Some data may be missing.")
+                                st.warning(f"Generated {len(graph_paths)} graphs. Some data may be missing.")
                             else:
                                 st.error("Could not generate any graphs. Please ensure data is loaded.")
                                 
@@ -2372,6 +2484,94 @@ def main():
             st.markdown("---")
             st.subheader("Basic Statistics")
             st.caption("For detailed graphs, please use the Transaction Pipeline.")
+    
+    # TAB 5: Patent Pairs
+    with tab5:
+        st.header("Patent Transaction Pairs")
+        st.caption("View and analyze top (firm-bank) pairs from patent transactions.")
+        
+        # Create sub-tabs for Security and Release
+        pair_tabs = st.tabs(["Security Pairs", "Release Pairs"])
+        
+        for tab_idx, transaction_type in enumerate(['security', 'release']):
+            with pair_tabs[tab_idx]:
+                st.subheader(f"{transaction_type.title()} Transaction Pairs")
+                
+                try:
+                    db_patent = get_patent_database()
+                    
+                    # Get top 20 pairs
+                    top_pairs_df = db_patent.get_top_pairs(transaction_type, top_n=20)
+                    
+                    if len(top_pairs_df) > 0:
+                        # Display statistics
+                        stats = db_patent.get_statistics(transaction_type)
+                        col1, col2, col3, col4 = st.columns(4)
+                        with col1:
+                            st.metric("Total Pairs", f"{stats['total_pairs']:,}")
+                        with col2:
+                            st.metric("Unique Firms", f"{stats['unique_firms']:,}")
+                        with col3:
+                            st.metric("Unique Banks", f"{stats['unique_banks']:,}")
+                        with col4:
+                            st.metric("Total Frequency", f"{stats['total_frequency']:,}")
+                        
+                        st.markdown("---")
+                        
+                        # Display top 20 pairs table
+                        st.markdown("#### Top 20 (Firm-Bank) Pairs")
+                        display_df = top_pairs_df[['pair_name', 'firm_name', 'bank_name', 'frequency', 'percentage']].copy()
+                        display_df['percentage'] = display_df['percentage'].round(2)
+                        display_df.columns = ['Pair Name', 'Firm Name', 'Bank Name', 'Frequency', 'Percentage (%)']
+                        st.dataframe(display_df, use_container_width=True, hide_index=True)
+                        
+                        st.markdown("---")
+                        
+                        # Generate and display interactive graphs
+                        st.markdown("#### Top 20 Pairs by Frequency")
+                        try:
+                            bar_fig = generate_top_20_pair_bar_graph_plotly(top_pairs_df, transaction_type)
+                            st.plotly_chart(bar_fig, use_container_width=True)
+                        except Exception as e:
+                            st.error(f"Error generating bar graph: {e}")
+                            logger.exception("Error generating pair bar graph")
+                        
+                        st.markdown("---")
+                        
+                        st.markdown("#### Top 20 Pairs by Percentage of Total")
+                        try:
+                            pct_fig = generate_top_20_pair_percentage_graph_plotly(top_pairs_df, transaction_type)
+                            st.plotly_chart(pct_fig, use_container_width=True)
+                        except Exception as e:
+                            st.error(f"Error generating percentage graph: {e}")
+                            logger.exception("Error generating pair percentage graph")
+                        
+                        st.markdown("---")
+                        
+                        # Export to CSV option
+                        if st.button(f"📥 Export {transaction_type.title()} Pairs to CSV", key=f"export_{transaction_type}"):
+                            try:
+                                all_pairs_df = db_patent.load_all_pairs(transaction_type)
+                                export_path = MANUAL_REVIEW_DIR / f"{transaction_type}_pairs_export.csv"
+                                all_pairs_df.to_csv(export_path, index=False)
+                                st.success(f"✓ Exported to: {export_path.name}")
+                                st.download_button(
+                                    "📥 Download CSV",
+                                    all_pairs_df.to_csv(index=False),
+                                    file_name=f"{transaction_type}_pairs_export.csv",
+                                    mime="text/csv",
+                                    key=f"download_{transaction_type}"
+                                )
+                            except Exception as e:
+                                st.error(f"Error exporting: {e}")
+                                logger.exception("Error exporting pairs")
+                    else:
+                        st.info(f"No data available for {transaction_type} transactions. Please load patent data from the sidebar.")
+                        
+                except Exception as e:
+                    st.error(f"Error loading patent pairs: {e}")
+                    st.info("Please ensure patent data is loaded from the sidebar.")
+                    logger.exception("Error loading patent pairs")
 
 if __name__ == "__main__":
     try:

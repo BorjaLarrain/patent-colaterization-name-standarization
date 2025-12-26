@@ -23,6 +23,8 @@ def generate_latex_report(graph_paths: Dict[str, Path], output_path: Path,
                      - 'financial_release_bar', 'financial_release_percentage'
                      - 'non_financial_security_bar', 'non_financial_security_percentage'
                      - 'non_financial_release_bar', 'non_financial_release_percentage'
+                     - 'security_pair_bar', 'security_pair_percentage' (optional)
+                     - 'release_pair_bar', 'release_pair_percentage' (optional)
         output_path: Path where to save the LaTeX file (.tex)
         title: Title of the report
         
@@ -167,6 +169,50 @@ This section shows statistics for non-financial entities in release transactions
     \\centering
     \\includegraphics[width=\\textwidth]{{{relative_graph_paths.get('non_financial_release_percentage', '')}}}
     \\caption{{Top 20 non-financial release entities showing percentage of total frequency}}
+\\end{{figure}}
+
+\\newpage
+
+\\section{{Patent Transaction Pairs Analysis}}
+
+This section shows statistics for (firm-bank) pairs in patent transactions.
+
+\\subsection{{Security Transaction Pairs}}
+
+This subsection shows the top 20 (firm-bank) pairs in security (pledge) transactions.
+
+\\subsubsection{{Top 20 (Firm-Bank) Pairs by Frequency}}
+\\begin{{figure}}[H]
+    \\centering
+    \\includegraphics[width=\\textwidth]{{{relative_graph_paths.get('security_pair_bar', '')}}}
+    \\caption{{Top 20 (firm-bank) pairs in security transactions ranked by total frequency}}
+\\end{{figure}}
+
+\\subsubsection{{Top 20 (Firm-Bank) Pairs by Percentage of Total}}
+\\begin{{figure}}[H]
+    \\centering
+    \\includegraphics[width=\\textwidth]{{{relative_graph_paths.get('security_pair_percentage', '')}}}
+    \\caption{{Top 20 (firm-bank) pairs in security transactions showing percentage of total frequency}}
+\\end{{figure}}
+
+\\newpage
+
+\\subsection{{Release Transaction Pairs}}
+
+This subsection shows the top 20 (firm-bank) pairs in release transactions.
+
+\\subsubsection{{Top 20 (Firm-Bank) Pairs by Frequency}}
+\\begin{{figure}}[H]
+    \\centering
+    \\includegraphics[width=\\textwidth]{{{relative_graph_paths.get('release_pair_bar', '')}}}
+    \\caption{{Top 20 (firm-bank) pairs in release transactions ranked by total frequency}}
+\\end{{figure}}
+
+\\subsubsection{{Top 20 (Firm-Bank) Pairs by Percentage of Total}}
+\\begin{{figure}}[H]
+    \\centering
+    \\includegraphics[width=\\textwidth]{{{relative_graph_paths.get('release_pair_percentage', '')}}}
+    \\caption{{Top 20 (firm-bank) pairs in release transactions showing percentage of total frequency}}
 \\end{{figure}}
 
 \\end{{document}}
