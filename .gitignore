@@ -6,3 +6,5 @@ __pycache__/
 patent_tech_class.csv
 release_patent.csv
 security_patent.csv
+entity_statistics_report.fdb_latexmk
+entity_statistics_report.fls

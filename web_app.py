@@ -2179,12 +2179,32 @@ def main():
                                 # Compile to PDF
                                 pdf_path = compile_latex_to_pdf(latex_path, LATEX_DIR)
                                 
-                                if pdf_path and pdf_path.exists():
-                                    st.session_state.generated_pdf_path = pdf_path
+                                # Check if PDF was generated - try multiple ways to verify
+                                pdf_found = False
+                                if pdf_path:
+                                    if pdf_path.exists():
+                                        st.session_state.generated_pdf_path = pdf_path
+                                        pdf_found = True
+                                    else:
+                                        # Try to find PDF in LATEX_DIR with expected name
+                                        expected_pdf = LATEX_DIR / "entity_statistics_report.pdf"
+                                        if expected_pdf.exists():
+                                            st.session_state.generated_pdf_path = expected_pdf
+                                            pdf_found = True
+                                
+                                if pdf_found:
                                     st.success("✓ LaTeX report generated successfully!")
                                 else:
-                                    st.error("❌ PDF compilation failed. Please check that pdflatex is installed.")
-                                    st.info("Install LaTeX with: `brew install basictex` or `brew install mactex`")
+                                    # Check if PDF exists even if function returned None
+                                    expected_pdf = LATEX_DIR / "entity_statistics_report.pdf"
+                                    if expected_pdf.exists():
+                                        st.session_state.generated_pdf_path = expected_pdf
+                                        st.success("✓ LaTeX report generated successfully! (PDF found)")
+                                    else:
+                                        st.error("❌ PDF compilation failed. Please check that pdflatex is installed.")
+                                        st.info("Install LaTeX with: `brew install basictex` or `brew install mactex`")
+                                        st.info(f"LaTeX file location: {latex_path}")
+                                        st.info(f"Expected PDF location: {expected_pdf}")
                             elif len(graph_paths) > 0:
                                 st.warning(f"Generated {len(graph_paths)} out of 8 graphs. Some data may be missing.")
                             else:
@@ -2195,39 +2215,139 @@ def main():
                             logger.exception("Error generating LaTeX report")
             
             with col_report2:
-                # #region agent log
-                _has_pdf = hasattr(st.session_state, 'generated_pdf_path') and st.session_state.generated_pdf_path is not None
-                _comp_in_globals = 'components' in globals()
-                _comp_in_locals = 'components' in locals()
-                with open('/Users/borjalarrain/Desktop/Investigacion/patent-colaterization-name-standarization/.cursor/debug.log', 'a') as f: f.write(f'{{"sessionId":"debug-session","runId":"run1","hypothesisId":"B","location":"web_app.py:2197","message":"Entering col_report2 block","data":{{"has_pdf_path":{_has_pdf},"components_in_globals":{_comp_in_globals},"components_in_locals_before":{_comp_in_locals}}},"timestamp":{int(__import__("time").time()*1000)}}}\n')
-                # #endregion
                 if st.session_state.generated_pdf_path and st.session_state.generated_pdf_path.exists():
-                    # Display PDF viewer
+                    # Display PDF options
                     st.markdown("#### 📄 Generated Report")
                     
                     # Read PDF and convert to base64
                     try:
-                        # #region agent log
-                        _comp_type = type(components).__name__ if 'components' in globals() else 'NOT_IN_GLOBALS'
-                        _comp_in_locals_check = 'components' in locals()
-                        with open('/Users/borjalarrain/Desktop/Investigacion/patent-colaterization-name-standarization/.cursor/debug.log', 'a') as f: f.write(f'{{"sessionId":"debug-session","runId":"run1","hypothesisId":"B","location":"web_app.py:2203","message":"Before PDF read - checking components","data":{{"components_type":"{_comp_type}","components_in_locals":{_comp_in_locals_check}}},"timestamp":{int(__import__("time").time()*1000)}}}\n')
-                        # #endregion
                         with open(st.session_state.generated_pdf_path, "rb") as pdf_file:
                             pdf_bytes = pdf_file.read()
                             pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')
                             
-                            # Display PDF in iframe
-                            pdf_display = f'''
-                            <iframe src="data:application/pdf;base64,{pdf_base64}" 
-                                    width="100%" height="600" type="application/pdf">
-                            </iframe>
+                            st.markdown("---")
+                            
+                            # Button to open PDF in new tab with custom filename
+                            open_pdf_button_html = f'''
+                            <!DOCTYPE html>
+                            <html>
+                            <head>
+                                <style>
+                                    body {{
+                                        margin: 0;
+                                        padding: 0;
+                                    }}
+                                    .button-container {{
+                                        display: flex;
+                                        justify-content: center;
+                                        margin: 20px 0;
+                                    }}
+                                    .open-pdf-btn {{
+                                        display: inline-block;
+                                        padding: 0.75rem 1.5rem;
+                                        background-color: #1f77b4;
+                                        color: white;
+                                        text-decoration: none;
+                                        border-radius: 0.5rem;
+                                        font-weight: 600;
+                                        font-size: 1rem;
+                                        text-align: center;
+                                        cursor: pointer;
+                                        border: none;
+                                    }}
+                                    .open-pdf-btn:hover {{
+                                        background-color: #1565a0;
+                                    }}
+                                </style>
+                            </head>
+                            <body>
+                                <div class="button-container">
+                                    <button class="open-pdf-btn" onclick="openPdfInNewTab()">🔍 Open PDF in New Tab</button>
+                                </div>
+                                <script>
+                                    function openPdfInNewTab() {{
+                                        // Convert base64 to binary
+                                        const pdfBase64 = "{pdf_base64}";
+                                        const binaryString = atob(pdfBase64);
+                                        const bytes = new Uint8Array(binaryString.length);
+                                        for (let i = 0; i < binaryString.length; i++) {{
+                                            bytes[i] = binaryString.charCodeAt(i);
+                                        }}
+                                        
+                                        // Create Blob from binary data
+                                        const blob = new Blob([bytes], {{ type: 'application/pdf' }});
+                                        
+                                        // Create object URL from blob
+                                        const blobUrl = URL.createObjectURL(blob);
+                                        
+                                        // Create an HTML page that embeds the PDF with proper title
+                                        // Note: The URL will still show a blob UUID, but the window title will be correct
+                                        const htmlContent = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Patent Collaterization Entity Statistics</title>
+    <style>
+        body {{
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }}
+        iframe {{
+            width: 100%;
+            height: 100vh;
+            border: none;
+        }}
+    </style>
+    <script>
+        // Ensure the window title is set correctly
+        document.title = 'Patent Collaterization Entity Statistics';
+        // Try to set window name (may not work due to security restrictions)
+        if (window.name === '') {{
+            try {{
+                window.name = 'Patent Collaterization Entity Statistics';
+            }} catch(e) {{
+                // Ignore if not allowed
+            }}
+        }}
+    </script>
+</head>
+<body>
+    <iframe src="${{blobUrl}}" title="Patent Collaterization Entity Statistics"></iframe>
+</body>
+</html>`;
+                                        
+                                        // Create blob for HTML content
+                                        const htmlBlob = new Blob([htmlContent], {{ type: 'text/html' }});
+                                        const htmlBlobUrl = URL.createObjectURL(htmlBlob);
+                                        
+                                        // Open HTML page in new tab with window name
+                                        // Note: The URL will show a blob UUID, but the tab title will show "Patent Collaterization Entity Statistics"
+                                        const newWindow = window.open(htmlBlobUrl, 'Patent Collaterization Entity Statistics', 'noopener,noreferrer');
+                                        
+                                        // Set window title if possible (may be blocked by browser security)
+                                        if (newWindow) {{
+                                            try {{
+                                                newWindow.document.title = 'Patent Collaterization Entity Statistics';
+                                            }} catch(e) {{
+                                                // Cross-origin restrictions may prevent this
+                                            }}
+                                        }}
+                                        
+                                        // Clean up blob URLs after a delay
+                                        setTimeout(function() {{
+                                            URL.revokeObjectURL(blobUrl);
+                                            URL.revokeObjectURL(htmlBlobUrl);
+                                        }}, 2000);
+                                    }}
+                                </script>
+                            </body>
+                            </html>
                             '''
-                            # #region agent log
-                            _comp_in_globals_final = 'components' in globals()
-                            _comp_in_locals_final = 'components' in locals()
-                            with open('/Users/borjalarrain/Desktop/Investigacion/patent-colaterization-name-standarization/.cursor/debug.log', 'a') as f: f.write(f'{{"sessionId":"debug-session","runId":"run1","hypothesisId":"B","location":"web_app.py:2214","message":"Before components.html call","data":{{"components_in_globals":{_comp_in_globals_final},"components_in_locals":{_comp_in_locals_final}}},"timestamp":{int(__import__("time").time()*1000)}}}\n')
-                            # #endregion
-                            components.html(pdf_display, height=600)
+                            components.html(open_pdf_button_html, height=80)
+                            
+                            st.markdown("---")
                             
                             # Download button
                             st.download_button(

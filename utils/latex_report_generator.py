@@ -247,61 +247,38 @@ def compile_latex_to_pdf(latex_path: Path, output_dir: Optional[Path] = None,
         
         # Check if PDF was generated
         pdf_name = latex_path.stem + '.pdf'
-        # #region agent log
-        with open('/Users/borjalarrain/Desktop/Investigacion/patent-colaterization-name-standarization/.cursor/debug.log', 'a') as f: f.write(f'{{"sessionId":"debug-session","runId":"run1","hypothesisId":"A","location":"latex_report_generator.py:249","message":"PDF path calculation - BEFORE resolve","data":{{"output_dir_str":"{output_dir}","output_dir_resolved":"{output_dir.resolve()}","latex_dir_resolved":"{latex_dir.resolve()}","pdf_name":"{pdf_name}"}},"timestamp":{int(__import__("time").time()*1000)}}}\n')
-        # #endregion
         
         # Resolve output_dir to absolute path once
         output_dir_abs = output_dir.resolve()
         pdf_path = output_dir_abs / pdf_name
-        # #region agent log
-        with open('/Users/borjalarrain/Desktop/Investigacion/patent-colaterization-name-standarization/.cursor/debug.log', 'a') as f: f.write(f'{{"sessionId":"debug-session","runId":"run1","hypothesisId":"A","location":"latex_report_generator.py:253","message":"PDF path calculation - AFTER resolve","data":{{"pdf_path_str":"{pdf_path}","pdf_path_resolved":"{pdf_path.resolve()}"}},"timestamp":{int(__import__("time").time()*1000)}}}\n')
-        # #endregion
         
         # Also check in current directory (where pdflatex might have written it)
         # This handles the case where we're in latex_dir and pdflatex writes to current dir
         current_dir_pdf = Path.cwd() / pdf_name
         current_dir_pdf_resolved = current_dir_pdf.resolve()
-        # #region agent log
-        with open('/Users/borjalarrain/Desktop/Investigacion/patent-colaterization-name-standarization/.cursor/debug.log', 'a') as f: f.write(f'{{"sessionId":"debug-session","runId":"run1","hypothesisId":"A","location":"latex_report_generator.py:260","message":"Current dir PDF path","data":{{"current_dir":"{Path.cwd()}","current_dir_pdf":"{current_dir_pdf}","current_dir_pdf_resolved":"{current_dir_pdf_resolved}"}},"timestamp":{int(__import__("time").time()*1000)}}}\n')
-        # #endregion
         
         # Use whichever PDF exists (prefer output_dir, but check current dir too)
         if pdf_path.exists():
-            final_pdf_path = pdf_path
-            # #region agent log
-            with open('/Users/borjalarrain/Desktop/Investigacion/patent-colaterization-name-standarization/.cursor/debug.log', 'a') as f: f.write(f'{{"sessionId":"debug-session","runId":"run1","hypothesisId":"A","location":"latex_report_generator.py:265","message":"PDF found in output_dir","data":{{"final_pdf_path":"{final_pdf_path}"}},"timestamp":{int(__import__("time").time()*1000)}}}\n')
-            # #endregion
+            final_pdf_path = pdf_path.resolve()
         elif current_dir_pdf.exists():
-            final_pdf_path = current_dir_pdf_resolved
-            # #region agent log
-            with open('/Users/borjalarrain/Desktop/Investigacion/patent-colaterization-name-standarization/.cursor/debug.log', 'a') as f: f.write(f'{{"sessionId":"debug-session","runId":"run1","hypothesisId":"A","location":"latex_report_generator.py:269","message":"PDF found in current dir - BEFORE move check","data":{{"final_pdf_path":"{final_pdf_path}","pdf_path_resolved":"{pdf_path.resolve()}","paths_equal":"{str(final_pdf_path) == str(pdf_path.resolve())}","use_output_dir_flag":"{use_output_dir_flag}"}},"timestamp":{int(__import__("time").time()*1000)}}}\n')
-            # #endregion
-            # Only try to move if paths are actually different AND output_dir is different from latex_dir
-            # If they're the same directory, no need to move
+            # PDF was generated in current directory
             if not use_output_dir_flag:
                 # output_dir == latex_dir, so PDF is already in the right place
-                final_pdf_path = pdf_path  # Use the expected path even though file is in current dir
-                # #region agent log
-                with open('/Users/borjalarrain/Desktop/Investigacion/patent-colaterization-name-standarization/.cursor/debug.log', 'a') as f: f.write(f'{{"sessionId":"debug-session","runId":"run1","hypothesisId":"A","location":"latex_report_generator.py:275","message":"output_dir == latex_dir, no move needed","data":{{"final_pdf_path":"{final_pdf_path}"}},"timestamp":{int(__import__("time").time()*1000)}}}\n')
-                # #endregion
-            elif str(final_pdf_path) != str(pdf_path.resolve()):
-                # #region agent log
-                with open('/Users/borjalarrain/Desktop/Investigacion/patent-colaterization-name-standarization/.cursor/debug.log', 'a') as f: f.write(f'{{"sessionId":"debug-session","runId":"run1","hypothesisId":"A","location":"latex_report_generator.py:278","message":"Attempting to move PDF","data":{{"from":"{final_pdf_path}","to":"{pdf_path.resolve()}"}},"timestamp":{int(__import__("time").time()*1000)}}}\n')
-                # #endregion
-                try:
-                    Path(final_pdf_path).rename(pdf_path.resolve())
-                    final_pdf_path = pdf_path.resolve()
-                except Exception as e:
-                    logger.warning(f"Could not move PDF from {final_pdf_path} to {pdf_path.resolve()}: {e}")
-                    # #region agent log
-                    with open('/Users/borjalarrain/Desktop/Investigacion/patent-colaterization-name-standarization/.cursor/debug.log', 'a') as f: f.write(f'{{"sessionId":"debug-session","runId":"run1","hypothesisId":"A","location":"latex_report_generator.py:283","message":"PDF move failed","data":{{"error":"{str(e)}","from":"{final_pdf_path}","to":"{pdf_path.resolve()}"}},"timestamp":{int(__import__("time").time()*1000)}}}\n')
-                    # #endregion
+                # Use the resolved path from current directory since it exists
+                final_pdf_path = current_dir_pdf_resolved
+            else:
+                # output_dir != latex_dir, try to move PDF to output_dir
+                final_pdf_path = current_dir_pdf_resolved
+                if str(final_pdf_path) != str(pdf_path.resolve()):
+                    try:
+                        Path(final_pdf_path).rename(pdf_path.resolve())
+                        final_pdf_path = pdf_path.resolve()
+                    except Exception as e:
+                        logger.warning(f"Could not move PDF from {final_pdf_path} to {pdf_path.resolve()}: {e}")
+                        # Keep using current_dir_pdf_resolved if move fails
         else:
             final_pdf_path = None
-            # #region agent log
-            with open('/Users/borjalarrain/Desktop/Investigacion/patent-colaterization-name-standarization/.cursor/debug.log', 'a') as f: f.write(f'{{"sessionId":"debug-session","runId":"run1","hypothesisId":"A","location":"latex_report_generator.py:287","message":"PDF not found in either location","data":{{"pdf_path_exists":"{pdf_path.exists()}","current_dir_pdf_exists":"{current_dir_pdf.exists()}"}},"timestamp":{int(__import__("time").time()*1000)}}}\n')
-            # #endregion
+            logger.warning(f"PDF not found in either location. pdf_path: {pdf_path}, current_dir_pdf: {current_dir_pdf}")
         
         if final_pdf_path and final_pdf_path.exists():
             logger.info(f"PDF successfully generated: {final_pdf_path}")

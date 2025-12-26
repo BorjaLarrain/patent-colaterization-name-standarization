@@ -67,28 +67,25 @@ def generate_top_20_bar_graph_matplotlib(df: pd.DataFrame, entity_type: str, out
     # Truncate long names for better display
     labels = [name[:40] + '...' if len(name) > 40 else name for name in graph_data['standard_name']]
     
-    # Create bar plot
-    bars = ax.barh(range(len(graph_data)), graph_data['frequency'], color='steelblue')
+    # Create bar plot (vertical bars: entities on X-axis, frequency on Y-axis)
+    bars = ax.bar(range(len(graph_data)), graph_data['frequency'], color='steelblue')
     
     # Customize axes
-    ax.set_yticks(range(len(graph_data)))
-    ax.set_yticklabels(labels, fontsize=9)
-    ax.set_xlabel('Frequency', fontsize=12, fontweight='bold')
-    ax.set_ylabel('Entity', fontsize=12, fontweight='bold')
+    ax.set_xticks(range(len(graph_data)))
+    ax.set_xticklabels(labels, rotation=45, ha='right', fontsize=9)
+    ax.set_xlabel('Entity', fontsize=12, fontweight='bold')
+    ax.set_ylabel('Frequency', fontsize=12, fontweight='bold')
     ax.set_title(f'Top 20 Entities by Frequency - {entity_type.replace("_", " ").title()}', 
                  fontsize=14, fontweight='bold', pad=20)
-    
-    # Invert y-axis to show highest frequency at top
-    ax.invert_yaxis()
     
     # Add value labels on bars
     for i, (idx, row) in enumerate(graph_data.iterrows()):
         freq = row['frequency']
-        ax.text(freq + max(graph_data['frequency']) * 0.01, i, 
-                f'{freq:,}', va='center', fontsize=8)
+        ax.text(i, freq + max(graph_data['frequency']) * 0.01, 
+                f'{freq:,}', ha='center', va='bottom', fontsize=8)
     
     # Add grid for better readability
-    ax.grid(axis='x', alpha=0.3, linestyle='--')
+    ax.grid(axis='y', alpha=0.3, linestyle='--')
     
     # Adjust layout
     plt.tight_layout()
@@ -167,28 +164,27 @@ def generate_top_20_bar_graph_plotly(df: pd.DataFrame, entity_type: str) -> go.F
     # Truncate long names for better display
     labels = [name[:50] + '...' if len(name) > 50 else name for name in graph_data['standard_name']]
     
-    # Create bar chart
+    # Create bar chart (vertical bars: entities on X-axis, frequency on Y-axis)
     fig = go.Figure(data=[
         go.Bar(
-            x=graph_data['frequency'],
-            y=labels,
-            orientation='h',
+            x=labels,
+            y=graph_data['frequency'],
             marker=dict(color='steelblue'),
             text=[f'{freq:,}' for freq in graph_data['frequency']],
             textposition='outside',
-            hovertemplate='<b>%{y}</b><br>Frequency: %{x:,}<extra></extra>'
+            hovertemplate='<b>%{x}</b><br>Frequency: %{y:,}<extra></extra>'
         )
     ])
     
     # Customize layout
     fig.update_layout(
         title=f'Top 20 Entities by Frequency - {entity_type.replace("_", " ").title()}',
-        xaxis_title='Frequency',
-        yaxis_title='Entity',
+        xaxis_title='Entity',
+        yaxis_title='Frequency',
         height=600,
         showlegend=False,
-        yaxis=dict(autorange='reversed'),  # Invert y-axis
-        margin=dict(l=200, r=50, t=80, b=50)
+        xaxis=dict(tickangle=-45),  # Rotate labels for readability
+        margin=dict(l=100, r=50, t=80, b=150)  # More bottom margin for rotated labels
     )
     
     return fig
